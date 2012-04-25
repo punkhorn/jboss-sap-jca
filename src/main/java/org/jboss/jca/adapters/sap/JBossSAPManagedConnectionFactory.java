@@ -57,17 +57,14 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	/** The logwriter */
 	private PrintWriter logwriter;
 	
-	/** The name of destination */
-	private String destinationName;
-
 	/** The destination's properties */
-	private final JBossSAPConnectionSpec connectionRequestInfo;
+	private final JBossSAPConnectionSpec defaultConnectionRequestInfo;
 
 	/**
 	 * Default constructor
 	 */
 	public JBossSAPManagedConnectionFactory() {
-		connectionRequestInfo = new JBossSAPConnectionSpec();
+		defaultConnectionRequestInfo = new JBossSAPConnectionSpec();
 	}
 
 	/**
@@ -120,7 +117,7 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 				throw new ResourceException("jboss-sap-managed-connection-factory-invalid-connection-request-info-type");
 			
 			// merge client connection request info with defaults
-			JBossSAPConnectionSpec cri = new JBossSAPConnectionSpec(connectionRequestInfo);
+			JBossSAPConnectionSpec cri = new JBossSAPConnectionSpec(defaultConnectionRequestInfo);
 			if (cxRequestInfo != null)
 				cri.addProperties((JBossSAPConnectionSpec)cxRequestInfo);
 
@@ -207,6 +204,9 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 			throw new IllegalArgumentException(
 					"jboss-sap-managed-connection-set-resouce-adapter-invalid-resource-adapter");
 		this.ra = (JBossSAPResourceAdapter) ra;
+
+		// register default connection request info
+		this.ra.getDestinationDataProvider().addDestinationProperties(getDestinationName(), defaultConnectionRequestInfo);
 	}
 
 	/**
@@ -242,66 +242,66 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	}
 
 	public String getDestinationName() {
-		return connectionRequestInfo.getProperty(JBossSAPConnectionSpec.SAP_DESTINATION_NAME);
+		return defaultConnectionRequestInfo.getProperty(JBossSAPConnectionSpec.SAP_DESTINATION_NAME);
 	}
 
 	public void setDestinationName(String destinationName) {
 		log.info("DestinationName set: " + destinationName);
-		connectionRequestInfo.setProperty(JBossSAPConnectionSpec.SAP_DESTINATION_NAME, destinationName);
+		defaultConnectionRequestInfo.setProperty(JBossSAPConnectionSpec.SAP_DESTINATION_NAME, destinationName);
 	}
 
 	public String getAshost() {
-		return connectionRequestInfo.getProperty(DestinationDataProvider.JCO_ASHOST);
+		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_ASHOST);
 	}
 
 	public void setAshost(String ashost) {
 		log.info("Ashost set: " + ashost);
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_ASHOST, ashost);
+		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_ASHOST, ashost);
 	}
 
 	public String getSysnr() {
-		return connectionRequestInfo.getProperty(DestinationDataProvider.JCO_SYSNR);
+		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_SYSNR);
 	}
 
 	public void setSysnr(String sysnr) {
 		log.info("Sysnr set: " + sysnr);
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_SYSNR, sysnr);
+		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_SYSNR, sysnr);
 	}
 
 	public String getClient() {
-		return connectionRequestInfo.getProperty(DestinationDataProvider.JCO_CLIENT);
+		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_CLIENT);
 	}
 
 	public void setClient(String client) {
 		log.info("Client set: " + client);
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_CLIENT, client);
+		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_CLIENT, client);
 	}
 
 	public String getUser() {
-		return connectionRequestInfo.getProperty(DestinationDataProvider.JCO_USER);
+		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_USER);
 	}
 
 	public void setUser(String user) {
 		log.info("User set: " + user);
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_USER, user);
+		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_USER, user);
 	}
 
 	public String getPasswd() {
-		return connectionRequestInfo.getProperty(DestinationDataProvider.JCO_PASSWD);
+		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_PASSWD);
 	}
 
 	public void setPasswd(String passwd) {
 		log.info("Password set: " + passwd);
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_PASSWD, passwd);
+		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_PASSWD, passwd);
 	}
 
 	public String getLang() {
-		return connectionRequestInfo.getProperty(DestinationDataProvider.JCO_LANG);
+		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_LANG);
 	}
 
 	public void setLang(String lang) {
 		log.info("Lang set: " + lang);
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_LANG, lang);
+		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_LANG, lang);
 	}
 
 }

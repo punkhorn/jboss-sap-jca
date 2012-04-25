@@ -32,7 +32,7 @@ public class JBossDestinationDataProvider implements DestinationDataProvider {
 	public JBossSAPConnectionSpec getDestinationProperties(String destinationName) {
 		try {
 			JBossSAPConnectionSpec properties = destinationPropertiesMap.get(destinationName);
-			if (properties != null && properties.isEmpty()) {
+			if (properties == null) {
 				throw new DataProviderException(DataProviderException.Reason.INVALID_CONFIGURATION,
 						"org.jboss.sap.JBossDestinationDataProvider.invalid-destination-configuration", null);
 			}
@@ -81,11 +81,13 @@ public class JBossDestinationDataProvider implements DestinationDataProvider {
 		synchronized (destinationPropertiesMap) {
 			if (destinationProperties == null) {
 				if (destinationPropertiesMap.remove(destinationName) != null) {
-					destinationDataListener.deleted(destinationName);
+					if (destinationDataListener != null)
+						destinationDataListener.deleted(destinationName);
 				}
 			} else {
 				destinationPropertiesMap.put(destinationName, destinationProperties);
-				destinationDataListener.updated(destinationName);
+				if (destinationDataListener != null)
+					destinationDataListener.updated(destinationName);
 			}
 		}
 	}
