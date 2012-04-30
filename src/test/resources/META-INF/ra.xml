@@ -31,7 +31,7 @@
            version="1.5">
 
    <vendor-name>Red Hat Middleware LLC</vendor-name>
-   <eis-type>SAP RA</eis-type>
+   <eis-type>Test RA</eis-type>
    <resourceadapter-version>0.1</resourceadapter-version>
    <resourceadapter>
       <resourceadapter-class>org.jboss.jca.adapters.sap.JBossSAPResourceAdapter</resourceadapter-class>
@@ -42,6 +42,44 @@
             <connectionfactory-impl-class>org.jboss.jca.adapters.sap.JBossSAPCciConnectionFactory</connectionfactory-impl-class>
             <connection-interface>javax.resource.cci.Connection</connection-interface>
             <connection-impl-class>org.jboss.jca.adapters.sap.JBossSAPCciConnection</connection-impl-class>
+            <!-- 
+            <config-property>
+            	<config-property-name>destinationName</config-property-name>
+            	<config-property-type>java.lang.String</config-property-type>
+            	<config-property-value>default-destination</config-property-value>
+            </config-property>
+             -->
+            <config-property>
+            	<config-property-name>ashost</config-property-name>
+            	<config-property-type>java.lang.String</config-property-type>
+            	<config-property-value>appserver</config-property-value>
+            </config-property>
+            <config-property>
+            	<config-property-name>sysnr</config-property-name>
+            	<config-property-type>java.lang.String</config-property-type>
+            	<config-property-value>01</config-property-value>
+            </config-property>
+            <config-property>
+            	<config-property-name>client</config-property-name>
+            	<config-property-type>java.lang.String</config-property-type>
+            	<config-property-value>000</config-property-value>
+            </config-property>
+            <config-property>
+            	<config-property-name>user</config-property-name>
+            	<config-property-type>java.lang.String</config-property-type>
+            	<config-property-value>JCOTESTER</config-property-value>
+            </config-property>
+            <config-property>
+            	<config-property-name>passwd</config-property-name>
+            	<config-property-type>java.lang.String</config-property-type>
+            	<config-property-value>JCOTESTERPASSWORD</config-property-value>
+            </config-property>
+            <config-property>
+            	<config-property-name>lang</config-property-name>
+            	<config-property-type>java.lang.String</config-property-type>
+            	<config-property-value>en</config-property-value>
+            </config-property>
+         </connection-definition>
          <transaction-support>NoTransaction</transaction-support>
          <reauthentication-support>false</reauthentication-support>
       </outbound-resourceadapter>

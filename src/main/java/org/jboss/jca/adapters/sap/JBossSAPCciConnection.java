@@ -41,9 +41,9 @@ import com.sap.conn.jco.JCoException;
 public class JBossSAPCciConnection implements Connection {
 
 	private JBossSAPManagedConnection managedConnection;
-	
+
 	private boolean closed = false;
-	
+
 	private JCoDestination destination;
 
 	/**
@@ -55,15 +55,13 @@ public class JBossSAPCciConnection implements Connection {
 	 */
 	public JBossSAPCciConnection(JBossSAPManagedConnection managedConnection, JBossSAPConnectionSpec connSpec)
 			throws ResourceException {
-		String destinationName = connSpec.getProperty(JBossSAPConnectionSpec.SAP_DESTINATION_NAME);
-		if (destinationName == null)
-			throw new ResourceException("jboss-sap-cci-connection-init-no-destination-name");
 
-		this.managedConnection = managedConnection;
-		managedConnection.getManagedConnectionFactory().getResourceAdapter().getDestinationDataProvider()
-				.addDestinationProperties(destinationName, connSpec);
 		try {
-			destination = JCoDestinationManager.getDestination(destinationName);
+			String destinationName = connSpec.getProperty(JBossSAPConnectionSpec.SAP_DESTINATION_NAME);
+			managedConnection.getManagedConnectionFactory().getResourceAdapter().getDestinationDataProvider()
+			.addDestinationProperties(destinationName, connSpec);
+			this.destination = JCoDestinationManager.getDestination(destinationName);
+			this.managedConnection = managedConnection;
 		} catch (JCoException e) {
 			throw new ResourceException("jboss-sap-cci-connection-init-failed", e);
 		}
@@ -90,7 +88,7 @@ public class JBossSAPCciConnection implements Connection {
 	 *             Failed to create an Interaction
 	 */
 	public Interaction createInteraction() throws ResourceException {
-		if (closed) 
+		if (closed)
 			throw new ResourceException("jboss-sap-cci-connection-closed");
 		return null;
 	}
@@ -106,7 +104,7 @@ public class JBossSAPCciConnection implements Connection {
 	 *             Demarcation of Resource manager
 	 */
 	public LocalTransaction getLocalTransaction() throws ResourceException {
-		if (closed) 
+		if (closed)
 			throw new ResourceException("jboss-sap-cci-connection-closed");
 		throw new NotSupportedException("jboss-sap-cci-connection-txn-not-supported");
 	}
@@ -121,7 +119,7 @@ public class JBossSAPCciConnection implements Connection {
 	 *             Failed to get information about the connected EIS instance.
 	 */
 	public ConnectionMetaData getMetaData() throws ResourceException {
-		if (closed) 
+		if (closed)
 			throw new ResourceException("jboss-sap-cci-connection-closed");
 		return new JBossSAPConnectionMetaData();
 	}
@@ -137,7 +135,7 @@ public class JBossSAPCciConnection implements Connection {
 	 *             ResultSet functionality is not supported
 	 */
 	public ResultSetInfo getResultSetInfo() throws ResourceException {
-		if (closed) 
+		if (closed)
 			throw new ResourceException("jboss-sap-cci-connection-closed");
 		return null;
 	}

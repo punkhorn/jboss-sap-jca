@@ -30,11 +30,13 @@ public class JBossDestinationDataProvider implements DestinationDataProvider {
 	 * {@inheritDoc}
 	 */
 	public JBossSAPConnectionSpec getDestinationProperties(String destinationName) {
+		if (destinationName == null) 
+			throw new DataProviderException(DataProviderException.Reason.INVALID_CONFIGURATION, "jboss-destination-data-provider-no-destination-name", null);
 		try {
 			JBossSAPConnectionSpec properties = destinationPropertiesMap.get(destinationName);
 			if (properties == null) {
 				throw new DataProviderException(DataProviderException.Reason.INVALID_CONFIGURATION,
-						"org.jboss.sap.JBossDestinationDataProvider.invalid-destination-configuration", null);
+						"jboss-destination-data-provider-invalid-destination-configuration", null);
 			}
 			return properties;
 		} catch (RuntimeException e) {

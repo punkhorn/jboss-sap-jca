@@ -85,9 +85,6 @@ public class ConnectorTestCase
    public void testGetConnection1() throws Throwable
    {
       assertNotNull(connectionFactory1);
-//      JBossSAPConnectionSpec connectionSpec = new JBossSAPConnectionSpec();
-//      connectionSpec.setDestinationName("test");
-//      
       javax.resource.cci.Connection connection1 = connectionFactory1.getConnection();
       assertNotNull(connection1);
       connection1.close();

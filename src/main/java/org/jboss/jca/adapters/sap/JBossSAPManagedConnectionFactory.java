@@ -24,6 +24,7 @@ package org.jboss.jca.adapters.sap;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import javax.resource.ResourceException;
@@ -204,6 +205,9 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 			throw new IllegalArgumentException(
 					"jboss-sap-managed-connection-set-resouce-adapter-invalid-resource-adapter");
 		this.ra = (JBossSAPResourceAdapter) ra;
+		
+		if (getDestinationName() == null) 
+			setDestinationName(UUID.randomUUID().toString());
 
 		// register default connection request info
 		this.ra.getDestinationDataProvider().addDestinationProperties(getDestinationName(), defaultConnectionRequestInfo);
