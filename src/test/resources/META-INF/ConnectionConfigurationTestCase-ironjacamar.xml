@@ -30,15 +30,7 @@
   <transaction-support>NoTransaction</transaction-support>
   
   <connection-definitions>
-    <connection-definition class-name="org.jboss.jca.adapters.sap.JBossSAPManagedConnectionFactory" jndi-name="java:/eis/JBossSAPCciConnectionFactory" pool-name="JBossSAPCciConnectionFactory">
-    	<config-property name="ashost">appserver</config-property>
-    	<config-property name="sysnr">01</config-property>
-    	<config-property name="client">000</config-property>
-    	<config-property name="user">JCOTESTER</config-property>
-    	<config-property name="passwd">JCOTESTERPASSWORD</config-property>
-    	<config-property name="lang">en</config-property>
-    </connection-definition>
-    <connection-definition class-name="org.jboss.jca.adapters.sap.JBossSAPManagedConnectionFactory" jndi-name="java:/eis/TestConfigurationConnectionFactory" pool-name="JBossSAPCciConnectionFactory">
+    <connection-definition class-name="org.jboss.jca.adapters.sap.JBossSAPManagedConnectionFactory" jndi-name="java:/eis/ConnectionConfigurationTestCaseFactory" pool-name="JBossSAPCciConnectionFactory">
     	<config-property name="authType">CONFIGURED_USER</config-property>
     	<config-property name="userId">JCO_TESTER_USER_ID</config-property>
     	<config-property name="client">999</config-property>
