@@ -22,6 +22,7 @@
 package org.jboss.jca.adapters.sap;
 
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.resource.NotSupportedException;
 import javax.resource.ResourceException;
@@ -30,6 +31,8 @@ import javax.resource.cci.ConnectionMetaData;
 import javax.resource.cci.Interaction;
 import javax.resource.cci.LocalTransaction;
 import javax.resource.cci.ResultSetInfo;
+import javax.resource.spi.ConnectionManager;
+import javax.resource.spi.LazyAssociatableConnectionManager;
 
 import com.sap.conn.jco.JCoAttributes;
 import com.sap.conn.jco.JCoCustomDestination;
@@ -50,31 +53,37 @@ import com.sap.conn.jco.monitor.JCoDestinationMonitor;
  */
 public class JBossSAPCciConnection implements Connection, JCoDestination {
 
+	public static enum State {
+		ACTIVE, INACTIVE, CLOSED;
+	}
+
+	private JBossSAPConnectionSpec connectionRequestInfo;
+
+	private final JBossSAPManagedConnectionFactory managedConnectionFactory;
+
+	private ConnectionManager connectionManager;
+
 	private JBossSAPManagedConnection managedConnection;
 
-	private boolean closed = false;
+	private State state = State.ACTIVE;
+
+	private final String id;
 
 	private JCoDestination destination;
 
 	/**
 	 * Default constructor
 	 * 
-	 * @param connSpec
+	 * @param connectionRequestInfo
 	 *            ConnectionSpec
 	 * @throws ResourceException
 	 */
-	public JBossSAPCciConnection(JBossSAPManagedConnection managedConnection, JBossSAPConnectionSpec connSpec)
-			throws ResourceException {
-
-		try {
-			String destinationName = connSpec.getProperty(JBossSAPConnectionSpec.SAP_DESTINATION_NAME);
-			managedConnection.getManagedConnectionFactory().getResourceAdapter().getDestinationDataProvider()
-			.addDestinationProperties(destinationName, connSpec);
-			this.destination = JCoDestinationManager.getDestination(destinationName);
-			this.managedConnection = managedConnection;
-		} catch (JCoException e) {
-			throw new ResourceException("jboss-sap-cci-connection-init-failed", e);
-		}
+	public JBossSAPCciConnection(JBossSAPManagedConnection managedConnection,
+			JBossSAPConnectionSpec connectionRequestInfo) throws ResourceException {
+		this.id = UUID.randomUUID().toString();
+		this.managedConnectionFactory = managedConnection.getManagedConnectionFactory();
+		this.connectionRequestInfo = connectionRequestInfo;
+		associateManagedConnection(managedConnection);
 	}
 
 	/**
@@ -84,7 +93,9 @@ public class JBossSAPCciConnection implements Connection, JCoDestination {
 	 *             Exception thrown if close on a connection handle fails.
 	 */
 	public void close() throws ResourceException {
-		closed = true;
+		state = State.CLOSED;
+		managedConnection.getManagedConnectionFactory().getResourceAdapter().getDestinationDataProvider()
+				.removeDestinationProperties(id);
 		managedConnection.closeHandle(this);
 		managedConnection = null;
 		destination = null;
@@ -98,14 +109,13 @@ public class JBossSAPCciConnection implements Connection, JCoDestination {
 	 *             Failed to create an Interaction
 	 */
 	public Interaction createInteraction() throws ResourceException {
-		if (closed)
-			throw new ResourceException("jboss-sap-cci-connection-closed");
+		checkState();
 		return null;
 	}
 
 	/**
-	 * Returns an LocalTransaction instance that enables a component to
-	 * demarcate resource manager local transactions on the Connection.
+	 * Returns an LocalTransaction instance that enables a component to demarcate resource manager local transactions on
+	 * the Connection.
 	 * 
 	 * @return LocalTransaction instance
 	 * @throws ResourceException
@@ -114,29 +124,24 @@ public class JBossSAPCciConnection implements Connection, JCoDestination {
 	 *             Demarcation of Resource manager
 	 */
 	public LocalTransaction getLocalTransaction() throws ResourceException {
-		if (closed)
-			throw new ResourceException("jboss-sap-cci-connection-closed");
+		checkState();
 		throw new NotSupportedException("jboss-sap-cci-connection-txn-not-supported");
 	}
 
 	/**
-	 * Gets the information on the underlying EIS instance represented through
-	 * an active connection.
+	 * Gets the information on the underlying EIS instance represented through an active connection.
 	 * 
-	 * @return ConnectionMetaData instance representing information about the
-	 *         EIS instance
+	 * @return ConnectionMetaData instance representing information about the EIS instance
 	 * @throws ResourceException
 	 *             Failed to get information about the connected EIS instance.
 	 */
 	public ConnectionMetaData getMetaData() throws ResourceException {
-		if (closed)
-			throw new ResourceException("jboss-sap-cci-connection-closed");
+		checkState();
 		return new JBossSAPConnectionMetaData();
 	}
 
 	/**
-	 * Gets the information on the ResultSet functionality supported by a
-	 * connected EIS instance.
+	 * Gets the information on the ResultSet functionality supported by a connected EIS instance.
 	 * 
 	 * @return ResultSetInfo instance
 	 * @throws ResourceException
@@ -145,17 +150,8 @@ public class JBossSAPCciConnection implements Connection, JCoDestination {
 	 *             ResultSet functionality is not supported
 	 */
 	public ResultSetInfo getResultSetInfo() throws ResourceException {
-		if (closed)
-			throw new ResourceException("jboss-sap-cci-connection-closed");
+		checkState();
 		return null;
-	}
-
-	JBossSAPManagedConnection getManagedConnection() {
-		return managedConnection;
-	}
-
-	void setManagedConnection(JBossSAPManagedConnection managedConnection) {
-		this.managedConnection = managedConnection;
 	}
 
 	public void changePassword(String oldPassword, String newPassword) throws JCoException {
@@ -340,6 +336,63 @@ public class JBossSAPCciConnection implements Connection, JCoDestination {
 
 	public void setThroughput(JCoThroughput throughput) {
 		destination.setThroughput(throughput);
+	}
+
+	JBossSAPManagedConnection getManagedConnection() {
+		return managedConnection;
+	}
+
+	ConnectionManager getConnectionManager() {
+		return connectionManager;
+	}
+
+	void setConnectionManager(ConnectionManager connectionManager) {
+		this.connectionManager = connectionManager;
+	}
+
+	void associateManagedConnection(JBossSAPManagedConnection managedConnection) throws ResourceException {
+		try {
+			this.managedConnection = managedConnection;
+
+			// merge client connection request info with defaults from managed connection.
+			JBossSAPConnectionSpec mergedConnectionRequestInfo = new JBossSAPConnectionSpec(
+					managedConnection.getDefaultConnectionRequestInfo());
+			if (this.connectionRequestInfo != null)
+				mergedConnectionRequestInfo.addProperties(this.connectionRequestInfo);
+
+			managedConnection.getManagedConnectionFactory().getResourceAdapter().getDestinationDataProvider()
+					.addDestinationProperties(id, mergedConnectionRequestInfo);
+			this.destination = JCoDestinationManager.getDestination(id);
+
+			this.managedConnection.associateHandle(this);
+			state = State.ACTIVE;
+		} catch (JCoException e) {
+			throw new ResourceException("jboss-sap-cci-connection-assocate-managed-connection-failed", e);
+		}
+	}
+
+	void dissociateManagedConnection() {
+		managedConnection.getManagedConnectionFactory().getResourceAdapter().getDestinationDataProvider()
+				.removeDestinationProperties(id);
+		this.destination = null;
+		this.managedConnection.dissociateHandle(this);
+		this.managedConnection = null;
+		state = State.INACTIVE;
+	}
+
+	void checkState() throws ResourceException {
+		if (state == State.CLOSED)
+			throw new ResourceException("jboss-sap-cci-connection-closed");
+
+		if (state == State.INACTIVE) {
+			if (connectionManager instanceof LazyAssociatableConnectionManager) {
+				// Attempt to associate a managed connection with this connection handle.
+				((LazyAssociatableConnectionManager) connectionManager).associateConnection(this,
+						managedConnectionFactory, connectionRequestInfo);
+			} else {
+				throw new ResourceException("jboss-sap-cci-connection-inactive");
+			}
+		}
 	}
 
 }

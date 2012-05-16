@@ -37,8 +37,6 @@ public class JBossSAPConnectionSpec extends Properties implements ConnectionSpec
 
 	private static final long serialVersionUID = -2520873677208651216L;
 	
-	public static final String SAP_DESTINATION_NAME = "org.jboss.jca.adapters.sap.destination_name";
-	
 	public JBossSAPConnectionSpec() {
 	}
 	
@@ -53,18 +51,6 @@ public class JBossSAPConnectionSpec extends Properties implements ConnectionSpec
 	}
 	
 	
-	/**
-	 * Returns the destination name of the connection to an SAP instance.
-	 * @return The destination name of the connection to an SAP instance.
-	 */
-	public String getDestinationName() {
-		return getProperty(SAP_DESTINATION_NAME);
-	}
-
-	public void setDestinationName(String destinationName) {
-		setProperty(SAP_DESTINATION_NAME, destinationName);
-	}
-
 	/**
 	 * Returns the name of the user establishing a connection to an SAP instance.
 	 * @return The name of the user establishing a connection to an SAP instance.

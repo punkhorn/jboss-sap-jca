@@ -35,6 +35,7 @@ import javax.resource.ResourceException;
 import javax.resource.spi.ConnectionEvent;
 import javax.resource.spi.ConnectionEventListener;
 import javax.resource.spi.ConnectionRequestInfo;
+import javax.resource.spi.DissociatableManagedConnection;
 import javax.resource.spi.LocalTransaction;
 import javax.resource.spi.ManagedConnection;
 import javax.resource.spi.ManagedConnectionMetaData;
@@ -48,7 +49,11 @@ import com.sap.conn.jco.JCoException;
  * 
  * @version $Revision: $
  */
-public class JBossSAPManagedConnection implements ManagedConnection {
+public class JBossSAPManagedConnection implements ManagedConnection, DissociatableManagedConnection {
+	
+	public static enum State {
+		ACTIVE,DESTROYED;
+	}
 
 	/** The logger */
 	private static Logger log = Logger.getLogger("JBossSAPManagedConnection");
@@ -64,10 +69,9 @@ public class JBossSAPManagedConnection implements ManagedConnection {
 
 	private final Set<JBossSAPCciConnection> handles = new HashSet<JBossSAPCciConnection>();
 
-	private JBossSAPConnectionSpec connectionRequestInfo;
+	private JBossSAPConnectionSpec defaultConnectionRequestInfo;
 	
-	// TODO enforce destroyed state on managed connection.
-	private Boolean destroyed = Boolean.FALSE;
+	private State state = State.ACTIVE;
 
 	/**
 	 * Default constructor
@@ -82,7 +86,7 @@ public class JBossSAPManagedConnection implements ManagedConnection {
 		this.managedConnectionFactory = mcf;
 		this.logwriter = null;
 		this.listeners = Collections.synchronizedList(new ArrayList<ConnectionEventListener>(1));
-		this.connectionRequestInfo = connectionRequestInfo;
+		this.defaultConnectionRequestInfo = connectionRequestInfo;
 	}
 
 	/**
@@ -99,20 +103,12 @@ public class JBossSAPManagedConnection implements ManagedConnection {
 	 */
 	public Object getConnection(Subject subject, ConnectionRequestInfo cxRequestInfo) throws ResourceException {
 		log.finest("getConnection()");
+		checkState();
 		if (cxRequestInfo != null && !(cxRequestInfo instanceof JBossSAPConnectionSpec))
 			throw new ResourceException("jboss-sap-managed-connection-invalid-connection-request-info-type");
 
-		// merge client connection request info with defaults
-		JBossSAPConnectionSpec cri = new JBossSAPConnectionSpec(connectionRequestInfo);
-		if (cxRequestInfo != null)
-			cri.addProperties((JBossSAPConnectionSpec) cxRequestInfo);
-
-		JBossSAPCciConnection connection = new JBossSAPCciConnection(this, cri);
-
-		synchronized (handles) {
-			handles.add(connection);
-		}
-
+		JBossSAPCciConnection connection = new JBossSAPCciConnection(this, (JBossSAPConnectionSpec)cxRequestInfo);
+		
 		return connection;
 	}
 
@@ -127,14 +123,30 @@ public class JBossSAPManagedConnection implements ManagedConnection {
 	 */
 	public void associateConnection(Object connection) throws ResourceException {
 		log.finest("associateConnection()");
+		checkState();
 		if (!(connection instanceof JBossSAPCciConnection)) 
 			throw new ResourceException("jboss-sap-managed-connection-invalid-cci-connection-type");
 		
 		JBossSAPCciConnection cciConnection = (JBossSAPCciConnection) connection;
-		cciConnection.setManagedConnection(this);
-		synchronized(handles) {
-			handles.add(cciConnection);
+		cciConnection.associateManagedConnection(this);
+	}
+	
+	public void dissociateConnections() throws ResourceException {
+		log.finest("dissociateConnection()");
+		checkState();
+		
+		Collection<JBossSAPCciConnection> copy = null;
+		synchronized (handles) {
+			if (handles.size() > 0) 
+				copy = new HashSet<JBossSAPCciConnection>(handles);
 		}
+		
+		if (copy != null) {
+			for (JBossSAPCciConnection cciConnection: copy) {
+				cciConnection.dissociateManagedConnection();
+			}
+		}
+		
 	}
 
 	/**
@@ -171,8 +183,10 @@ public class JBossSAPManagedConnection implements ManagedConnection {
 	public void destroy() throws ResourceException {
 		log.finest("destroy()");
 		
-		synchronized (destroyed) {
-			destroyed = Boolean.TRUE;
+		synchronized (state) {
+			if (state == State.DESTROYED) 
+				return;
+			state = State.DESTROYED;
 		}
 		
 		cleanup();
@@ -187,7 +201,7 @@ public class JBossSAPManagedConnection implements ManagedConnection {
 	public void addConnectionEventListener(ConnectionEventListener listener) {
 		log.finest("addConnectionEventListener()");
 		if (listener == null)
-			throw new IllegalArgumentException("Listener is null");
+			throw new IllegalArgumentException("jboss-sap-managed-connection-connection-event-listener-is-null");
 		synchronized (listeners) {
 			listeners.add(listener);
 		}
@@ -203,7 +217,7 @@ public class JBossSAPManagedConnection implements ManagedConnection {
 	public void removeConnectionEventListener(ConnectionEventListener listener) {
 		log.finest("removeConnectionEventListener()");
 		if (listener == null)
-			throw new IllegalArgumentException("Listener is null");
+			throw new IllegalArgumentException("jboss-sap-managed-connection-connection-event-listener-is-null");
 		synchronized (listeners) {
 			listeners.remove(listener);
 		}
@@ -217,9 +231,7 @@ public class JBossSAPManagedConnection implements ManagedConnection {
 	 */
 	public void closeHandle(JBossSAPCciConnection handle) {
 
-		synchronized (handles) {
-			handles.remove(handle);
-		}
+		dissociateHandle(handle);
 
 		Collection<ConnectionEventListener> copy = null;
 		synchronized (listeners) {
@@ -271,7 +283,7 @@ public class JBossSAPManagedConnection implements ManagedConnection {
 	 *             generic exception if operation fails
 	 */
 	public LocalTransaction getLocalTransaction() throws ResourceException {
-		throw new NotSupportedException("LocalTransaction not supported");
+		throw new NotSupportedException("jboss-sap-managed-connection-local-transaction-not-supported");
 	}
 
 	/**
@@ -282,7 +294,7 @@ public class JBossSAPManagedConnection implements ManagedConnection {
 	 *             generic exception if operation fails
 	 */
 	public XAResource getXAResource() throws ResourceException {
-		throw new NotSupportedException("GetXAResource not supported");
+		throw new NotSupportedException("jboss-sap-managed-connection-get-xa-resource-not-supported");
 	}
 
 	/**
@@ -300,6 +312,28 @@ public class JBossSAPManagedConnection implements ManagedConnection {
 
 	JBossSAPManagedConnectionFactory getManagedConnectionFactory() {
 		return managedConnectionFactory;
+	}
+	
+	JBossSAPConnectionSpec getDefaultConnectionRequestInfo() {
+		return defaultConnectionRequestInfo;
+	}
+
+	void associateHandle(JBossSAPCciConnection handle) {
+		synchronized(handles) {
+			handles.add(handle);
+		}
+	}
+
+	void dissociateHandle(JBossSAPCciConnection handle) {
+		synchronized(handles) {
+			handles.remove(handle);
+		}
+	}
+	
+	void checkState() throws ResourceException {
+		if (state == State.DESTROYED) {
+			throw new ResourceException("jboss-sap-managed-connection-is-destroyed");
+		}
 	}
 
 }

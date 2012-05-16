@@ -38,15 +38,6 @@
 				<config-property>
 					<description>
 					<![CDATA[
-						Destination name associated with this managed connection factory.
-					]]>	
-					</description>
-					<config-property-name>destinationName</config-property-name> 
-					<config-property-type>java.lang.String</config-property-type>
-				</config-property>
-				<config-property>
-					<description>
-					<![CDATA[
 						Authentication type used by the destination. Known types are
 
     					CONFIGURED_USER - the destination configured for the specified user only.

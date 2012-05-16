@@ -203,13 +203,6 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 			throw new IllegalArgumentException(
 					"jboss-sap-managed-connection-set-resouce-adapter-invalid-resource-adapter");
 		this.ra = (JBossSAPResourceAdapter) ra;
-
-		if (getDestinationName() == null)
-			setDestinationName(UUID.randomUUID().toString());
-
-		// register default connection request info
-		this.ra.getDestinationDataProvider().addDestinationProperties(getDestinationName(),
-				defaultConnectionRequestInfo);
 	}
 
 	/**
@@ -246,27 +239,6 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	/*
 	 * Destination Authentication Information
 	 */
-
-	/**
-	 * Destination name associated with this managed connection factory.
-	 * 
-	 * @return Destination name associated with this managed connection factory.
-	 */
-	public String getDestinationName() {
-		log.finest("getDestinationName()");
-		return defaultConnectionRequestInfo.getProperty(JBossSAPConnectionSpec.SAP_DESTINATION_NAME);
-	}
-
-	/**
-	 * Sets destination name associated with this managed connection factory.
-	 * 
-	 * @param destinationName
-	 *            - Destination name associated with this managed connection factory.
-	 */
-	public void setDestinationName(String destinationName) {
-		log.finest("setDestinationName(String destinationName = " + destinationName + ")");
-		defaultConnectionRequestInfo.setProperty(JBossSAPConnectionSpec.SAP_DESTINATION_NAME, destinationName);
-	}
 
 	/**
 	 * Authentication type used by the destination. Known types are
