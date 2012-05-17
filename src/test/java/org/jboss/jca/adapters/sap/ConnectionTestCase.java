@@ -61,7 +61,7 @@ public class ConnectionTestCase {
 		JavaArchive ja = ShrinkWrap.create(JavaArchive.class, UUID.randomUUID().toString() + ".jar");
 		ja.addClasses(JBossSAPResourceAdapter.class, JBossSAPManagedConnectionFactory.class,
 				JBossSAPManagedConnection.class, JBossSAPCciConnectionFactory.class,
-				JBossSAPCciConnectionFactory.class, JBossSAPConnectionMetaData.class, JBossSAPRaMetaData.class,
+				JBossSAPCciConnectionFactory.class, JBossSAPConnectionMetaData.class, JBossSAPResourceAdapterMetaData.class,
 				JBossSAPConnectionSpec.class);
 		raa.addAsLibrary(ja);
 

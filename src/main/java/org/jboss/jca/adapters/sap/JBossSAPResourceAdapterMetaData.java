@@ -28,11 +28,11 @@ import javax.resource.cci.ResourceAdapterMetaData;
  * 
  * @version $Revision: $
  */
-public class JBossSAPRaMetaData implements ResourceAdapterMetaData {
+public class JBossSAPResourceAdapterMetaData implements ResourceAdapterMetaData {
 	/**
 	 * Default constructor
 	 */
-	public JBossSAPRaMetaData() {
+	public JBossSAPResourceAdapterMetaData() {
 
 	}
 
