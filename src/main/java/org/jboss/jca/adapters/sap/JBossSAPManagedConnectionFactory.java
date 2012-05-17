@@ -24,7 +24,6 @@ package org.jboss.jca.adapters.sap;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 import javax.resource.ResourceException;

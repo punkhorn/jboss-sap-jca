@@ -74,28 +74,31 @@ public class JBossSAPCciConnectionFactory implements ConnectionFactory {
 	 *             Failed to get a connection to
 	 */
 	public JBossSAPCciConnection getConnection() throws ResourceException {
-		return (JBossSAPCciConnection) connectionManager.allocateConnection(managedConnectionFactory, null);
+		JBossSAPCciConnection newConnection = (JBossSAPCciConnection) connectionManager.allocateConnection(
+				managedConnectionFactory, null);
+		newConnection.setConnectionManager(connectionManager);
+
+		return newConnection;
 	}
 
 	/**
 	 * Gets a connection to an SAP instance.
 	 * 
 	 * @param connectionSpec
-	 *            Connection parameters and security information specified as
-	 *            ConnectionSpec instance
+	 *            Connection parameters and security information specified as ConnectionSpec instance
 	 * @return JBossSAPCciConnection instance the SAP instance.
 	 * @throws ResourceException
 	 *             Failed to get a connection to SAP instance
 	 */
 	public JBossSAPCciConnection getConnection(ConnectionSpec connectionSpec) throws ResourceException {
-		if (!(connectionSpec instanceof JBossSAPConnectionSpec)) 
+		if (!(connectionSpec instanceof JBossSAPConnectionSpec))
 			throw new ResourceException("jboss-sap-cci-connection-factory-invalid-connection-spec-type");
 		JBossSAPConnectionSpec connectionRequestInfo = (JBossSAPConnectionSpec) connectionSpec;
-		
-		JBossSAPCciConnection newConnection = (JBossSAPCciConnection) connectionManager.allocateConnection(managedConnectionFactory,
-				connectionRequestInfo);
+
+		JBossSAPCciConnection newConnection = (JBossSAPCciConnection) connectionManager.allocateConnection(
+				managedConnectionFactory, connectionRequestInfo);
 		newConnection.setConnectionManager(connectionManager);
-		
+
 		return newConnection;
 	}
 
