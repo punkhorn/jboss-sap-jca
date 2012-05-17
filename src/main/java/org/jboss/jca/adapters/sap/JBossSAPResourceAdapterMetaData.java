@@ -24,17 +24,12 @@ package org.jboss.jca.adapters.sap;
 import javax.resource.cci.ResourceAdapterMetaData;
 
 /**
- * JBossSAPRaMetaData
+ * JBossSAPResourceAdapterMetaData
  * 
  * @version $Revision: $
  */
-public class JBossSAPResourceAdapterMetaData implements ResourceAdapterMetaData {
-	/**
-	 * Default constructor
-	 */
-	public JBossSAPResourceAdapterMetaData() {
-
-	}
+public enum JBossSAPResourceAdapterMetaData implements ResourceAdapterMetaData {
+	INSTANCE;
 
 	/**
 	 * Gets the version of the resource adapter.
@@ -62,7 +57,7 @@ public class JBossSAPResourceAdapterMetaData implements ResourceAdapterMetaData 
 	 */
 
 	public String getAdapterName() {
-		return "JBoss SAP JCA";
+		return "JBoss SAP JCA Adapter";
 	}
 
 	/**

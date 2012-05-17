@@ -151,7 +151,7 @@ public class JBossSAPCciConnection implements Connection, JCoDestination {
 	 */
 	public ResultSetInfo getResultSetInfo() throws ResourceException {
 		checkState();
-		return null;
+		throw new NotSupportedException("jboss-sap-cci-connection-result-set-info-not-supported");
 	}
 
 	public void changePassword(String oldPassword, String newPassword) throws JCoException {

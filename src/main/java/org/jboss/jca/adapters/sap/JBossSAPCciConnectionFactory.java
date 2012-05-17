@@ -110,7 +110,7 @@ public class JBossSAPCciConnectionFactory implements ConnectionFactory {
 	 *             Failed to get metadata information
 	 */
 	public ResourceAdapterMetaData getMetaData() throws ResourceException {
-		return new JBossSAPResourceAdapterMetaData();
+		return JBossSAPResourceAdapterMetaData.INSTANCE;
 	}
 
 	/**
