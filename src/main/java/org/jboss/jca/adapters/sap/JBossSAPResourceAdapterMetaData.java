@@ -28,7 +28,7 @@ import javax.resource.cci.ResourceAdapterMetaData;
  *
  * @author William Collins
  * 
- * @version $Revision: $
+ * @version $Id: $
  */
 public enum JBossSAPResourceAdapterMetaData implements ResourceAdapterMetaData {
 	INSTANCE;
