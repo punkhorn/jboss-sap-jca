@@ -32,7 +32,9 @@ import javax.resource.cci.ResourceAdapterMetaData;
 import javax.resource.spi.ConnectionManager;
 
 /**
- * JBossSAPCciConnectionFactory
+ * Implements the {@link ConnectionFactory } interface for the JBoss SAP JCA Connector.
+ *
+ * @author William Collins
  * 
  * @version $Revision: $
  */
@@ -61,17 +63,16 @@ public class JBossSAPCciConnectionFactory implements ConnectionFactory {
 	 *            ConnectionManager
 	 */
 	public JBossSAPCciConnectionFactory(JBossSAPManagedConnectionFactory managedConnectionFactory,
-			ConnectionManager connectionManager) {
+			ConnectionManager connectionManager) {	/**
+		 * {@inheritDoc}
+		 */
+
 		this.managedConnectionFactory = managedConnectionFactory;
 		this.connectionManager = connectionManager;
 	}
 
 	/**
-	 * Gets a connection to an SAP instance.
-	 * 
-	 * @return JBossSAPCciConnection instance the SAP instance.
-	 * @throws ResourceException
-	 *             Failed to get a connection to
+	 * {@inheritDoc}
 	 */
 	public JBossSAPCciConnection getConnection() throws ResourceException {
 		JBossSAPCciConnection newConnection = (JBossSAPCciConnection) connectionManager.allocateConnection(
@@ -82,13 +83,7 @@ public class JBossSAPCciConnectionFactory implements ConnectionFactory {
 	}
 
 	/**
-	 * Gets a connection to an SAP instance.
-	 * 
-	 * @param connectionSpec
-	 *            Connection parameters and security information specified as ConnectionSpec instance
-	 * @return JBossSAPCciConnection instance the SAP instance.
-	 * @throws ResourceException
-	 *             Failed to get a connection to SAP instance
+	 * {@inheritDoc}
 	 */
 	public JBossSAPCciConnection getConnection(ConnectionSpec connectionSpec) throws ResourceException {
 		if (!(connectionSpec instanceof JBossSAPConnectionSpec))
@@ -103,43 +98,28 @@ public class JBossSAPCciConnectionFactory implements ConnectionFactory {
 	}
 
 	/**
-	 * Gets metadata for the Resource Adapter.
-	 * 
-	 * @return ResourceAdapterMetaData instance
-	 * @throws ResourceException
-	 *             Failed to get metadata information
+	 * {@inheritDoc}
 	 */
 	public ResourceAdapterMetaData getMetaData() throws ResourceException {
 		return JBossSAPResourceAdapterMetaData.INSTANCE;
 	}
 
 	/**
-	 * Gets a RecordFactory instance.
-	 * 
-	 * @return RecordFactory instance
-	 * @throws ResourceException
-	 *             Failed to create a RecordFactory
-	 * @throws javax.resource.NotSupportedException
-	 *             Operation not supported
+	 * {@inheritDoc}
 	 */
 	public RecordFactory getRecordFactory() throws ResourceException {
 		throw new NotSupportedException();
 	}
 
 	/**
-	 * Get the Reference instance.
-	 * 
-	 * @return Reference instance
+	 * {@inheritDoc}
 	 */
 	public Reference getReference() throws NamingException {
 		return reference;
 	}
 
 	/**
-	 * Set the Reference instance.
-	 * 
-	 * @param reference
-	 *            A Reference instance
+	 * {@inheritDoc}
 	 */
 	public void setReference(Reference reference) {
 		this.reference = reference;

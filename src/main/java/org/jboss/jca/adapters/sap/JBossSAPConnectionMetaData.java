@@ -25,52 +25,57 @@ import javax.resource.ResourceException;
 
 import javax.resource.cci.ConnectionMetaData;
 
+import com.sap.conn.jco.JCoException;
+
 /**
- * JBossSAPConnectionMetaData
+ * Implements the {@link ConnectionMetaData } interface for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
  *
  * @version $Revision: $
  */
 public class JBossSAPConnectionMetaData implements ConnectionMetaData
 {
+	private final JBossSAPCciConnection connection;
+	
    /**
     * Default constructor
     */
-   public JBossSAPConnectionMetaData()
+   JBossSAPConnectionMetaData(JBossSAPCciConnection connection)
    {
-
+	   this.connection = connection;
    }
 
-   /**
-    * Returns product name of the underlying EIS instance connected
-    *
-    * @return Product name of the EIS instance
-    * @throws ResourceException  Failed to get the information
-    */
+	/**
+	 * {@inheritDoc}
+	 */
    public String getEISProductName() throws ResourceException
    {
-      return null; //TODO
+      return "SAP"; 
    }
 
-   /**
-    * Returns product version of the underlying EIS instance.
-    *
-    * @return Product version of the EIS instance
-    * @throws ResourceException  Failed to get the information
-    */
+	/**
+	 * {@inheritDoc}
+	 */
    public String getEISProductVersion() throws ResourceException
    {
-      return null; //TODO
+		try {
+			return connection.getDestination().getAttributes().getPartnerRelease();
+		} catch (JCoException e) {
+			throw new ResourceException(e);
+		}
    }
 
-   /**
-    * Returns the user name for an active connection as known to the underlying EIS instance.
-    *
-    * @return String representing the user name
-    * @throws ResourceException  Failed to get the information
-    */
+	/**
+	 * {@inheritDoc}
+	 */
    public String getUserName() throws ResourceException
    {
-      return null; //TODO
+		try {
+			return connection.getDestination().getAttributes().getUser();
+		} catch (JCoException e) {
+			throw new ResourceException(e);
+		}
    }
 
 

@@ -35,6 +35,7 @@ import javax.resource.spi.ConnectionManager;
 import javax.resource.spi.LazyAssociatableConnectionManager;
 
 import com.sap.conn.jco.JCoAttributes;
+import com.sap.conn.jco.JCoContext;
 import com.sap.conn.jco.JCoCustomDestination;
 import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoDestinationManager;
@@ -47,7 +48,9 @@ import com.sap.conn.jco.JCoUnitIdentifier;
 import com.sap.conn.jco.monitor.JCoDestinationMonitor;
 
 /**
- * JBossSAPCciConnection implements the Connection interface and encapsulates a JCoDestination instance.
+ * Implements the {@link Connection } and {@link JCoDestination } interfaces for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
  * 
  * @version $Revision: $
  */
@@ -70,6 +73,8 @@ public class JBossSAPCciConnection implements Connection, JCoDestination {
 	private final String id;
 
 	private JCoDestination destination;
+
+	private JBossSAPConnectionMetaData connectionMetaData;
 
 	/**
 	 * Default constructor
@@ -102,26 +107,15 @@ public class JBossSAPCciConnection implements Connection, JCoDestination {
 	}
 
 	/**
-	 * Creates an Interaction associated with this Connection.
-	 * 
-	 * @return Interaction instance
-	 * @throws ResourceException
-	 *             Failed to create an Interaction
+	 * {@inheritDoc}
 	 */
 	public Interaction createInteraction() throws ResourceException {
 		checkState();
-		return null;
+		return new JBossSAPInteraction(this);
 	}
 
 	/**
-	 * Returns an LocalTransaction instance that enables a component to demarcate resource manager local transactions on
-	 * the Connection.
-	 * 
-	 * @return LocalTransaction instance
-	 * @throws ResourceException
-	 *             Failed to return a LocalTransaction
-	 * @throws javax.resource.NotSupportedException
-	 *             Demarcation of Resource manager
+	 * {@inheritDoc}
 	 */
 	public LocalTransaction getLocalTransaction() throws ResourceException {
 		checkState();
@@ -129,213 +123,395 @@ public class JBossSAPCciConnection implements Connection, JCoDestination {
 	}
 
 	/**
-	 * Gets the information on the underlying EIS instance represented through an active connection.
-	 * 
-	 * @return ConnectionMetaData instance representing information about the EIS instance
-	 * @throws ResourceException
-	 *             Failed to get information about the connected EIS instance.
+	 * {@inheritDoc}
 	 */
 	public ConnectionMetaData getMetaData() throws ResourceException {
 		checkState();
-		return new JBossSAPConnectionMetaData();
+		if (connectionMetaData == null)
+			connectionMetaData = new JBossSAPConnectionMetaData(this);
+		return connectionMetaData;
 	}
 
 	/**
-	 * Gets the information on the ResultSet functionality supported by a connected EIS instance.
-	 * 
-	 * @return ResultSetInfo instance
-	 * @throws ResourceException
-	 *             Failed to get ResultSet related information
-	 * @throws javax.resource.NotSupportedException
-	 *             ResultSet functionality is not supported
+	 * {@inheritDoc}
 	 */
 	public ResultSetInfo getResultSetInfo() throws ResourceException {
 		checkState();
 		throw new NotSupportedException("jboss-sap-cci-connection-result-set-info-not-supported");
 	}
 
+	/**
+	 * Begins stateful call sequence for interactions made through this connection.
+	 * 
+	 * @see {@link JCoContext#begin(JCoDestination)}
+	 * 
+	 * @throws ResourceException
+	 */
+	public void begin() throws ResourceException {
+		checkState();
+		JCoContext.begin(destination);
+	}
+
+	/**
+	 * Ends stateful call sequence for interactions through this connection
+	 * 
+	 * @see {@link JCoContext#end(JCoDestination)}
+	 * 
+	 * @throws ResourceException
+	 */
+	public void end() throws ResourceException {
+		checkState();
+		try {
+			JCoContext.end(destination);
+		} catch (JCoException e) {
+			throw new ResourceException(e);
+		}
+	}
+
+	/**
+	 * Returns <code>true</code> if connection is closed; <code>false</code> otherwise
+	 * 
+	 * @return <code>true</code> if connection is closed; <code>false</code> otherwise
+	 */
+	public boolean isClosed() {
+		return state == State.CLOSED;
+	}
+
+	/**
+	 * Returns <code>true</code> if stateful call sequence was started and is not finished; <code>false</code> otherwise
+	 * 
+	 * @see {@link JCoContext#isStateful(JCoDestination)}
+	 * 
+	 * @return <code>true</code> if stateful call sequence was started and is not finished; <code>false</code> otherwise
+	 */
+	public boolean isStateful() {
+		return JCoContext.isStateful(destination);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public void changePassword(String oldPassword, String newPassword) throws JCoException {
 		destination.changePassword(oldPassword, newPassword);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void confirmFunctionUnit(JCoUnitIdentifier unitIdentifier) throws JCoException {
 		destination.confirmFunctionUnit(unitIdentifier);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void confirmTID(String tid) throws JCoException {
 		destination.confirmTID(tid);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public JCoCustomDestination createCustomDestination() {
 		return destination.createCustomDestination();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String createTID() throws JCoException {
 		return destination.createTID();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getAliasUser() {
 		return destination.getAliasUser();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getApplicationServerHost() {
 		return destination.getApplicationServerHost();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public JCoAttributes getAttributes() throws JCoException {
 		return destination.getAttributes();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getClient() {
 		return destination.getClient();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getDestinationID() {
 		return destination.getDestinationID();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getDestinationName() {
 		return destination.getDestinationName();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public long getExpirationCheckPeriod() {
 		return destination.getExpirationCheckPeriod();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public long getExpirationTime() {
 		return destination.getExpirationTime();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public JCoFunctionUnitState getFunctionUnitState(JCoUnitIdentifier unitIdentifier) throws JCoException {
 		return destination.getFunctionUnitState(unitIdentifier);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getGatewayHost() {
 		return destination.getGatewayHost();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getGatewayService() {
 		return destination.getGatewayService();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getLanguage() {
 		return destination.getLanguage();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getLogonCheck() {
 		return destination.getLogonCheck();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getLogonGroup() {
 		return destination.getLogonGroup();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public long getMaxGetClientTime() {
 		return destination.getMaxGetClientTime();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getMessageServerHost() {
 		return destination.getMessageServerHost();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getMessageServerService() {
 		return destination.getMessageServerService();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public JCoDestinationMonitor getMonitor() throws JCoRuntimeException {
 		return destination.getMonitor();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public int getPeakLimit() {
 		return destination.getPeakLimit();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public int getPoolCapacity() {
 		return destination.getPoolCapacity();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Properties getProperties() {
 		return destination.getProperties();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getR3Name() {
 		return destination.getR3Name();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public JCoRepository getRepository() throws JCoException {
 		return destination.getRepository();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public JCoDestinationMonitor getRepositoryDestinationMonitor() {
 		return destination.getRepositoryDestinationMonitor();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getRepositoryUser() {
 		return destination.getRepositoryUser();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getSAPRouterString() {
 		return destination.getSAPRouterString();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getSncLibrary() {
 		return destination.getSncLibrary();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getSncMode() {
 		return destination.getSncMode();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getSncMyName() {
 		return destination.getSncMyName();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getSncPartnerName() {
 		return destination.getSncPartnerName();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getSncQOP() {
 		return destination.getSncQOP();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getSystemNumber() {
 		return destination.getSystemNumber();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getTPHost() {
 		return destination.getTPHost();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getTPName() {
 		return destination.getTPName();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public JCoThroughput getThroughput() {
 		return destination.getThroughput();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public char getType() {
 		return destination.getType();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getUser() {
 		return destination.getUser();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean isValid() {
 		return destination.isValid();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void ping() throws JCoException {
 		destination.ping();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void removeThroughput() {
 		destination.removeThroughput();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void setThroughput(JCoThroughput throughput) {
 		destination.setThroughput(throughput);
+	}
+
+	JCoDestination getDestination() {
+		return destination;
 	}
 
 	JBossSAPManagedConnection getManagedConnection() {
@@ -382,7 +558,7 @@ public class JBossSAPCciConnection implements Connection, JCoDestination {
 
 	void checkState() throws ResourceException {
 		if (state == State.CLOSED)
-			throw new ResourceException("jboss-sap-cci-connection-closed");
+			throw new ResourceException("jboss-sap-cci-connection-is-closed");
 
 		if (state == State.INACTIVE) {
 			if (connectionManager instanceof LazyAssociatableConnectionManager) {
@@ -390,7 +566,7 @@ public class JBossSAPCciConnection implements Connection, JCoDestination {
 				((LazyAssociatableConnectionManager) connectionManager).associateConnection(this,
 						managedConnectionFactory, connectionRequestInfo);
 			} else {
-				throw new ResourceException("jboss-sap-cci-connection-inactive");
+				throw new ResourceException("jboss-sap-cci-connection-is-inactive");
 			}
 		}
 	}

@@ -8,10 +8,11 @@ import com.sap.conn.jco.ext.DestinationDataEventListener;
 import com.sap.conn.jco.ext.DestinationDataProvider;
 
 /**
- * Implements the {@link DestinationDataProvider} interface for SAP JCo Connector API.
+ * Implements the {@link DestinationDataProvider} interface or the JBoss SAP JCA Connector
  * 
  * @author wcollins
  *
+ * @version $Revision: $
  */
 public class JBossDestinationDataProvider implements DestinationDataProvider {
 

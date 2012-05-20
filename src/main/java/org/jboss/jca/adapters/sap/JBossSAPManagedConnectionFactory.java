@@ -35,13 +35,13 @@ import javax.resource.spi.ResourceAdapter;
 import javax.resource.spi.ResourceAdapterAssociation;
 import javax.security.auth.Subject;
 
-import com.sap.conn.jco.JCoException;
 import com.sap.conn.jco.ext.DestinationDataProvider;
 
 /**
- * JBossSAPManagedConnectionFactory implements the ManagedConnectionFactory and encapsulates a default JCoDestination
- * configuration instance which is used to supply defaults configuration values to JBossSAPCciConnection
- * instances.
+ * Implements the {@link ManagedConnectionFactory } and {@link ResourceAdapterAssociation } interfaces for the JBoss SAP
+ * JCA Connector.
+ * 
+ * @author William Collins
  * 
  * @version $Revision: $
  */
@@ -71,13 +71,7 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	}
 
 	/**
-	 * Creates a Connection Factory instance.
-	 * 
-	 * @param cxManager
-	 *            ConnectionManager to be associated with created EIS connection factory instance
-	 * @return EIS-specific Connection Factory instance or javax.resource.cci.ConnectionFactory instance
-	 * @throws ResourceException
-	 *             Generic exception
+	 * {@inheritDoc}
 	 */
 	public Object createConnectionFactory(ConnectionManager cxManager) throws ResourceException {
 		log.finest("createConnectionFactory(ConnectionManager cxManager = " + cxManager + ")");
@@ -85,11 +79,7 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	}
 
 	/**
-	 * Creates a Connection Factory instance.
-	 * 
-	 * @return EIS-specific Connection Factory instance or javax.resource.cci.ConnectionFactory instance
-	 * @throws ResourceException
-	 *             Generic exception
+	 * {@inheritDoc}
 	 */
 	public Object createConnectionFactory() throws ResourceException {
 		log.finest("createConnectionFactory()");
@@ -97,52 +87,33 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	}
 
 	/**
-	 * Creates a new physical connection to the underlying EIS resource manager.
-	 * 
-	 * @param subject
-	 *            Caller's security information
-	 * @param cxRequestInfo
-	 *            Additional resource adapter specific connection request information
-	 * @throws ResourceException
-	 *             generic exception
-	 * @return ManagedConnection instance
+	 * {@inheritDoc}
 	 */
 	public ManagedConnection createManagedConnection(Subject subject, ConnectionRequestInfo cxRequestInfo)
 			throws ResourceException {
-		log.finest("createManagedConnection(Subject subject = " + subject + ", ConnectionRequestInfo cxRequestInfo = " + cxRequestInfo + ")");
+		log.finest("createManagedConnection(Subject subject = " + subject + ", ConnectionRequestInfo cxRequestInfo = "
+				+ cxRequestInfo + ")");
 
-		try {
-			// validate connection request info type
-			if (cxRequestInfo != null && !(cxRequestInfo instanceof JBossSAPConnectionSpec))
-				throw new ResourceException("jboss-sap-managed-connection-factory-invalid-connection-request-info-type");
+		// validate connection request info type
+		if (cxRequestInfo != null && !(cxRequestInfo instanceof JBossSAPConnectionSpec))
+			throw new ResourceException("jboss-sap-managed-connection-factory-invalid-connection-request-info-type");
 
-			// merge client connection request info with defaults
-			JBossSAPConnectionSpec cri = new JBossSAPConnectionSpec(defaultConnectionRequestInfo);
-			if (cxRequestInfo != null)
-				cri.addProperties((JBossSAPConnectionSpec) cxRequestInfo);
+		// merge client connection request info with defaults
+		JBossSAPConnectionSpec cri = new JBossSAPConnectionSpec(defaultConnectionRequestInfo);
+		if (cxRequestInfo != null)
+			cri.addProperties((JBossSAPConnectionSpec) cxRequestInfo);
 
-			return new JBossSAPManagedConnection(this, cri);
-		} catch (JCoException e) {
-			throw new ResourceException("jboss-sap-managed-connection-factory-create-managed-connection-failed", e);
-		}
+		return new JBossSAPManagedConnection(this, cri);
 	}
 
 	/**
-	 * Returns a matched connection from the candidate set of connections.
-	 * 
-	 * @param connectionSet
-	 *            Candidate connection set
-	 * @param subject
-	 *            Caller's security information
-	 * @param cxRequestInfo
-	 *            Additional resource adapter specific connection request information
-	 * @throws ResourceException
-	 *             generic exception
-	 * @return ManagedConnection if resource adapter finds an acceptable match otherwise null
+	 * {@inheritDoc}
 	 */
+	@SuppressWarnings("rawtypes")
 	public ManagedConnection matchManagedConnections(Set connectionSet, Subject subject,
 			ConnectionRequestInfo cxRequestInfo) throws ResourceException {
-		log.finest("matchManagedConnections(Set connectionSet = " + connectionSet + ", Subject subject = " + subject + ")");
+		log.finest("matchManagedConnections(Set connectionSet = " + connectionSet + ", Subject subject = " + subject
+				+ ")");
 		ManagedConnection result = null;
 		Iterator it = connectionSet.iterator();
 		while (result == null && it.hasNext()) {
@@ -156,11 +127,7 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	}
 
 	/**
-	 * Get the log writer for this ManagedConnectionFactory instance.
-	 * 
-	 * @return PrintWriter
-	 * @throws ResourceException
-	 *             generic exception
+	 * {@inheritDoc}
 	 */
 	public PrintWriter getLogWriter() throws ResourceException {
 		log.finest("getLogWriter()");
@@ -168,12 +135,7 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	}
 
 	/**
-	 * Set the log writer for this ManagedConnectionFactory instance.
-	 * 
-	 * @param out
-	 *            PrintWriter - an out stream for error logging and tracing
-	 * @throws ResourceException
-	 *             generic exception
+	 * {@inheritDoc}
 	 */
 	public void setLogWriter(PrintWriter out) throws ResourceException {
 		log.finest("setLogWriter()");
@@ -181,9 +143,7 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	}
 
 	/**
-	 * Get the resource adapter
-	 * 
-	 * @return The handle
+	 * {@inheritDoc}
 	 */
 	public JBossSAPResourceAdapter getResourceAdapter() {
 		log.finest("getResourceAdapter()");
@@ -191,10 +151,7 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	}
 
 	/**
-	 * Set the resource adapter
-	 * 
-	 * @param ra
-	 *            The handle
+	 * {@inheritDoc}
 	 */
 	public void setResourceAdapter(ResourceAdapter ra) {
 		log.finest("setResourceAdapter(ResourceAdapter ra = " + ra + ")");
@@ -205,9 +162,7 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	}
 
 	/**
-	 * Returns a hash code value for the object.
-	 * 
-	 * @return A hash code value for this object.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int hashCode() {
@@ -216,11 +171,7 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	}
 
 	/**
-	 * Indicates whether some other object is equal to this one.
-	 * 
-	 * @param other
-	 *            The reference object with which to compare.
-	 * @return true if this object is the same as the obj argument, false otherwise.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean equals(Object other) {
@@ -290,7 +241,7 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	 *            - User identity which is used for logon to the ABAP AS.
 	 */
 	public void setUserId(String userId) {
-		log.finest("setUserId(String userId = " + userId +")");
+		log.finest("setUserId(String userId = " + userId + ")");
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_USER_ID, userId);
 	}
 
@@ -526,7 +477,7 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	 * 
 	 * @return - System number of the SAP ABAP application server, mandatory for a direct connection.
 	 */
-	public String  getSysnr() {
+	public String getSysnr() {
 		log.finest("getSysnr()");
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_SYSNR);
 	}
@@ -1298,7 +1249,8 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	 *            - Force(1)/Deactivate(0) the usage of RFC_METADATA_GET API.
 	 */
 	public void setRepositoryRoundtripOptimization(String repositoryRoundtripOptimization) {
-		log.finest("setRepositoryRoundtripOptimization(String repositoryRoundtripOptimization = " + repositoryRoundtripOptimization +")");
+		log.finest("setRepositoryRoundtripOptimization(String repositoryRoundtripOptimization = "
+				+ repositoryRoundtripOptimization + ")");
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_REPOSITORY_ROUNDTRIP_OPTIMIZATION,
 				repositoryRoundtripOptimization);
 	}

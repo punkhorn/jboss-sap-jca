@@ -21,79 +21,33 @@
  */
 package org.jboss.jca.adapters.sap;
 
-import javax.resource.cci.ResourceAdapterMetaData;
+import javax.resource.ResourceException;
+import javax.resource.cci.IndexedRecord;
+import javax.resource.cci.MappedRecord;
+import javax.resource.cci.RecordFactory;
 
 /**
- * Implements the {@link ResourceAdapterMetaData } interface for the JBoss SAP JCA Connector.
+ * Implements the {@link RecordFactory } interface for the JBoss SAP JCA Connector.
  *
  * @author William Collins
  * 
  * @version $Revision: $
  */
-public enum JBossSAPResourceAdapterMetaData implements ResourceAdapterMetaData {
+public enum JBossSAPRecordFactory implements RecordFactory {
 	INSTANCE;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public String getAdapterVersion() {
-		return "1.0.0";
+	public MappedRecord createMappedRecord(String recordName) throws ResourceException {
+		return new JBossSAPMappedRecord(recordName);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public String getAdapterVendorName() {
-		return "Red Hat";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public String getAdapterName() {
-		return "JBoss SAP JCA Adapter";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public String getAdapterShortDescription() {
-		return "JBoss SAP JCA";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public String getSpecVersion() {
-		return "1.5";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public String[] getInteractionSpecsSupported() {
-		return new String[] { "org.jboss.jca.adapters.sap.JBossSAPInteractionSpec" };
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean supportsExecuteWithInputAndOutputRecord() {
-		return true;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean supportsExecuteWithInputRecordOnly() {
-		return true;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean supportsLocalTransactionDemarcation() {
-		return false; 
+	public IndexedRecord createIndexedRecord(String recordName) throws ResourceException {
+		return new JBossSAPIndexedRecord(recordName);
 	}
 
 }

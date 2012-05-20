@@ -42,17 +42,18 @@ import javax.resource.spi.ManagedConnectionMetaData;
 import javax.security.auth.Subject;
 import javax.transaction.xa.XAResource;
 
-import com.sap.conn.jco.JCoException;
-
 /**
- * JBossSAPManagedConnection
+ * Implements the {@link ManagedConnection } and {@link DissociatableManagedConnection } interfaces for the JBoss SAP JCA
+ * Connector.
+ * 
+ * @author William Collins
  * 
  * @version $Revision: $
  */
 public class JBossSAPManagedConnection implements ManagedConnection, DissociatableManagedConnection {
-	
+
 	public static enum State {
-		ACTIVE,DESTROYED;
+		ACTIVE, DESTROYED;
 	}
 
 	/** The logger */
@@ -70,19 +71,19 @@ public class JBossSAPManagedConnection implements ManagedConnection, Dissociatab
 	private final Set<JBossSAPCciConnection> handles = new HashSet<JBossSAPCciConnection>();
 
 	private JBossSAPConnectionSpec defaultConnectionRequestInfo;
-	
+
 	private State state = State.ACTIVE;
 
 	/**
-	 * Default constructor
+	 * Construct managed connection with specified connection request info and associated with specified managed
+	 * connection factory.
 	 * 
-	 * @param mcf
-	 *            mcf
-	 * @throws JCoException
+	 * @param mcf - the associated managed connection factory
+	 * @param connectionRequestInfo - the connection request info configuration
 	 * @throws ResourceException
 	 */
 	public JBossSAPManagedConnection(JBossSAPManagedConnectionFactory mcf, JBossSAPConnectionSpec connectionRequestInfo)
-			throws JCoException, ResourceException {
+			throws ResourceException {
 		this.managedConnectionFactory = mcf;
 		this.logwriter = null;
 		this.listeners = Collections.synchronizedList(new ArrayList<ConnectionEventListener>(1));
@@ -90,16 +91,7 @@ public class JBossSAPManagedConnection implements ManagedConnection, Dissociatab
 	}
 
 	/**
-	 * Creates a new connection handle for the underlying physical connection
-	 * represented by the ManagedConnection instance.
-	 * 
-	 * @param subject
-	 *            Security context as JAAS subject
-	 * @param cxRequestInfo
-	 *            ConnectionRequestInfo instance
-	 * @return generic Object instance representing the connection handle.
-	 * @throws ResourceException
-	 *             generic exception if operation fails
+	 * {@inheritDoc}
 	 */
 	public Object getConnection(Subject subject, ConnectionRequestInfo cxRequestInfo) throws ResourceException {
 		log.finest("getConnection()");
@@ -107,96 +99,83 @@ public class JBossSAPManagedConnection implements ManagedConnection, Dissociatab
 		if (cxRequestInfo != null && !(cxRequestInfo instanceof JBossSAPConnectionSpec))
 			throw new ResourceException("jboss-sap-managed-connection-invalid-connection-request-info-type");
 
-		JBossSAPCciConnection connection = new JBossSAPCciConnection(this, (JBossSAPConnectionSpec)cxRequestInfo);
-		
+		JBossSAPCciConnection connection = new JBossSAPCciConnection(this, (JBossSAPConnectionSpec) cxRequestInfo);
+
 		return connection;
 	}
 
 	/**
-	 * Used by the container to change the association of an application-level
-	 * connection handle with a ManagedConneciton instance.
-	 * 
-	 * @param connection
-	 *            Application-level connection handle
-	 * @throws ResourceException
-	 *             generic exception if operation fails
+	 * {@inheritDoc}
 	 */
 	public void associateConnection(Object connection) throws ResourceException {
 		log.finest("associateConnection()");
 		checkState();
-		if (!(connection instanceof JBossSAPCciConnection)) 
+		if (!(connection instanceof JBossSAPCciConnection))
 			throw new ResourceException("jboss-sap-managed-connection-invalid-cci-connection-type");
-		
+
 		JBossSAPCciConnection cciConnection = (JBossSAPCciConnection) connection;
 		cciConnection.associateManagedConnection(this);
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	public void dissociateConnections() throws ResourceException {
 		log.finest("dissociateConnection()");
 		checkState();
-		
+
 		Collection<JBossSAPCciConnection> copy = null;
 		synchronized (handles) {
-			if (handles.size() > 0) 
+			if (handles.size() > 0)
 				copy = new HashSet<JBossSAPCciConnection>(handles);
 		}
-		
+
 		if (copy != null) {
-			for (JBossSAPCciConnection cciConnection: copy) {
+			for (JBossSAPCciConnection cciConnection : copy) {
 				cciConnection.dissociateManagedConnection();
 			}
 		}
-		
+
 	}
 
 	/**
-	 * Application server calls this method to force any cleanup on the
-	 * ManagedConnection instance.
-	 * 
-	 * @throws ResourceException
-	 *             generic exception if operation fails
+	 * {@inheritDoc}
 	 */
 	public void cleanup() throws ResourceException
 
 	{
 		log.finest("cleanup()");
-		
+
 		Collection<JBossSAPCciConnection> copy = null;
 		synchronized (handles) {
-			if (handles.size() > 0) 
+			if (handles.size() > 0)
 				copy = new HashSet<JBossSAPCciConnection>(handles);
 		}
-		
+
 		if (copy != null) {
-			for (JBossSAPCciConnection cciConnection: copy) {
+			for (JBossSAPCciConnection cciConnection : copy) {
 				cciConnection.close();
 			}
 		}
 	}
 
 	/**
-	 * Destroys the physical connection to the underlying resource manager.
-	 * 
-	 * @throws ResourceException
-	 *             generic exception if operation fails
+	 * {@inheritDoc}
 	 */
 	public void destroy() throws ResourceException {
 		log.finest("destroy()");
-		
+
 		synchronized (state) {
-			if (state == State.DESTROYED) 
+			if (state == State.DESTROYED)
 				return;
 			state = State.DESTROYED;
 		}
-		
+
 		cleanup();
 	}
 
 	/**
-	 * Adds a connection event listener to the ManagedConnection instance.
-	 * 
-	 * @param listener
-	 *            A new ConnectionEventListener to be registered
+	 * {@inheritDoc}
 	 */
 	public void addConnectionEventListener(ConnectionEventListener listener) {
 		log.finest("addConnectionEventListener()");
@@ -208,11 +187,7 @@ public class JBossSAPManagedConnection implements ManagedConnection, Dissociatab
 	}
 
 	/**
-	 * Removes an already registered connection event listener from the
-	 * ManagedConnection instance.
-	 * 
-	 * @param listener
-	 *            already registered connection event listener to be removed
+	 * {@inheritDoc}
 	 */
 	public void removeConnectionEventListener(ConnectionEventListener listener) {
 		log.finest("removeConnectionEventListener()");
@@ -224,10 +199,10 @@ public class JBossSAPManagedConnection implements ManagedConnection, Dissociatab
 	}
 
 	/**
-	 * Close handle
+	 * Close application level handle handle to this connection
 	 * 
-	 * @param handle
-	 *            The handle
+	 * @param handle -
+	 *            The application handle
 	 */
 	public void closeHandle(JBossSAPCciConnection handle) {
 
@@ -250,12 +225,7 @@ public class JBossSAPManagedConnection implements ManagedConnection, Dissociatab
 	}
 
 	/**
-	 * Gets the log writer for this ManagedConnection instance.
-	 * 
-	 * @return Character ourput stream associated with this Managed-Connection
-	 *         instance
-	 * @throws ResourceException
-	 *             generic exception if operation fails
+	 * {@inheritDoc}
 	 */
 	public PrintWriter getLogWriter() throws ResourceException {
 		log.finest("getLogWriter()");
@@ -263,12 +233,7 @@ public class JBossSAPManagedConnection implements ManagedConnection, Dissociatab
 	}
 
 	/**
-	 * Sets the log writer for this ManagedConnection instance.
-	 * 
-	 * @param out
-	 *            Character Output stream to be associated
-	 * @throws ResourceException
-	 *             generic exception if operation fails
+	 * {@inheritDoc}
 	 */
 	public void setLogWriter(PrintWriter out) throws ResourceException {
 		log.finest("setLogWriter()");
@@ -276,34 +241,21 @@ public class JBossSAPManagedConnection implements ManagedConnection, Dissociatab
 	}
 
 	/**
-	 * Returns an <code>javax.resource.spi.LocalTransaction</code> instance.
-	 * 
-	 * @return LocalTransaction instance
-	 * @throws ResourceException
-	 *             generic exception if operation fails
+	 * {@inheritDoc}
 	 */
 	public LocalTransaction getLocalTransaction() throws ResourceException {
 		throw new NotSupportedException("jboss-sap-managed-connection-local-transaction-not-supported");
 	}
 
 	/**
-	 * Returns an <code>javax.transaction.xa.XAresource</code> instance.
-	 * 
-	 * @return XAResource instance
-	 * @throws ResourceException
-	 *             generic exception if operation fails
+	 * {@inheritDoc}
 	 */
 	public XAResource getXAResource() throws ResourceException {
 		throw new NotSupportedException("jboss-sap-managed-connection-get-xa-resource-not-supported");
 	}
 
 	/**
-	 * Gets the metadata information for this connection's underlying EIS
-	 * resource manager instance.
-	 * 
-	 * @return ManagedConnectionMetaData instance
-	 * @throws ResourceException
-	 *             generic exception if operation fails
+	 * {@inheritDoc}
 	 */
 	public ManagedConnectionMetaData getMetaData() throws ResourceException {
 		log.finest("getMetaData()");
@@ -313,23 +265,23 @@ public class JBossSAPManagedConnection implements ManagedConnection, Dissociatab
 	JBossSAPManagedConnectionFactory getManagedConnectionFactory() {
 		return managedConnectionFactory;
 	}
-	
+
 	JBossSAPConnectionSpec getDefaultConnectionRequestInfo() {
 		return defaultConnectionRequestInfo;
 	}
 
 	void associateHandle(JBossSAPCciConnection handle) {
-		synchronized(handles) {
+		synchronized (handles) {
 			handles.add(handle);
 		}
 	}
 
 	void dissociateHandle(JBossSAPCciConnection handle) {
-		synchronized(handles) {
+		synchronized (handles) {
 			handles.remove(handle);
 		}
 	}
-	
+
 	void checkState() throws ResourceException {
 		if (state == State.DESTROYED) {
 			throw new ResourceException("jboss-sap-managed-connection-is-destroyed");

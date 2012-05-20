@@ -21,79 +21,72 @@
  */
 package org.jboss.jca.adapters.sap;
 
-import javax.resource.cci.ResourceAdapterMetaData;
+import java.util.ArrayList;
+
+import javax.resource.cci.IndexedRecord;
 
 /**
- * Implements the {@link ResourceAdapterMetaData } interface for the JBoss SAP JCA Connector.
+ * Implements the {@link IndexedRecord } interface for the JBoss SAP JCA Connector.
  *
  * @author William Collins
  * 
  * @version $Revision: $
  */
-public enum JBossSAPResourceAdapterMetaData implements ResourceAdapterMetaData {
-	INSTANCE;
+@SuppressWarnings("rawtypes")
+public class JBossSAPIndexedRecord extends ArrayList implements IndexedRecord {
+
+	private static final long serialVersionUID = 6852378783863109231L;
+
+	private String recordName;
+
+	private String recordShortDescription;
 
 	/**
-	 * {@inheritDoc}
+	 * Constructs indexed record with specified record name.
+	 * 
+	 * @param recordName - the record name
 	 */
-	public String getAdapterVersion() {
-		return "1.0.0";
+	public JBossSAPIndexedRecord(String recordName) {
+		this(recordName, null);
+	}
+
+	/**
+	 * Constructs indexed record with specified record name and record short description.
+	 * 
+	 * @param recordName - the record name
+	 * @param recordShortDescription - record short description
+	 */
+	public JBossSAPIndexedRecord(String recordName, String recordShortDescription) {
+		this.recordName = recordName;
+		this.recordShortDescription = recordShortDescription;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public String getAdapterVendorName() {
-		return "Red Hat";
+	public String getRecordName() {
+		return recordName;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public String getAdapterName() {
-		return "JBoss SAP JCA Adapter";
+	public void setRecordName(String name) {
+		this.recordName = name;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public String getAdapterShortDescription() {
-		return "JBoss SAP JCA";
+	public void setRecordShortDescription(String description) {
+		this.recordShortDescription = description;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public String getSpecVersion() {
-		return "1.5";
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public String[] getInteractionSpecsSupported() {
-		return new String[] { "org.jboss.jca.adapters.sap.JBossSAPInteractionSpec" };
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean supportsExecuteWithInputAndOutputRecord() {
-		return true;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean supportsExecuteWithInputRecordOnly() {
-		return true;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean supportsLocalTransactionDemarcation() {
-		return false; 
+	public String getRecordShortDescription() {
+		return recordShortDescription;
 	}
 
 }

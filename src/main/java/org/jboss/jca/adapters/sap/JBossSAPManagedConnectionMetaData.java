@@ -28,8 +28,10 @@ import javax.resource.ResourceException;
 import javax.resource.spi.ManagedConnectionMetaData;
 
 /**
- * JBossSAPManagedConnectionMetaData
+ * Implements the {@link ManagedConnectionMetaData } interface for the JBoss SAP JCA Connector.
  *
+ * @author William Collins
+ * 
  * @version $Revision: $
  */
 public class JBossSAPManagedConnectionMetaData implements ManagedConnectionMetaData
@@ -45,48 +47,36 @@ public class JBossSAPManagedConnectionMetaData implements ManagedConnectionMetaD
 
    }
 
-   /**
-    * Returns Product name of the underlying EIS instance connected through the ManagedConnection.
-    *
-    * @return Product name of the EIS instance
-    * @throws ResourceException Thrown if an error occurs
-    */
+	/**
+	 * {@inheritDoc}
+	 */
    public String getEISProductName() throws ResourceException
    {
       log.finest("getEISProductName()");
       return null; //TODO
    }
 
-   /**
-    * Returns Product version of the underlying EIS instance connected through the ManagedConnection.
-    *
-    * @return Product version of the EIS instance
-    * @throws ResourceException Thrown if an error occurs
-    */
+	/**
+	 * {@inheritDoc}
+	 */
    public String getEISProductVersion() throws ResourceException
    {
       log.finest("getEISProductVersion()");
       return null; //TODO
    }
 
-   /**
-    * Returns maximum limit on number of active concurrent connections 
-    *
-    * @return Maximum limit for number of active concurrent connections
-    * @throws ResourceException Thrown if an error occurs
-    */
+	/**
+	 * {@inheritDoc}
+	 */
    public int getMaxConnections() throws ResourceException
    {
       log.finest("getMaxConnections()");
       return 0; //TODO
    }
 
-   /**
-    * Returns name of the user associated with the ManagedConnection instance
-    *
-    * @return Name of the user
-    * @throws ResourceException Thrown if an error occurs
-    */
+	/**
+	 * {@inheritDoc}
+	 */
    public String getUserName() throws ResourceException
    {
       log.finest("getUserName()");

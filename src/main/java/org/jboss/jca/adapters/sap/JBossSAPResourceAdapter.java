@@ -35,7 +35,9 @@ import javax.transaction.xa.XAResource;
 import com.sap.conn.jco.ext.Environment;
 
 /**
- * JBossSAPResourceAdapter
+ * Implements the {@link ResourceAdapter } interface for the JBoss SAP JCA Connector.
+ *
+ * @author William Collins
  * 
  * @version $Revision: $
  */
@@ -55,14 +57,7 @@ public class JBossSAPResourceAdapter implements ResourceAdapter {
 	}
 
 	/**
-	 * This is called during the activation of a message endpoint.
-	 * 
-	 * @param endpointFactory
-	 *            A message endpoint factory instance.
-	 * @param spec
-	 *            An activation spec JavaBean instance.
-	 * @throws ResourceException
-	 *             generic exception
+	 * {@inheritDoc}
 	 */
 	public void endpointActivation(MessageEndpointFactory endpointFactory, ActivationSpec spec)
 			throws ResourceException {
@@ -70,24 +65,14 @@ public class JBossSAPResourceAdapter implements ResourceAdapter {
 	}
 
 	/**
-	 * This is called when a message endpoint is deactivated.
-	 * 
-	 * @param endpointFactory
-	 *            A message endpoint factory instance.
-	 * @param spec
-	 *            An activation spec JavaBean instance.
+	 * {@inheritDoc}
 	 */
 	public void endpointDeactivation(MessageEndpointFactory endpointFactory, ActivationSpec spec) {
 		log.finest("endpointDeactivation()");
 	}
 
 	/**
-	 * This is called when a resource adapter instance is bootstrapped.
-	 * 
-	 * @param ctx
-	 *            A bootstrap context containing references
-	 * @throws ResourceAdapterInternalException
-	 *             indicates bootstrap failure.
+	 * {@inheritDoc}
 	 */
 	public void start(BootstrapContext ctx) throws ResourceAdapterInternalException {
 		log.finest("Registering Destination Data Provider: " + destinationDataProvider);
@@ -95,8 +80,7 @@ public class JBossSAPResourceAdapter implements ResourceAdapter {
 	}
 
 	/**
-	 * This is called when a resource adapter instance is undeployed or during
-	 * application server shutdown.
+	 * {@inheritDoc}
 	 */
 	public void stop() {
 		log.finest("Unregistering Destination Data Provider: " + destinationDataProvider);
@@ -104,13 +88,7 @@ public class JBossSAPResourceAdapter implements ResourceAdapter {
 	}
 
 	/**
-	 * This method is called by the application server during crash recovery.
-	 * 
-	 * @param specs
-	 *            An array of ActivationSpec JavaBeans
-	 * @throws ResourceException
-	 *             generic exception
-	 * @return An array of XAResource objects
+	 * {@inheritDoc}
 	 */
 	public XAResource[] getXAResources(ActivationSpec[] specs) throws ResourceException {
 		log.finest("getXAResources()");
@@ -118,9 +96,7 @@ public class JBossSAPResourceAdapter implements ResourceAdapter {
 	}
 
 	/**
-	 * Returns a hash code value for the object.
-	 * 
-	 * @return A hash code value for this object.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int hashCode() {
@@ -129,12 +105,7 @@ public class JBossSAPResourceAdapter implements ResourceAdapter {
 	}
 
 	/**
-	 * Indicates whether some other object is equal to this one.
-	 * 
-	 * @param other
-	 *            The reference object with which to compare.
-	 * @return true if this object is the same as the obj argument, false
-	 *         otherwise.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean equals(Object other) {

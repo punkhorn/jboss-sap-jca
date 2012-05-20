@@ -29,30 +29,47 @@ import javax.resource.spi.ConnectionRequestInfo;
 import com.sap.conn.jco.ext.DestinationDataProvider;
 
 /**
- * JBossSAPConnectionSpec - is used by an application component to pass connection request-specific properties to the ConnectionFactory. getConnection method.  *
+ * Implements the {@link ConnectionSpec } and {@link ConnectionRequestInfo } interfaces for the JBoss SAP JCA Connector.
+ * 
+ * <p>Extends {@link Properties} to enable a destination configuration to be passed when creating a {@link JBossSAPCciConnection }.
+ * 
+ * @see {@link DestinationDataProvider }
+ * 
+ * @author William Collins
+ * 
  * @version $Revision: $
  */
-public class JBossSAPConnectionSpec extends Properties implements ConnectionSpec, ConnectionRequestInfo
-{
+public class JBossSAPConnectionSpec extends Properties implements ConnectionSpec, ConnectionRequestInfo {
 
 	private static final long serialVersionUID = -2520873677208651216L;
-	
+
+	/**
+	 * Creates an empty connection spec.
+	 */
 	public JBossSAPConnectionSpec() {
 	}
-	
-	
+
+	/**
+	 * Creates an empty connection spec with the specified defaults.
+	 * 
+	 * @param defaults - the defaults
+	 */
 	public JBossSAPConnectionSpec(Properties defaults) {
 		super(defaults);
 	}
-	
-	
-	public void addProperties(Properties connectionRequestInfo) {
-		putAll(connectionRequestInfo);
+
+	/**
+	 * Copies all properties from specified property set
+	 * 
+	 * @param properties - the property set.
+	 */
+	public void addProperties(Properties properties) {
+		putAll(properties);
 	}
-	
-	
+
 	/**
 	 * Returns the name of the user establishing a connection to an SAP instance.
+	 * 
 	 * @return The name of the user establishing a connection to an SAP instance.
 	 */
 	public String getUserName() {
@@ -61,7 +78,9 @@ public class JBossSAPConnectionSpec extends Properties implements ConnectionSpec
 
 	/**
 	 * Sets the name of the user establishing a connection to an SAP instance.
-	 * @param userName - the name of the user establishing a connection to an SAP instance.
+	 * 
+	 * @param userName
+	 *            - the name of the user establishing a connection to an SAP instance.
 	 */
 	public void setUserName(String userName) {
 		setProperty(DestinationDataProvider.JCO_USER, userName);
@@ -69,6 +88,7 @@ public class JBossSAPConnectionSpec extends Properties implements ConnectionSpec
 
 	/**
 	 * Returns the password for the user establishing a connection
+	 * 
 	 * @return The password for the user establishing a connection
 	 */
 	public String getPassword() {
@@ -77,7 +97,9 @@ public class JBossSAPConnectionSpec extends Properties implements ConnectionSpec
 
 	/**
 	 * Sets the password for the user establishing a connection
-	 * @param password - the password for the user establishing a connection
+	 * 
+	 * @param password
+	 *            - the password for the user establishing a connection
 	 */
 	public void setPassword(String password) {
 		setProperty(DestinationDataProvider.JCO_PASSWD, password);
