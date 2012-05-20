@@ -30,7 +30,7 @@ import javax.resource.cci.MappedRecord;
  *
  * @author William Collins
  * 
- * @version $Revision: $
+ * @version $Id: $
  */
 @SuppressWarnings("rawtypes")
 public class JBossSAPMappedRecord extends HashMap implements MappedRecord {

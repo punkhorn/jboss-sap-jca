@@ -12,7 +12,7 @@ import com.sap.conn.jco.ext.DestinationDataProvider;
  * 
  * @author wcollins
  *
- * @version $Revision: $
+ * @version $Id: $
  */
 public class JBossDestinationDataProvider implements DestinationDataProvider {
 

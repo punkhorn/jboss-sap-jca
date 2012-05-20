@@ -36,7 +36,7 @@ import javax.resource.spi.ConnectionManager;
  *
  * @author William Collins
  * 
- * @version $Revision: $
+ * @version $Id: $
  */
 public class JBossSAPCciConnectionFactory implements ConnectionFactory {
 	/**

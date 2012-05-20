@@ -37,7 +37,7 @@ import com.sap.conn.jco.ext.DestinationDataProvider;
  * 
  * @author William Collins
  * 
- * @version $Revision: $
+ * @version $Id: $
  */
 public class JBossSAPConnectionSpec extends Properties implements ConnectionSpec, ConnectionRequestInfo {
 

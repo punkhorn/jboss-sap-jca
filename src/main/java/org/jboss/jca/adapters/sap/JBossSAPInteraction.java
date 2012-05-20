@@ -43,7 +43,7 @@ import com.sap.conn.jco.JCoTable;
  * 
  * @author William Collins
  * 
- * @version $Revision: $
+ * @version $Id: $
  */
 public class JBossSAPInteraction implements Interaction {
 

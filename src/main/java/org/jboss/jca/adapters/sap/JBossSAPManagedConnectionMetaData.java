@@ -32,7 +32,7 @@ import javax.resource.spi.ManagedConnectionMetaData;
  *
  * @author William Collins
  * 
- * @version $Revision: $
+ * @version $Id: $
  */
 public class JBossSAPManagedConnectionMetaData implements ManagedConnectionMetaData
 {

@@ -52,7 +52,7 @@ import com.sap.conn.jco.monitor.JCoDestinationMonitor;
  * 
  * @author William Collins
  * 
- * @version $Revision: $
+ * @version $Id: $
  */
 public class JBossSAPCciConnection implements Connection, JCoDestination {
 

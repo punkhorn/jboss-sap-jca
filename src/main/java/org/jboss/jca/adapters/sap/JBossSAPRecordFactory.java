@@ -31,7 +31,7 @@ import javax.resource.cci.RecordFactory;
  *
  * @author William Collins
  * 
- * @version $Revision: $
+ * @version $Id: $
  */
 public enum JBossSAPRecordFactory implements RecordFactory {
 	INSTANCE;

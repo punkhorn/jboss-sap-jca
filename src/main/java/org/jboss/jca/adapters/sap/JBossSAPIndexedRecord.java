@@ -29,8 +29,7 @@ import javax.resource.cci.IndexedRecord;
  * Implements the {@link IndexedRecord } interface for the JBoss SAP JCA Connector.
  *
  * @author William Collins
- * 
- * @version $Revision: $
+ * $Id: $$Revision: $
  */
 @SuppressWarnings("rawtypes")
 public class JBossSAPIndexedRecord extends ArrayList implements IndexedRecord {

@@ -48,7 +48,7 @@ import javax.transaction.xa.XAResource;
  * 
  * @author William Collins
  * 
- * @version $Revision: $
+ * @version $Id: $
  */
 public class JBossSAPManagedConnection implements ManagedConnection, DissociatableManagedConnection {
 

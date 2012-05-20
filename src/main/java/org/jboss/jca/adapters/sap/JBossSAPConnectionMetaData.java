@@ -32,7 +32,7 @@ import com.sap.conn.jco.JCoException;
  * 
  * @author William Collins
  *
- * @version $Revision: $
+ * @version $Id: $
  */
 public class JBossSAPConnectionMetaData implements ConnectionMetaData
 {
