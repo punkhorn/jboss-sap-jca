@@ -37,7 +37,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * ConnectorTestCase
+ * ConnectorTestCase tests basic connectivity to SAP instance.
  * 
  * @version $Revision: $
  */
@@ -67,7 +67,7 @@ public class ConnectionTestCase {
 
 		raa.addAsManifestResource("META-INF/ra.xml", "ra.xml");
 
-		raa.addAsManifestResource("META-INF/ConnectionTestCase-ironjacamar.xml", "ironjacamar.xml");
+		raa.addAsManifestResource("META-INF/SimpleInteractionTestCase-ironjacamar.xml", "ironjacamar.xml");
 
 		return raa;
 	}

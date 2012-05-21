@@ -304,7 +304,7 @@ public class JBossSAPInteraction implements Interaction {
 			if (!listMetaData.isImport(i))
 				continue;
 
-			Object value = parameterList.getValue(listMetaData.getName(i));
+			Object value = mappedRecord.get(listMetaData.getName(i));
 
 			// If no input value, check that it is optional
 			if (value == null) {
