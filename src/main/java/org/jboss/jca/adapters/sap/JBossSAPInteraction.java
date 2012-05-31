@@ -179,11 +179,6 @@ public class JBossSAPInteraction implements Interaction {
 
 		for (int i = 0; i < listMetaData.getFieldCount(); i++) {
 
-			// Changing parameter lists have combination of import and export parameters: only extract export
-			// parameters
-			if (!listMetaData.isExport(i))
-				continue;
-
 			String name = listMetaData.getName(i);
 			Object value = parameterList.getValue(name);
 
@@ -235,7 +230,7 @@ public class JBossSAPInteraction implements Interaction {
 	@SuppressWarnings("unchecked")
 	private void extractTable(JCoTable table, JBossSAPIndexedRecord indexedRecord) throws ResourceException {
 		table.firstRow();
-		for (int i = 0; i < table.getNumRows(); table.nextRow()) {
+		for (int i = 0; i < table.getNumRows(); i++, table.nextRow()) {
 			JBossSAPMappedRecord nestedRecord = new JBossSAPMappedRecord(indexedRecord.getRecordName() + "[" + i + "]",
 					indexedRecord.getRecordShortDescription());
 			extractStructure(table, nestedRecord);
@@ -276,7 +271,7 @@ public class JBossSAPInteraction implements Interaction {
 
 		for (int i = 0; i < listMetaData.getFieldCount(); i++) {
 			JCoTable table = tableList.getTable(listMetaData.getName(i));
-			Object tableData = mappedRecord.get(listMetaData.getName());
+			Object tableData = mappedRecord.get(listMetaData.getName(i));
 			if (tableData == null)
 				// NB: Interaction depends on caller to know what tables in table parameter list need to be populated
 				// before execution.
@@ -298,11 +293,6 @@ public class JBossSAPInteraction implements Interaction {
 		JCoListMetaData listMetaData = parameterList.getListMetaData();
 
 		for (int i = 0; i < listMetaData.getFieldCount(); i++) {
-
-			// Changing parameter lists have combination of import and export parameters: only populate import
-			// parameters
-			if (!listMetaData.isImport(i))
-				continue;
 
 			Object value = mappedRecord.get(listMetaData.getName(i));
 
