@@ -88,6 +88,31 @@ public class JBossSAPManagedConnection implements ManagedConnection, Dissociatab
 		this.logwriter = null;
 		this.listeners = Collections.synchronizedList(new ArrayList<ConnectionEventListener>(1));
 		this.defaultConnectionRequestInfo = connectionRequestInfo;
+		this.managedConnectionFactory.associateConnection(this);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean equals(Object other) {
+		if (other == null)
+			return false;
+		if (other == this)
+			return true;
+		if (!(other instanceof JBossSAPManagedConnection))
+			return false;
+		JBossSAPManagedConnection obj = (JBossSAPManagedConnection) other;
+		return this.defaultConnectionRequestInfo.equals(obj.defaultConnectionRequestInfo);
 	}
 
 	/**
@@ -172,6 +197,7 @@ public class JBossSAPManagedConnection implements ManagedConnection, Dissociatab
 		}
 
 		cleanup();
+		this.managedConnectionFactory.dissociateConnection(this);
 	}
 
 	/**

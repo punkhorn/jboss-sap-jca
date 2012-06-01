@@ -22,6 +22,7 @@
 package org.jboss.jca.adapters.sap;
 
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -61,6 +62,8 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 
 	/** Defaults for JCoDestination configuration instances */
 	private final JBossSAPConnectionSpec defaultConnectionRequestInfo;
+	
+	private final Set<JBossSAPManagedConnection> connections = new HashSet<JBossSAPManagedConnection>();
 
 	/**
 	 * Default constructor
@@ -118,7 +121,7 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 		Iterator it = connectionSet.iterator();
 		while (result == null && it.hasNext()) {
 			ManagedConnection mc = (ManagedConnection) it.next();
-			if (mc instanceof JBossSAPManagedConnection) {
+			if (connectionSet.contains(mc)) {
 				result = mc;
 			}
 
@@ -166,8 +169,7 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 	 */
 	@Override
 	public int hashCode() {
-		int result = 17;
-		return result;
+		return defaultConnectionRequestInfo.hashCode();
 	}
 
 	/**
@@ -182,8 +184,7 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 		if (!(other instanceof JBossSAPManagedConnectionFactory))
 			return false;
 		JBossSAPManagedConnectionFactory obj = (JBossSAPManagedConnectionFactory) other;
-		boolean result = true;
-		return result;
+		return obj.defaultConnectionRequestInfo.equals(defaultConnectionRequestInfo);
 	}
 
 	/*
@@ -1253,5 +1254,17 @@ public class JBossSAPManagedConnectionFactory implements ManagedConnectionFactor
 				+ repositoryRoundtripOptimization + ")");
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_REPOSITORY_ROUNDTRIP_OPTIMIZATION,
 				repositoryRoundtripOptimization);
+	}
+	
+	void associateConnection(JBossSAPManagedConnection connection) {
+		synchronized(connections) {
+			connections.add(connection);
+		}
+	}
+
+	void dissociateConnection(JBossSAPManagedConnection connection) {
+		synchronized(connections) {
+			connections.remove(connection);
+		}
 	}
 }

@@ -116,8 +116,6 @@ public class JBossSAPResourceAdapter implements ResourceAdapter {
 		if (!(other instanceof JBossSAPResourceAdapter))
 			return false;
 
-		//		JBossSAPResourceAdapter obj = (JBossSAPResourceAdapter) other;
-		
 		// Return true to prevent application server from deploying multiple instances of this resource adapter.
 		boolean result = true;
 		return result;

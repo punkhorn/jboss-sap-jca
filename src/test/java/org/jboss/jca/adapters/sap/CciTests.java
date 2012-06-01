@@ -64,7 +64,9 @@ public class CciTests {
 	// Parameters for Simple Interaction Test
 	//
 
-	private static String REQUTEXT = "Hello SAP!";
+	private static final String REQUTEXT = "Hello SAP!";
+	private static final String REQUTEXT_PARAM = "REQUTEXT";
+	private static final String ECHOTEXT_PARAM = "ECHOTEXT";
 
 	//
 	// Parameters for Parameter Passing Test
@@ -211,15 +213,15 @@ public class CciTests {
 		JBossSAPInteractionSpec interactionSpec = new JBossSAPInteractionSpec();
 		interactionSpec.setFunctionName("STFC_CONNECTION");
 		MappedRecord input = JBossSAPRecordFactory.INSTANCE.createMappedRecord("input");
-		input.put("REQUTEXT", REQUTEXT);
+		input.put(REQUTEXT_PARAM, REQUTEXT);
 		MappedRecord output = JBossSAPRecordFactory.INSTANCE.createMappedRecord("output");
 		assertTrue("Simple Interaction Execution Failed", interaction.execute(interactionSpec, input, output));
-		String echoText = (String) output.get("ECHOTEXT");
+		String echoText = (String) output.get(ECHOTEXT_PARAM);
 		assertEquals("Echoed text does not match request text", REQUTEXT, echoText);
 
 		connection.close();
 	}
-
+	
 	/**
 	 * Tests sending and receiving parameters of variety of types to and from ABAP function module through Import,
 	 * Export, Changing and Table parameter lists.

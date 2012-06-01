@@ -54,7 +54,7 @@ import com.sap.conn.jco.monitor.JCoDestinationMonitor;
  * 
  * @version $Id: $
  */
-public class JBossSAPCciConnection implements Connection, JCoDestination {
+public class JBossSAPCciConnection implements Connection {
 
 	public static enum State {
 		ACTIVE, INACTIVE, CLOSED;
@@ -510,7 +510,11 @@ public class JBossSAPCciConnection implements Connection, JCoDestination {
 		destination.setThroughput(throughput);
 	}
 
-	JCoDestination getDestination() {
+	/**
+	 * Returns the destination underlying this connection
+	 * @return - the destination underlying this connection
+	 */
+	public JCoDestination getDestination() {
 		return destination;
 	}
 
