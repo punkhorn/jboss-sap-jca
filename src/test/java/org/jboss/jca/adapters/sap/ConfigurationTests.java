@@ -41,13 +41,19 @@ import org.junit.runner.RunWith;
 
 import com.sap.conn.jco.ext.DestinationDataProvider;
 
+/**
+ * ConfigurationTests - Tests configuration of JBoss SAP JCA Connector
+ * 
+ * @author William Collins
+ *
+ */
 @SuppressWarnings("restriction")
 @RunWith(Arquillian.class)
-public class ConnectionConfigurationTestCase {
+public class ConfigurationTests {
 
-	private static Logger log = Logger.getLogger("ConnectionConfigurationTestCase");
+	private static Logger log = Logger.getLogger("ConfigurationTests");
 
-	private static String deploymentName = "ConnectionConfigurationTestCase";
+	private static String deploymentName = "ConfigurationTests";
 
 	/**
 	 * Define the deployment
@@ -56,7 +62,7 @@ public class ConnectionConfigurationTestCase {
 	 */
 	@Deployment
 	public static ResourceAdapterArchive createDeployment() {
-		log.info("Creating deployment for ConnectionConfigurationTestCase");
+		log.info("Creating deployment for Configuration Tests");
 		
 		ResourceAdapterArchive raa = ShrinkWrap.create(ResourceAdapterArchive.class, deploymentName + ".rar");
 		JavaArchive ja = ShrinkWrap.create(JavaArchive.class, UUID.randomUUID().toString() + ".jar");
@@ -68,22 +74,27 @@ public class ConnectionConfigurationTestCase {
 
 		raa.addAsManifestResource("META-INF/ra.xml", "ra.xml");
 
-		raa.addAsManifestResource("META-INF/ConnectionConfigurationTestCase-ironjacamar.xml", "ironjacamar.xml");
+		raa.addAsManifestResource("META-INF/ConfigurationTests-ironjacamar.xml", "ironjacamar.xml");
 
 		return raa;
 	}
 
 	/** Resource */
-	@Resource(mappedName = "java:/eis/ConnectionConfigurationTestCaseFactory")
-	private ConnectionFactory testConfigurationConnectionFactory;
+	@Resource(mappedName = "java:/eis/ConfigurationTestsFactory")
+	private ConnectionFactory connectionFactory;
 
+	/**
+	 * Tests injection of connection configuration parameters by JCA container.
+	 * 
+	 * @throws Throwable
+	 */
 	@Test
 	public void testConnectionFactoryConfiguration() throws Throwable {
 		log.info("Testing Connection Factory Configuration");
 		
-		assertNotNull("Failed to access 'TestConfigurationConnectionFactory'", testConfigurationConnectionFactory);
-		JBossSAPCciConnection connection = (JBossSAPCciConnection) testConfigurationConnectionFactory.getConnection();
-		assertNotNull(connection);
+		assertNotNull("Failed to access 'ConfigurationTestsFactory'", connectionFactory);
+		JBossSAPCciConnection connection = (JBossSAPCciConnection) connectionFactory.getConnection();
+		assertNotNull("Failed to create connection", connection);
 
 		//
 		// Test JCoDestination properties

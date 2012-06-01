@@ -30,7 +30,7 @@
   <transaction-support>NoTransaction</transaction-support>
   
   <connection-definitions>
-    <connection-definition class-name="org.jboss.jca.adapters.sap.JBossSAPManagedConnectionFactory" jndi-name="java:/eis/ConnectionConfigurationTestCaseFactory" pool-name="JBossSAPCciConnectionFactory">
+    <connection-definition class-name="org.jboss.jca.adapters.sap.JBossSAPManagedConnectionFactory" jndi-name="java:/eis/ConfigurationTestsFactory" pool-name="JBossSAPCciConnectionFactory">
     	<config-property name="authType">CONFIGURED_USER</config-property>
     	<config-property name="userId">JCO_TESTER_USER_ID</config-property>
     	<config-property name="client">999</config-property>
