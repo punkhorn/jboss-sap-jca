@@ -66,7 +66,7 @@
 		<version.org.apache.maven.rar.plugin>2.2</version.org.apache.maven.rar.plugin>
 		<version.org.apache.maven.source.plugin>2.1.2</version.org.apache.maven.source.plugin>
 		<version.org.apache.maven.surefire.plugin>2.12</version.org.apache.maven.surefire.plugin>
-		<version.org.jboss.as.plugins.jboss.as.maven.plugin>7.1.1.FINAL</version.org.jboss.as.plugins.jboss.as.maven.plugin>
+		<version.org.jboss.as.plugins.jboss.as.maven.plugin>7.1.1.Final</version.org.jboss.as.plugins.jboss.as.maven.plugin>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencyManagement>
