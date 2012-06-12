@@ -325,8 +325,11 @@ public class InteractionImpl implements Interaction {
 		for (int i = 0; i < metaData.getFieldCount(); i++) {
 			Object field = mappedRecord.get(metaData.getName(i));
 			// Throw exception if no corresponding input field
-			if (field == null)
-				throw new ResourceException("interaction-impl-required-field-missing");
+			if (field == null) {
+				// NB: Interaction depends on caller to know what items in structure needs to be populated
+				// before execution.
+				continue;
+			}
 
 			if (metaData.isStructure(i)) {
 				if (!(field instanceof MappedRecordImpl))
