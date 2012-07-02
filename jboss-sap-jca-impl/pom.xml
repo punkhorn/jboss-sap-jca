@@ -112,6 +112,33 @@
 			<groupId>org.jboss.ironjacamar</groupId>
 			<artifactId>ironjacamar-validator</artifactId>
 		</dependency>
+		<!-- 
+		<dependency>
+    		<groupId>org.jboss.shrinkwrap.descriptors</groupId>
+	  		<artifactId>shrinkwrap-descriptors-api-base</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+    		<groupId>org.jboss.shrinkwrap.descriptors</groupId>
+	  		<artifactId>shrinkwrap-descriptors-spi</artifactId>
+			<scope>test</scope>
+		</dependency>
+		 -->
+		<dependency>
+    		<groupId>org.jboss.shrinkwrap</groupId>
+			<artifactId>shrinkwrap-impl-base</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+    		<groupId>org.jboss.shrinkwrap</groupId>
+			<artifactId>shrinkwrap-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+    		<groupId>org.jboss.shrinkwrap</groupId>
+			<artifactId>shrinkwrap-spi</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -134,12 +161,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>${version.org.apache.maven.jar.plugin}</version>
-				<configuration>
-					<excludes>
-						<exclude>**/META-INF/*</exclude>
-						<exclude>**/as/</exclude>
-					</excludes>
-				</configuration>
 				<executions>
 					<execution>
 						<id>jarCreation</id>
@@ -161,7 +182,7 @@
 							<goal>rar</goal>
 						</goals>
 						<configuration>
-							<raXmlFile>src/main/resources/META-INF/ra.xml</raXmlFile>
+							<includeJar>true</includeJar>
 						</configuration>
 					</execution>
 				</executions>
@@ -204,61 +225,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<profiles>
-		<profile>
-			<id>as-deploy</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-jar-plugin</artifactId>
-						<version>${version.org.apache.maven.jar.plugin}</version>
-						<configuration>
-							<excludes>
-								<exclude>**/META-INF/*</exclude>
-								<exclude>**/as/</exclude>
-							</excludes>
-						</configuration>
-						<executions>
-							<execution>
-								<id>jarCreation</id>
-								<phase>package</phase>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-rar-plugin</artifactId>
-						<version>${version.org.apache.maven.rar.plugin}</version>
-						<executions>
-							<execution>
-								<id>test</id>
-								<goals>
-									<goal>rar</goal>
-								</goals>
-								<configuration>
-									<rarSourceDirectory>src/main/resources/as</rarSourceDirectory>
-									<includeJar>true</includeJar>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.jboss.as.plugins</groupId>
-						<artifactId>jboss-as-maven-plugin</artifactId>
-						<version>${version.org.jboss.as.plugins.jboss.as.maven.plugin}</version>
-						<configuration>
-							<hostname>localhost</hostname>
-							<port>9999</port>
-							<filename>${project.build.finalName}.${project.packaging}</filename>
-							<force>true</force>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>
