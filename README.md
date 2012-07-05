@@ -7,8 +7,9 @@ Be sure to read through this entire document before attempting to build, deploy 
 * [System Requirements](#requirements) List of software required to build and deploy this JCA connector.
 * [Building](#building): Instructions for building this JCA Connector.
 * [Deploying](#deploying): Instructions for deploying the JCA Connector to the JBoss AS 7 server.
+* [License](#license): License
 
-<a id"requirements"></a>
+<a id="requirements"></a>
 ## System Requirements
 
 To build, deploy and run this JCA connector, you will need the following:
@@ -34,7 +35,7 @@ To build, deploy and run this JCA connector, you will need the following:
 5. SAP Netweaver AS ABAP server, to build (optional) and run the JCA connector.
 	* A trial version of the SAP Netweaver server can be downloaded from the [SAP Software Download Catalog](http://www.sdn.sap.com/irj/scn/downloads).
 
-<a id"building"></a>
+<a id="building"></a>
 Building
 -----------------------
 
@@ -129,7 +130,7 @@ The ZJBOSS\_PARAM\_TEST function module is used to test the passing of parameter
 
 * Enter 'ZJBOSS\_PARAM\_TEST' in the 'Function Module' text box and select 'Create'.
 * On the 'Create Function Module' dialog box enter 'ZJBOSS\_FUNCTION\_GROUP' in the 'Function group' text box and a description in the 'Short text' text box.
-* If 'Information' dialog box appears select check box.
+* If the 'Information' dialog box appears select the check box.
 
 ##### a. Create Import Parameters
 
@@ -233,7 +234,7 @@ The ZJBOSS\_PARAM\_TEST function module is used to test the passing of parameter
 ##### f. Enter Function Module Source Code
 
 * Select the 'Source code' tab.
-* Add the source code contained in the file *project-root-dir*/jboss-sap-jca-impl/src/test/resources/ZJBOSS_PARAM_TEST.txt.
+* Add the source code contained in the file `<jboss-sap-jca-project-root-directory>/jboss-sap-jca-impl/src/test/resources/ZJBOSS_PARAM_TEST.txt`.
 
 ##### g. Save and Activate Function Module
 
@@ -243,7 +244,7 @@ The ZJBOSS\_PARAM\_TEST function module is used to test the passing of parameter
 <a id="configUnitTests"></a>
 ### (Optional) Configure Unit Tests
 
-The unit tests use the configuration files located in the *project-root-dir*/jboss-sap-jca-impl/src/test/resources/META-INF/ directory to connect to the SAP system where the ZJBOSS\_PARAM\_TEST function module was installed. This step can be skipped if the unit are not run during the build. Modify the XXXX-ironjacamar.xml files with values appropriate for your SAP System for the following connection parameters:
+The unit tests use the configuration files located in the `<jboss-sap-jca-project-root-directory>/jboss-sap-jca-impl/src/test/resources/META-INF/` directory to connect to the SAP system where the ZJBOSS\_PARAM\_TEST function module was installed. This step can be skipped if the unit are not run during the build. Modify the XXXX-ironjacamar.xml files with values appropriate for your SAP System for the following connection parameters:
 
 * *ashost* - the hostname or ip address of SAP system
 * *sysnr* - the system number of SAP system
@@ -259,11 +260,11 @@ Build and install the JCA connector project artifacts in your local Maven reposi
 
 		mvn clean install
 
-Execute this command to build and install the project artifacts without running the unit test: 
+Execute this command to build and install the project artifacts without running the unit tests: 
 
 		mvn -Dmaven.test.skip=true clean install
 
-<a id"deploying"></a>
+<a id="deploying"></a>
 ## Deploying
 
 To deploy the JBoss SAP JCA Connector project you will need to perform the following steps:
@@ -327,8 +328,9 @@ The native library path of the JBoss AS7 server needs to configured in order for
 
 Deploy the JCA connector to your JBoss AS7 server. From the directory `<jboss-sap-jca-project-root-directory>/jboss-sap-jca-impl` execute the following command:
 
-				mvn jboss-as:deploy;
+				mvn jboss-as:deploy
 
+<a id="license"></a>
 ## License
 
 * [GNU Lesser General Public License Version 2.1](http://www.gnu.org/licenses/lgpl-2.1-standalone.html)
