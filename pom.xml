@@ -167,8 +167,7 @@
 				<groupId>com.sap.conn.jco</groupId>
 				<artifactId>sapjco3</artifactId>
 				<version>${version.sapjco3}</version>
-				<scope>system</scope>
-				<systemPath>${basedir}/lib/sapjco3.jar</systemPath>
+
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.jca.adapters</groupId>

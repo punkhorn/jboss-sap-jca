@@ -53,198 +53,59 @@ The JCA connector project requires the sapjco3 library jar  be installed in your
 
 		mvn install:install-file -Dfile=<your-path-to>sapjco3<your-version>.jar -DgroupId=com.sap.conn.jco -DartifactId=sapjco3 -Dversion=<your-version> -Dpackaging=jar
 
-<a id="installFuncMod"></a>
-### (Optional) Install Unit Test Function Module
+<a id="installUnitTestPackage"></a>
+### (Optional) Install Unit Test Package
 
-The unit tests of the JCA connector project require that the ZJBOSS\_PARAM\_TEST function module be installed and activated in the the SAP system used by the tests. This step can be skipped if the unit are not run during the build. To install the function module perform the following steps
+The unit tests of the JCA connector project require that the `ZJBOSS_PACKAGE` package and all of its associated sub-objects be imported into the the SAP system used by the tests. This step can be skipped if the unit are not run during the build. To import the package, perform the following steps:
 
-#### 1. Create and Activate Data Elements and Structures.
+#### 1. Determine the Location of Transport Directory
 
-The ZJBOSS\_PARAM\_TEST requires the following data elements and data structures be defined in the ABAP dictionary of the SAP system.
+The `ZJBOSS_PACKAGE` and all its associated sub-objects are provided in a transport request. This request is packaged as two files that need to be deployed to the `transport directory` of the SAP system into which the objects will be imported. To determine the location of the transport directory, run the SAP Directories Transaction (AL11) and scroll down to the entry `DIR_TRANS` in the table and note the directory location.
 
-##### Data Elements:
+#### 2. Deploy the Command and Data Files of the Transport Request
 
-Create and activate the following data elements using the ABAP Dictionary Transaction (SE11):
+The transport request is packaged in a command file and data file located respectively in the `cofiles` and `data` directories of the `<jboss-sap-jca-project-root-directory>/jboss-sap-jca-impl/src/test/resources/trans` directory. Copy these files to the corresponding sub-directories of the SAP system's transport directory. 
 
-<table border="1" summary="">
-<caption>ZJBOSS_PARAM_TEST Data Element Definitions</captions>
-<tr><th>Data Element Name</th><th>Data Type</th><th>Length</th><th>Decimal Places</th></tr>
-<tr><td>ZJBOSS_CHAR</td><td>CHAR</td><td>10</td></tr>
-<tr><td>ZJBOSS_NUM</td><td>NUMC</td><td>10</td></tr>
-<tr><td>ZJBOSS_BCD</td><td>DEC</td><td>16</td><td>14</td></tr>
-<tr><td>ZJBOSS_BINARY</td><td>RAW</td><td>1</td></tr>
-<tr><td>ZJBOSS_BINARY_ARRAY</td><td>RAW</td><td>10</td></tr>
-</table>
+#### 3. Import the Transport Request into the SAP System
 
-##### The ZJBOSS_STRUCTURE Date Structure:
+To import the transport request into the SAP System:
 
-Create and activate the ZJBOSS\_STRUCTURE data structure using the ABAP Dictionary Transaction (SE11):
+* Execute the Transport Management System Transaction (STMS).
+* Select the `Overview` -> `Imports` menu item. 
+* On the `Import Overview` screen , select the import queue to be used for the import and then select the `Import Queue` -> `Display` menu item. 
+* On the `Import Queue` screen, select the `Extras` -> `Other Requests` -> `Add` menu item. 
+* In the `Add Transport Request to Import Queue` dialog box select the `Transp. Request` text field and click the adjacent search box.
+* In the `Transport requests` dialog box select the Request/Task with the corresponding number of the deployed command file and click the continue button.
+* Back in the `Add Transport Request to Import Queue` dialog box click the continue button.
+* Back on the `Import Queue` screen, select the newly added transport request and then select the `Request` -> `Import` menu item. 
+* After the import has completed, the `ZJBOSS_PACKAGE` contents can be viewed in the `Object Navigator Transaction` (SE80) and should contain the following objects:
 
-<table border="1" summary="">
-<caption>ZJBOSS_STRUCTURE Structure Component Definitions</captions>
-<tr><th>Component Name</th><th>Data Type</th></tr>
-<tr><td>CHAR_PARAM</td><td>ZJBOSS_CHAR</td></tr>
-<tr><td>NUM_PARAM</td><td>ZJBOSS_NUM</td></tr>
-<tr><td>INT_PARAM</td><td>INT4</td></tr>
-<tr><td>FLOAT_PARAM</td><td>FLTP</td></tr>
-<tr><td>BCD_PARAM</td><td>ZJBOSS_BCD</td></tr>
-<tr><td>BINARY_PARAM</td><td>ZJBOSS_BINARY</td></tr>
-<tr><td>BINARY_ARRAY_PARAM</td><td>ZJBOSS_BINARY_ARRAY</td></tr>
-<tr><td>DATE_PARAM</td><td>DATS</td></tr>
-<tr><td>TIME_PARAM</td><td>TIMS</td></tr>
-<tr><td>STRING_PARAM</td><td>STRING</td></tr>
-</table>
-
-##### The  ZJBOSS_LINE_TYPE Data Structure
-
-Create and activate the ZJBOSS\_LINE\_TYPE data structure using the ABAP Dictionary Transaction (SE11):
-
-<table border="1" summary="">
-<caption>ZJBOSS_LINE_TYPE Structure Component Definitions</captions>
-<tr><th>Component Name</th><th>Data Type</th></tr>
-<tr><td>CHAR_PARAM</td><td>ZJBOSS_CHAR</td></tr>
-<tr><td>NUM_PARAM</td><td>ZJBOSS_NUM</td></tr>
-<tr><td>INT_PARAM</td><td>INT4</td></tr>
-<tr><td>FLOAT_PARAM</td><td>FLTP</td></tr>
-<tr><td>BCD_PARAM</td><td>ZJBOSS_BCD</td></tr>
-<tr><td>BINARY_PARAM</td><td>ZJBOSS_BINARY</td></tr>
-<tr><td>BINARY_ARRAY_PARAM</td><td>ZJBOSS_BINARY_ARRAY</td></tr>
-<tr><td>DATE_PARAM</td><td>DATS</td></tr>
-<tr><td>TIME_PARAM</td><td>TIMS</td></tr>
-</table>
-
-#### 2. Create and Activate the ZJBOSS_FUNCTION_GROUP.
-
-The ZJBOSS\_FUNCTION\_GROUP function group will contain the function module created in the next step. Start the SAP Object Navigator Transaction (SE80):
-
-* Select 'Function Group' in the drop down. 
-* Enter 'ZJBOSS\_FUNCTION\_GROUP' in the text box below the drop down
-* Select the browse icon to the right of the text box.
-* In the 'Create Object' dialog box select 'Yes' to create the function group.
-* In the 'Create Function Group' dialog box enter a description in the 'Short text' text field and select 'Save'.
-* In the 'Create Object Directory Entry' dialog box select 'Local Object'.
-
-#### 3. Create and Activate the ZJBOSS_PARAM_TEST
-
-The ZJBOSS\_PARAM\_TEST function module is used to test the passing of parameters between the JBOSS SAP JCA Connection and the SAP system. Start the SAP Function Builder Transaction (SE11):
-
-* Enter 'ZJBOSS\_PARAM\_TEST' in the 'Function Module' text box and select 'Create'.
-* On the 'Create Function Module' dialog box enter 'ZJBOSS\_FUNCTION\_GROUP' in the 'Function group' text box and a description in the 'Short text' text box.
-* If the 'Information' dialog box appears select the check box.
-
-##### a. Create Import Parameters
-
-* Select the 'Import' tab and create the following import parameters to the function module:
-
-<table border="1" summary="">
-<caption>ZJBOSS_PARAM_TEST Import Parameters</captions>
-<tr><th>Parameter Name</th><th>Associated Type</th></tr>
-<tr><td>IMPORT_CHAR_PARAM</td><td>ZJBOSS_CHAR</td></tr>
-<tr><td>IMPORT_NUM_PARAM</td><td>ZJBOSS_NUM</td></tr>
-<tr><td>IMPORT_INT_PARAM</td><td>I</td></tr>
-<tr><td>IMPORT_FLOAT_PARAM</td><td>F</td></tr>
-<tr><td>IMPORT_BCD_PARAM</td><td>ZJBOSS_BCD</td></tr>
-<tr><td>IMPORT_BINARY_PARAM</td><td>ZJBOSS_BINARY</td></tr>
-<tr><td>IMPORT_BINARY_ARRAY_PARAM</td><td>ZJBOSS_BINARY_ARRAY</td></tr>
-<tr><td>IMPORT_DATE_PARAM</td><td>D</td></tr>
-<tr><td>IMPORT_TIME_PARAM</td><td>T</td></tr>
-<tr><td>IMPORT_STRING_PARAM</td><td>STRING</td></tr>
-<tr><td>IMPORT_STRUCTURE_PARAM</td><td>ZJBOSS_STRUCTURE</td></tr>
-</table>
-
-##### b. Create Export Parameters
-
-* Select the 'Export' tab and create the following export parameters to the function module:
-
-<table border="1" summary="">
-<caption>ZJBOSS_PARAM_TEST Export Parameters</captions>
-<tr><th>Parameter Name</th><th>Associated Type</th></tr>
-<tr><td>EXPORT_CHAR_PARAM</td><td>ZJBOSS_CHAR</td></tr>
-<tr><td>EXPORT_NUM_PARAM</td><td>ZJBOSS_NUM</td></tr>
-<tr><td>EXPORT_INT_PARAM</td><td>I</td></tr>
-<tr><td>EXPORT_FLOAT_PARAM</td><td>F</td></tr>
-<tr><td>EXPORT_BCD_PARAM</td><td>ZJBOSS_BCD</td></tr>
-<tr><td>EXPORT_BINARY_PARAM</td><td>ZJBOSS_BINARY</td></tr>
-<tr><td>EXPORT_BINARY_ARRAY_PARAM</td><td>ZJBOSS_BINARY_ARRAY</td></tr>
-<tr><td>EXPORT_DATE_PARAM</td><td>D</td></tr>
-<tr><td>EXPORT_TIME_PARAM</td><td>T</td></tr>
-<tr><td>EXPORT_STRING_PARAM</td><td>STRING</td></tr>
-<tr><td>EXPORT_STRUCTURE_PARAM</td><td>ZJBOSS_STRUCTURE</td></tr>
-</table>
-
-##### c. Create Changing Parameters
-
-* Select the 'Changing' tab and create the following changing parameters to the function module:
-
-<table border="1" summary="">
-<caption>ZJBOSS_PARAM_TEST Changing Parameters</captions>
-<tr><th>Parameter Name</th><th>Associated Type</th></tr>
-<tr><td>CHANGING_CHAR_PARAM</td><td>ZJBOSS_CHAR</td></tr>
-<tr><td>CHANGING_NUM_PARAM</td><td>ZJBOSS_NUM</td></tr>
-<tr><td>CHANGING_INT_PARAM</td><td>I</td></tr>
-<tr><td>CHANGING_FLOAT_PARAM</td><td>F</td></tr>
-<tr><td>CHANGING_BCD_PARAM</td><td>ZJBOSS_BCD</td></tr>
-<tr><td>CHANGING_BINARY_PARAM</td><td>ZJBOSS_BINARY</td></tr>
-<tr><td>CHANGING_BINARY_ARRAY_PARAM</td><td>ZJBOSS_BINARY_ARRAY</td></tr>
-<tr><td>CHANGING_DATE_PARAM</td><td>D</td></tr>
-<tr><td>CHANGING_TIME_PARAM</td><td>T</td></tr>
-<tr><td>CHANGING_STRING_PARAM</td><td>STRING</td></tr>
-<tr><td>CHANGING_STRUCTURE_PARAM</td><td>ZJBOSS_STRUCTURE</td></tr>
-</table>
-
-##### d. Create Table Parameters
-
-* Select the 'Tables' tab and create the following table parameter to the function module:
-
-<table border="1" summary="">
-<caption>ZJBOSS_PARAM_TEST Table Parameters</captions>
-<tr><th>Parameter Name</th><th>Associated Type</th></tr>
-<tr><td>TABLE_TABLE_PARAM</td><td>ZJBOSS_LINE_TYPE</td></tr>
-</table>
-
-##### e. Create Exceptions 
-
-* Select the 'Exceptions' tab and create the following exceptions for the function module:
-
-<table border="1" summary="">
-<caption>ZJBOSS_PARAM_TEST Exceptions</captions>
-<tr><th>Parameter Name</th><th>Short Text</th></tr>
-<tr><td>CHANGING_CHAR_PARAM_EX</td><td>Did not receive expected CHANGING_CHAR_PARAM value</td></tr>
-<tr><td>CHANGING_NUM_PARAM_EX</td><td>Did not receive expected CHANGING_NUM_PARAM value</td></tr>
-<tr><td>CHANGING_INT_PARAM_EX</td><td>Did not receive expected CHANGING_INT_PARAM value</td></tr>
-<tr><td>CHANGING_FLOAT_PARAM_EX</td><td>Did not receive expected CHANGING_FLOAT_PARAM value</td></tr>
-<tr><td>CHANGING_BCD_PARAM_EX</td><td>Did not receive expected CHANGING_BCD_PARAM value</td></tr>
-<tr><td>CHANGING_BINARY_PARAM_EX</td><td>Did not receive expected CHANGING_BINARY_PARAM value</td></tr>
-<tr><td>CHANGING_BINARY_ARRAY_PARAM_EX</td><td>Did not receive expected CHANGING_BINARY_ARRAY_PARAM value</td></tr>
-<tr><td>CHANGING_DATE_PARAM_EX</td><td>Did not receive expected CHANGING_DATE_PARAM value</td></tr>
-<tr><td>CHANGING_TIME_PARAM_EX</td><td>Did not receive expected CHANGING_TIME_PARAM value</td></tr>
-<tr><td>CHANGING_STRING_PARAM_EX</td><td>Did not receive expected CHANGING_STRING_PARAM value</td></tr>
-<tr><td>CHANGING_STRUCTURE_CHAR_EX</td><td>Did not receive expected CHAR_PARAM value in CHANGING_STRUCTURE_PARAM</td></tr>
-<tr><td>CHANGING_STRUCTURE_NUM_EX</td><td>Did not receive expected NUM_PARAM value in CHANGING_STRUCTURE_PARAM</td></tr>
-<tr><td>CHANGING_STRUCTURE_INT_EX</td><td>Did not receive expected INT_PARAM value in CHANGING_STRUCTURE_PARAM</td></tr>
-<tr><td>CHANGING_STRUCTURE_FLOAT_EX</td><td>Did not receive expected FLOAT_PARAM value in CHANGING_STRUCTURE_PARAM</td></tr>
-<tr><td>CHANGING_STRUCTURE_BCD_EX</td><td>Did not receive expected BCD_PARAM value in CHANGING_STRUCTURE_PARAM</td></tr>
-<tr><td>CHANGING_STRUCTURE_BINARY_EX</td><td>Did not receive expected BINARY_PARAM value in CHANGING_STRUCTURE_PARAM</td></tr>
-<tr><td>CHANGING_STRUCTURE_BIN_ARRAY_EX</td><td>Did not receive expected BINARY_ARRAY_PARAM value in CHANGING_STRUCTURE_PARAM</td></tr>
-<tr><td>CHANGING_STRUCTURE_DATE_EX</td><td>Did not receive expected DATE_PARAM value in CHANGING_STRUCTURE_PARAM</td></tr>
-<tr><td>CHANGING_STRUCTURE_TIME_EX</td><td>Did not receive expected TIME_PARAM value in CHANGING_STRUCTURE_PARAM</td></tr>
-<tr><td>CHANGING_STRUCTURE_STR_EX</td><td>Did not receive expected STRING_PARAM value in CHANGING_STRUCTURE_PARAM</td></tr>
-</table>
-
-##### f. Enter Function Module Source Code
-
-* Select the 'Source code' tab.
-* Add the source code contained in the file `<jboss-sap-jca-project-root-directory>/jboss-sap-jca-impl/src/test/resources/ZJBOSS_PARAM_TEST.txt`.
-
-##### g. Save and Activate Function Module
-
-* Select 'Save' in the 'Function Module' menu to save your changes. 
-* Select 'Activate' in the 'Function Module' menu to activate the function module
+	* `ZJBOSS_PACKAGE`
+		* Dictionary Objects
+			* Table Types
+				* `ZJBOSS_TABLE`
+			* Structures
+				* `ZJBOSS_LINE_TYPE`
+				* `ZJBOSS_STRUCTURE`
+			* Data Elements
+				* `ZJBOSS_BCD`
+				* `ZJBOSS_BINARY`
+				* `ZJBOSS_BINARY_ARRAY`
+				* `ZJBOSS_CHAR`
+				* `ZJBOSS_FLOAT`
+				* `ZJBOSS_NUM`
+			* Function Groups
+				* `ZJBOSS_SAP_JCA_TEST_FG`
+					* Function Modules
+						* `ZJBOSS_PARAM_TEST`
+					* Includes
+						* `LZJBOSS_SAP_JCA_TEST_FGTOP`
+						* `LZJBOSS_SAP_JCA_TEST_FGUXX`
 
 <a id="configUnitTests"></a>
 ### (Optional) Configure Unit Tests
 
-The unit tests use the configuration files located in the `<jboss-sap-jca-project-root-directory>/jboss-sap-jca-impl/src/test/resources/META-INF/` directory to connect to the SAP system where the ZJBOSS\_PARAM\_TEST function module was installed. This step can be skipped if the unit are not run during the build. Modify the XXXX-ironjacamar.xml files with values appropriate for your SAP System for the following connection parameters:
+The unit tests use the configuration files located in the `<jboss-sap-jca-project-root-directory>/jboss-sap-jca-impl/src/test/resources/META-INF/` directory to connect to the SAP system where the `ZJBOSS_PARAM_TEST` function module was installed. This step can be skipped if the unit are not run during the build. Modify the XXXX-ironjacamar.xml files with values appropriate for your SAP System for the following connection parameters:
 
 * *ashost* - the hostname or ip address of SAP system
 * *sysnr* - the system number of SAP system
