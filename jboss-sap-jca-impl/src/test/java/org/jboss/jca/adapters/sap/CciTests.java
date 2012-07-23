@@ -55,10 +55,10 @@ import org.junit.runner.RunWith;
  * @author William Collins
  * 
  */
-@SuppressWarnings({"unchecked"})
+@SuppressWarnings({ "unchecked" })
 @RunWith(Arquillian.class)
 public class CciTests {
-	
+
 	private static Logger log = Logger.getLogger("CciTests");
 
 	private static String deploymentName = "CciTests";
@@ -184,17 +184,22 @@ public class CciTests {
 	 * Test connectivity to SAP instance.
 	 * 
 	 * @exception Throwable
-	 *                Thrown if case of an test error
+	 *                Thrown in case of a test error
 	 */
 	@Test
 	public void testConnection() throws Throwable {
-		log.info("Testing Connection");
-		assertNotNull("Failed to access connection factory 'CciTestsFactory'", connectionFactory);
-		JBossSAPCciConnection connection = (JBossSAPCciConnection) connectionFactory.getConnection();
-		assertNotNull("Failed to create connection", connection);
-		connection.ping();
-		log.info("Connection test succeeded!");
-		connection.close();
+		JBossSAPCciConnection connection = null;
+		try {
+			log.info("Testing Connection");
+			assertNotNull("Failed to access connection factory 'CciTestsFactory'", connectionFactory);
+			connection = (JBossSAPCciConnection) connectionFactory.getConnection();
+			assertNotNull("Failed to create connection", connection);
+			connection.ping();
+			log.info("Connection test succeeded!");
+		} finally {
+			if (connection != null)
+				connection.close();
+		}
 	}
 
 	/**
@@ -206,25 +211,30 @@ public class CciTests {
 	 */
 	@Test
 	public void testSimpleInteraction() throws Throwable {
-		log.info("Testing Simple Interaction");
-		assertNotNull("Failed to access connection factory 'CciTestsFactory'", connectionFactory);
-		JBossSAPCciConnection connection = (JBossSAPCciConnection) connectionFactory.getConnection();
-		assertNotNull("Failed to create connection", connection);
-		connection.ping();
+		JBossSAPCciConnection connection = null;
+		try {
+			log.info("Testing Simple Interaction");
+			assertNotNull("Failed to access connection factory 'CciTestsFactory'", connectionFactory);
+			connection = (JBossSAPCciConnection) connectionFactory.getConnection();
+			assertNotNull("Failed to create connection", connection);
+			connection.ping();
 
-		Interaction interaction = connection.createInteraction();
-		JBossSAPInteractionSpec interactionSpec = new JBossSAPInteractionSpec();
-		interactionSpec.setFunctionName("STFC_CONNECTION");
-		MappedRecord input = RecordFactoryImpl.INSTANCE.createMappedRecord("input");
-		input.put(REQUTEXT_PARAM, REQUTEXT);
-		MappedRecord output = RecordFactoryImpl.INSTANCE.createMappedRecord("output");
-		assertTrue("Simple Interaction Execution Failed", interaction.execute(interactionSpec, input, output));
-		String echoText = (String) output.get(ECHOTEXT_PARAM);
-		assertEquals("Echoed text does not match request text", REQUTEXT, echoText);
+			Interaction interaction = connection.createInteraction();
+			JBossSAPInteractionSpec interactionSpec = new JBossSAPInteractionSpec();
+			interactionSpec.setFunctionName("STFC_CONNECTION");
+			MappedRecord input = RecordFactoryImpl.INSTANCE.createMappedRecord("input");
+			input.put(REQUTEXT_PARAM, REQUTEXT);
+			MappedRecord output = RecordFactoryImpl.INSTANCE.createMappedRecord("output");
+			assertTrue("Simple Interaction Execution Failed", interaction.execute(interactionSpec, input, output));
+			String echoText = (String) output.get(ECHOTEXT_PARAM);
+			assertEquals("Echoed text does not match request text", REQUTEXT, echoText);
 
-		connection.close();
+		} finally {
+			if (connection != null)
+				connection.close();
+		}
 	}
-	
+
 	/**
 	 * Tests sending and receiving parameters of variety of types to and from ABAP function module through Import,
 	 * Export, Changing and Table parameter lists.
@@ -238,245 +248,254 @@ public class CciTests {
 	 */
 	@Test
 	public void testParameterPassing() throws Throwable {
-		log.info("Testing Parameter Passing");
-		assertNotNull("Failed to access connection factory 'CciTestsFactory'", connectionFactory);
-		JBossSAPCciConnection connection = (JBossSAPCciConnection) connectionFactory.getConnection();
-		assertNotNull("Failed to create connection", connection);
-		connection.ping();
+		JBossSAPCciConnection connection = null;
+		try {
+			log.info("Testing Parameter Passing");
+			assertNotNull("Failed to access connection factory 'CciTestsFactory'", connectionFactory);
+			connection = (JBossSAPCciConnection) connectionFactory.getConnection();
+			assertNotNull("Failed to create connection", connection);
+			connection.ping();
 
-		//
-		// Create interaction to invoke ZJBOSS_PARAM_TEST function module.
-		//
+			//
+			// Create interaction to invoke ZJBOSS_PARAM_TEST function module.
+			//
 
-		Interaction interaction = connection.createInteraction();
-		JBossSAPInteractionSpec interactionSpec = new JBossSAPInteractionSpec();
-		interactionSpec.setFunctionName("ZJBOSS_PARAM_TEST");
+			Interaction interaction = connection.createInteraction();
+			JBossSAPInteractionSpec interactionSpec = new JBossSAPInteractionSpec();
+			interactionSpec.setFunctionName("ZJBOSS_PARAM_TEST");
 
-		//
-		// Create input record to pass parameters to function module.
-		//
+			//
+			// Create input record to pass parameters to function module.
+			//
 
-		MappedRecord input = connectionFactory.getRecordFactory().createMappedRecord("input");
+			MappedRecord input = connectionFactory.getRecordFactory().createMappedRecord("input");
 
-		//
-		// Populate input record with import and changing parameters.
-		//
+			//
+			// Populate input record with import and changing parameters.
+			//
 
-		input.put(IMPORT_CHAR_PARAM, CHAR_PARAM_VAL);
-		input.put(IMPORT_NUM_PARAM, NUM_PARAM_VAL);
-		input.put(IMPORT_INT_PARAM, INT_PARAM_VAL);
-		input.put(IMPORT_FLOAT_PARAM, FLOAT_PARAM_VAL);
-		input.put(IMPORT_BCD_PARAM, BCD_PARAM_VAL);
-		input.put(IMPORT_BINARY_PARAM, BINARY_PARAM_VAL);
-		input.put(IMPORT_BINARY_ARRAY_PARAM, BINARY_ARRAY_PARAM_VAL);
-		input.put(IMPORT_DATE_PARAM, DATE_PARAM_VAL);
-		input.put(IMPORT_TIME_PARAM, TIME_PARAM_VAL);
-		input.put(IMPORT_STRING_PARAM, STRING_PARAM_VAL);
-		input.put(CHANGING_CHAR_PARAM, CHAR_PARAM_VAL);
-		input.put(CHANGING_NUM_PARAM, NUM_PARAM_VAL);
-		input.put(CHANGING_INT_PARAM, INT_PARAM_VAL);
-		input.put(CHANGING_FLOAT_PARAM, FLOAT_PARAM_VAL);
-		input.put(CHANGING_BCD_PARAM, BCD_PARAM_VAL);
-		input.put(CHANGING_BINARY_PARAM, BINARY_PARAM_VAL);
-		input.put(CHANGING_BINARY_ARRAY_PARAM, BINARY_ARRAY_PARAM_VAL);
-		input.put(CHANGING_DATE_PARAM, DATE_PARAM_VAL);
-		input.put(CHANGING_TIME_PARAM, TIME_PARAM_VAL);
-		input.put(CHANGING_STRING_PARAM, STRING_PARAM_VAL);
+			input.put(IMPORT_CHAR_PARAM, CHAR_PARAM_VAL);
+			input.put(IMPORT_NUM_PARAM, NUM_PARAM_VAL);
+			input.put(IMPORT_INT_PARAM, INT_PARAM_VAL);
+			input.put(IMPORT_FLOAT_PARAM, FLOAT_PARAM_VAL);
+			input.put(IMPORT_BCD_PARAM, BCD_PARAM_VAL);
+			input.put(IMPORT_BINARY_PARAM, BINARY_PARAM_VAL);
+			input.put(IMPORT_BINARY_ARRAY_PARAM, BINARY_ARRAY_PARAM_VAL);
+			input.put(IMPORT_DATE_PARAM, DATE_PARAM_VAL);
+			input.put(IMPORT_TIME_PARAM, TIME_PARAM_VAL);
+			input.put(IMPORT_STRING_PARAM, STRING_PARAM_VAL);
+			input.put(CHANGING_CHAR_PARAM, CHAR_PARAM_VAL);
+			input.put(CHANGING_NUM_PARAM, NUM_PARAM_VAL);
+			input.put(CHANGING_INT_PARAM, INT_PARAM_VAL);
+			input.put(CHANGING_FLOAT_PARAM, FLOAT_PARAM_VAL);
+			input.put(CHANGING_BCD_PARAM, BCD_PARAM_VAL);
+			input.put(CHANGING_BINARY_PARAM, BINARY_PARAM_VAL);
+			input.put(CHANGING_BINARY_ARRAY_PARAM, BINARY_ARRAY_PARAM_VAL);
+			input.put(CHANGING_DATE_PARAM, DATE_PARAM_VAL);
+			input.put(CHANGING_TIME_PARAM, TIME_PARAM_VAL);
+			input.put(CHANGING_STRING_PARAM, STRING_PARAM_VAL);
 
-		// Create embedded import structure, populate and add to input record.
-		MappedRecord importStructureParam = RecordFactoryImpl.INSTANCE.createMappedRecord(IMPORT_STRUCTURE_PARAM);
-		importStructureParam.put(CHAR_PARAM, CHAR_PARAM_VAL);
-		importStructureParam.put(NUM_PARAM, NUM_PARAM_VAL);
-		importStructureParam.put(INT_PARAM, INT_PARAM_VAL);
-		importStructureParam.put(FLOAT_PARAM, FLOAT_PARAM_VAL);
-		importStructureParam.put(BCD_PARAM, BCD_PARAM_VAL);
-		importStructureParam.put(BINARY_PARAM, BINARY_PARAM_VAL);
-		importStructureParam.put(BINARY_ARRAY_PARAM, BINARY_ARRAY_PARAM_VAL);
-		importStructureParam.put(DATE_PARAM, DATE_PARAM_VAL);
-		importStructureParam.put(TIME_PARAM, TIME_PARAM_VAL);
-		importStructureParam.put(STRING_PARAM, STRING_PARAM_VAL);
-		input.put(IMPORT_STRUCTURE_PARAM, importStructureParam);
+			// Create embedded import structure, populate and add to input record.
+			MappedRecord importStructureParam = RecordFactoryImpl.INSTANCE.createMappedRecord(IMPORT_STRUCTURE_PARAM);
+			importStructureParam.put(CHAR_PARAM, CHAR_PARAM_VAL);
+			importStructureParam.put(NUM_PARAM, NUM_PARAM_VAL);
+			importStructureParam.put(INT_PARAM, INT_PARAM_VAL);
+			importStructureParam.put(FLOAT_PARAM, FLOAT_PARAM_VAL);
+			importStructureParam.put(BCD_PARAM, BCD_PARAM_VAL);
+			importStructureParam.put(BINARY_PARAM, BINARY_PARAM_VAL);
+			importStructureParam.put(BINARY_ARRAY_PARAM, BINARY_ARRAY_PARAM_VAL);
+			importStructureParam.put(DATE_PARAM, DATE_PARAM_VAL);
+			importStructureParam.put(TIME_PARAM, TIME_PARAM_VAL);
+			importStructureParam.put(STRING_PARAM, STRING_PARAM_VAL);
+			input.put(IMPORT_STRUCTURE_PARAM, importStructureParam);
 
-		// Create embedded changing structure, populate and add to input record.
-		MappedRecord changingStructureParam = RecordFactoryImpl.INSTANCE
-				.createMappedRecord(CHANGING_STRUCTURE_PARAM);
-		changingStructureParam.put(CHAR_PARAM, CHAR_PARAM_VAL);
-		changingStructureParam.put(NUM_PARAM, NUM_PARAM_VAL);
-		changingStructureParam.put(INT_PARAM, INT_PARAM_VAL);
-		changingStructureParam.put(FLOAT_PARAM, FLOAT_PARAM_VAL);
-		changingStructureParam.put(BCD_PARAM, BCD_PARAM_VAL);
-		changingStructureParam.put(BINARY_PARAM, BINARY_PARAM_VAL);
-		changingStructureParam.put(BINARY_ARRAY_PARAM, BINARY_ARRAY_PARAM_VAL);
-		changingStructureParam.put(DATE_PARAM, DATE_PARAM_VAL);
-		changingStructureParam.put(TIME_PARAM, TIME_PARAM_VAL);
-		changingStructureParam.put(STRING_PARAM, STRING_PARAM_VAL);
-		input.put(CHANGING_STRUCTURE_PARAM, importStructureParam);
+			// Create embedded changing structure, populate and add to input record.
+			MappedRecord changingStructureParam = RecordFactoryImpl.INSTANCE
+					.createMappedRecord(CHANGING_STRUCTURE_PARAM);
+			changingStructureParam.put(CHAR_PARAM, CHAR_PARAM_VAL);
+			changingStructureParam.put(NUM_PARAM, NUM_PARAM_VAL);
+			changingStructureParam.put(INT_PARAM, INT_PARAM_VAL);
+			changingStructureParam.put(FLOAT_PARAM, FLOAT_PARAM_VAL);
+			changingStructureParam.put(BCD_PARAM, BCD_PARAM_VAL);
+			changingStructureParam.put(BINARY_PARAM, BINARY_PARAM_VAL);
+			changingStructureParam.put(BINARY_ARRAY_PARAM, BINARY_ARRAY_PARAM_VAL);
+			changingStructureParam.put(DATE_PARAM, DATE_PARAM_VAL);
+			changingStructureParam.put(TIME_PARAM, TIME_PARAM_VAL);
+			changingStructureParam.put(STRING_PARAM, STRING_PARAM_VAL);
+			input.put(CHANGING_STRUCTURE_PARAM, importStructureParam);
 
-		//
-		// Populate input record with table parameters
-		//
+			//
+			// Populate input record with table parameters
+			//
 
-		IndexedRecord tableTableParam = RecordFactoryImpl.INSTANCE.createIndexedRecord(TABLE_TABLE_PARAM);
-		MappedRecord tableTableRowParam = RecordFactoryImpl.INSTANCE.createMappedRecord(TABLE_TABLE_PARAM);
-		tableTableRowParam.put(CHAR_PARAM, CHAR_PARAM_VAL);
-		tableTableRowParam.put(NUM_PARAM, NUM_PARAM_VAL);
-		tableTableRowParam.put(INT_PARAM, INT_PARAM_VAL);
-		tableTableRowParam.put(FLOAT_PARAM, FLOAT_PARAM_VAL);
-		tableTableRowParam.put(BCD_PARAM, BCD_PARAM_VAL);
-		tableTableRowParam.put(BINARY_PARAM, BINARY_PARAM_VAL);
-		tableTableRowParam.put(BINARY_ARRAY_PARAM, BINARY_ARRAY_PARAM_VAL);
-		tableTableRowParam.put(DATE_PARAM, DATE_PARAM_VAL);
-		tableTableRowParam.put(TIME_PARAM, TIME_PARAM_VAL);
-		tableTableParam.add(tableTableRowParam);
-		input.put(TABLE_TABLE_PARAM, tableTableParam);
+			IndexedRecord tableTableParam = RecordFactoryImpl.INSTANCE.createIndexedRecord(TABLE_TABLE_PARAM);
+			MappedRecord tableTableRowParam = RecordFactoryImpl.INSTANCE.createMappedRecord(TABLE_TABLE_PARAM);
+			tableTableRowParam.put(CHAR_PARAM, CHAR_PARAM_VAL);
+			tableTableRowParam.put(NUM_PARAM, NUM_PARAM_VAL);
+			tableTableRowParam.put(INT_PARAM, INT_PARAM_VAL);
+			tableTableRowParam.put(FLOAT_PARAM, FLOAT_PARAM_VAL);
+			tableTableRowParam.put(BCD_PARAM, BCD_PARAM_VAL);
+			tableTableRowParam.put(BINARY_PARAM, BINARY_PARAM_VAL);
+			tableTableRowParam.put(BINARY_ARRAY_PARAM, BINARY_ARRAY_PARAM_VAL);
+			tableTableRowParam.put(DATE_PARAM, DATE_PARAM_VAL);
+			tableTableRowParam.put(TIME_PARAM, TIME_PARAM_VAL);
+			tableTableParam.add(tableTableRowParam);
+			input.put(TABLE_TABLE_PARAM, tableTableParam);
 
-		//
-		// Create output record and execute interaction.
-		//
+			//
+			// Create output record and execute interaction.
+			//
 
-		MappedRecord output = connectionFactory.getRecordFactory().createMappedRecord("output");
-		assertTrue("ZJBOSS_PARAM_TEST failed", interaction.execute(interactionSpec, input, output));
+			MappedRecord output = connectionFactory.getRecordFactory().createMappedRecord("output");
+			assertTrue("ZJBOSS_PARAM_TEST failed", interaction.execute(interactionSpec, input, output));
 
-		//
-		// Extract export parameters and test return values
-		//
+			//
+			// Extract export parameters and test return values
+			//
 
-		String exportCharParam = (String) output.get(EXPORT_CHAR_PARAM);
-		assertEquals("Exported CHAR parameter does not match import", CHAR_PARAM_VAL, exportCharParam);
-		String exportNumParam = (String) output.get(EXPORT_NUM_PARAM);
-		assertEquals("Exported NUM parameter does not match import", NUM_PARAM_VAL, exportNumParam);
-		int exportIntParam = (Integer) output.get(EXPORT_INT_PARAM);
-		assertEquals("Exported INT parameter does not match import", INT_PARAM_VAL, exportIntParam);
-		double exportFloatParam = (Double) output.get(EXPORT_FLOAT_PARAM);
-		assertEquals("Exported FLOAT parameter does not match import", FLOAT_PARAM_VAL, exportFloatParam,
-				FLOAT_PARAM_DELTA_VALUE);
-		BigDecimal exportBcdParam = (BigDecimal) output.get(EXPORT_BCD_PARAM);
-		assertEquals("Exported BCD parameter does not match import", BCD_PARAM_VAL, exportBcdParam);
-		byte[] exportBinaryParam = (byte[]) output.get(EXPORT_BINARY_PARAM);
-		assertArrayEquals("Exported BINARY parameter does not match import", BINARY_PARAM_VAL, exportBinaryParam);
-		byte[] exportBinaryArrayParam = (byte[]) output.get(EXPORT_BINARY_ARRAY_PARAM);
-		assertArrayEquals("Exported BINARY ARRAY parameter does not match import", BINARY_ARRAY_PARAM_VAL,
-				exportBinaryArrayParam);
-		Date exportDateParam = (Date) output.get(EXPORT_DATE_PARAM);
-		assertEquals("Exported DATE parameter does not match import", DATE_PARAM_VAL, exportDateParam);
-		Date exportTimeParam = (Date) output.get(EXPORT_TIME_PARAM);
-		assertEquals("Exported TIME parameter does not match import", TIME_PARAM_VAL, exportTimeParam);
-		String exportStringParam = (String) output.get(EXPORT_STRING_PARAM);
-		assertEquals("Exported STRING parameter does not match import", STRING_PARAM_VAL, exportStringParam);
+			String exportCharParam = (String) output.get(EXPORT_CHAR_PARAM);
+			assertEquals("Exported CHAR parameter does not match import", CHAR_PARAM_VAL, exportCharParam);
+			String exportNumParam = (String) output.get(EXPORT_NUM_PARAM);
+			assertEquals("Exported NUM parameter does not match import", NUM_PARAM_VAL, exportNumParam);
+			int exportIntParam = (Integer) output.get(EXPORT_INT_PARAM);
+			assertEquals("Exported INT parameter does not match import", INT_PARAM_VAL, exportIntParam);
+			double exportFloatParam = (Double) output.get(EXPORT_FLOAT_PARAM);
+			assertEquals("Exported FLOAT parameter does not match import", FLOAT_PARAM_VAL, exportFloatParam,
+					FLOAT_PARAM_DELTA_VALUE);
+			BigDecimal exportBcdParam = (BigDecimal) output.get(EXPORT_BCD_PARAM);
+			assertEquals("Exported BCD parameter does not match import", BCD_PARAM_VAL, exportBcdParam);
+			byte[] exportBinaryParam = (byte[]) output.get(EXPORT_BINARY_PARAM);
+			assertArrayEquals("Exported BINARY parameter does not match import", BINARY_PARAM_VAL, exportBinaryParam);
+			byte[] exportBinaryArrayParam = (byte[]) output.get(EXPORT_BINARY_ARRAY_PARAM);
+			assertArrayEquals("Exported BINARY ARRAY parameter does not match import", BINARY_ARRAY_PARAM_VAL,
+					exportBinaryArrayParam);
+			Date exportDateParam = (Date) output.get(EXPORT_DATE_PARAM);
+			assertEquals("Exported DATE parameter does not match import", DATE_PARAM_VAL, exportDateParam);
+			Date exportTimeParam = (Date) output.get(EXPORT_TIME_PARAM);
+			assertEquals("Exported TIME parameter does not match import", TIME_PARAM_VAL, exportTimeParam);
+			String exportStringParam = (String) output.get(EXPORT_STRING_PARAM);
+			assertEquals("Exported STRING parameter does not match import", STRING_PARAM_VAL, exportStringParam);
 
-		MappedRecord exportStructureParam = (MappedRecord) output.get(EXPORT_STRUCTURE_PARAM);
-		String charParam = (String) exportStructureParam.get(CHAR_PARAM);
-		assertEquals("Exported Structure CHAR parameter does not match import", CHAR_PARAM_VAL, charParam);
-		String numParam = (String) exportStructureParam.get(NUM_PARAM);
-		assertEquals("Exported Structure NUM parameter does not match import", NUM_PARAM_VAL, numParam);
-		int intParam = (Integer) exportStructureParam.get(INT_PARAM);
-		assertEquals("Exported Structure INT parameter does not match import", INT_PARAM_VAL, intParam);
-		double floatParam = (Double) exportStructureParam.get(FLOAT_PARAM);
-		assertEquals("Exported Structure FLOAT parameter does not match import", FLOAT_PARAM_VAL, floatParam,
-				FLOAT_PARAM_DELTA_VALUE);
-		BigDecimal bcdParam = (BigDecimal) exportStructureParam.get(BCD_PARAM);
-		assertEquals("Exported Structure BCD parameter does not match import", BCD_PARAM_VAL, bcdParam);
-		byte[] binaryParam = (byte[]) exportStructureParam.get(BINARY_PARAM);
-		assertArrayEquals("Exported Structure BINARY parameter does not match import", BINARY_PARAM_VAL, binaryParam);
-		byte[] binaryArrayParam = (byte[]) exportStructureParam.get(BINARY_ARRAY_PARAM);
-		assertArrayEquals("Exported Structure BINARY ARRAY parameter does not match import", BINARY_ARRAY_PARAM_VAL,
-				binaryArrayParam);
-		Date dateParam = (Date) exportStructureParam.get(DATE_PARAM);
-		assertEquals("Exported Structure DATE parameter does not match import", DATE_PARAM_VAL, dateParam);
-		Date timeParam = (Date) exportStructureParam.get(TIME_PARAM);
-		assertEquals("Exported Structure TIME parameter does not match import", TIME_PARAM_VAL, timeParam);
-		String stringParam = (String) exportStructureParam.get(STRING_PARAM);
-		assertEquals("Exported Structure STRING parameter does not match import", STRING_PARAM_VAL, stringParam);
+			MappedRecord exportStructureParam = (MappedRecord) output.get(EXPORT_STRUCTURE_PARAM);
+			String charParam = (String) exportStructureParam.get(CHAR_PARAM);
+			assertEquals("Exported Structure CHAR parameter does not match import", CHAR_PARAM_VAL, charParam);
+			String numParam = (String) exportStructureParam.get(NUM_PARAM);
+			assertEquals("Exported Structure NUM parameter does not match import", NUM_PARAM_VAL, numParam);
+			int intParam = (Integer) exportStructureParam.get(INT_PARAM);
+			assertEquals("Exported Structure INT parameter does not match import", INT_PARAM_VAL, intParam);
+			double floatParam = (Double) exportStructureParam.get(FLOAT_PARAM);
+			assertEquals("Exported Structure FLOAT parameter does not match import", FLOAT_PARAM_VAL, floatParam,
+					FLOAT_PARAM_DELTA_VALUE);
+			BigDecimal bcdParam = (BigDecimal) exportStructureParam.get(BCD_PARAM);
+			assertEquals("Exported Structure BCD parameter does not match import", BCD_PARAM_VAL, bcdParam);
+			byte[] binaryParam = (byte[]) exportStructureParam.get(BINARY_PARAM);
+			assertArrayEquals("Exported Structure BINARY parameter does not match import", BINARY_PARAM_VAL,
+					binaryParam);
+			byte[] binaryArrayParam = (byte[]) exportStructureParam.get(BINARY_ARRAY_PARAM);
+			assertArrayEquals("Exported Structure BINARY ARRAY parameter does not match import",
+					BINARY_ARRAY_PARAM_VAL, binaryArrayParam);
+			Date dateParam = (Date) exportStructureParam.get(DATE_PARAM);
+			assertEquals("Exported Structure DATE parameter does not match import", DATE_PARAM_VAL, dateParam);
+			Date timeParam = (Date) exportStructureParam.get(TIME_PARAM);
+			assertEquals("Exported Structure TIME parameter does not match import", TIME_PARAM_VAL, timeParam);
+			String stringParam = (String) exportStructureParam.get(STRING_PARAM);
+			assertEquals("Exported Structure STRING parameter does not match import", STRING_PARAM_VAL, stringParam);
 
-		//
-		// Extract changing parameters and test return values
-		//
+			//
+			// Extract changing parameters and test return values
+			//
 
-		String changingCharParam = (String) output.get(CHANGING_CHAR_PARAM);
-		assertEquals("Changing CHAR parameter does not match expected return value", CHAR_PARAM_RETURN,
-				changingCharParam);
-		String changingNumParam = (String) output.get(CHANGING_NUM_PARAM);
-		assertEquals("Changing NUM parameter does not match expected return value", NUM_PARAM_RETURN, changingNumParam);
-		int changingIntParam = (Integer) output.get(CHANGING_INT_PARAM);
-		assertEquals("Changing INT parameter does not match expected", INT_PARAM_RETURN, changingIntParam);
-		double changingFloatParam = (Double) output.get(CHANGING_FLOAT_PARAM);
-		assertEquals("Changing FLOAT parameter does not match expected return value", FLOAT_PARAM_RETURN,
-				changingFloatParam, FLOAT_PARAM_DELTA_VALUE);
-		BigDecimal changingBcdParam = (BigDecimal) output.get(CHANGING_BCD_PARAM);
-		assertEquals("Changing BCD parameter does not match expected return value", BCD_PARAM_RETURN, changingBcdParam);
-		byte[] changingBinaryParam = (byte[]) output.get(CHANGING_BINARY_PARAM);
-		assertArrayEquals("Changing BINARY parameter does not match expected return value", BINARY_PARAM_RETURN,
-				changingBinaryParam);
-		byte[] changingBinaryArrayParam = (byte[]) output.get(CHANGING_BINARY_ARRAY_PARAM);
-		assertArrayEquals("Changing BINARY ARRAY parameter does not match expected return value",
-				BINARY_ARRAY_PARAM_RETURN, changingBinaryArrayParam);
-		Date changingDateParam = (Date) output.get(CHANGING_DATE_PARAM);
-		assertEquals("Changing DATE parameter does not match expected return value", DATE_PARAM_RETURN,
-				changingDateParam);
-		Date changingTimeParam = (Date) output.get(CHANGING_TIME_PARAM);
-		assertEquals("Changing TIME parameter does not match expected return value", TIME_PARAM_RETURN,
-				changingTimeParam);
-		String changingStringParam = (String) output.get(CHANGING_STRING_PARAM);
-		assertEquals("Changing STRING parameter does not match expected return value", STRING_PARAM_RETURN,
-				changingStringParam);
+			String changingCharParam = (String) output.get(CHANGING_CHAR_PARAM);
+			assertEquals("Changing CHAR parameter does not match expected return value", CHAR_PARAM_RETURN,
+					changingCharParam);
+			String changingNumParam = (String) output.get(CHANGING_NUM_PARAM);
+			assertEquals("Changing NUM parameter does not match expected return value", NUM_PARAM_RETURN,
+					changingNumParam);
+			int changingIntParam = (Integer) output.get(CHANGING_INT_PARAM);
+			assertEquals("Changing INT parameter does not match expected", INT_PARAM_RETURN, changingIntParam);
+			double changingFloatParam = (Double) output.get(CHANGING_FLOAT_PARAM);
+			assertEquals("Changing FLOAT parameter does not match expected return value", FLOAT_PARAM_RETURN,
+					changingFloatParam, FLOAT_PARAM_DELTA_VALUE);
+			BigDecimal changingBcdParam = (BigDecimal) output.get(CHANGING_BCD_PARAM);
+			assertEquals("Changing BCD parameter does not match expected return value", BCD_PARAM_RETURN,
+					changingBcdParam);
+			byte[] changingBinaryParam = (byte[]) output.get(CHANGING_BINARY_PARAM);
+			assertArrayEquals("Changing BINARY parameter does not match expected return value", BINARY_PARAM_RETURN,
+					changingBinaryParam);
+			byte[] changingBinaryArrayParam = (byte[]) output.get(CHANGING_BINARY_ARRAY_PARAM);
+			assertArrayEquals("Changing BINARY ARRAY parameter does not match expected return value",
+					BINARY_ARRAY_PARAM_RETURN, changingBinaryArrayParam);
+			Date changingDateParam = (Date) output.get(CHANGING_DATE_PARAM);
+			assertEquals("Changing DATE parameter does not match expected return value", DATE_PARAM_RETURN,
+					changingDateParam);
+			Date changingTimeParam = (Date) output.get(CHANGING_TIME_PARAM);
+			assertEquals("Changing TIME parameter does not match expected return value", TIME_PARAM_RETURN,
+					changingTimeParam);
+			String changingStringParam = (String) output.get(CHANGING_STRING_PARAM);
+			assertEquals("Changing STRING parameter does not match expected return value", STRING_PARAM_RETURN,
+					changingStringParam);
 
-		changingStructureParam = (MappedRecord) output.get(CHANGING_STRUCTURE_PARAM);
-		charParam = (String) changingStructureParam.get(CHAR_PARAM);
-		assertEquals("Changing Structure CHAR parameter does not match expected return value", CHAR_PARAM_RETURN,
-				charParam);
-		numParam = (String) changingStructureParam.get(NUM_PARAM);
-		assertEquals("Changing Structure NUM parameter does not match expected return value", NUM_PARAM_RETURN,
-				numParam);
-		intParam = (Integer) changingStructureParam.get(INT_PARAM);
-		assertEquals("Changing Structure INT parameter does not match expected return value", INT_PARAM_RETURN,
-				intParam);
-		floatParam = (Double) changingStructureParam.get(FLOAT_PARAM);
-		assertEquals("Changing Structure FLOAT parameter does not match expected return value", FLOAT_PARAM_RETURN,
-				floatParam, FLOAT_PARAM_DELTA_VALUE);
-		bcdParam = (BigDecimal) changingStructureParam.get(BCD_PARAM);
-		assertEquals("Changing Structure BCD parameter does not match expected return value", BCD_PARAM_RETURN,
-				bcdParam);
-		binaryParam = (byte[]) changingStructureParam.get(BINARY_PARAM);
-		assertArrayEquals("Changing Structure BINARY parameter does not match expected return value",
-				BINARY_PARAM_RETURN, binaryParam);
-		binaryArrayParam = (byte[]) changingStructureParam.get(BINARY_ARRAY_PARAM);
-		assertArrayEquals("Changing Structure BINARY ARRAY parameter does not match expected return value",
-				BINARY_ARRAY_PARAM_RETURN, binaryArrayParam);
-		dateParam = (Date) changingStructureParam.get(DATE_PARAM);
-		assertEquals("Changing Structure DATE parameter does not match expected return value", DATE_PARAM_RETURN,
-				dateParam);
-		timeParam = (Date) changingStructureParam.get(TIME_PARAM);
-		assertEquals("Changing Structure TIME parameter does not match expected return value", TIME_PARAM_RETURN,
-				timeParam);
+			changingStructureParam = (MappedRecord) output.get(CHANGING_STRUCTURE_PARAM);
+			charParam = (String) changingStructureParam.get(CHAR_PARAM);
+			assertEquals("Changing Structure CHAR parameter does not match expected return value", CHAR_PARAM_RETURN,
+					charParam);
+			numParam = (String) changingStructureParam.get(NUM_PARAM);
+			assertEquals("Changing Structure NUM parameter does not match expected return value", NUM_PARAM_RETURN,
+					numParam);
+			intParam = (Integer) changingStructureParam.get(INT_PARAM);
+			assertEquals("Changing Structure INT parameter does not match expected return value", INT_PARAM_RETURN,
+					intParam);
+			floatParam = (Double) changingStructureParam.get(FLOAT_PARAM);
+			assertEquals("Changing Structure FLOAT parameter does not match expected return value", FLOAT_PARAM_RETURN,
+					floatParam, FLOAT_PARAM_DELTA_VALUE);
+			bcdParam = (BigDecimal) changingStructureParam.get(BCD_PARAM);
+			assertEquals("Changing Structure BCD parameter does not match expected return value", BCD_PARAM_RETURN,
+					bcdParam);
+			binaryParam = (byte[]) changingStructureParam.get(BINARY_PARAM);
+			assertArrayEquals("Changing Structure BINARY parameter does not match expected return value",
+					BINARY_PARAM_RETURN, binaryParam);
+			binaryArrayParam = (byte[]) changingStructureParam.get(BINARY_ARRAY_PARAM);
+			assertArrayEquals("Changing Structure BINARY ARRAY parameter does not match expected return value",
+					BINARY_ARRAY_PARAM_RETURN, binaryArrayParam);
+			dateParam = (Date) changingStructureParam.get(DATE_PARAM);
+			assertEquals("Changing Structure DATE parameter does not match expected return value", DATE_PARAM_RETURN,
+					dateParam);
+			timeParam = (Date) changingStructureParam.get(TIME_PARAM);
+			assertEquals("Changing Structure TIME parameter does not match expected return value", TIME_PARAM_RETURN,
+					timeParam);
 
-		//
-		// Extract table parameters and test return values
-		//
+			//
+			// Extract table parameters and test return values
+			//
 
-		tableTableParam = (IndexedRecord) output.get(TABLE_TABLE_PARAM);
-		assertNotNull("Table missing in output", tableTableParam);
-		assertTrue("Table missing isEmpty", tableTableParam.size() > 0);
-		tableTableRowParam = (MappedRecord) tableTableParam.get(0);
-		charParam = (String) tableTableRowParam.get(CHAR_PARAM);
-		assertEquals("Table CHAR parameter does not match expected return", CHAR_PARAM_RETURN, charParam);
-		numParam = (String) tableTableRowParam.get(NUM_PARAM);
-		assertEquals("Table NUM parameter does not match expected return", NUM_PARAM_RETURN, numParam);
-		intParam = (Integer) tableTableRowParam.get(INT_PARAM);
-		assertEquals("Table INT parameter does not match expected return", INT_PARAM_RETURN, intParam);
-		floatParam = (Double) tableTableRowParam.get(FLOAT_PARAM);
-		assertEquals("Table FLOAT parameter does not match expected return", FLOAT_PARAM_RETURN, floatParam,
-				FLOAT_PARAM_DELTA_VALUE);
-		bcdParam = (BigDecimal) tableTableRowParam.get(BCD_PARAM);
-		assertEquals("Table BCD parameter does not match expected return", BCD_PARAM_RETURN, bcdParam);
-		binaryParam = (byte[]) tableTableRowParam.get(BINARY_PARAM);
-		assertArrayEquals("Table BINARY parameter does not match expected return", BINARY_PARAM_RETURN, binaryParam);
-		binaryArrayParam = (byte[]) tableTableRowParam.get(BINARY_ARRAY_PARAM);
-		assertArrayEquals("Table BINARY ARRAY parameter does not match expected return", BINARY_ARRAY_PARAM_RETURN,
-				binaryArrayParam);
-		dateParam = (Date) tableTableRowParam.get(DATE_PARAM);
-		assertEquals("Table DATE parameter does not match expected return", DATE_PARAM_RETURN, dateParam);
-		timeParam = (Date) tableTableRowParam.get(TIME_PARAM);
-		assertEquals("Table TIME parameter does not match expected return", TIME_PARAM_RETURN, timeParam);
+			tableTableParam = (IndexedRecord) output.get(TABLE_TABLE_PARAM);
+			assertNotNull("Table missing in output", tableTableParam);
+			assertTrue("Table missing isEmpty", tableTableParam.size() > 0);
+			tableTableRowParam = (MappedRecord) tableTableParam.get(0);
+			charParam = (String) tableTableRowParam.get(CHAR_PARAM);
+			assertEquals("Table CHAR parameter does not match expected return", CHAR_PARAM_RETURN, charParam);
+			numParam = (String) tableTableRowParam.get(NUM_PARAM);
+			assertEquals("Table NUM parameter does not match expected return", NUM_PARAM_RETURN, numParam);
+			intParam = (Integer) tableTableRowParam.get(INT_PARAM);
+			assertEquals("Table INT parameter does not match expected return", INT_PARAM_RETURN, intParam);
+			floatParam = (Double) tableTableRowParam.get(FLOAT_PARAM);
+			assertEquals("Table FLOAT parameter does not match expected return", FLOAT_PARAM_RETURN, floatParam,
+					FLOAT_PARAM_DELTA_VALUE);
+			bcdParam = (BigDecimal) tableTableRowParam.get(BCD_PARAM);
+			assertEquals("Table BCD parameter does not match expected return", BCD_PARAM_RETURN, bcdParam);
+			binaryParam = (byte[]) tableTableRowParam.get(BINARY_PARAM);
+			assertArrayEquals("Table BINARY parameter does not match expected return", BINARY_PARAM_RETURN, binaryParam);
+			binaryArrayParam = (byte[]) tableTableRowParam.get(BINARY_ARRAY_PARAM);
+			assertArrayEquals("Table BINARY ARRAY parameter does not match expected return", BINARY_ARRAY_PARAM_RETURN,
+					binaryArrayParam);
+			dateParam = (Date) tableTableRowParam.get(DATE_PARAM);
+			assertEquals("Table DATE parameter does not match expected return", DATE_PARAM_RETURN, dateParam);
+			timeParam = (Date) tableTableRowParam.get(TIME_PARAM);
+			assertEquals("Table TIME parameter does not match expected return", TIME_PARAM_RETURN, timeParam);
+		} finally {
+			if (connection != null)
+				connection.close();
+		}
 
 	}
 

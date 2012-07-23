@@ -31,7 +31,7 @@
   
   <connection-definitions>
     <connection-definition class-name="org.jboss.jca.adapters.sap.impl.ManagedConnectionFactoryImpl" jndi-name="java:/eis/CciTestsFactory" pool-name="JBossSAPCciConnectionFactory">
-    	<config-property name="ashost">vmwgw20</config-property>
+    	<config-property name="ashost">nplhost</config-property>
     	<config-property name="sysnr">42</config-property>
     	<config-property name="client">001</config-property>
     	<config-property name="user">developer</config-property>

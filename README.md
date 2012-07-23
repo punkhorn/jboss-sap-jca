@@ -97,7 +97,12 @@ To import the transport request into the SAP System:
 			* Function Groups
 				* `ZJBOSS_SAP_JCA_TEST_FG`
 					* Function Modules
+						* `ZJBOSS_GET_COUNTER`
+						* `ZJBOSS_INCREMENT_COUNTER`
 						* `ZJBOSS_PARAM_TEST`
+						* `ZJBOSS_SET_COUNTER`
+					* Fields
+						* `COUNT`
 					* Includes
 						* `LZJBOSS_SAP_JCA_TEST_FGTOP`
 						* `LZJBOSS_SAP_JCA_TEST_FGUXX`
