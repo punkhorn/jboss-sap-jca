@@ -40,7 +40,7 @@ import javax.resource.cci.MappedRecord;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.jca.adapters.sap.cci.JBossSAPCciConnection;
+import org.jboss.jca.adapters.sap.cci.JBossSAPConnection;
 import org.jboss.jca.adapters.sap.cci.JBossSAPInteractionSpec;
 import org.jboss.jca.adapters.sap.impl.RecordFactoryImpl;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -188,11 +188,11 @@ public class CciTests {
 	 */
 	@Test
 	public void testConnection() throws Throwable {
-		JBossSAPCciConnection connection = null;
+		JBossSAPConnection connection = null;
 		try {
 			log.info("Testing Connection");
 			assertNotNull("Failed to access connection factory 'CciTestsFactory'", connectionFactory);
-			connection = (JBossSAPCciConnection) connectionFactory.getConnection();
+			connection = (JBossSAPConnection) connectionFactory.getConnection();
 			assertNotNull("Failed to create connection", connection);
 			connection.ping();
 			log.info("Connection test succeeded!");
@@ -211,11 +211,11 @@ public class CciTests {
 	 */
 	@Test
 	public void testSimpleInteraction() throws Throwable {
-		JBossSAPCciConnection connection = null;
+		JBossSAPConnection connection = null;
 		try {
 			log.info("Testing Simple Interaction");
 			assertNotNull("Failed to access connection factory 'CciTestsFactory'", connectionFactory);
-			connection = (JBossSAPCciConnection) connectionFactory.getConnection();
+			connection = (JBossSAPConnection) connectionFactory.getConnection();
 			assertNotNull("Failed to create connection", connection);
 			connection.ping();
 
@@ -248,11 +248,11 @@ public class CciTests {
 	 */
 	@Test
 	public void testParameterPassing() throws Throwable {
-		JBossSAPCciConnection connection = null;
+		JBossSAPConnection connection = null;
 		try {
 			log.info("Testing Parameter Passing");
 			assertNotNull("Failed to access connection factory 'CciTestsFactory'", connectionFactory);
-			connection = (JBossSAPCciConnection) connectionFactory.getConnection();
+			connection = (JBossSAPConnection) connectionFactory.getConnection();
 			assertNotNull("Failed to create connection", connection);
 			connection.ping();
 

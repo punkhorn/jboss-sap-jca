@@ -284,7 +284,7 @@ bg=orange</panel_attributes>
       <w>230</w>
       <h>50</h>
     </coordinates>
-    <panel_attributes>JBossSAPCciConnection:
+    <panel_attributes>JBossSAPConnection:
 connection
 bg=orange</panel_attributes>
     <additional_attributes/>

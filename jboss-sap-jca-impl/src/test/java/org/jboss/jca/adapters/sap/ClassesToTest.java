@@ -24,7 +24,7 @@ package org.jboss.jca.adapters.sap;
 import org.jboss.jca.adapters.sap.cci.JBossSAPConnectionSpec;
 import org.jboss.jca.adapters.sap.cci.JBossSAPInteractionSpec;
 import org.jboss.jca.adapters.sap.impl.DestinationDataProviderImpl;
-import org.jboss.jca.adapters.sap.impl.CciConnectionImpl;
+import org.jboss.jca.adapters.sap.impl.ConnectionImpl;
 import org.jboss.jca.adapters.sap.impl.ConnectionMetaDataImpl;
 import org.jboss.jca.adapters.sap.impl.IndexedRecordImpl;
 import org.jboss.jca.adapters.sap.impl.InteractionImpl;
@@ -47,7 +47,7 @@ public interface ClassesToTest {
 	 * Specifies the list of classes archived in RARs used by unit tests
 	 */
 	public static final Class<?>[] CLASSES_TO_TEST = new Class[] { DestinationDataProviderImpl.class,
-			CciConnectionImpl.class, CciConnectionImpl.class, ConnectionMetaDataImpl.class,
+			ConnectionImpl.class, ConnectionImpl.class, ConnectionMetaDataImpl.class,
 			JBossSAPConnectionSpec.class, IndexedRecordImpl.class, InteractionImpl.class,
 			JBossSAPInteractionSpec.class, ManagedConnectionImpl.class, ManagedConnectionFactoryImpl.class,
 			MappedRecordImpl.class, RecordFactoryImpl.class, ResourceAdapterImpl.class,

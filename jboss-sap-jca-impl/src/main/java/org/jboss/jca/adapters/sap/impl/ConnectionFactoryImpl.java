@@ -39,7 +39,7 @@ import org.jboss.jca.adapters.sap.cci.JBossSAPConnectionSpec;
  * 
  * @version $Id: $
  */
-public class CciConnectionFactoryImpl implements ConnectionFactory {
+public class ConnectionFactoryImpl implements ConnectionFactory {
 	/**
 	 * 
 	 */
@@ -52,18 +52,18 @@ public class CciConnectionFactoryImpl implements ConnectionFactory {
 	private ConnectionManager connectionManager;
 
 	/**
-	 * Default constructor
+	 * Default constructor 
 	 */
-	public CciConnectionFactoryImpl() {
+	public ConnectionFactoryImpl() {
 	}
 
 	/**
-	 * Default constructor
+	 * 
 	 * 
 	 * @param connectionManager
 	 *            ConnectionManager
 	 */
-	public CciConnectionFactoryImpl(ManagedConnectionFactoryImpl managedConnectionFactory,
+	public ConnectionFactoryImpl(ManagedConnectionFactoryImpl managedConnectionFactory,
 			ConnectionManager connectionManager) {	/**
 		 * {@inheritDoc}
 		 */
@@ -75,8 +75,8 @@ public class CciConnectionFactoryImpl implements ConnectionFactory {
 	/**
 	 * {@inheritDoc}
 	 */
-	public CciConnectionImpl getConnection() throws ResourceException {
-		CciConnectionImpl newConnection = (CciConnectionImpl) connectionManager.allocateConnection(
+	public ConnectionImpl getConnection() throws ResourceException {
+		ConnectionImpl newConnection = (ConnectionImpl) connectionManager.allocateConnection(
 				managedConnectionFactory, null);
 		newConnection.setConnectionManager(connectionManager);
 
@@ -86,12 +86,12 @@ public class CciConnectionFactoryImpl implements ConnectionFactory {
 	/**
 	 * {@inheritDoc}
 	 */
-	public CciConnectionImpl getConnection(ConnectionSpec connectionSpec) throws ResourceException {
+	public ConnectionImpl getConnection(ConnectionSpec connectionSpec) throws ResourceException {
 		if (!(connectionSpec instanceof JBossSAPConnectionSpec))
 			throw new ResourceException("cci-connection-factory-impl-invalid-connection-spec-type");
 		JBossSAPConnectionSpec connectionRequestInfo = (JBossSAPConnectionSpec) connectionSpec;
 
-		CciConnectionImpl newConnection = (CciConnectionImpl) connectionManager.allocateConnection(
+		ConnectionImpl newConnection = (ConnectionImpl) connectionManager.allocateConnection(
 				managedConnectionFactory, connectionRequestInfo);
 		newConnection.setConnectionManager(connectionManager);
 
@@ -116,6 +116,8 @@ public class CciConnectionFactoryImpl implements ConnectionFactory {
 	 * {@inheritDoc}
 	 */
 	public Reference getReference() throws NamingException {
+		if (reference == null) 
+			throw new NamingException("cci-connection-factory-impl-reference-is-null");
 		return reference;
 	}
 

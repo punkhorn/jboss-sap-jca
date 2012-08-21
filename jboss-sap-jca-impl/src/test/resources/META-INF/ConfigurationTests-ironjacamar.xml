@@ -30,7 +30,16 @@
   <transaction-support>NoTransaction</transaction-support>
   
   <connection-definitions>
-    <connection-definition class-name="org.jboss.jca.adapters.sap.impl.ManagedConnectionFactoryImpl" jndi-name="java:/eis/ConfigurationTestsFactory" pool-name="JBossSAPCciConnectionFactory">
+    <connection-definition class-name="org.jboss.jca.adapters.sap.impl.ManagedConnectionFactoryImpl" jndi-name="java:/eis/ConfigurationTestsFactory" pool-name="JBossSAPConnectionFactory">
+    	<config-property name="ashost">nplhost</config-property>
+    	<config-property name="sysnr">42</config-property>
+    	<config-property name="client">001</config-property>
+    	<config-property name="user">developer</config-property>
+    	<config-property name="passwd">ch4ngeme</config-property>
+    	<config-property name="lang">en</config-property>
+    </connection-definition>
+    <!-- 
+    <connection-definition class-name="org.jboss.jca.adapters.sap.impl.ManagedConnectionFactoryImpl" jndi-name="java:/eis/ConfigurationTestsFactory" pool-name="JBossSAPConnectionFactory">
     	<config-property name="authType">CONFIGURED_USER</config-property>
     	<config-property name="userId">JCO_TESTER_USER_ID</config-property>
     	<config-property name="client">999</config-property>
@@ -72,6 +81,7 @@
     	<config-property name="repositorySnc">0</config-property>
     	<config-property name="repositoryRoundtripOptimization">1</config-property>
     </connection-definition>
+     -->
   </connection-definitions>
 
 

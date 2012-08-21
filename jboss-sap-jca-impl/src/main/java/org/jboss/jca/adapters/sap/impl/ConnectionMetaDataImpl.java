@@ -23,24 +23,29 @@ package org.jboss.jca.adapters.sap.impl;
 
 import javax.resource.ResourceException;
 import javax.resource.cci.ConnectionMetaData;
+import javax.resource.spi.ManagedConnectionMetaData;
+
+import com.sap.conn.jco.JCoDestination;
+import com.sap.conn.jco.JCoException;
 
 /**
- * Implements the {@link ConnectionMetaData } interface for the JBoss SAP JCA Connector.
- * 
- * @author William Collins
+ * Implements the {@link ManagedConnectionMetaData } and {@link ConnectionMetaData } interfaces for the JBoss SAP JCA Connector.
  *
+ * @author William Collins
+ * 
  * @version $Id: $
  */
-public class ConnectionMetaDataImpl implements ConnectionMetaData
+public class ConnectionMetaDataImpl implements ManagedConnectionMetaData, ConnectionMetaData
 {
-	private final CciConnectionImpl connection;
 	
+	private final JCoDestination destination;
+
    /**
     * Default constructor
     */
-   ConnectionMetaDataImpl(CciConnectionImpl connection)
+   public ConnectionMetaDataImpl(JCoDestination destination)
    {
-	   this.connection = connection;
+	   this.destination = destination;
    }
 
 	/**
@@ -48,7 +53,7 @@ public class ConnectionMetaDataImpl implements ConnectionMetaData
 	 */
    public String getEISProductName() throws ResourceException
    {
-      return "SAP"; 
+      return "SAP® R/3";
    }
 
 	/**
@@ -56,7 +61,19 @@ public class ConnectionMetaDataImpl implements ConnectionMetaData
 	 */
    public String getEISProductVersion() throws ResourceException
    {
-	   return connection.getProductVersion();
+		try {
+			return destination.getAttributes().getPartnerRelease();
+		} catch (JCoException e) {
+			throw new ResourceException(e);
+		}
+   }
+
+	/**
+	 * {@inheritDoc}
+	 */
+   public int getMaxConnections() throws ResourceException
+   {
+      return 0;
    }
 
 	/**
@@ -64,8 +81,11 @@ public class ConnectionMetaDataImpl implements ConnectionMetaData
 	 */
    public String getUserName() throws ResourceException
    {
-	   return connection.getUserName();
+		try {
+			return destination.getAttributes().getUser();
+		} catch (JCoException e) {
+			throw new ResourceException(e);
+		}
    }
-
 
 }

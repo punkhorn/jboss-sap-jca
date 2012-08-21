@@ -30,7 +30,7 @@
   <transaction-support>NoTransaction</transaction-support>
   
   <connection-definitions>
-    <connection-definition class-name="org.jboss.jca.adapters.sap.impl.ManagedConnectionFactoryImpl" jndi-name="java:/eis/CciTestsFactory" pool-name="JBossSAPCciConnectionFactory">
+    <connection-definition class-name="org.jboss.jca.adapters.sap.impl.ManagedConnectionFactoryImpl" jndi-name="java:/eis/CciTestsFactory" pool-name="JBossSAPConnectionFactory">
     	<config-property name="ashost">nplhost</config-property>
     	<config-property name="sysnr">42</config-property>
     	<config-property name="client">001</config-property>

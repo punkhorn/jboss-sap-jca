@@ -27,8 +27,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
-import java.util.logging.Logger;
+import java.util.UUID;
 
 import javax.resource.NotSupportedException;
 import javax.resource.ResourceException;
@@ -39,11 +40,18 @@ import javax.resource.spi.DissociatableManagedConnection;
 import javax.resource.spi.LocalTransaction;
 import javax.resource.spi.ManagedConnection;
 import javax.resource.spi.ManagedConnectionMetaData;
+import javax.resource.spi.security.PasswordCredential;
 import javax.security.auth.Subject;
 import javax.transaction.xa.XAResource;
 
-import org.jboss.jca.adapters.sap.cci.JBossSAPCciConnection;
+import org.jboss.jca.adapters.sap.cci.JBossSAPConnection;
 import org.jboss.jca.adapters.sap.cci.JBossSAPConnectionSpec;
+
+import com.sap.conn.jco.JCoContext;
+import com.sap.conn.jco.JCoDestination;
+import com.sap.conn.jco.JCoDestinationManager;
+import com.sap.conn.jco.JCoException;
+import com.sap.conn.jco.ext.DestinationDataProvider;
 
 /**
  * Implements the {@link ManagedConnection } and {@link DissociatableManagedConnection } interfaces for the JBoss SAP JCA
@@ -55,32 +63,59 @@ import org.jboss.jca.adapters.sap.cci.JBossSAPConnectionSpec;
  */
 public class ManagedConnectionImpl implements ManagedConnection, DissociatableManagedConnection {
 
+	/**
+	 * States of a manage connection.
+	 */
 	public static enum State {
-		ACTIVE, DESTROYED;
+		ACTIVE,		/* Valid managed connection with active physical connection to SAP system */ 
+		DESTROYED;	/* Invalid managed connection */
 	}
 
-	/** The logger */
-	private static Logger log = Logger.getLogger("JBossSAPManagedConnection");
-
-	/** The logwriter */
+	/** 
+	 * The logwriter set by application server 
+	 */
 	private PrintWriter logwriter;
 
-	/** ManagedConnectionFactory */
-	private ManagedConnectionFactoryImpl managedConnectionFactory;
+	/** 
+	 * The factory this managed connection is associated with 
+	 */
+	private final ManagedConnectionFactoryImpl managedConnectionFactory;
 
-	/** Listeners */
+	/** 
+	 * The application server call backs observing this connection 
+	 */
 	private List<ConnectionEventListener> listeners;
 
-	private final Set<CciConnectionImpl> handles = new HashSet<CciConnectionImpl>();
+	/** 
+	 * Set of active connection handles associated with this managed connection 
+	 */
+	private final Set<ConnectionImpl> handles = new HashSet<ConnectionImpl>();
 
-	private JBossSAPConnectionSpec defaultConnectionRequestInfo;
+	/** 
+	 * Unique name of destination associated with this managed connection in JCo runtime 
+	 */
+	private final String destinationName;
 	
-	private CciConnectionImpl defaultConnection;
+	/** 
+	 * Physical connection handle to SAP system in JCo runtime
+	 */
+	private final JCoDestination destination;
+	
+	/** 
+	 * Meta data describing this managed connection 
+	 */
+	private ConnectionMetaDataImpl connectionMetaData = null;
 
+	/** 
+	 * State of connection.
+	 * 
+	 * Managed connection starts in <code>ACTIVE</code> state when created and transitions to final <code>DESTROYED</code> state 
+	 * when destroyed by application server. 
+	 */
 	private State state = State.ACTIVE;
 
 	/**
-	 * Construct managed connection with specified connection request info and associated with specified managed
+	 * Construct a managed connection with specified connection request info and associated with the specified managed
 	 * connection factory.
 	 * 
 	 * @param mcf - the associated managed connection factory
@@ -92,7 +127,23 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 		this.managedConnectionFactory = mcf;
 		this.logwriter = null;
 		this.listeners = Collections.synchronizedList(new ArrayList<ConnectionEventListener>(1));
-		this.defaultConnectionRequestInfo = connectionRequestInfo;
+
+		// Create unique destination name for destination property configuration. 
+		destinationName = UUID.randomUUID().toString();
+		
+		// Make destination configuration available to JCo runtime
+		this.managedConnectionFactory.getResourceAdapter().getDestinationDataProvider()
+				.addDestinationProperties(destinationName, connectionRequestInfo);
+		
+		// Attempt to connect to SAP system.
+		try {
+			this.destination = JCoDestinationManager.getDestination(destinationName);
+			this.destination.ping();
+		} catch (JCoException e) {
+			state = State.DESTROYED;
+			throw new ResourceException("managed-connection-impl-connection-failed", e);
+		}
+
 		this.managedConnectionFactory.associateConnection(this);
 	}
 	
@@ -101,7 +152,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 */
 	@Override
 	public int hashCode() {
-		return this.defaultConnectionRequestInfo.hashCode();
+		return destination.getProperties().hashCode();
 	}
 	
 	/**
@@ -116,19 +167,54 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 		if (!(other instanceof ManagedConnectionImpl))
 			return false;
 		ManagedConnectionImpl obj = (ManagedConnectionImpl) other;
-		return this.defaultConnectionRequestInfo.equals(obj.defaultConnectionRequestInfo);
+		return destination.getProperties().equals(obj.destination.getProperties());
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Object getConnection(Subject subject, ConnectionRequestInfo cxRequestInfo) throws ResourceException {
-		log.finest("getConnection()");
 		checkState();
 		if (cxRequestInfo != null && !(cxRequestInfo instanceof JBossSAPConnectionSpec))
 			throw new ResourceException("managed-connection-impl-invalid-connection-request-info-type");
 
-		JBossSAPCciConnection connection = new CciConnectionImpl(this, (JBossSAPConnectionSpec) cxRequestInfo);
+		// Validate subject credentials match those of this connection.
+		if (subject != null) {
+			boolean foundMatchingCredential = false;
+			searchPrivateCredentials: for (PasswordCredential credential : subject.getPrivateCredentials(PasswordCredential.class)) {
+				if (credential.getManagedConnectionFactory().equals(this)) {
+					if (!getProperties().getUserName()
+							.equals(credential.getUserName())) {
+						continue searchPrivateCredentials;
+					} else if (!getProperties().getPassword()
+							.equals(new String(credential.getPassword()))) {
+						continue searchPrivateCredentials;
+					}
+					// Found matching credentials.
+					foundMatchingCredential = true;
+					break searchPrivateCredentials;
+				}
+			}
+			if (!foundMatchingCredential) 
+				throw new SecurityException("managed-connection-impl-no-matching-security-credential");
+		}
+		
+		if (cxRequestInfo != null) {
+		JBossSAPConnectionSpec jCxRequestInfo = (JBossSAPConnectionSpec) cxRequestInfo;
+			searchConnectionRequestProperties: for (Entry<Object, Object> entry : jCxRequestInfo.entrySet()) {
+				if (subject != null
+						&& (entry.getKey().equals(DestinationDataProvider.JCO_USER) || entry.getKey().equals(
+								DestinationDataProvider.JCO_PASSWD)))
+					// Already checked management credentials against subject credentials which override
+					// connection request info credentails.
+					continue searchConnectionRequestProperties;
+	
+				if (!getProperties().get(entry.getKey()).equals(entry.getValue()))
+					throw new ResourceException("managed-connection-impl-connection-request-property-does-not-match");
+			}
+		}
+
+		JBossSAPConnection connection = new ConnectionImpl(this);
 
 		return connection;
 	}
@@ -137,12 +223,11 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 * {@inheritDoc}
 	 */
 	public void associateConnection(Object connection) throws ResourceException {
-		log.finest("associateConnection()");
 		checkState();
-		if (!(connection instanceof CciConnectionImpl))
+		if (!(connection instanceof ConnectionImpl))
 			throw new ResourceException("managed-connection-impl-invalid-cci-connection-type");
 
-		CciConnectionImpl cciConnection = (CciConnectionImpl) connection;
+		ConnectionImpl cciConnection = (ConnectionImpl) connection;
 		cciConnection.associateManagedConnection(this);
 	}
 
@@ -150,17 +235,16 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 * {@inheritDoc}
 	 */
 	public void dissociateConnections() throws ResourceException {
-		log.finest("dissociateConnection()");
 		checkState();
 
-		Collection<CciConnectionImpl> copy = null;
+		Collection<ConnectionImpl> copy = null;
 		synchronized (handles) {
 			if (handles.size() > 0)
-				copy = new HashSet<CciConnectionImpl>(handles);
+				copy = new HashSet<ConnectionImpl>(handles);
 		}
 
 		if (copy != null) {
-			for (CciConnectionImpl cciConnection : copy) {
+			for (ConnectionImpl cciConnection : copy) {
 				cciConnection.dissociateManagedConnection();
 			}
 		}
@@ -173,16 +257,15 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	public void cleanup() throws ResourceException
 
 	{
-		log.finest("cleanup()");
-
-		Collection<CciConnectionImpl> copy = null;
+		// @TODO Handle the dissociation of any local transaction context from connection.
+		Collection<ConnectionImpl> copy = null;
 		synchronized (handles) {
 			if (handles.size() > 0)
-				copy = new HashSet<CciConnectionImpl>(handles);
+				copy = new HashSet<ConnectionImpl>(handles);
 		}
 
 		if (copy != null) {
-			for (CciConnectionImpl cciConnection : copy) {
+			for (ConnectionImpl cciConnection : copy) {
 				cciConnection.close();
 			}
 		}
@@ -192,23 +275,27 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 * {@inheritDoc}
 	 */
 	public void destroy() throws ResourceException {
-		log.finest("destroy()");
-
 		synchronized (state) {
 			if (state == State.DESTROYED)
 				return;
 			state = State.DESTROYED;
 		}
 
+		// Cleanup any outstanding connection handles.
 		cleanup();
+		
 		this.managedConnectionFactory.dissociateConnection(this);
+		
+		// Remove destination configuration from JCo runtime
+		this.managedConnectionFactory.getResourceAdapter().getDestinationDataProvider()
+				.removeDestinationProperties(destinationName);
+
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public void addConnectionEventListener(ConnectionEventListener listener) {
-		log.finest("addConnectionEventListener()");
 		if (listener == null)
 			throw new IllegalArgumentException("managed-connection-impl-connection-event-listener-is-null");
 		synchronized (listeners) {
@@ -220,7 +307,6 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 * {@inheritDoc}
 	 */
 	public void removeConnectionEventListener(ConnectionEventListener listener) {
-		log.finest("removeConnectionEventListener()");
 		if (listener == null)
 			throw new IllegalArgumentException("managed-connection-impl-connection-event-listener-is-null");
 		synchronized (listeners) {
@@ -234,7 +320,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 * @param handle -
 	 *            The application handle
 	 */
-	public void closeHandle(JBossSAPCciConnection handle) {
+	public void closeHandle(JBossSAPConnection handle) {
 
 		dissociateHandle(handle);
 
@@ -258,7 +344,6 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 * {@inheritDoc}
 	 */
 	public PrintWriter getLogWriter() throws ResourceException {
-		log.finest("getLogWriter()");
 		return logwriter;
 	}
 
@@ -266,7 +351,6 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 * {@inheritDoc}
 	 */
 	public void setLogWriter(PrintWriter out) throws ResourceException {
-		log.finest("setLogWriter()");
 		logwriter = out;
 	}
 
@@ -288,34 +372,111 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 * {@inheritDoc}
 	 */
 	public ManagedConnectionMetaData getMetaData() throws ResourceException {
-		log.finest("getMetaData()");
-
-		if (defaultConnection == null) 
-			defaultConnection = new CciConnectionImpl(this, null);
-
-		return new ManagedConnectionMetaDataImpl(defaultConnection);
+		if (connectionMetaData == null) 
+			connectionMetaData = new ConnectionMetaDataImpl(destination); 
+		return connectionMetaData;
+	}
+	
+	/**
+	 * Called by {@link ConnectionImpl#getDestination()}
+	 * 
+	 * @return The underlying destination associated with this managed connection.
+	 */
+	JCoDestination getDestination() {
+		return destination;
+	}
+	
+	/**
+	 * Called by {@link ConnectionImpl#begin()}
+	 * 
+	 * @throws ResourceException If underlying JCo runtime throws an exception.
+	 */
+	void begin() throws ResourceException {
+		checkState();
+		JCoContext.begin(destination);
 	}
 
+	/**
+	 * Called by {@link ConnectionImpl#end()}
+	 * 
+	 * @throws ResourceException If underlying JCo runtime throws an exception.
+	 */
+	void end() throws ResourceException {
+		checkState();
+		try {
+			JCoContext.end(destination);
+		} catch (JCoException e) {
+			throw new ResourceException(e);
+		}
+	}
+	
+	/**
+	 * Called by {@link ConnectionImpl#isStateful()}
+	 * 
+	 * @return <code>true</code> if connection is in a stateful state; <code>false</code> otherwise.
+	 */
+	boolean isStateful() {
+		return JCoContext.isStateful(destination);
+	}
+	
+	/**
+	 * Called by {@link ConnectionImpl} and {@link ManagedConnectionImpl} when constructing connection handle.
+	 * @return
+	 */
+	JBossSAPConnectionSpec getProperties() {
+		return managedConnectionFactory.getResourceAdapter().getDestinationDataProvider().getDestinationProperties(destinationName);
+	}
+	
+	/**
+	 * Called by {@link ConnectionImpl#ping()} 
+	 * 
+	 * @throws ResourceException if underlying JCo runtime throws exception when pinging.
+	 */
+	void ping() throws ResourceException {
+		try {
+			destination.ping();
+		} catch (JCoException e) {
+			throw new ResourceException(e);
+		}
+	}
+
+	/**
+	 * Called by {@link ConnectionImpl} when constructing itself.
+	 * 
+	 * @return the managed connection factory associated with this managed connection. 
+	 */
 	ManagedConnectionFactoryImpl getManagedConnectionFactory() {
 		return managedConnectionFactory;
 	}
 
-	JBossSAPConnectionSpec getDefaultConnectionRequestInfo() {
-		return defaultConnectionRequestInfo;
-	}
-
-	void associateHandle(CciConnectionImpl handle) {
+	/**
+	 * Called by {@link ConnectionImpl} when associating with this managed connection.
+	 * 
+	 * @param handle - The handle to be associated with managed connection.
+	 */
+	void associateHandle(ConnectionImpl handle) {
 		synchronized (handles) {
 			handles.add(handle);
 		}
 	}
 
-	void dissociateHandle(JBossSAPCciConnection handle) {
+	/**
+	 * Called by {@link ManagedConnectionImpl} when closing handle and by {@link ConnectionImpl} when dissociating from managed connection.
+	 * 
+	 * @param handle - The connection handle to be dissociated from managed connection.
+	 */
+	void dissociateHandle(JBossSAPConnection handle) {
 		synchronized (handles) {
 			handles.remove(handle);
 		}
 	}
 
+	/**
+	 * Internal helper method used by public methods to check the state of this connection before performing an operation on it. This
+	 * method prevents operations from being performed on a connection in a <code>DESTROYED</code> state.
+	 * 
+	 * @throws ResourceException if connection is in a <code>DESTROYED</code> state.
+	 */
 	void checkState() throws ResourceException {
 		if (state == State.DESTROYED) {
 			throw new ResourceException("managed-connection-impl-is-destroyed");

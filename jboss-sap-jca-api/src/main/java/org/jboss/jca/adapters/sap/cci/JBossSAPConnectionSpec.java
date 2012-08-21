@@ -29,7 +29,7 @@ import javax.resource.spi.ConnectionRequestInfo;
 /**
  * Implements the {@link ConnectionSpec } and {@link ConnectionRequestInfo } interfaces for the JBoss SAP JCA Connector.
  * 
- * <p>Extends {@link Properties} to enable a destination configuration to be passed when creating a {@link JBossSAPCciConnection }.
+ * <p>Extends {@link Properties} to enable a destination configuration to be passed when creating a {@link JBossSAPConnection }.
  * 
  * @author William Collins
  * 

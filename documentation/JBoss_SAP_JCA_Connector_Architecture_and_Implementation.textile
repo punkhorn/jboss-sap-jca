@@ -1,0 +1,179 @@
+h1. Overview
+
+The JBoss SAP JCA Connector is a *Resource Adapter* for the *JBoss Application Server 7* (JBoss AS7) platform which provides connectivity from the JBoss AS7 platform to *SAP® R/3 Enterprise Information Systems* (SAP EIS). The JBoss SAP JCA Connector is compliant with the J2EE® Connector Architecture Specification - Version 1.5. 
+
+The connector provides *outbound communication* to an SAP EIS enabling application components to connect to an SAP R/3 system and invoke *Remote Function Modules* (RFM) and *Business Application Programming Interfaces* (BAPI) in an SAP system. The connector uses the *SAP Java Connector* (SAP JCo) standalone version 3.0 library to enable outbound communication to an *Advanced Business Application Programming* (ABAP)  application server running in an SAP system. 
+
+
+h2. Table of Contents
+
+{toc}
+
+h1. JBoss SAP JCA Resource Adapter Features
+
+h2. Outbound Resource Adapter
+
+The connector only provides *outbound communication* to an SAP R/3 system and thus only implements the service provider interfaces (SPI) for an outbound resource adapter. All communication to the SAP system is initiated by application components running in the application server and execute in the context of an application thread. 
+
+h2. Connection Specification
+
+A default connection for the connector can be specified in the deployment descriptor for the resource adapter. This is done by using @config-property@ elements of the @connection-definition@ of the @outbound-resourceadapter@ configuration. The possible configuration properties are documented in the deployment descriptor delivered with the connector and correspond directly to the properties for configuring a @com.conn.jco.JCoDestination@ object in the SAP JCo library. 
+
+Note that only *one default connection* can be specified for the connector.
+
+Application components can specify an unlimited number of connections at runtime using a @JBossSAPConnectionSpec@ object. This object is a specialized @java.utils.Propties@ property set that is used to hold connection configurations. These configurations are used to create physical connections in the connector runtime to SAP systems. Please refer to the _JBossSAPConnectionSpec_ and _Connection Establishment_ sections for further details. 
+
+h2. Re-Authentication Support
+
+The JBoss SAP JCA connector does not support re-authentication of physical connections. Thus any attempts to re-authenticate a managed connection by calling its getConnection method with a subject other than the one used to create the managed connection in the first place will result in a security exception. 
+
+h2. Shared Connection Support
+
+The JBoss SAP JCA connector *supports* *connection sharing* of managed connections. This means that a managed connection in the connector can have more than one connection handle associated with it at the same time. Creating a new connection handle to a managed connection does not invalidate any previously create connection handles. The connector support concurrent access to a managed connection through multiple handles.
+
+h2. Connection Association Support
+
+The JBoss SAP JCA Connector supports, as required by the JCA specification, the association of connection handles with different managed connections through the handles life-cycle. The connector also supports the dissociating of connection handles from managed connection entirely (Lazy Connection Association). A connection handle in the JBoss JCA SAP Connector will thus be in one of three states: *ACTIVE* - valid and associated with a managed connection; *INACTIVE* - valid but not associated with a managed connection; *CLOSED* - invalid and not associated with a managed connection.
+
+h2. Mutable Connection Properties
+
+Managed connections in the JBoss SAP JCA connector *do not support* any *mutable connection properties*. Once a managed connection is created by the connector runtime its connection properties are fixed. The connector runtime will not change any connection properties including security credentials of a managed connection through out its life-cycle. Any attempts by the application server to modify a managed connection's properties will result in an exception being thrown by the connector runtime. Instead the application server must create a new managed connection with the given security credentials and connection properties. 
+
+h2. Transaction Support
+
+The JBoss SAP JCA Connector provides support for *local transactions*. That is it provides support to manage a transaction through a single managed connection. 
+
+h1. JBoss SAP JCA Resource Adapter Implementation
+
+h2. Common Client Interface
+
+h3. CCI Connections
+
+h4. ConnectionFactoryImpl
+
+The @org.jboss.jca.adapters.sap.impl.ConnectionFactoryImpl@ implements the @javax.resource.cci.ConnectionFactory@ interface and provides the mechanism for application components to get connections to an SAP system. 
+
+h4. JBossSAPConnection
+
+The @org.jboss.jca.adapters.sap.cci.JBossSAPConnection@ interface extends the @javax.resource.cci.Connection@ interface and exposes properties and functionality of a connection that are specific to the JBoss SAP JCA Connector. 
+
+h4. ConnectionImpl
+
+The @org.jboss.jca.adapters.sap.impl.ConnectionImpl@ class implements the @org.jboss.jca.adapters.sap.cci.JBossSAPConnection@ interface and represents a connection handle to a managed connection in the connector runtime. 
+
+The @ConnectionImpl@ class maintains a reference to the @ManagedConnectionImpl@ it is associated with. 
+
+h5. Connection Sharing and Immutable Managed Connection
+
+Since @ManagedConnectionImpl@ instances are immutable, all @ConnectionImpl@ instances sharing the managed connection share the same security credentials and connection properties. The application server must create a new managed connection when associating a connection handle if an existing managed connection can not be found with matching security credentials and connection properties that are requested.
+
+h4. JBossSAPConnectionSpec
+
+The @org.jboss.jca.adapters.sap.cci.JBossSAPConnectionSpec@ class implements both the @javax.resource.cci.ConnectionSpec@ and @javax.resource.spi.ConnectionRequestInf@ interfaces. This class specializes @java.utils.Propties@ and provides a common object type for connection configurations. 
+
+Properties populated into this object are used by the connector runtime when creating connections to an SAP system. The properties supported by the connector runtime correspond to the same properties specified in the deployment descriptor and use the same property name key strings as defined on the @com.sap.conn.jco.ext.DestinationDataProvider@ interface of the SAP JCo library. This enables all of the JCo level connection properties to be specified when creating a connection. Thus application clients can specify and create any number of connections to any number of SAP systems. 
+
+Note that a @JBossSAPConnectionSpec@ property set is also used by the connector runtime to identify a managed connection in the connector. Each distinct @JBossSAPConnectionSpec@ property set is thus associated with a single distinct managed connection. Thus passing two property sets with identical contents to a connection request will yield a reference to the same managed connection. 
+
+Please refer to the _Connection Establishment_ section for further details. 
+
+h4. ConnectionMetaDataImpl
+
+h3. CCI Interactions
+
+h4. InteractionImpl
+
+h4. JBossSAPInteractionSpec
+
+h4. RecordFactoryImpl
+
+h4. MappedRecordImpl
+
+h4. IndexedRecordImpl
+
+h2. Service Providers Interface
+
+This section describes the implementation of the system contracts between the JBoss SAP JCA Connector and the application server. 
+
+h3. Resource Adapter
+
+h4. ResourceAdapterImpl
+
+h4. ResourceAdapterMetaDataImpl
+
+h3. Managed Connections
+
+h4. ManagedConnectionFactoryImpl
+
+The @org.jboss.jca.adapters.sap.impl.ManagedConnectionFactoryImpl@ implements the @javax.resource.spi.ManagedConnectionFactory@ and @javax.resource.spi.ResourceAdapterAssociation@ interfaces and is responsible for creating and managing a set of managed connections. The managed connection factory is a source for creating application level connection factories and managed connections. The factory also implements the logic for matching *connection request information* to a compatible *managed connection*.   
+
+h5. Default Connection Configuration
+
+The @ManagedConnectionFactoryImpl@ is implemented as a *java bean* and exposes setter and getter methods for the configuration properties the factory supports. The application server populates the managed connection factory through these setter methods with configuration properties set in the @connection-definition@ section of the deployment descriptor for the resource adapter. These properties are maintained by the factory in a @defaultConnectionRequestInfo@ property set and are used as default property values when creating managed connections.
+
+h5. Immutable Managed Connection Enforcement
+
+The  @matchedManagedConnections@ method of @ManagedConnectionFactoryImpl@ enforces the immutability of managed connections by not returning a managed connection that does not match the passed in *security credentials* and *connection request properties*. 
+
+Note that if a non-null @Subject@ is passed in any security credential (username and password) in the subject associated with the connection factory will be used to match against the credentials of connections in the connection set and mask and eliminate from consideration any security credential in the passed connection requests properties. 
+
+h5. Managed Connection Matching Algorithm
+
+The managed connection factory selects a managed connection from a passed set of candidate managed connections in its matchManagedConnections method as follows: 
+
+* If a non-null subject is passed in, then the private credentials of the subject must contain a @PasswordCredential@ object associated with the managed connection factory otherwise no matches are returned.
+* If a non-null subject is passed in, a candidate managed connection must have credentials that match the credentials of the @PasswordCredential@ object in order for a match to occur. 
+* If a non-null set of connection request information is passed in, then the candidate managed connections must match against the passed in set of properties in order for a match to occur. 
+* If a null set of connection request information is passed in, then the candidate managed connections must matched against the default connection properties of the managed connection factory in order for a match to occur.   
+* Each property in the connection property set used for matching must match the corresponding property in the configuration of the candidate managed connection in order for a match to occur. 
+* The properties in the connection property set used for matching need only be a subset of the candidate managed connection configuration properties in order for a match to occur.
+* If a non-null subject is passed in, any username or password property in the connection property set used for matching is ignored.
+
+
+h4. ManagedConnectionImpl
+
+The @org.jboss.jca.adapters.sap.impl.ManagedConnectionImpl@ class implements the @javax.resource.spi.ManagedConnection@ interface and encapsulates a @com.sap.conn.jco.JCoDestination@ object. This *destination object* is the underlying physical connection at the JCo level used to communicate with an SAP system.
+
+h5. Immutable Managed Connection Enforcement
+
+The @getConnection@ method of the @ManagedConnectionImpl@ class enforces the immutability of a managed connection by throwing a @javax.lang.SecurityException@ if the credentials passed in do not match the credentials of the managed connection. The method will also throw a @javax.resource.ResourceException@ if the connection request properties passed in do not match those of the managed connection.
+
+h5. Connection Sharing and Concurrency
+
+A @ManagedConnectionImpl@ is *shareable* and supports multiple active connection handles. Application components can thus access a shared managed connection concurrently through its multiple connection handles. @ManagedConnectionImpl@ is thread-safe and supports concurrent access. Since @ManagedConnectionImpl@ instances are immutable, all connection handles to a managed connection share the same security credentials and connection properties. 
+
+
+h4. ConnectionMetaDataImpl
+
+The @org.jboss.jca.adapters.sap.impl.ConnectionMetaDataImpl@ implements the @javax.resource.spi.ManagedConnectionMetaData@ and @javax.resource.cci.ConnectionMetaData@ interfaces and provides information about the SAP system a managed connection and its corresponding connection handles are connected to. For example, the *username* the managed connection used to connect to the SAP system, the *eis product name*, in this case "SAP® R/3", and the *release version* of the connected to system can be determined from the @ConnectionMetaDataImpl@. 
+
+The @ConnectionMetaDataImpl@ also signals to the application server that the managed connections of the connector support an unlimited number of active concurrent connections across client processes to the SAP system by returning the value @0@ for the maximum number of concurrent connections.
+
+h4. DestinationDataProviderImpl
+
+h1. CCI Connection Design
+
+The CCI connection class (CCIConnectionImpl) implements a handle to the underlying managed connection (ManagedConnectionImpl). 
+
+h1. Local Transactions
+
+A *local transaction* is associated with a *single managed connection*. All operations performed on an EIS through that managed connection during a local transaction constitute a *recoverable unit of work* called a *transaction context*. A transaction context includes all EIS operations that are either performed or not performed as a group. A managed connection contains a local transaction object, @LocalTransaction@, which represents the local transaction assocuated with a managed connection. 
+
+A local transaction context includes all operations performed through a managed connection during a transaction regardless of through which connection handle, @CCIConnection@, the operations were invoked. This enables multiple application components holding different connection handles to the same managed connection to participate in the same transaction  
+
+The application server container coordinates a transaction by ensuring that components participating in the same transaction all use the *same managed connection* to an EIS when performing operations on that EIS. 
+
+h2. Connection Association
+
+The JBoss SAP JCA Connector supports, as required by the JCA specification, the association of connection handles with different managed connections through the handles life-cycle. The connector also supports the dissociating of connection handles from managed connection entirely (Lazy Connection Association). A connection handle in the JBoss JCA SAP Connection will thus be in one of three states: *ACTIVE* - valid and associated with a managed connection; *INACTIVE* - valid but not associated with a managed connection; *CLOSED* - invalid and not associated with a managed connection.
+
+h1. Application Programming Model
+
+h2. Connection Establishment
+
+h2. Record Management
+
+h2. Interaction Execution
+
+h2. Exception Handling
+

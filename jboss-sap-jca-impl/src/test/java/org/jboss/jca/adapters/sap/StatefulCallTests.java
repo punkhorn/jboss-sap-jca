@@ -20,7 +20,7 @@ import javax.resource.cci.MappedRecord;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.jca.adapters.sap.cci.JBossSAPCciConnection;
+import org.jboss.jca.adapters.sap.cci.JBossSAPConnection;
 import org.jboss.jca.adapters.sap.cci.JBossSAPInteractionSpec;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -80,11 +80,11 @@ public class StatefulCallTests {
 		 */
 		@Override
 		public Integer call() throws Exception {
-			JBossSAPCciConnection connection = null;
+			JBossSAPConnection connection = null;
 			try {
 				log.info("Testing Stateful Call Sequence");
 				assertNotNull("Failed to access connection factory 'CciTestsFactory'", connectionFactory);
-				connection = (JBossSAPCciConnection) connectionFactory.getConnection();
+				connection = (JBossSAPConnection) connectionFactory.getConnection();
 				assertNotNull("Failed to create connection", connection);
 				connection.ping();
 

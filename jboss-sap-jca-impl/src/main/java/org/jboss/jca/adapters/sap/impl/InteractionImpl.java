@@ -55,7 +55,7 @@ public class InteractionImpl implements Interaction {
 
 	private State state = State.ACTIVE;
 
-	private final CciConnectionImpl connection;
+	private final ConnectionImpl connection;
 
 	private ResourceWarning warnings;
 
@@ -64,7 +64,7 @@ public class InteractionImpl implements Interaction {
 	 * 
 	 * @param connection - the connection
 	 */
-	InteractionImpl(CciConnectionImpl connection) {
+	InteractionImpl(ConnectionImpl connection) {
 		this.connection = connection;
 	}
 
@@ -87,6 +87,7 @@ public class InteractionImpl implements Interaction {
 	 */
 	public boolean execute(InteractionSpec ispec, Record input, Record output) throws ResourceException {
 		checkState();
+		
 		if (!(ispec instanceof JBossSAPInteractionSpec))
 			throw new ResourceException("interaction-impl-invalid-specification");
 		JBossSAPInteractionSpec interactionSpec = (JBossSAPInteractionSpec) ispec;
@@ -371,6 +372,9 @@ public class InteractionImpl implements Interaction {
 	private void checkState() throws ResourceException {
 		if (state == State.CLOSED)
 			throw new ResourceException("interaction-impl-is-closed");
+		
+		// Check state of connection as well.
+		connection.checkState();
 	}
 
 }

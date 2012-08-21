@@ -24,8 +24,8 @@ package org.jboss.jca.adapters.sap.impl;
 import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import javax.resource.ResourceException;
 import javax.resource.spi.ConnectionManager;
@@ -34,6 +34,7 @@ import javax.resource.spi.ManagedConnection;
 import javax.resource.spi.ManagedConnectionFactory;
 import javax.resource.spi.ResourceAdapter;
 import javax.resource.spi.ResourceAdapterAssociation;
+import javax.resource.spi.security.PasswordCredential;
 import javax.security.auth.Subject;
 
 import org.jboss.jca.adapters.sap.cci.JBossSAPConnectionSpec;
@@ -50,44 +51,46 @@ import com.sap.conn.jco.ext.DestinationDataProvider;
  */
 public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, ResourceAdapterAssociation {
 
-	/** The serial version UID */
+	/** 
+	 * The serial version UID 
+	 */
 	private static final long serialVersionUID = 1L;
 
-	/** The logger */
-	private static Logger log = Logger.getLogger("JBossSAPManagedConnectionFactory");
-
-	/** The resource adapter */
+	/** 
+	 * The resource adapter 
+	 */
 	private ResourceAdapterImpl ra;
 
-	/** The logwriter */
+	/** 
+	 * The logwriter set by application server.
+	 */
 	private PrintWriter logwriter;
 
-	/** Defaults for JCoDestination configuration instances */
-	private final JBossSAPConnectionSpec defaultConnectionRequestInfo;
-	
-	private final Set<ManagedConnectionImpl> connections = new HashSet<ManagedConnectionImpl>();
+	/** 
+	 * Default connection configuration properties.
+	 * 
+	 * This property set is populated by the application server with configuration properties found in the deployment
+	 * descriptor of the resource adapter for this manage connection factory class. The application server populates the 
+	 * configuration set by calling the property setters of this class. 
+	 */
+	private final JBossSAPConnectionSpec defaultConnectionRequestInfo = new JBossSAPConnectionSpec();
 
 	/**
-	 * Default constructor
+	 * The set of active managed connection currently managed by this factory.
 	 */
-	public ManagedConnectionFactoryImpl() {
-		log.finest("JBossSAPManagedConnectionFactory()");
-		defaultConnectionRequestInfo = new JBossSAPConnectionSpec();
-	}
+	private final Set<ManagedConnectionImpl> connections = new HashSet<ManagedConnectionImpl>();
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Object createConnectionFactory(ConnectionManager cxManager) throws ResourceException {
-		log.finest("createConnectionFactory(ConnectionManager cxManager = " + cxManager + ")");
-		return new CciConnectionFactoryImpl(this, cxManager);
+		return new ConnectionFactoryImpl(this, cxManager);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Object createConnectionFactory() throws ResourceException {
-		log.finest("createConnectionFactory()");
 		throw new ResourceException("This resource adapter doesn't support non-managed environments");
 	}
 
@@ -96,8 +99,6 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 */
 	public ManagedConnection createManagedConnection(Subject subject, ConnectionRequestInfo cxRequestInfo)
 			throws ResourceException {
-		log.finest("createManagedConnection(Subject subject = " + subject + ", ConnectionRequestInfo cxRequestInfo = "
-				+ cxRequestInfo + ")");
 
 		// validate connection request info type
 		if (cxRequestInfo != null && !(cxRequestInfo instanceof JBossSAPConnectionSpec))
@@ -108,6 +109,22 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 		if (cxRequestInfo != null)
 			cri.addProperties((JBossSAPConnectionSpec) cxRequestInfo);
 
+		// use credentials in non-null subject.
+		if (subject != null) {
+			boolean foundCredential = false;
+			for (PasswordCredential credential : subject.getPrivateCredentials(PasswordCredential.class)) {
+				if (credential.getManagedConnectionFactory().equals(this)) {
+					cri.put(DestinationDataProvider.JCO_USER, credential.getUserName());
+					cri.put(DestinationDataProvider.JCO_PASSWD, new String(credential.getPassword()));
+					foundCredential = true;
+					break;
+				}
+			}
+			if (!foundCredential)
+				// Did not find sufficient credentials in subject.
+				throw new SecurityException("jboss-sap-managed-connection-factory-insufficient-credentials");
+		}
+
 		return new ManagedConnectionImpl(this, cri);
 	}
 
@@ -117,17 +134,73 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	@SuppressWarnings("rawtypes")
 	public ManagedConnection matchManagedConnections(Set connectionSet, Subject subject,
 			ConnectionRequestInfo cxRequestInfo) throws ResourceException {
-		log.finest("matchManagedConnections(Set connectionSet = " + connectionSet + ", Subject subject = " + subject
-				+ ")");
+		
 		ManagedConnection result = null;
+
+		// Use credentials in non-null subject for matching.
+		PasswordCredential subjectCredential = null;
+		if (subject != null) {
+			for (PasswordCredential credential : subject.getPrivateCredentials(PasswordCredential.class)) {
+				if (credential.getManagedConnectionFactory().equals(this)) {
+					subjectCredential =  credential;
+					break;
+				}
+			}
+			if (subjectCredential == null)
+				// Did not find sufficient credentials in passed subject for this managed connection factory: create new connection.
+				return null;
+		}
+		
+		// If the application server does not provide connection request properties to match,
+		// search the connection set for a managed connection that matches the default connection properties.
+		if (cxRequestInfo == null)
+			cxRequestInfo = defaultConnectionRequestInfo;
+
+		// Search through the connection set for a managed connection that matches the passed credentials and connection request properties. 
 		Iterator it = connectionSet.iterator();
-		while (result == null && it.hasNext()) {
+		searchConnectionSet: while (result == null && it.hasNext()) {
 			ManagedConnection mc = (ManagedConnection) it.next();
-			if (connectionSet.contains(mc)) {
-				result = mc;
+			ManagedConnectionImpl candidateConnection = (ManagedConnectionImpl) mc;
+
+			// Validate passed subject credentials match those of the connection.
+			if (subjectCredential != null) {
+				
+				if (!candidateConnection.getProperties().getUserName()
+						.equals(subjectCredential.getUserName())) {
+					continue searchConnectionSet;
+				} else if (!candidateConnection.getProperties().getPassword()
+						.equals(new String(subjectCredential.getPassword()))) {
+					continue searchConnectionSet;
+				}
+				// Subject credentials match.
 			}
 
+			// Validate passed connection request info match those of the connection.
+			// NB: the set of passed connection request properties need only be a subset of managed connection's set of properties to match.  
+			if (cxRequestInfo != null) {
+				if (!(cxRequestInfo instanceof JBossSAPConnectionSpec))
+					continue searchConnectionSet;
+				JBossSAPConnectionSpec jCxRequestInfo = (JBossSAPConnectionSpec) cxRequestInfo;
+				searchConnectionRequestProperties: for (Entry<Object, Object> entry : jCxRequestInfo.entrySet()) {
+					if (subject != null
+							&& (entry.getKey().equals(DestinationDataProvider.JCO_USER) || entry.getKey().equals(
+									DestinationDataProvider.JCO_PASSWD)))
+						// Already checked managed connection's credentials against subject credentials which override
+						// credentials in connection request info.
+						continue searchConnectionRequestProperties;
+
+					if (!candidateConnection.getProperties().get(entry.getKey())
+							.equals(entry.getValue()))
+						continue searchConnectionSet;
+				}
+				// All connection request properties match.
+			}
+
+			// Found a managed connection that matches.
+			result = candidateConnection;
+			break;
 		}
+
 		return result;
 	}
 
@@ -135,7 +208,6 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * {@inheritDoc}
 	 */
 	public PrintWriter getLogWriter() throws ResourceException {
-		log.finest("getLogWriter()");
 		return logwriter;
 	}
 
@@ -143,7 +215,6 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * {@inheritDoc}
 	 */
 	public void setLogWriter(PrintWriter out) throws ResourceException {
-		log.finest("setLogWriter()");
 		logwriter = out;
 	}
 
@@ -151,7 +222,6 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * {@inheritDoc}
 	 */
 	public ResourceAdapterImpl getResourceAdapter() {
-		log.finest("getResourceAdapter()");
 		return ra;
 	}
 
@@ -159,7 +229,6 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * {@inheritDoc}
 	 */
 	public void setResourceAdapter(ResourceAdapter ra) {
-		log.finest("setResourceAdapter(ResourceAdapter ra = " + ra + ")");
 		if (!(ra instanceof ResourceAdapterImpl))
 			throw new IllegalArgumentException(
 					"managed-connection-factory-impl-set-resouce-adapter-invalid-resource-adapter");
@@ -208,7 +277,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Authentication type used by the destination. Known types are
 	 */
 	public String getAuthType() {
-		log.finest("getAuthType()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_AUTH_TYPE);
 	}
 
@@ -219,7 +288,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - authentication type used by the destination.
 	 */
 	public void setAuthType(String authType) {
-		log.finest("setAuthType(String authType = " + authType + ")");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_AUTH_TYPE, authType);
 	}
 
@@ -233,7 +302,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return User identity which is used for logon to the ABAP AS.
 	 */
 	public String getUserId() {
-		log.finest("getUserId()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_USER_ID);
 	}
 
@@ -244,7 +313,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - User identity which is used for logon to the ABAP AS.
 	 */
 	public void setUserId(String userId) {
-		log.finest("setUserId(String userId = " + userId + ")");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_USER_ID, userId);
 	}
 
@@ -258,7 +327,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return SAP client.
 	 */
 	public String getClient() {
-		log.finest("getClient()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_CLIENT);
 	}
 
@@ -269,7 +338,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - SAP client.
 	 */
 	public void setClient(String client) {
-		log.finest("getClient(String client = " + client + ")");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_CLIENT, client);
 	}
 
@@ -279,7 +348,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Logon user, logon parameter for password based authentication.
 	 */
 	public String getUser() {
-		log.finest("getUser()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_USER);
 	}
 
@@ -289,7 +358,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @param user
 	 */
 	public void setUser(String user) {
-		log.finest("setUser(String user = " + user + ")");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_USER, user);
 	}
 
@@ -299,7 +368,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Logon user alias.
 	 */
 	public String getAliasUser() {
-		log.finest("getAliasUser()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_USER);
 	}
 
@@ -310,7 +379,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - logon user alias.
 	 */
 	public void setAliasUser(String user) {
-		log.finest("setAliasUser(String user = " + user + ")");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_ALIAS_USER, user);
 	}
 
@@ -320,7 +389,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Logon password, logon parameter for password based authentication.
 	 */
 	public String getPasswd() {
-		log.finest("getPasswd()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_PASSWD);
 	}
 
@@ -331,7 +400,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Logon password, logon parameter for password based authentication.
 	 */
 	public void setPasswd(String passwd) {
-		log.finest("setPasswd(String passwd = " + passwd + ")");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_PASSWD, passwd);
 	}
 
@@ -341,7 +410,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Logon language, if not defined the default user language is used.
 	 */
 	public String getLang() {
-		log.finest("getLang()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_LANG);
 	}
 
@@ -352,7 +421,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Logon language.
 	 */
 	public void setLang(String lang) {
-		log.finest("setLang(String lang = " + lang + ")");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_LANG, lang);
 	}
 
@@ -362,7 +431,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return The SAP Cookie Version 2 used as logon ticket for SSO based authentication.
 	 */
 	public String getMysapsso2() {
-		log.finest("getMysapsso2()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_MYSAPSSO2);
 	}
 
@@ -373,7 +442,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - The SAP Cookie Version 2 used as logon ticket for SSO based authentication.
 	 */
 	public void setMysapsso2(String mysapsso2) {
-		log.finest("setMysapsso2(String mysapsso2)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_MYSAPSSO2, mysapsso2);
 	}
 
@@ -383,7 +452,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return The specified X509 certificate used for certificate based authentication
 	 */
 	public String getX509cert() {
-		log.finest("getX509cert()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_X509CERT);
 	}
 
@@ -394,7 +463,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - The specified X509 certificate used for certificate based authentication
 	 */
 	public void setX509cert(String x509cert) {
-		log.finest("setX509cert(String x509cert)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_X509CERT, x509cert);
 	}
 
@@ -408,7 +477,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Additional logon parameter to define the codepage type of the SAP System.
 	 */
 	public String getPcs() {
-		log.finest("getPcs()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_PCS);
 	}
 
@@ -419,7 +488,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Additional logon parameter to define the codepage type of the SAP System
 	 */
 	public void setPcs(String pcs) {
-		log.finest("setPcs(String pcs)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_PCS, pcs);
 	}
 
@@ -431,7 +500,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Type of remote host.
 	 */
 	public String getType() {
-		log.finest("getType()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_TYPE);
 	}
 
@@ -442,7 +511,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Type of remote host.
 	 */
 	public void setType(String type) {
-		log.finest("setType(String type = " + type + ")");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_TYPE, type);
 	}
 
@@ -460,7 +529,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return SAP Router string for connection to systems behind a SAP Router.
 	 */
 	public String getSaprouter() {
-		log.finest("getSaprouter()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_SAPROUTER);
 	}
 
@@ -471,7 +540,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - SAP Router string for connection to systems behind a SAP Router.
 	 */
 	public void setSaprouter(String saprouter) {
-		log.finest("setSaprouter(String saprouter)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_SAPROUTER, saprouter);
 	}
 
@@ -481,7 +550,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return - System number of the SAP ABAP application server, mandatory for a direct connection.
 	 */
 	public String getSysnr() {
-		log.finest("getSysnr()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_SYSNR);
 	}
 
@@ -492,7 +561,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - System number of the SAP ABAP application server.
 	 */
 	public void setSysnr(String sysnr) {
-		log.finest("setSysnr(String sysnr = " + sysnr + ")");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_SYSNR, sysnr);
 	}
 
@@ -502,7 +571,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return SAP message server.
 	 */
 	public String getAshost() {
-		log.finest("getAshost()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_ASHOST);
 	}
 
@@ -513,7 +582,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - SAP message server.
 	 */
 	public void setAshost(String ashost) {
-		log.finest("setAshost(String ashost = " + ashost + ")");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_ASHOST, ashost);
 	}
 
@@ -527,7 +596,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return SAP message server port.
 	 */
 	public String getMshost() {
-		log.finest("getMshost()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_MSHOST);
 	}
 
@@ -538,7 +607,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - SAP message server port.
 	 */
 	public void setMshost(String mshost) {
-		log.finest("setMshost(String mshost)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_MSHOST, mshost);
 	}
 
@@ -552,7 +621,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return SAP message server port.
 	 */
 	public String getMsserv() {
-		log.finest("getMsserv()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_MSSERV);
 	}
 
@@ -563,7 +632,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - SAP message server port -
 	 */
 	public void setMsserv(String msserv) {
-		log.finest("setMsserv(String msserv)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_MSSERV, msserv);
 	}
 
@@ -576,7 +645,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Gateway used for establishing the connection to an application server.
 	 */
 	public String getGwhost() {
-		log.finest("getGwhost()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_GWHOST);
 	}
 
@@ -587,7 +656,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Gateway used for establishing the connection to an application server.
 	 */
 	public void setGwhost(String gwhost) {
-		log.finest("setGwserv(String gwhost)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_GWHOST, gwhost);
 	}
 
@@ -606,7 +675,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Gateway server port.
 	 */
 	public String getGwserv() {
-		log.finest("getGwserv()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_GWSERV);
 	}
 
@@ -617,7 +686,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Gateway server port. -
 	 */
 	public void setGwserv(String gwserv) {
-		log.finest("setGwserv(String gwserv)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_GWSERV, gwserv);
 	}
 
@@ -629,7 +698,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Host of external server.
 	 */
 	public String getTphost() {
-		log.finest("getTphost()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_TPHOST);
 	}
 
@@ -640,7 +709,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Host of external server.
 	 */
 	public void setTphost(String tphost) {
-		log.finest("setTphost(String tphost)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_TPHOST, tphost);
 	}
 
@@ -652,7 +721,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Program ID of external server.
 	 */
 	public String getTpname() {
-		log.finest("getTpname()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_TPNAME);
 	}
 
@@ -663,7 +732,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Program ID of external server.
 	 */
 	public void setTpname(String tpname) {
-		log.finest("setTpname(String tpname)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_TPNAME, tpname);
 	}
 
@@ -673,7 +742,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return System ID of the SAP system.
 	 */
 	public String getR3name() {
-		log.finest("getR3name()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_R3NAME);
 	}
 
@@ -684,7 +753,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - System ID of the SAP system.
 	 */
 	public void setR3name(String r3name) {
-		log.finest("setR3name(String r3name)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_R3NAME, r3name);
 	}
 
@@ -694,7 +763,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Group of SAP application servers.
 	 */
 	public String getGroup() {
-		log.finest("getGroup()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_GROUP);
 	}
 
@@ -705,7 +774,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Group of SAP application servers.
 	 */
 	public void setGroup(String group) {
-		log.finest("setGroup(String group)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_GROUP, group);
 	}
 
@@ -719,7 +788,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return trace level of RFC trace (0 or 1).
 	 */
 	public String getTrace() {
-		log.finest("getTrace()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_TRACE);
 	}
 
@@ -730,7 +799,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Trace level of RFC trace: Enable/disable RFC trace (0 or 1).
 	 */
 	public void setTrace(String trace) {
-		log.finest("setTrace(String trace)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_TRACE, trace);
 	}
 
@@ -740,7 +809,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Trace level of CPIC trace [0..3].
 	 */
 	public String getCpicTrace() {
-		log.finest("getCpicTrace()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_CPIC_TRACE);
 	}
 
@@ -751,7 +820,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Trace level of CPIC trace: [0..3].
 	 */
 	public void setCpicTrace(String cpicTrace) {
-		log.finest("setCpicTrace(String cpicTrace)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_CPIC_TRACE, cpicTrace);
 	}
 
@@ -769,7 +838,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return 1 (enabled) or 0 (disabled).
 	 */
 	public String getLcheck() {
-		log.finest("getLcheck()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_LCHECK);
 	}
 
@@ -780,7 +849,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - 1 (enabled) or 0 (disabled).
 	 */
 	public void setLcheck(String lcheck) {
-		log.finest("setLcheck(String lcheck)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_LCHECK, lcheck);
 	}
 
@@ -791,7 +860,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return 0 - do not start [default], 1 start GUI, 2 start GUI and hide if not used
 	 */
 	public String getUseSapgui() {
-		log.finest("getUseSapgui()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_USE_SAPGUI);
 	}
 
@@ -803,7 +872,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - do not start [default], 1 start GUI, 2 start GUI and hide if not used.
 	 */
 	public void setUseSapgui(String useSapgui) {
-		log.finest("setUseSapgui(String useSapgui)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_USE_SAPGUI, useSapgui);
 	}
 
@@ -817,7 +886,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Initial codepage in SAP notation.
 	 */
 	public String getCodepage() {
-		log.finest("getCodepage()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_CODEPAGE);
 	}
 
@@ -828,7 +897,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Initial codepage in SAP notation.
 	 */
 	public void setCodepage(String codepage) {
-		log.finest("setCodepage(String codepage)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_CODEPAGE, codepage);
 	}
 
@@ -840,7 +909,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Get/Don't get a SSO ticket after logon (1 or 0)
 	 */
 	public String getGetsso2() {
-		log.finest("getGetsso2()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_GETSSO2);
 	}
 
@@ -851,7 +920,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Get/Don't get a SSO ticket after logon (1 or 0).
 	 */
 	public void setGetsso2(String getsso2) {
-		log.finest("setGetsso2(String getsso2)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_GETSSO2, getsso2);
 	}
 
@@ -863,7 +932,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Deny usage of initial passwords (0[default] or 1)
 	 */
 	public String getDenyInitialPassword() {
-		log.finest("getDenyInitialPassword()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_DENY_INITIAL_PASSWORD);
 	}
 
@@ -874,7 +943,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - whether to deny usage of initial passwords (0[default] or 1).
 	 */
 	public void setDenyInitialPassword(String denyInitialPassword) {
-		log.finest("setDenyInitialPassword(String denyInitialPassword)");
+
 		defaultConnectionRequestInfo
 				.setProperty(DestinationDataProvider.JCO_DENY_INITIAL_PASSWORD, denyInitialPassword);
 	}
@@ -895,7 +964,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Maximum number of active connections that can be created for a destination simultaneously
 	 */
 	public String getPeakLimit() {
-		log.finest("getPeakLimit()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_PEAK_LIMIT);
 	}
 
@@ -909,7 +978,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Maximum number of active connections that can be created for a destination simultaneously
 	 */
 	public void setPeakLimit(String peakLimit) {
-		log.finest("setPeakLimit(String peakLimit)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_PEAK_LIMIT, peakLimit);
 	}
 
@@ -922,7 +991,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Maximum number of idle connections kept open by the destination.
 	 */
 	public String getPoolCapacity() {
-		log.finest("getPoolCapacity()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_POOL_CAPACITY);
 	}
 
@@ -935,7 +1004,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Maximum number of idle connections kept open by the destination.
 	 */
 	public void setPoolCapacity(String poolCapacity) {
-		log.finest("setPoolCapacity(String poolCapacity)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_POOL_CAPACITY, poolCapacity);
 	}
 
@@ -945,7 +1014,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Time in ms after that a free connections hold internally by the destination can be closed
 	 */
 	public String getExpirationTime() {
-		log.finest("getExpirationTime()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_EXPIRATION_TIME);
 	}
 
@@ -956,7 +1025,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Time in ms after that a free connections hold internally by the destination can be closed
 	 */
 	public void setExpirationTime(String expirationTime) {
-		log.finest("setExpirationTime(String expirationTime)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_EXPIRATION_TIME, expirationTime);
 	}
 
@@ -966,7 +1035,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Interval in ms with which the timeout checker thread checks the connections in the pool for expiration.
 	 */
 	public String getExpirationPeriod() {
-		log.finest("getExpirationPeriod()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_EXPIRATION_PERIOD);
 	}
 
@@ -978,7 +1047,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            expiration.
 	 */
 	public void setExpirationPeriod(String expirationPeriod) {
-		log.finest("setExpirationPeriod(String expirationPeriod)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_EXPIRATION_PERIOD, expirationPeriod);
 	}
 
@@ -989,7 +1058,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Max time in ms to wait for a connection.
 	 */
 	public String getMaxGetTime() {
-		log.finest("getMaxGetTime()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_MAX_GET_TIME);
 	}
 
@@ -1000,7 +1069,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Max time in ms to wait for a connection
 	 */
 	public void setMaxGetTime(String maxGetTime) {
-		log.finest("setMaxGetTime(String maxGetTime)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_MAX_GET_TIME, maxGetTime);
 	}
 
@@ -1014,7 +1083,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Secure network connection (SNC) mode, 0 (off) or 1 (on).
 	 */
 	public String getSncMode() {
-		log.finest("getSncMode()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_SNC_MODE);
 	}
 
@@ -1025,7 +1094,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Secure network connection (SNC) mode, 0 (off) or 1 (on).
 	 */
 	public void setSncMode(String sncMode) {
-		log.finest("setSncMode(String sncMode)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_SNC_MODE, sncMode);
 	}
 
@@ -1035,7 +1104,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return SNC partner.
 	 */
 	public String getSncPartnername() {
-		log.finest("getSncPartnername()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_SNC_PARTNERNAME);
 	}
 
@@ -1048,7 +1117,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - SNC partner.
 	 */
 	public void setSncPartnername(String sncPartnername) {
-		log.finest("setSncPartnername(String sncPartnername)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_SNC_PARTNERNAME, sncPartnername);
 	}
 
@@ -1058,7 +1127,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return SNC level of security, 1 to 9.
 	 */
 	public String getSncQop() {
-		log.finest("getSncQop()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_SNC_QOP);
 	}
 
@@ -1069,7 +1138,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - SNC level of security, 1 to 9.
 	 */
 	public void setSncQop(String sncQop) {
-		log.finest("setSncQop(String sncQop)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_SNC_QOP, sncQop);
 	}
 
@@ -1081,7 +1150,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return SNC name.
 	 */
 	public String getSncMyname() {
-		log.finest("getSncMyname()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_SNC_MYNAME);
 	}
 
@@ -1092,7 +1161,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - SNC name.
 	 */
 	public void setSncMyname(String sncMyname) {
-		log.finest("setSncMyname(String sncMyname)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_SNC_MYNAME, sncMyname);
 	}
 
@@ -1102,7 +1171,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Path to library which provides SNC service
 	 */
 	public String getSncLibrary() {
-		log.finest("getSncLibrary()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_SNC_LIBRARY);
 	}
 
@@ -1113,7 +1182,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Path to library which provides SNC service
 	 */
 	public void setSncLibrary(String sncLibrary) {
-		log.finest("setSncLibrary(String sncLibrary)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_SNC_LIBRARY, sncLibrary);
 	}
 
@@ -1127,7 +1196,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return Destination that should be used as repository
 	 */
 	public String getRepositoryDest() {
-		log.finest("getRepositoryDest()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_REPOSITORY_DEST);
 	}
 
@@ -1138,7 +1207,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Destination that should be used as repository
 	 */
 	public void setRepositoryDest(String repositoryDest) {
-		log.finest("setRepositoryDest(String repositoryDest)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_REPOSITORY_DEST, repositoryDest);
 	}
 
@@ -1151,7 +1220,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return User used for repository calls.
 	 */
 	public String getRepositoryUser() {
-		log.finest("getRepositoryUser()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_REPOSITORY_USER);
 	}
 
@@ -1165,7 +1234,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - User used for repository calls.
 	 */
 	public void setRepositoryUser(String repositoryUser) {
-		log.finest("setRepositoryUser(String repositoryUser)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_REPOSITORY_USER, repositoryUser);
 	}
 
@@ -1175,7 +1244,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return The password for a repository user.
 	 */
 	public String getRepositoryPasswd() {
-		log.finest("getRepositoryPasswd()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_REPOSITORY_PASSWD);
 	}
 
@@ -1186,7 +1255,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - The password for a repository user.
 	 */
 	public void setRepositoryPasswd(String repositoryPasswd) {
-		log.finest("setRepositoryPasswd(String repositoryPasswd)");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_REPOSITORY_PASSWD, repositoryPasswd);
 	}
 
@@ -1200,7 +1269,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * @return If SNC is used for this destination.
 	 */
 	public String getRepositorySnc() {
-		log.finest("getRepositorySnc()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_REPOSITORY_SNC);
 	}
 
@@ -1213,7 +1282,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - if SNC is used for this destination.
 	 */
 	public void setRepositorySnc(String repositorySnc) {
-		log.finest("setRepositorySnc(String repositorySnc = " + repositorySnc + ")");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_REPOSITORY_SNC, repositorySnc);
 	}
 
@@ -1225,14 +1294,14 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * If the property is not set, the destination will initially do a remote call to check whether RFC_METADATA_GET is
 	 * available. In case it is available, it will use it.
 	 * 
-	 * Note: If the repository is already initializated, for example because it is used by some other destination, this
+	 * Note: If the repository is already initialized, for example because it is used by some other destination, this
 	 * property does not have any effect. Generally, this property is related to the ABAP System, and should have the
 	 * same value on all destinations pointing to the same ABAP System.
 	 * 
 	 * @return Is the usage of RFC_METADATA_GET API forced (1) or deactivated (0).
 	 */
 	public String getRepositoryRoundtripOptimization() {
-		log.finest("getRepositoryRoundtripOptimization()");
+
 		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_REPOSITORY_ROUNDTRIP_OPTIMIZATION);
 	}
 
@@ -1252,20 +1321,28 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 *            - Force(1)/Deactivate(0) the usage of RFC_METADATA_GET API.
 	 */
 	public void setRepositoryRoundtripOptimization(String repositoryRoundtripOptimization) {
-		log.finest("setRepositoryRoundtripOptimization(String repositoryRoundtripOptimization = "
-				+ repositoryRoundtripOptimization + ")");
+
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_REPOSITORY_ROUNDTRIP_OPTIMIZATION,
 				repositoryRoundtripOptimization);
 	}
-	
+
+	/**
+	 * Associate the given managed connection with this factory.
+	 *  
+	 * @param connection - The managed connection to be associated.
+	 */
 	void associateConnection(ManagedConnectionImpl connection) {
-		synchronized(connections) {
+		synchronized (connections) {
 			connections.add(connection);
 		}
 	}
 
+	/**
+	 * Dissociate the given managed connection with this factory 
+	 * @param connection
+	 */
 	void dissociateConnection(ManagedConnectionImpl connection) {
-		synchronized(connections) {
+		synchronized (connections) {
 			connections.remove(connection);
 		}
 	}

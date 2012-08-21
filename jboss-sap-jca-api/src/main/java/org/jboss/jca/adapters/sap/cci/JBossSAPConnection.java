@@ -25,10 +25,6 @@ import java.util.Properties;
 
 import javax.resource.ResourceException;
 import javax.resource.cci.Connection;
-import javax.resource.cci.ConnectionMetaData;
-import javax.resource.cci.Interaction;
-import javax.resource.cci.LocalTransaction;
-import javax.resource.cci.ResultSetInfo;
 
 /**
  * Implements the {@link Connection } interface for the JBoss SAP JCA Connector.
@@ -36,35 +32,7 @@ import javax.resource.cci.ResultSetInfo;
  * @author William Collins
  * 
  */
-public interface JBossSAPCciConnection extends Connection {
-
-	/**
-	 * Initiates close of the connection handle at the application level.
-	 * 
-	 * @throws ResourceException
-	 *             Exception thrown if close on a connection handle fails.
-	 */
-	public abstract void close() throws ResourceException;
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public abstract Interaction createInteraction() throws ResourceException;
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public abstract LocalTransaction getLocalTransaction() throws ResourceException;
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public abstract ConnectionMetaData getMetaData() throws ResourceException;
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public abstract ResultSetInfo getResultSetInfo() throws ResourceException;
+public interface JBossSAPConnection extends Connection {
 
 	/**
 	 * Begins stateful call sequence for interactions made through this connection.
