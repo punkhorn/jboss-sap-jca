@@ -72,7 +72,12 @@ public class InteractionImpl implements Interaction {
 	 * {@inheritDoc}
 	 */
 	public void close() throws ResourceException {
-		state = State.CLOSED;
+		synchronized (state) {
+			if (state == State.CLOSED) 
+				return;
+			state = State.CLOSED;
+		}
+		this.connection.interactionClosed(this);
 	}
 
 	/**
@@ -372,9 +377,6 @@ public class InteractionImpl implements Interaction {
 	private void checkState() throws ResourceException {
 		if (state == State.CLOSED)
 			throw new ResourceException("interaction-impl-is-closed");
-		
-		// Check state of connection as well.
-		connection.checkState();
 	}
 
 }

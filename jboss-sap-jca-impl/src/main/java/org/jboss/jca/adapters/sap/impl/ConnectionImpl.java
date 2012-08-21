@@ -21,7 +21,10 @@
  */
 package org.jboss.jca.adapters.sap.impl;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.resource.NotSupportedException;
 import javax.resource.ResourceException;
@@ -86,6 +89,11 @@ public class ConnectionImpl implements JBossSAPConnection {
 	 * an <code>INACTIVE</code> state until placed in final <code>CLOSED</code> state by closing handle. 
 	 */
 	private State state = State.ACTIVE;
+	
+	/**
+	 * The set of active outstanding interactions created by this connection
+	 */
+	private final Set<InteractionImpl> activeInteractions = new HashSet<InteractionImpl>(); 
 
 	ConnectionImpl(ManagedConnectionImpl managedConnection)
 			throws ResourceException {
@@ -100,7 +108,31 @@ public class ConnectionImpl implements JBossSAPConnection {
 	 * @see org.jboss.jca.adapters.sap.impl.JBossSAPConnection#close()
 	 */
 	public void close() throws ResourceException {
-		if (state == State.INACTIVE && connectionManager instanceof LazyAssociatableConnectionManager) {
+		
+		boolean wasInactive = false;
+		
+		synchronized (this) {
+			if (state == State.INACTIVE) 
+				return;
+			if (state == State.INACTIVE)
+				wasInactive = true;
+			state = State.INACTIVE;
+		}
+		
+		// Close all outstanding active interactions 
+		Collection<InteractionImpl> copy = null;
+		synchronized (activeInteractions) {
+			if (activeInteractions.size() > 0)
+				copy = new HashSet<InteractionImpl>(activeInteractions);
+		}
+		if (copy != null) {
+			for (InteractionImpl interaction: copy) {
+				interaction.close();
+			}
+		}
+		
+		if (wasInactive && connectionManager instanceof LazyAssociatableConnectionManager) {
+			// Let application server know inactive handle was closed.
 			((LazyAssociatableConnectionManager)connectionManager).inactiveConnectionClosed(this, managedConnectionFactory);
 		} 
 
@@ -108,7 +140,6 @@ public class ConnectionImpl implements JBossSAPConnection {
 			managedConnection.closeHandle(this);
 		}
 		
-		state = State.CLOSED;
 		managedConnection = null;
 	}
 
@@ -119,7 +150,9 @@ public class ConnectionImpl implements JBossSAPConnection {
 	 */
 	public Interaction createInteraction() throws ResourceException {
 		checkState();
-		return new InteractionImpl(this);
+		InteractionImpl interaction = new InteractionImpl(this);
+		activeInteractions.add(interaction);
+		return interaction;
 	}
 
 	/*
@@ -245,6 +278,17 @@ public class ConnectionImpl implements JBossSAPConnection {
 		this.managedConnection.dissociateHandle(this);
 		this.managedConnection = null;
 		state = State.INACTIVE;
+	}
+	
+	/**
+	 * Called by {@link InteractionImpl} when the interaction is closed.
+	 * 
+	 * @param interaction the newly closed interaction.
+	 */
+	void interactionClosed(InteractionImpl interaction) {
+		synchronized (activeInteractions) {
+			activeInteractions.remove(interaction);
+		}
 	}
 
 	/**
