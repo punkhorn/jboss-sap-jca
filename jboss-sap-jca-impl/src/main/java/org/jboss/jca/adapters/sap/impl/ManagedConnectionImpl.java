@@ -51,6 +51,7 @@ import com.sap.conn.jco.JCoContext;
 import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
+import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.ext.DestinationDataProvider;
 
 /**
@@ -62,7 +63,27 @@ import com.sap.conn.jco.ext.DestinationDataProvider;
  * @version $Id: $
  */
 public class ManagedConnectionImpl implements ManagedConnection, DissociatableManagedConnection {
+	
+	/**
+	 * Remote function module called to commit transaction
+	 */
+	private static final String COMMIT_FUNCTION = "BAPI_TRANSACTION_COMMIT";
+	
+	/**
+	 * Name of import variable set in remote function call to commit transaction that causes synchronous commit 
+	 */
+	private static final String SYNC_COMMIT_PARAM = "WAIT";
 
+	/**
+	 * Value pass in remote function call to commit transaction that causes synchronous commit.
+	 */
+	private static final String SYNC_COMMIT_PARAM_VAL = "X";
+
+	/**
+	 * Remote function module called to rollback transaction
+	 */
+	private static final String ROLLBACK_FUNCTION = "BAPI_TRANSACTION_ROLLBACK";
+	
 	/**
 	 * States of a manage connection.
 	 */
@@ -113,6 +134,16 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 * when destroyed by application server. 
 	 */
 	private State state = State.ACTIVE;
+	
+	/**
+	 * The local transaction object that enables application server and clients to manage connections transaction context.
+	 */
+	private final LocalTransactionImpl localTransaction = new LocalTransactionImpl(this);
+	
+	/**
+	 * Flag indicating whether this managed connection is in transaction.
+	 */
+	private boolean inTransaction = false;
 
 	/**
 	 * Construct a managed connection with specified connection request info and associated with the specified managed
@@ -255,9 +286,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 * {@inheritDoc}
 	 */
 	public void cleanup() throws ResourceException
-
 	{
-		// @TODO Handle the dissociation of any local transaction context from connection.
 		Collection<ConnectionImpl> copy = null;
 		synchronized (handles) {
 			if (handles.size() > 0)
@@ -269,6 +298,9 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 				cciConnection.close();
 			}
 		}
+		
+		// End any stateful session.
+		endStatefulSession();
 	}
 
 	/**
@@ -315,32 +347,6 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	}
 
 	/**
-	 * Close application level handle handle to this connection
-	 * 
-	 * @param handle -
-	 *            The application handle
-	 */
-	public void closeHandle(JBossSAPConnection handle) {
-
-		dissociateHandle(handle);
-
-		Collection<ConnectionEventListener> copy = null;
-		synchronized (listeners) {
-			if (listeners != null && listeners.size() > 0)
-				copy = new ArrayList<ConnectionEventListener>(listeners);
-		}
-
-		if (copy != null) {
-			ConnectionEvent event = new ConnectionEvent(this, ConnectionEvent.CONNECTION_CLOSED);
-			event.setConnectionHandle(handle);
-			for (ConnectionEventListener cel : copy) {
-				cel.connectionClosed(event);
-			}
-		}
-
-	}
-
-	/**
 	 * {@inheritDoc}
 	 */
 	public PrintWriter getLogWriter() throws ResourceException {
@@ -358,7 +364,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 * {@inheritDoc}
 	 */
 	public LocalTransaction getLocalTransaction() throws ResourceException {
-		throw new NotSupportedException("managed-connection-impl-local-transaction-not-supported");
+		return localTransaction;
 	}
 
 	/**
@@ -372,9 +378,127 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 * {@inheritDoc}
 	 */
 	public ManagedConnectionMetaData getMetaData() throws ResourceException {
+		checkState();
 		if (connectionMetaData == null) 
 			connectionMetaData = new ConnectionMetaDataImpl(destination); 
 		return connectionMetaData;
+	}
+	
+	/**
+	 * Begins stateful session in SAP system and informs application server that transaction has begun.
+	 * 
+	 * @throws ResourceException If connection has already begun a transaction.
+	 */
+	synchronized void beginLocalTransaction() throws ResourceException {
+		checkState();
+		
+		if (inTransaction) 
+			// JCA 1.5 Specification: 7.8.3
+			throw new ResourceException("managed-connection-impl-already-in-transaction");
+		inTransaction = true;
+		
+		// Start stateful session for transaction
+		beginStatefulSession();
+
+		// Notify connection event listeners of local transaction start.
+		Collection<ConnectionEventListener> copy = null;
+		synchronized (listeners) {
+			if (listeners != null && listeners.size() > 0)
+				copy = new ArrayList<ConnectionEventListener>(listeners);
+		}
+		if (copy != null) {
+			// JCA 1.5 Specification: 7.7.2.1
+			ConnectionEvent event = new ConnectionEvent(this, ConnectionEvent.LOCAL_TRANSACTION_STARTED);
+			for (ConnectionEventListener cel : copy) {
+				cel.localTransactionStarted(event);
+			}
+		}
+		
+	}
+	
+	/**
+	 * Invokes commit RFM in SAP system, ends stateful session and informs application server that transaction has committed. 
+	 * 
+	 * @throws ResourceException If connection has not begun a transaction or error occurs in JCo runtime.
+	 */
+	synchronized void commitLocalTransaction() throws ResourceException {
+		checkState();
+		
+		if (!inTransaction) 
+			// JCA 1.5 Specification: 7.8.3
+			throw new ResourceException("managed-connection-impl-not-in-transaction");
+		inTransaction = false;
+		
+		// Commit transaction synchronously in SAP system
+		try {
+			JCoFunction commit = destination.getRepository().getFunction(COMMIT_FUNCTION);
+			commit.getImportParameterList().setValue(SYNC_COMMIT_PARAM, SYNC_COMMIT_PARAM_VAL);
+			commit.execute(destination);
+		} catch (JCoException e) {
+			// Note transaction should be implicitly rolled back in SAP system on error.
+			throw new ResourceException("managed-connection-impl-commit-failed", e);
+		} finally {
+			// End stateful session for transaction.
+			endStatefulSession();
+		}
+		
+		// Notify connection event listeners of local transaction commit.
+		Collection<ConnectionEventListener> copy = null;
+		synchronized (listeners) {
+			if (listeners != null && listeners.size() > 0)
+				copy = new ArrayList<ConnectionEventListener>(listeners);
+		}
+		if (copy != null) {
+			// JCA 1.5 Specification: 7.7.2.1
+			ConnectionEvent event = new ConnectionEvent(this, ConnectionEvent.LOCAL_TRANSACTION_COMMITTED);
+			for (ConnectionEventListener cel : copy) {
+				cel.localTransactionCommitted(event);
+			}
+		}
+		
+		
+	}
+	
+	/**
+	 * Invokes rollback RFM in SAP system, ends stateful session and informs application server that transaction has rolled back. 
+	 * 
+	 * @throws ResourceException If connection has not begun a transaction or error occurs in JCo runtime.
+	 */
+	synchronized void rollbackLocalTransaction() throws ResourceException {
+		checkState();
+		
+		if (!inTransaction) 
+			// JCA 1.5 Specification: 7.8.3
+			throw new ResourceException("managed-connection-impl-not-in-transaction");
+		inTransaction = false;
+		
+		// Commit transaction synchronously in SAP system
+		try {
+			JCoFunction commit = destination.getRepository().getFunction(ROLLBACK_FUNCTION);
+			commit.execute(destination);
+		} catch (JCoException e) {
+			// Note transaction should be implicitly rolled back in SAP system on error.
+			throw new ResourceException("managed-connection-impl-rollback-failed", e);
+		} finally {
+			// End stateful session for transaction.
+			endStatefulSession();
+		}
+		
+		// Notify connection event listeners of local transaction rollback.
+		Collection<ConnectionEventListener> copy = null;
+		synchronized (listeners) {
+			if (listeners != null && listeners.size() > 0)
+				copy = new ArrayList<ConnectionEventListener>(listeners);
+		}
+		if (copy != null) {
+			// JCA 1.5 Specification: 7.7.2.1
+			ConnectionEvent event = new ConnectionEvent(this, ConnectionEvent.LOCAL_TRANSACTION_ROLLEDBACK);
+			for (ConnectionEventListener cel : copy) {
+				cel.localTransactionRolledback(event);
+			}
+		}
+		
+
 	}
 	
 	/**
@@ -389,9 +513,9 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	/**
 	 * Called by {@link ConnectionImpl#begin()}
 	 * 
-	 * @throws ResourceException If underlying JCo runtime throws an exception.
+	 * @throws ResourceException If connection is destroyed.
 	 */
-	void begin() throws ResourceException {
+	synchronized void beginStatefulSession() throws ResourceException {
 		checkState();
 		JCoContext.begin(destination);
 	}
@@ -399,10 +523,18 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	/**
 	 * Called by {@link ConnectionImpl#end()}
 	 * 
-	 * @throws ResourceException If underlying JCo runtime throws an exception.
+	 * @throws ResourceException If connection is destroyed or has outstanding transaction or if error occurs in underlying JCo 
+	 * runtime. 
 	 */
-	void end() throws ResourceException {
+	synchronized void endStatefulSession() throws ResourceException {
 		checkState();
+		
+		if (inTransaction)
+			throw new ResourceException("managed-connection-impl-in-transaction");
+		
+		if (!JCoContext.isStateful(destination))
+			return;
+		
 		try {
 			JCoContext.end(destination);
 		} catch (JCoException e) {
@@ -469,6 +601,32 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 		synchronized (handles) {
 			handles.remove(handle);
 		}
+	}
+
+	/**
+	 * Close application level handle handle to this connection
+	 * 
+	 * @param handle -
+	 *            The application handle
+	 */
+	void closeHandle(JBossSAPConnection handle) {
+
+		dissociateHandle(handle);
+
+		Collection<ConnectionEventListener> copy = null;
+		synchronized (listeners) {
+			if (listeners != null && listeners.size() > 0)
+				copy = new ArrayList<ConnectionEventListener>(listeners);
+		}
+
+		if (copy != null) {
+			ConnectionEvent event = new ConnectionEvent(this, ConnectionEvent.CONNECTION_CLOSED);
+			event.setConnectionHandle(handle);
+			for (ConnectionEventListener cel : copy) {
+				cel.connectionClosed(event);
+			}
+		}
+
 	}
 
 	/**

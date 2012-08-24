@@ -163,7 +163,7 @@ public class CciTests {
 	 */
 	@Deployment
 	public static ResourceAdapterArchive createDeployment() {
-		log.info("Creating deployment for CciTests");
+		log.info("Creating deployment for Cci Tests");
 
 		ResourceAdapterArchive raa = ShrinkWrap.create(ResourceAdapterArchive.class, deploymentName + ".rar");
 		JavaArchive ja = ShrinkWrap.create(JavaArchive.class, UUID.randomUUID().toString() + ".jar");
@@ -172,12 +172,12 @@ public class CciTests {
 
 		raa.addAsManifestResource("META-INF/ra.xml", "ra.xml");
 
-		raa.addAsManifestResource("META-INF/CciTests-ironjacamar.xml", "ironjacamar.xml");
+		raa.addAsManifestResource("META-INF/DefaultTests-ironjacamar.xml", "ironjacamar.xml");
 
 		return raa;
 	}
 
-	@Resource(mappedName = "java:/eis/CciTestsFactory")
+	@Resource(mappedName = "java:/eis/DefaultTestsFactory")
 	private javax.resource.cci.ConnectionFactory connectionFactory;
 
 	/**
@@ -191,10 +191,9 @@ public class CciTests {
 		JBossSAPConnection connection = null;
 		try {
 			log.info("Testing Connection");
-			assertNotNull("Failed to access connection factory 'CciTestsFactory'", connectionFactory);
+			assertNotNull("Failed to access connection factory 'DefaultTestsFactory'", connectionFactory);
 			connection = (JBossSAPConnection) connectionFactory.getConnection();
 			assertNotNull("Failed to create connection", connection);
-			connection.ping();
 			log.info("Connection test succeeded!");
 		} finally {
 			if (connection != null)
@@ -214,10 +213,9 @@ public class CciTests {
 		JBossSAPConnection connection = null;
 		try {
 			log.info("Testing Simple Interaction");
-			assertNotNull("Failed to access connection factory 'CciTestsFactory'", connectionFactory);
+			assertNotNull("Failed to access connection factory 'DefaultTestsFactory'", connectionFactory);
 			connection = (JBossSAPConnection) connectionFactory.getConnection();
 			assertNotNull("Failed to create connection", connection);
-			connection.ping();
 
 			Interaction interaction = connection.createInteraction();
 			JBossSAPInteractionSpec interactionSpec = new JBossSAPInteractionSpec();
@@ -251,10 +249,9 @@ public class CciTests {
 		JBossSAPConnection connection = null;
 		try {
 			log.info("Testing Parameter Passing");
-			assertNotNull("Failed to access connection factory 'CciTestsFactory'", connectionFactory);
+			assertNotNull("Failed to access connection factory 'DefaultTestsFactory'", connectionFactory);
 			connection = (JBossSAPConnection) connectionFactory.getConnection();
 			assertNotNull("Failed to create connection", connection);
-			connection.ping();
 
 			//
 			// Create interaction to invoke ZJBOSS_PARAM_TEST function module.

@@ -118,7 +118,7 @@ public class InteractionImpl implements Interaction {
 			try {
 				function.execute(connection.getDestination());
 			} catch (AbapException e) {
-				warnings = new ResourceWarning(e);
+				warnings = new ResourceWarning("interaction-impl-remote-function-module-exeption", e);
 				return false;
 			}
 

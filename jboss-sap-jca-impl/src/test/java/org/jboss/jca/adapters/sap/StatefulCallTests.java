@@ -61,12 +61,12 @@ public class StatefulCallTests {
 
 		raa.addAsManifestResource("META-INF/ra.xml", "ra.xml");
 
-		raa.addAsManifestResource("META-INF/CciTests-ironjacamar.xml", "ironjacamar.xml");
+		raa.addAsManifestResource("META-INF/DefaultTests-ironjacamar.xml", "ironjacamar.xml");
 
 		return raa;
 	}
 
-	@Resource(mappedName = "java:/eis/CciTestsFactory")
+	@Resource(mappedName = "java:/eis/DefaultTestsFactory")
 	private javax.resource.cci.ConnectionFactory connectionFactory;
 
 	/**

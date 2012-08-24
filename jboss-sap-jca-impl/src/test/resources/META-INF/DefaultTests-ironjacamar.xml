@@ -27,10 +27,10 @@
              xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema 
              http://www.jboss.org/ironjacamar/schema/ironjacamar_1_0.xsd">
 
-  <transaction-support>NoTransaction</transaction-support>
+  <transaction-support>LocalTransaction</transaction-support>
   
   <connection-definitions>
-    <connection-definition class-name="org.jboss.jca.adapters.sap.impl.ManagedConnectionFactoryImpl" jndi-name="java:/eis/CciTestsFactory" pool-name="JBossSAPConnectionFactory">
+    <connection-definition class-name="org.jboss.jca.adapters.sap.impl.ManagedConnectionFactoryImpl" jndi-name="java:/eis/DefaultTestsFactory" pool-name="JBossSAPConnectionFactory">
     	<config-property name="ashost">nplhost</config-property>
     	<config-property name="sysnr">42</config-property>
     	<config-property name="client">001</config-property>

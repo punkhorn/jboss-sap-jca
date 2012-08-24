@@ -162,7 +162,7 @@ public class ConnectionImpl implements JBossSAPConnection {
 	 */
 	public LocalTransaction getLocalTransaction() throws ResourceException {
 		checkState();
-		throw new NotSupportedException("connection-impl-txn-not-supported");
+		return (LocalTransaction) managedConnection.getLocalTransaction();
 	}
 
 	/*
@@ -192,7 +192,7 @@ public class ConnectionImpl implements JBossSAPConnection {
 	 */
 	public void begin() throws ResourceException {
 		checkState();
-		managedConnection.begin();
+		managedConnection.beginStatefulSession();
 	}
 
 	/*
@@ -202,7 +202,7 @@ public class ConnectionImpl implements JBossSAPConnection {
 	 */
 	public void end() throws ResourceException {
 		checkState();
-		managedConnection.end();
+		managedConnection.endStatefulSession();
 	}
 
 	/*
@@ -266,6 +266,9 @@ public class ConnectionImpl implements JBossSAPConnection {
 	 * @param managedConnection - the managed connection to associate with.
 	 */
 	void associateManagedConnection(ManagedConnectionImpl managedConnection) {
+		if (this.managedConnection != null) {
+			dissociateManagedConnection();
+		}
 		this.managedConnection = managedConnection;
 		this.managedConnection.associateHandle(this);
 		state = State.ACTIVE;

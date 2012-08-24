@@ -27,7 +27,7 @@
              xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema 
              http://www.jboss.org/ironjacamar/schema/ironjacamar_1_0.xsd">
 
-  <transaction-support>NoTransaction</transaction-support>
+  <transaction-support>LocalTransaction</transaction-support>
   
   <connection-definitions>
     <connection-definition class-name="org.jboss.jca.adapters.sap.impl.ManagedConnectionFactoryImpl" jndi-name="java:/eis/ConfigurationTestsFactory" pool-name="JBossSAPConnectionFactory">

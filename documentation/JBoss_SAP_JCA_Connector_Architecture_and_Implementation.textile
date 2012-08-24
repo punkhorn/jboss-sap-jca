@@ -21,7 +21,7 @@ A default connection for the connector can be specified in the deployment descri
 
 Note that only *one default connection* can be specified for the connector.
 
-Application components can specify an unlimited number of connections at runtime using a @JBossSAPConnectionSpec@ object. This object is a specialized @java.utils.Propties@ property set that is used to hold connection configurations. These configurations are used to create physical connections in the connector runtime to SAP systems. Please refer to the _JBossSAPConnectionSpec_ and _Connection Establishment_ sections for further details. 
+Application components can specify an unlimited number of connections at runtime using a @JBossSAPConnectionSpec@ object. This object is a specialization of the @java.utils.Properties@ class that is used to hold connection configurations. These configurations are used to create physical connections in the connector runtime to SAP systems. Please refer to the _JBossSAPConnectionSpec_ and _Connection Establishment_ sections for further details. 
 
 h2. Re-Authentication Support
 
@@ -41,13 +41,28 @@ Managed connections in the JBoss SAP JCA connector *do not support* any *mutable
 
 h2. Transaction Support
 
-The JBoss SAP JCA Connector provides support for *local transactions*. That is it provides support to manage a transaction through a single managed connection. 
+The JBoss SAP JCA Connector provides support for *local transactions*. That is it provides support to manage a transaction through a single managed connection. All operations performed during a local transaction through a managed connection constitute a *recoverable unit of work*, called a *transaction context*, in the SAP system. Note that all of the remote function modules called during a transaction must conform to the BAPI transaction model. That is these RFMs must not execute database operations directly (call @COMMIT WORK@) in their execution but instead defer these database operations into an update task. 
+
+The context of a local transaction includes all operations that are performed through a managed connection regardless of the connection handle, @CCIConnection@, through which these operations were invoked. This enables multiple application components holding different connection handles to the same managed connection to participate in the same transaction. It is the responsibility of the  application server to coordinate a transaction by ensuring that components participating in the same transaction all use the *same managed connection* to an SAP instance when performing operations on that SAP system in the transaction. 
+
 
 h1. JBoss SAP JCA Resource Adapter Implementation
 
+The implementation of the JBoss SAP SAP JCA Resource Adapter is divided into two libraries. 
+
+The @jboss-sap-jca-api.jar@ contains JBoss SAP SAP Connector specific interfaces and classes that are imported (along with the standard common client interfaces of the JCA 1.5 specification) into application components to facilitate their interaction with the connector. All classes and interfaces in this jar reside in the @org.jboss.jca.adapters.cci@ package. 
+
+The @jboss-sap-jca-impl.jar@ contains the classes that are imported into the JBoss runtime and implement the common client and service provider interfaces of the JCA 1.5 specification. All class in this jar reside in the @org.jboss.jca.adapters.impl@ package. 
+
+Both jars are deployed and exposed in the JBoss runtime as modules for import by application components and the JBoss runtime.
+
 h2. Common Client Interface
 
+The following sections describe the implementation of the *Common Client Interfaces* (CCI) of the JBoss SAP JCA Connector.
+
 h3. CCI Connections
+
+The following JBoss SAP JCA Connector classes implement the interfaces of the CCI Connection API
 
 h4. ConnectionFactoryImpl
 
@@ -81,15 +96,28 @@ h4. ConnectionMetaDataImpl
 
 h3. CCI Interactions
 
+The following JBoss SAP JCA Connector classes implement the interfaces of the CCI Interaction API
+
 h4. InteractionImpl
+
+The @org.jboss.jca.adapters.sap.impl.InteractionImpl@ implements the @javax.resource.cci.Interaction@ interface and implements the logic to invoke a remote function module (RFM) in an SAP system and pass parameters back and forth to the RFM. 
 
 h4. JBossSAPInteractionSpec
 
+The @org.jboss.jca.adapters.sap.cci.JBossSAPInteractionSpec@ implements the @javax.resource.cci.InteractionSpec@ interface and provides a JBoss SAP JCA Connector specific way to configure interactions with an SAP system. 
+
 h4. RecordFactoryImpl
+
+The @org.jboss.jca.adapters.sap.impl.RecordFactoryImpl@ implements the @javax.resource.cci.RecordFactory@ interface and provides a mechanism to create @javax.resource.cci.MappedRecord@ and @javax.resource.cci.IndexedRecord@ instances
 
 h4. MappedRecordImpl
 
+The @org.jboss.jca.adapters.sap.impl.MappedRecordImpl@ implements the @javax.resource.cci.MappedRecord@ and provides a means to pass a map structure of parameters in an invocation to an RFM.
+
 h4. IndexedRecordImpl
+
+The @org.jboss.jca.adapters.sap.impl.IndexedRecordImpl@ implements the @javax.resource.cci.IndexedRecord@ and provides a means to pass a indexed structure of parameters in an invocation to an RFM.
+
 
 h2. Service Providers Interface
 
@@ -145,11 +173,17 @@ A @ManagedConnectionImpl@ is *shareable* and supports multiple active connection
 
 h4. ConnectionMetaDataImpl
 
-The @org.jboss.jca.adapters.sap.impl.ConnectionMetaDataImpl@ implements the @javax.resource.spi.ManagedConnectionMetaData@ and @javax.resource.cci.ConnectionMetaData@ interfaces and provides information about the SAP system a managed connection and its corresponding connection handles are connected to. For example, the *username* the managed connection used to connect to the SAP system, the *eis product name*, in this case "SAP® R/3", and the *release version* of the connected to system can be determined from the @ConnectionMetaDataImpl@. 
+The @org.jboss.jca.adapters.sap.impl.ConnectionMetaDataImpl@ class implements the @javax.resource.spi.ManagedConnectionMetaData@ and @javax.resource.cci.ConnectionMetaData@ interfaces and provides information about the SAP system a managed connection and its corresponding connection handles are connected to. For example, the *username* the managed connection used to connect to the SAP system, the *eis product name*, in this case "SAP® R/3", and the *release version* of the connected to system can be determined from the @ConnectionMetaDataImpl@. 
 
 The @ConnectionMetaDataImpl@ also signals to the application server that the managed connections of the connector support an unlimited number of active concurrent connections across client processes to the SAP system by returning the value @0@ for the maximum number of concurrent connections.
 
 h4. DestinationDataProviderImpl
+
+The @org.jboss.jca.adapters.sap.impl.DestinationDataProviderImpl@ implements the @com.sap.conn.jco.ext.DestinationDataProvider@ interface and stores and manages the configurations used by the JCo runtime to configure @JCoDestination@ instances. 
+
+h4. LocalTransactionImpl
+
+The @org.jboss.jca.adapters.sap.impl.LocalTransactionImpl@ class implements the @javax.resource.cci.LocalTransaction@ and @javax.resource.spi.LocalTransaction@ interfaces and provides access to the transaction logic in @ManageConnectionImpl@ for application components and the application server to manage and control the connection's transactions. 
 
 h1. CCI Connection Design
 
