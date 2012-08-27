@@ -28,7 +28,7 @@ import javax.resource.cci.ResourceAdapterMetaData;
  *
  * @author William Collins
  * 
- * @version $Id$
+ * @version $Id: $
  */
 public enum ResourceAdapterMetaDataImpl implements ResourceAdapterMetaData {
 	INSTANCE;
