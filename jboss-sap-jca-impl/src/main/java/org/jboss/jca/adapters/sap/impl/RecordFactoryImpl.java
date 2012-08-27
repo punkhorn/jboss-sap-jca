@@ -32,7 +32,7 @@ import javax.resource.cci.RecordFactory;
  *
  * @author William Collins
  * 
- * @version $Id: $
+ * @version $Id$
  */
 public enum RecordFactoryImpl implements RecordFactory {
 	INSTANCE;

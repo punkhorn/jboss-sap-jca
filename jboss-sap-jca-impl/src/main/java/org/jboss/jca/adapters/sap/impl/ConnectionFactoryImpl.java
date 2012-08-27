@@ -37,7 +37,7 @@ import org.jboss.jca.adapters.sap.cci.JBossSAPConnectionSpec;
  *
  * @author William Collins
  * 
- * @version $Id: $
+ * @version $Id$
  */
 public class ConnectionFactoryImpl implements ConnectionFactory {
 	/**

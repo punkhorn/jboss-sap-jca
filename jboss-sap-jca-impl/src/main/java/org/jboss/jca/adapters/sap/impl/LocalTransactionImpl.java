@@ -29,7 +29,7 @@ import javax.resource.ResourceException;
  * 
  * @author William Collins
  *
- * @version $Id: $
+ * @version $Id$
  */
 public class LocalTransactionImpl implements javax.resource.cci.LocalTransaction, javax.resource.spi.LocalTransaction {
 	

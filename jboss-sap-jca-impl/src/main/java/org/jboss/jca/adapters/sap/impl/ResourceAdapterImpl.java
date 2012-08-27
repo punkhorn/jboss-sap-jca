@@ -39,7 +39,7 @@ import com.sap.conn.jco.ext.Environment;
  *
  * @author William Collins
  * 
- * @version $Id: $
+ * @version $Id$
  */
 public class ResourceAdapterImpl implements ResourceAdapter {
 

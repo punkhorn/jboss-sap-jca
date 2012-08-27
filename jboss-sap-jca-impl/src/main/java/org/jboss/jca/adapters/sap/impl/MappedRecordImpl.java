@@ -30,7 +30,7 @@ import javax.resource.cci.MappedRecord;
  *
  * @author William Collins
  * 
- * @version $Id: $
+ * @version $Id$
  */
 @SuppressWarnings("rawtypes")
 public class MappedRecordImpl extends HashMap implements MappedRecord {

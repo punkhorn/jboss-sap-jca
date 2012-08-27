@@ -45,7 +45,7 @@ import com.sap.conn.jco.JCoTable;
  * 
  * @author William Collins
  * 
- * @version $Id: $
+ * @version $Id$
  */
 public class InteractionImpl implements Interaction {
 
