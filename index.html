@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="JBoss SAP JCA Connector : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>JBoss SAP JCA Connector</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/wjcredhat/JBoss-SAP-Connector">View on GitHub</a>
+
+          <h1 id="project_title">JBoss SAP JCA Connector</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/wjcredhat/JBoss-SAP-Connector/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/wjcredhat/JBoss-SAP-Connector/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>JBoss SAP JCA Connector</h1>
+
+<p>The JBoss SAP JCA Connector is an integration component for the JBoss® AS 7 server providing access to SAP® Enterprise Information Systems.  Through this connector, application components deployed in JBoss such as session beans and servlets can access data residing in an SAP system.</p>
+
+<p>Be sure to read through this entire document before attempting to build, deploy and work with this connector. It contains the following information:</p>
+
+<ul>
+<li>
+<a href="#requirements">System Requirements</a> List of software required to build and deploy this JCA connector.</li>
+<li>
+<a href="#building">Building</a>: Instructions for building this JCA Connector.</li>
+<li>
+<a href="#deploying">Deploying</a>: Instructions for deploying the JCA Connector to the JBoss AS 7 server.</li>
+<li>
+<a href="#license">License</a>: License</li>
+</ul><p><a></a></p>
+
+<h2>System Requirements</h2>
+
+<p>To build, deploy and run this JCA connector, you will need the following:</p>
+
+<ol>
+<li>
+<p>Java 1.6, to run JBoss AS 7 and Maven. You can choose from the following:</p>
+
+<ul>
+<li>OpenJDK</li>
+<li>Oracle Java SE</li>
+<li>Oracle JRockit</li>
+</ul>
+</li>
+<li>
+<p>Maven 3.0.4 or newer, to build and deploy the JCA connector.</p>
+
+<ul>
+<li>If you have not yet installed Maven, see the <a href="http://maven.apache.org/guides/getting-started/index.html">Maven Getting Started Guide</a> for details.</li>
+<li>
+<p>if you have installed Maven, you can check the version by typing the following in a command line:</p>
+
+<pre><code>mvn --version
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>The JBoss AS 7 distribution ZIP.</p>
+
+<ul>
+<li>For information on how to install and run JBoss, please refer to the product documentation.</li>
+</ul>
+</li>
+<li>
+<p>SAP Java Connector (JCo) libraries 3.0.8 or newer, to build and run the JCA connector</p>
+
+<ul>
+<li>The JCo libraries can be downloaded from the <a href="https://service.sap.com/connectors">SAP Service Marketplace</a>.</li>
+<li>For information on how to install the JCo libraries, please refer to the instructions below. </li>
+</ul>
+</li>
+<li>
+<p>SAP Netweaver AS ABAP server, to build (optional) and run the JCA connector.</p>
+
+<ul>
+<li>A trial version of the SAP Netweaver server can be downloaded from the <a href="http://www.sdn.sap.com/irj/scn/downloads">SAP Software Download Catalog</a>.</li>
+</ul>
+</li>
+</ol><p><a></a></p>
+
+<h2>Building</h2>
+
+<p>To build the JBoss SAP JCA Connector project you will need to perform the following steps:</p>
+
+<ul>
+<li>
+<a href="#installJco2Repo">Install JCo Library</a>: Install JCo library into local Maven repository.</li>
+<li>
+<a href="#installFuncMod">Install Unit Test Function Module</a>: (Optional) Install function module used by unit tests into your SAP system.</li>
+<li>
+<a href="#configUnitTests">Configure Unit Tests</a>: (Optional) Configure unit tests to connect to your SAP system.</li>
+<li>
+<a href="#buildProject">Build Project</a>: Build project artifacts. </li>
+</ul><p><a></a></p>
+
+<h3>Install JCo Library</h3>
+
+<p>The JCA connector project requires the sapjco3 library jar  be installed in your local Maven repository in order to build. Use this command to install the jar:</p>
+
+<pre><code>    mvn install:install-file -Dfile=&lt;your-path-to&gt;sapjco3&lt;your-version&gt;.jar -DgroupId=com.sap.conn.jco -DartifactId=sapjco3 -Dversion=&lt;your-version&gt; -Dpackaging=jar
+</code></pre>
+
+<p><a></a></p>
+
+<h3>(Optional) Install Unit Test Package</h3>
+
+<p>The unit tests of the JCA connector project require that the <code>ZJBOSS_PACKAGE</code> package and all of its associated sub-objects be imported into the the SAP system used by the tests. This step can be skipped if the unit are not run during the build. To import the package, perform the following steps:</p>
+
+<h4>1. Determine the Location of Transport Directory</h4>
+
+<p>The <code>ZJBOSS_PACKAGE</code> and all its associated sub-objects are provided in a transport request. This request is packaged as two files that need to be deployed to the <code>transport directory</code> of the SAP system into which the objects will be imported. To determine the location of the transport directory, run the SAP Directories Transaction (AL11) and scroll down to the entry <code>DIR_TRANS</code> in the table and note the directory location.</p>
+
+<h4>2. Deploy the Command and Data Files of the Transport Request</h4>
+
+<p>The transport request is packaged in a command file and data file located respectively in the <code>cofiles</code> and <code>data</code> directories of the <code>&lt;jboss-sap-jca-project-root-directory&gt;/jboss-sap-jca-impl/src/test/resources/trans</code> directory. Copy these files to the corresponding sub-directories of the SAP system's transport directory. </p>
+
+<h4>3. Import the Transport Request into the SAP System</h4>
+
+<p>To import the transport request into the SAP System:</p>
+
+<ul>
+<li>Execute the Transport Management System Transaction (STMS).</li>
+<li>Select the <code>Overview</code> -&gt; <code>Imports</code> menu item. </li>
+<li>On the <code>Import Overview</code> screen , select the import queue to be used for the import and then select the <code>Import Queue</code> -&gt; <code>Display</code> menu item. </li>
+<li>On the <code>Import Queue</code> screen, select the <code>Extras</code> -&gt; <code>Other Requests</code> -&gt; <code>Add</code> menu item. </li>
+<li>In the <code>Add Transport Request to Import Queue</code> dialog box select the <code>Transp. Request</code> text field and click the adjacent search box.</li>
+<li>In the <code>Transport requests</code> dialog box select the Request/Task with the corresponding number of the deployed command file and click the continue button.</li>
+<li>Back in the <code>Add Transport Request to Import Queue</code> dialog box click the continue button.</li>
+<li>Back on the <code>Import Queue</code> screen, select the newly added transport request and then select the <code>Request</code> -&gt; <code>Import</code> menu item. </li>
+<li>
+<p>After the import has completed, the <code>ZJBOSS_PACKAGE</code> contents can be viewed in the <code>Object Navigator Transaction</code> (SE80) and should contain the following objects:</p>
+
+<ul>
+<li>
+<code>ZJBOSS_PACKAGE</code>
+
+<ul>
+<li>Dictionary Objects
+
+<ul>
+<li>Database Tables
+
+<ul>
+<li><code>ZJBOSS_COUNTERS</code></li>
+</ul>
+</li>
+<li>Table Types
+
+<ul>
+<li><code>ZJBOSS_TABLE</code></li>
+</ul>
+</li>
+<li>Structures
+
+<ul>
+<li><code>ZJBOSS_LINE_TYPE</code></li>
+<li><code>ZJBOSS_STRUCTURE</code></li>
+</ul>
+</li>
+<li>Data Elements
+
+<ul>
+<li><code>ZJBOSS_BCD</code></li>
+<li><code>ZJBOSS_BINARY</code></li>
+<li><code>ZJBOSS_BINARY_ARRAY</code></li>
+<li><code>ZJBOSS_CHAR</code></li>
+<li><code>ZJBOSS_FLOAT</code></li>
+<li><code>ZJBOSS_NUM</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Function Groups
+
+<ul>
+<li>
+<code>ZJBOSS_SAP_JCA_TEST_FG</code>
+
+<ul>
+<li>Function Modules
+
+<ul>
+<li>
+<li>
+<li>
+<li>
+<li>
+<li>
+<li>
+<li>
+<li>
+<li>
+<li>
+</ul>
+</li>
+<li>Dictionary Structures
+
+<ul>
+<li>
+</ul>
+</li>
+<li>Fields
+
+<ul>
+<li>
+<li>
+<li>
+<li>
+</ul>
+</li>
+<li>Subroutines
+
+<ul>
+<li>
+</ul>
+</li>
+<li>Includes
+
+<ul>
+<li>
+<li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul><p><a></a></p>
+
+<h3>(Optional) Configure Unit Tests</h3>
+
+<p>The unit tests use the configuration files located in the <code>&lt;jboss-sap-jca-project-root-directory&gt;/jboss-sap-jca-impl/src/test/resources/META-INF/</code> directory to connect to the SAP system where the <code>ZJBOSS_PARAM_TEST</code> function module was installed. This step can be skipped if the unit are not run during the build. Modify the XXXX-ironjacamar.xml files with values appropriate for your SAP System for the following connection parameters:</p>
+
+<ul>
+<li>
+<em>ashost</em> - the hostname or ip address of SAP system</li>
+<li>
+<em>sysnr</em> - the system number of SAP system</li>
+<li>
+<em>client</em> - the client number used to connect to SAP system</li>
+<li>
+<em>user</em> - the user name used to connect to SAP system</li>
+<li>
+<em>passwd</em> - the password used to connect to SAP system</li>
+<li>
+<em>lang</em> - the language to use for connection session</li>
+</ul><p><a></a></p>
+
+<h3>Build Project</h3>
+
+<p>Build and install the JCA connector project artifacts in your local Maven repository. From the root directory of the JBoss SAP JCA Connector project execute the following command to build, test and install the projects artifacts:</p>
+
+<pre><code>    mvn clean install
+</code></pre>
+
+<p>Execute this command to build and install the project artifacts without running the unit tests: </p>
+
+<pre><code>    mvn -Dmaven.test.skip=true clean install
+</code></pre>
+
+<p><a></a></p>
+
+<h2>Deploying</h2>
+
+<p>To deploy the JBoss SAP JCA Connector project you will need to perform the following steps:</p>
+
+<ul>
+<li>
+<a href="#installJcoModule">Install JCo Module</a>: Install JCo Module in JBoss AS7 to expose JCo library to JEE components.</li>
+<li>
+<a href="#installJcaModule">Install JBoss SAP JCA Module</a>: Install JBoss SAP JCA Module in JBoss AS7 to expose JBoss SAP JCA Common Client Interfaces to JEE components.</li>
+<li>
+<a href="#configNativeLibPath">Configure JBoss AS7 Native Library Path</a>: Configure JBoss AS7 native library path in order for JBoss to load JCo native libraries. </li>
+<li>
+<a href="#deployJcaConnector">Deploy JBoss SAP JCA Connector</a>: Deploy  the JBoss SAP JCA connector to JBoss AS7.</li>
+</ul><p><a></a></p>
+
+<h3>Install JCo Module</h3>
+
+<p>The JBoss SAP JCA connector requires that the JCo library be exposed in the JBoss AS7 environment as a module in order to link to it at runtime. To install the module:</p>
+
+<ul>
+<li>Create the module directory <code>&lt;jboss-as-root-directory&gt;/modules/com/sap/conn/jco/main</code>.</li>
+<li>
+<p>In the module directory create the file <strong>module.xml</strong> with the following contents:</p>
+
+<pre><code>        &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+        &lt;module xmlns="urn:jboss:module:1.1" name="com.sap.conn.jco"&gt;
+            &lt;resources&gt;
+                &lt;resource-root path="sapjco3.jar"/&gt;
+            &lt;/resources&gt;
+        &lt;/module&gt;
+</code></pre>
+</li>
+<li><p>Copy the <code>sapjco3.jar</code> from you local Maven repository to the module directory.</p></li>
+</ul><p><a></a></p>
+
+<h3>Install JBoss SAP JCA Module</h3>
+
+<p>The JBoss SAP JCA connector Common Client Interfaces need to be exposed in the JBoss AS7 environment as a module in order for JEE components to link to them at runtime. To install the module:</p>
+
+<ul>
+<li>Create the module directory <code>&lt;jboss-as-root-directory&gt;/modules/org/jboss/jca/adapters/sap/main</code>.</li>
+<li>
+<p>In the module directory create the file <strong>module.xml</strong> with the following contents:</p>
+
+<pre><code>        &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+        &lt;module xmlns="urn:jboss:module:1.1" name="org.jboss.jca.adapters.sap"&gt;
+            &lt;dependencies&gt;
+                &lt;module name="javax.resource.api" export="true"/&gt;
+            &lt;/dependencies&gt;
+            &lt;resources&gt;
+                &lt;resource-root path="jboss-sap-jca-api-1.0.0-SNAPSHOT.jar"/&gt;
+            &lt;/resources&gt;
+        &lt;/module&gt;
+</code></pre>
+</li>
+<li><p>Copy the <code>jboss-sap-jca-api-1.0.0-SNAPSHOT.jar</code> from you local Maven repository to the module directory.</p></li>
+</ul><p><a></a></p>
+
+<h3>Configure JBoss AS7 Native Library Path</h3>
+
+<p>The native library path of the JBoss AS7 server needs to configured in order for the SAP Java Connector native library to loaded at runtime. To configure the native library path:</p>
+
+<ul>
+<li>Create the native library directory <code>&lt;jboss-as-root-directory&gt;/bin/native</code>.</li>
+<li>Copy the SAP Java Connector native library into the native library directory.</li>
+<li>
+<p>Add the following line to the bottom of the <code>standalone.conf</code> file in the <code>&lt;jboss-as-root-directory&gt;/bin</code> directory:</p>
+
+<pre><code>        JAVA_OPTS="$JAVA_OPTS -Djava.library.path=&lt;jboss-as-root-directory&gt;/bin/native"
+</code></pre>
+</li>
+<li><p>Restart the JBoss AS7 server.</p></li>
+</ul><p><a></a></p>
+
+<h3>Deploy JBoss SAP JCA Connector</h3>
+
+<p>Deploy the JCA connector to your JBoss AS7 server. From the directory <code>&lt;jboss-sap-jca-project-root-directory&gt;/jboss-sap-jca-impl</code> execute the following command:</p>
+
+<pre><code>            mvn jboss-as:deploy
+</code></pre>
+
+<p><a></a></p>
+
+<h2>License</h2>
+
+<ul>
+<li><a href="http://www.gnu.org/licenses/lgpl-2.1-standalone.html">GNU Lesser General Public License Version 2.1</a></li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">JBoss SAP JCA Connector maintained by <a href="https://github.com/wjcredhat">wjcredhat</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
