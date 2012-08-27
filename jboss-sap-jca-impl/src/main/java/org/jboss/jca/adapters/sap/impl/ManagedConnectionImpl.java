@@ -241,7 +241,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 					continue searchConnectionRequestProperties;
 	
 				if (!getProperties().get(entry.getKey()).equals(entry.getValue()))
-					throw new ResourceException("managed-connection-impl-connection-request-property-does-not-match");
+					throw new ResourceException("managed-connection-impl-connection-request-properties-do-not-match");
 			}
 		}
 
@@ -321,7 +321,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 		// Remove destination configuration from JCo runtime
 		this.managedConnectionFactory.getResourceAdapter().getDestinationDataProvider()
 				.removeDestinationProperties(destinationName);
-
+		
 	}
 
 	/**

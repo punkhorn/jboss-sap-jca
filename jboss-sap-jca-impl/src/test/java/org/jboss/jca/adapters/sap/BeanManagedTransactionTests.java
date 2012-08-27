@@ -45,18 +45,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * BPMTransactionTests - Test JBoss SAP JCA connector bean managed transactions
+ * BeanManagedTransactionTests - Test JBoss SAP JCA connector bean managed transactions
  * 
  * @author William Collins
  *
  */
 @SuppressWarnings({ "unchecked" })
 @RunWith(Arquillian.class)
-public class BMPTransactionTests {
+public class BeanManagedTransactionTests {
 
-	private static Logger log = Logger.getLogger("BMPTransactionTests");
+	private static Logger log = Logger.getLogger("BeanManagedTransactionTests");
 
-	private static String deploymentName = "BMPTransactionTests";
+	private static String deploymentName = "BeanManagedTransactionTests";
 	
 	//
 	// Remote Function Modules called in tests
@@ -147,7 +147,6 @@ public class BMPTransactionTests {
 	@Resource(mappedName = "java:/eis/DefaultTestsFactory")
 	private javax.resource.cci.ConnectionFactory connectionFactory;
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testTransactionSequence() throws Throwable {
 		JBossSAPConnection connection = null;

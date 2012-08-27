@@ -1,6 +1,6 @@
 #JBoss SAP JCA Connector
 
-The JBoss SAP JCA Connector is an integration component for the JBoss AS 7 server providing access to SAP Enterprise Information Systems.  Through this connector, application components deployed in JBoss such as session beans and servlets can access data residing in an SAP system.
+The JBoss SAP JCA Connector is an integration component for the JBoss® AS 7 server providing access to SAP® Enterprise Information Systems.  Through this connector, application components deployed in JBoss such as session beans and servlets can access data residing in an SAP system.
 
 Be sure to read through this entire document before attempting to build, deploy and work with this connector. It contains the following information:
 
@@ -82,6 +82,8 @@ To import the transport request into the SAP System:
 
 	* `ZJBOSS_PACKAGE`
 		* Dictionary Objects
+			* Database Tables
+				* `ZJBOSS_COUNTERS`
 			* Table Types
 				* `ZJBOSS_TABLE`
 			* Structures
@@ -94,18 +96,32 @@ To import the transport request into the SAP System:
 				* `ZJBOSS_CHAR`
 				* `ZJBOSS_FLOAT`
 				* `ZJBOSS_NUM`
-			* Function Groups
-				* `ZJBOSS_SAP_JCA_TEST_FG`
-					* Function Modules
-						* `ZJBOSS_GET_COUNTER`
-						* `ZJBOSS_INCREMENT_COUNTER`
-						* `ZJBOSS_PARAM_TEST`
-						* `ZJBOSS_SET_COUNTER`
-					* Fields
-						* `COUNT`
-					* Includes
-						* `LZJBOSS_SAP_JCA_TEST_FGTOP`
-						* `LZJBOSS_SAP_JCA_TEST_FGUXX`
+		* Function Groups
+			* `ZJBOSS_SAP_JCA_TEST_FG`
+				* Function Modules
+					* `ZJBOSS_COUNTERS_CREATE`
+					* `ZJBOSS_COUNTERS_CREATE_UPDATE`
+					* `ZJBOSS_COUNTERS_DELETE`
+					* `ZJBOSS_COUNTERS_DELETE_UPDATE`
+					* `ZJBOSS_COUNTERS_READ`
+					* `ZJBOSS_COUNTERS_UPDATE`
+					* `ZJBOSS_COUNTERS_UPDATE_UPDATE`
+					* `ZJBOSS_GET_COUNTER`
+					* `ZJBOSS_INCREMENT_COUNTER`
+					* `ZJBOSS_PARAM_TEST`
+					* `ZJBOSS_SET_COUNTER`
+				* Dictionary Structures
+					* `ZJBOSS_COUNTERS`
+				* Fields
+					* `COUNT`
+					* `IT_ZJBOSS_COUNTERS_BUFFER`
+					* `I_ZJBOSS_COUNTERS`
+					* `WA_ZJBOSS_COUNTERS`
+				* Subroutines
+					* `BUFFERSAVE_COUNTERS`
+				* Includes
+					* `LZJBOSS_SAP_JCA_TEST_FGTOP`
+					* `LZJBOSS_SAP_JCA_TEST_FGUXX`
 
 <a id="configUnitTests"></a>
 ### (Optional) Configure Unit Tests

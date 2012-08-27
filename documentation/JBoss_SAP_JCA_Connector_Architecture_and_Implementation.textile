@@ -9,11 +9,13 @@ h2. Table of Contents
 
 {toc}
 
-h1. JBoss SAP JCA Resource Adapter Features
+h1. JBoss SAP JCA Connector Features
+
+This section provides an overview of the features supported by the JBoss SAP JCA Connector.
 
 h2. Outbound Resource Adapter
 
-The connector only provides *outbound communication* to an SAP R/3 system and thus only implements the service provider interfaces (SPI) for an outbound resource adapter. All communication to the SAP system is initiated by application components running in the application server and execute in the context of an application thread. 
+The JBoss SAP JCA Connector only provides *outbound communication* to an SAP R/3 system and thus only implements the service provider interfaces (SPI) for an outbound resource adapter. All communication to the SAP system is initiated by application components running in the application server and execute in the context of an application thread. 
 
 h2. Connection Specification
 
@@ -21,7 +23,7 @@ A default connection for the connector can be specified in the deployment descri
 
 Note that only *one default connection* can be specified for the connector.
 
-Application components can specify an unlimited number of connections at runtime using a @JBossSAPConnectionSpec@ object. This object is a specialization of the @java.utils.Properties@ class that is used to hold connection configurations. These configurations are used to create physical connections in the connector runtime to SAP systems. Please refer to the _JBossSAPConnectionSpec_ and _Connection Establishment_ sections for further details. 
+Application components can specify an unlimited number of connections at runtime using a @JBossSAPConnectionSpec@ object. This object is a specialization of the @java.utils.Properties@ class that is used to hold connection configurations. These configurations are used to create physical connections in the connector runtime to SAP systems. Please refer to the _JBossSAPConnectionSpec_ and _Programmatic Connection Configuration_ sections for further details. 
 
 h2. Re-Authentication Support
 
@@ -33,18 +35,362 @@ The JBoss SAP JCA connector *supports* *connection sharing* of managed connectio
 
 h2. Connection Association Support
 
-The JBoss SAP JCA Connector supports, as required by the JCA specification, the association of connection handles with different managed connections through the handles life-cycle. The connector also supports the dissociating of connection handles from managed connection entirely (Lazy Connection Association). A connection handle in the JBoss JCA SAP Connector will thus be in one of three states: *ACTIVE* - valid and associated with a managed connection; *INACTIVE* - valid but not associated with a managed connection; *CLOSED* - invalid and not associated with a managed connection.
+The JBoss SAP JCA Connector supports, as required by the JCA specification, the association of connection handles with different managed connections through the handles lifecycle. The connector also supports the dissociating of connection handles from managed connection entirely (Lazy Connection Association). A connection handle in the JBoss JCA SAP Connector will thus be in one of three states: *ACTIVE* - valid and associated with a managed connection; *INACTIVE* - valid but not associated with a managed connection; *CLOSED* - invalid and not associated with a managed connection.
 
 h2. Mutable Connection Properties
 
-Managed connections in the JBoss SAP JCA connector *do not support* any *mutable connection properties*. Once a managed connection is created by the connector runtime its connection properties are fixed. The connector runtime will not change any connection properties including security credentials of a managed connection through out its life-cycle. Any attempts by the application server to modify a managed connection's properties will result in an exception being thrown by the connector runtime. Instead the application server must create a new managed connection with the given security credentials and connection properties. 
+Managed connections in the JBoss SAP JCA connector *do not support* any *mutable connection properties*. Once a managed connection is created by the connector runtime its connection properties are fixed. The connector runtime will not change any connection properties including security credentials of a managed connection through out its lifecycle. Any attempts by the application server to modify a managed connection's properties will result in an exception being thrown by the connector runtime. Instead the application server must create a new managed connection with the given security credentials and connection properties. 
 
 h2. Transaction Support
 
 The JBoss SAP JCA Connector provides support for *local transactions*. That is it provides support to manage a transaction through a single managed connection. All operations performed during a local transaction through a managed connection constitute a *recoverable unit of work*, called a *transaction context*, in the SAP system. Note that all of the remote function modules called during a transaction must conform to the BAPI transaction model. That is these RFMs must not execute database operations directly (call @COMMIT WORK@) in their execution but instead defer these database operations into an update task. 
 
-The context of a local transaction includes all operations that are performed through a managed connection regardless of the connection handle, @CCIConnection@, through which these operations were invoked. This enables multiple application components holding different connection handles to the same managed connection to participate in the same transaction. It is the responsibility of the  application server to coordinate a transaction by ensuring that components participating in the same transaction all use the *same managed connection* to an SAP instance when performing operations on that SAP system in the transaction. 
+The context of a local transaction includes all operations that are performed through a managed connection regardless of the *connection handle* through which these operations were invoked. This enables multiple application components holding different connection handles to the same managed connection to participate in the same transaction. It is the responsibility of the  application server to coordinate a transaction by ensuring that components participating in the same transaction all use the *same managed connection* to an SAP instance when performing operations on that SAP system in the transaction. 
 
+The JBoss SAP JCA Connection *does not support XA transactions* as SAP does not support the two phase commit protocol.
+
+h1. Application Programming Model
+
+This section describes the programming model of the JBoss SAP JCA Connector.
+
+h2. Connection Configuration
+
+Connections to an SAP system can be configured in two ways within the connector.
+
+h3. Default Connection Configuration
+
+A single *default connection configuration* can be specified for the connector in its deployment descriptor. This connection configuration is used by the connector to connect to an SAP system when an application does not provide its own configuration properties and is hence the *default*. 
+
+The default connection configuration is specified by @config-property@ elements in the @connection-definition@ of the @outbound-resourceadapter@ configuration in the connector's deployment descriptor. Valid configuration properties recognized by the connector are listed and documented in the deployment descriptor delivered with the connector. Each property corresponds directly to a property for configuring a @com.conn.jco.JCoDestination@ object in the SAP JCo library. Please refer to your SAP JCo documentation for further description of each property. 
+
+Note that a default connection configuration should be sufficient to enable the connector to connect to an SAP system without further specification. The following example demonstrates a minimal valid connection configuration for the connector: 
+
+bc.. 
+		<connector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:jca="http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd" version="1.5">
+		  <vendor-name>Red Hat Middleware LLC</vendor-name>
+		  <eis-type>SAP R/3</eis-type>
+		  <resourceadapter-version>1.0.0</resourceadapter-version>
+		  <resourceadapter>
+		    <resourceadapter-class>org.jboss.jca.adapters.sap.impl.ResourceAdapterImpl</resourceadapter-class>
+		    <outbound-resourceadapter>
+		      <connection-definition>
+		        <managedconnectionfactory-class>org.jboss.jca.adapters.sap.impl.ManagedConnectionFactoryImpl</managedconnectionfactory-class>
+		        <config-property>
+		          <config-property-name>ashost</config-property-name>
+		          <config-property-type>java.lang.String</config-property-type>
+				   <config-property-value>nplhost</config-property-value>
+				 </config-property>	
+		        <config-property>
+		          <config-property-name>sysnr</config-property-name>
+		          <config-property-type>java.lang.String</config-property-type>
+				   <config-property-value>42</config-property-value>
+				 </config-property>	
+		        <config-property>
+		          <config-property-name>client</config-property-name>
+		          <config-property-type>java.lang.String</config-property-type>
+				   <config-property-value>001</config-property-value>
+				 </config-property>	
+		        <config-property>
+		          <config-property-name>user</config-property-name>
+		          <config-property-type>java.lang.String</config-property-type>
+				   <config-property-value>developer</config-property-value>
+				 </config-property>	
+		        <config-property>
+		          <config-property-name>password</config-property-name>
+		          <config-property-type>java.lang.String</config-property-type>
+				   <config-property-value>ch4ngeme</config-property-value>
+				 </config-property>	
+		        <config-property>
+		          <config-property-name>lang</config-property-name>
+		          <config-property-type>java.lang.String</config-property-type>
+				   <config-property-value>en</config-property-value>
+				 </config-property>	
+		        <connectionfactory-interface>javax.resource.cci.ConnectionFactory</connectionfactory-interface>
+		        <connectionfactory-impl-class>org.jboss.jca.adapters.sap.impl.ConnectionFactoryImpl</connectionfactory-impl-class>
+		        <connection-interface>org.jboss.jca.adapters.sap.cci.JBossSAPConnection</connection-interface>
+		        <connection-impl-class>org.jboss.jca.adapters.sap.impl.ConnectionImpl</connection-impl-class>
+		      </connection-definition>
+		      <transaction-support>LocalTransaction</transaction-support>
+		      <authentication-mechanism>
+		      	<authentication-mechanism-type>BasicPassword</authentication-mechanism-type>
+		      	<credential-interface>javax.resource.spi.security.PasswordCredential</credential-interface>
+		      </authentication-mechanism>
+		      <reauthentication-support>false</reauthentication-support>
+		    </outbound-resourceadapter>
+		  </resourceadapter>
+		</connector>
+p. 
+
+In this example, a direct connection to an application server in an SAP system is specified. The application server is designated by the system number @42@ and runs on the host @nplhost@. The connection is connected to the SAP system as client @001@ and authenticated with the username @developer@ and password @ch4ngeme@ using the language @en@, English. 
+
+h3. Programmatic Connection Configuration
+
+Application components can specify an unlimited number of connections at runtime using a @JBossSAPConnectionSpec@ object. This object is a specialization of the @java.utils.Properties@ class that is used to hold connection configurations. The valid properties that can be specified in instances of this object and be recognized by the connector runtime correspond directly to the properties defined in the @com.sap.conn.jco.ext.DestinationDataProvider@ interface. When specifying a connection configuration, it is recommended that the property name constants defined on this interface be used as keys when populating a @JBossSAPConnectionSpec@ object. 
+
+The following example demonstrates how to specify a connection configuration programmatically: 
+
+bc.. 
+		org.jboss.jca.adapters.sap.cci.JBossSAPConnectionSpec connectionConfiguration = new JBossSAPConnectionSpec();
+		spec.put(DestinationDataProvider.JCO_ASHOST, "nplhost");
+		spec.put(DestinationDataProvider.JCO_SYSNR, "42");
+		spec.put(DestinationDataProvider.JCO_CLIENT, "001");
+		spec.put(DestinationDataProvider.JCO_USER, "developer");
+		spec.put(DestinationDataProvider.JCO_PASSWD, "ch4ngeme");
+		spec.put(DestinationDataProvider.JCO_LANG, "en");
+p. 
+
+h2. Connection Establishment
+
+To establish a connection to an SAP system, an application component must first obtain a connection factory instance deployed in the JNDI service of the JBoss AS7 server. Once this object is obtained, the application component can then use this factory to create a connection. To create a connection with the default connection configuration of the connector, an application component will call the @getConnection@ method that takes no arguments. To create a connection with a programmatically specified connection configuration, an application component will call the version of @getConnection@ that takes a @connectionSpec@ argument and pass in a @JBossSAPConnectionSpec@ object as described in the previous section. The connection created by this method will have a configuration that is a merging of the properties of the default configuration of the connector with the properties of the passed in configuration and with the properties in the passed in configuration overriding any corresponding properties in the default configuration. The following example demonstrates the two ways of creating a connection:
+
+bc.. 
+		// Perform lookup in JNDI service to obtain connection factory.
+		javax.naming.Context context = new InitialContext();
+		javax.naming.cci.ConnectionFactory connectionFactory = (ConnectionFactory) context.lookup("java:/eis/MyFactory");
+		
+		// Create a connection using default connection configuration.
+		org.jboss.jca.adapters.sap.cci.JBossSAPConnection defaultConnection = (JBossSAPConnection) connectionFactory.getConnection();
+		
+		//  Create a connection using a programmatically specified connection configuration.
+		org.jboss.jca.adapters.sap.cci.JBossSAPConnection programmaticConnection = (JBossSAPConnection) connectionFactory.getConnection(connectionConfiguration);
+		
+		// It is best practice to close connections when done with them
+		defaultConnection.close();
+		programmaticConnection.close();
+p. 
+
+Note that when done using a connection it is best practice to close it in order to release unused connector resources. 
+
+h2. Record Management
+
+The JBoss SAP JCA Connector uses *records* to hold the parameters passed back and forth to an SAP system when invoking BAPIs and remote function modules in the system. In the invocation of a remote function module, an *input* and optional *output* record are used to hold the parameters that are to be passed in and passed out of the invocation respectively. For a given remote function module, the input record will hold all of the *import*, *changing* and *table* parameters to be passed to a remote function module as specified by its meta data residing in the meta data respository of the SAP system. The output record will hold all of the *export*, *changing*, and *table* parameters to be passed back from the remote function module as specified by its meta data. In both cases, a record is populated with parameters using the exact same *parameter names* as specified for the remote function module in its meta data.
+
+h3. Record Types
+
+The JBoss SAP JCA Connector supports two types of records: a @javax.resource.cci.MappedRecord@ and a @javax.resource.cci.IndexedRecord@. 
+
+Note that the JBoss SAP JCA connector *does not support* the @javax.resource.cci.ResultSet@ record type.
+
+h4. Mapped Record
+
+A *mapped record*, @MappedRecord@, is used to hold the values of @com.sap.conn.jco.JCoStructure@ type parameter. It is also used to hold the values of a @com.sap.jco.JCoParameterList@ type. Note that a mapped record type thus must be used for the input and output records used in a remote function module invocation. The @MappedRecord@ class implements the @java.util.Map@ interface and this interface's standard methods are used to populate and extract values from the record. 
+
+h4. Indexed Record 
+
+An *indexed record*, @IndexedRecord@, is used to hold the values of a @com.sap.conn.jco.JCoTable@ type parameter. Each item in the record corresponds to a row in the @JCoTable@ parameter.  The @IndexedRecord@ class implements the @java.util.List@ interface and this interface's standard methods are used to populate and extract row items from the record. 
+
+h3. Record Factory
+
+A *record factory*, @javax.resource.cci.RecordFactory@,  is used to create both indexed and mapped records. An application obtains a reference to a record factory from a connection factory. 
+
+h3. Record Example
+
+The following example demonstrates the creation of records and the population and extraction of parameter values from the records:
+
+bc.. 
+	
+		// Create an input record to pass parameters to a remote function module.
+		MappedRecord input = connectionFactory.getRecordFactory().createMappedRecord("input");
+
+		// Populate input record with primitive parameter values.
+		input.put("CHAR_PARAM", "ABCDEFGHIJ");
+		input.put("NUM_PARAM", "0123456789");
+		input.put("INT_PARAM", 0x75555555);
+		input.put("FLOAT_PARAM", 3.14159;
+		input.put("BCD_PARAM", new BigDecimal("100.00000000000001"));
+		input.put("BINARY_PARAM", new byte[] { (byte) 0x55 });
+		input.put("BINARY_ARRAY_PARAM", new byte[] { (byte) 0xFF, (byte) 0x0F, (byte) 0x1E, (byte) 0x2D, (byte) 0x3C, (byte) 0x4B, (byte) 0x5A, (byte) 0x60, (byte) 0x79, (byte) 0x88 });
+		input.put("DATE_PARAM", new GregorianCalendar(1861, 03, 12).getTime());
+		input.put("TIME_PARAM", new GregorianCalendar(1970, 0, 1, 12, 15, 30).getTime());
+		input.put("STRING_PARAM", "Four score and seven years ago ...");
+
+		// Populate input record with structure parameter value
+		MappedRecord structureParam = connectionFactory.getRecordFactory().createMappedRecord("STRUCTURE_PARAM");
+		structureParam.put("CHAR_PARAM", "ABCDEFGHIJ");
+		structureParam.put("NUM_PARAM", "0123456789");
+		structureParam.put("INT_PARAM", 0x75555555);
+		structureParam.put("FLOAT_PARAM", 3.14159);
+		structureParam.put("BCD_PARAM", new BigDecimal("100.00000000000001"));
+		structureParam.put("BINARY_PARAM", new byte[] { (byte) 0x55 });
+		structureParam.put("BINARY_ARRAY_PARAM", new byte[] { (byte) 0xFF, (byte) 0x0F, (byte) 0x1E, (byte) 0x2D, (byte) 0x3C, (byte) 0x4B, (byte) 0x5A, (byte) 0x60, (byte) 0x79, (byte) 0x88 });
+		structureParam.put("DATE_PARAM", new GregorianCalendar(1861, 03, 12).getTime());
+		structureParam.put("TIME_PARAM", new GregorianCalendar(1970, 0, 1, 12, 15, 30).getTime());
+		structureParam.put("STRING_PARAM", "Four score and seven years ago ...");
+		input.put("STRUCTURE_PARAM", structureParam);
+
+		// Populate input record with table parameter value
+		IndexedRecord tableParam = connectionFactory.getRecordFactory().createIndexedRecord("TABLE_PARAM");
+		MappedRecord tableRowParam = connectionFactory.getRecordFactory().createMappedRecord("TABLE_PARAM");
+		tableRowParam.put("CHAR_PARAM", "ABCDEFGHIJ");
+		tableRowParam.put("NUM_PARAM", "0123456789");
+		tableRowParam.put("INT_PARAM", 0x75555555);
+		tableRowParam.put("FLOAT_PARAM", 3.14159);
+		tableRowParam.put("BCD_PARAM", new BigDecimal("100.00000000000001"));
+		tableRowParam.put("BINARY_PARAM", new byte[] { (byte) 0x55 });
+		tableRowParam.put("BINARY_ARRAY_PARAM", new byte[] { (byte) 0xFF, (byte) 0x0F, (byte) 0x1E, (byte) 0x2D, (byte) 0x3C, (byte) 0x4B, (byte) 0x5A, (byte) 0x60, (byte) 0x79, (byte) 0x88 });
+		tableRowParam.put("DATE_PARAM", new GregorianCalendar(1861, 03, 12).getTime());
+		tableRowParam.put("TIME_PARAM", new GregorianCalendar(1970, 0, 1, 12, 15, 30).getTime());
+		tableParam.add(tableRowParam);
+		input.put("TABLE_PARAM", tableParam);
+
+		// Create an output record to receive parameters from a remote function module.
+		MappedRecord output = connectionFactory.getRecordFactory().createMappedRecord("output");
+		
+		// Perform invocation of remote function module.
+		...
+
+		// Extract primitive parameter values from output record.
+		String charParam = (String) output.get("CHAR_PARAM");
+		String numParam = (String) output.get("NUM_PARAM");
+		int intParam = (Integer) output.get("INT_PARAM");
+		double floatParam = (Double) output.get("FLOAT_PARAM");
+		BigDecimal bcdParam = (BigDecimal) output.get("BCD_PARAM");
+		byte[] binaryParam = (byte[]) output.get("BINARY_PARAM");
+		byte[] binaryArrayParam = (byte[]) output.get("BINARY_ARRAY_PARAM");
+		Date dateParam = (Date) output.get("DATE_PARAM");
+		Date timeParam = (Date) output.get("TIME_PARAM");
+		String stringParam = (String) output.get("STRING_PARAM");
+
+		// Extract structure parameter value from output record.
+		MappedRecord structureParam = (MappedRecord) output.get("STRUCTURE_PARAM");
+		charParam = (String) structureParam.get("CHAR_PARAM");
+		numParam = (String) structureParam.get("NUM_PARAM");
+		intParam = (Integer) structureParam.get("INT_PARAM");
+		floatParam = (Double) structureParam.get("FLOAT_PARAM");
+		bcdParam = (BigDecimal) structureParam.get("BCD_PARAM");
+		binaryParam = (byte[]) structureParam.get("BINARY_PARAM");
+		binaryArrayParam = (byte[]) structureParam.get("BINARY_ARRAY_PARAM");
+		dateParam = (Date) structureParam.get("DATE_PARAM");
+		timeParam = (Date) structureParam.get("TIME_PARAM");
+		stringParam = (String) structureParam.get("STRING_PARAM");
+
+		// Extract table parameter value from output record.
+		IndexedRecord tableParam = (IndexedRecord) output.get("TABLE_PARAM");
+		tableRowParam = (MappedRecord) tableParam.get(0);
+		charParam = (String) tableRowParam.get("CHAR_PARAM");
+		numParam = (String) tableRowParam.get("NUM_PARAM");
+		intParam = (Integer) tableRowParam.get("INT_PARAM");
+		floatParam = (Double) tableRowParam.get("FLOAT_PARAM");
+		bcdParam = (BigDecimal) tableRowParam.get("BCD_PARAM");
+		binaryParam = (byte[]) tableRowParam.get("BINARY_PARAM");
+		binaryArrayParam = (byte[]) tableRowParam.get("BINARY_ARRAY_PARAM");
+		dateParam = (Date) tableRowParam.get("DATE_PARAM");
+		timeParam = (Date) tableRowParam.get("TIME_PARAM");
+		
+p. 
+
+h2. Interaction Execution
+
+The JBoss SAP JCA Connector provides *interaction* objects, @javax.resource.cci.Interaction@, that enable JBoss application components to invoke remote function modules in SAP systems. Interaction objects are created from the connection to the SAP system that is to be invoked. An *interaction specification*, @org.jboss.jca.adapters.sap.impl.InteractionSpec@, is used to designate the remote function module that an interaction object will invoke. The interaction specification along with input and output records are passed into the @execute@ method of the interaction object to invoke a remote function module. The following example demonstrates the two forms of invoking a remote function module using an interaction object: 
+
+bc.. 
+
+		// Create an interaction object from the connection that will be used to invoke a remote function module.
+		javax.resource.cci.Interaction interaction = connection.createInteraction();
+		
+		// Create an interaction specification and set the name of the remote function module to be invoked.
+		org.jboss.jca.adapters.sap.cci.JBossSAPInteractionSpec interactionSpec = new JBossSAPInteractionSpec()
+		interactionSpec.setFunctionName("RFC_FUNCTION_MODULE_NAME");
+		
+		// Create and populate an input record to pass parameters to a remote function module.
+		javax.resource.cci.MappedRecord input = ...
+		
+		// Execute the interaction using the form that creates and returns an output record.
+		javax.resource.cci.MappedRecord output = interaction.execute(interactionSpec, input);
+		
+		// Extract parameters from output record 
+		...
+		
+		// An interaction, interaction specification and input and output records can be reused for a new invocation.
+		// It is best practice to clear the records and re-populate the input record and set a new function module name on the interaction specification if necessary. 
+		interactionSpec.setFunctionName("NEW_RFC_FUNCTION_MODULE_NAME");
+		output.clear();
+		input.clear();
+		
+		// Re-populate input record with new passed parameters
+		...
+		
+		// Execute the interaction using the form that returns a boolean indicating the success of the execution.
+		if (invocation(interactionSpec, input, output)) {
+			System.out.println("Invocation failed");
+			return;
+		}
+		
+		// Extract parameters from output record 
+		...
+		
+		// Close the interaction object when done with it.
+		interaction.close();
+p. 
+
+The first form of @execute@ will create and return an output record populated with the parameters returned by the remote function module. If the execution of the remote function module fails the method will return @null@. The second form of @execute@ is passed both an input and output record and returns a boolean indicating the success of the execution. 
+
+Note that an interaction object, interaction specification and input and output records can be reused in a new invocation. It is best practice to clear the records and re-populate the input record and set a new function module name on the interaction specification if necessary. Also when done with an interaction object it is best practice to close the it in order to release unused connector resources. 
+
+Note that the @execute@ method will check, using a function module's meta data, that all required parameters to be sent in the invocation are present in the input record and that all required parameters to be received from the invocation are present in the output record. If any parameters are missing, the connector will signal this by throwing a @javax.resource.ResourceException@. The @execute@ method will also throw a @ResourceException@ when an interaction specification with a null function name is passed in. 
+
+h2. Remote Exception Handling
+
+Any exceptions that occur in the remote SAP system when executing a function module are linked in an @javax.resource.cci.ResourceWarning@ and stored in the @warnings@ property of the interaction object. The connector passes the exception reported by the JCo runtime in the @cause@ property of the @ResourceWarning@ stored in this property and is an @com.sap.conn.jco.AbapException@ type exception. 
+
+bc.. 
+		// Execute interaction 
+		...
+		
+		// Check if remote exception occured in interaction
+		javax.resource.cci.ResourceWarning remoteException = interaction.getWarnings();
+		if (remoteException != null) {
+			com.sap.conn.jco.AbapException cause = (AbapException) remoteException.getCause();
+			
+			// Deal with remote exception
+			...
+		}
+		
+		// It is best practice to clear the warnings of an interaction before reusing the interaction.
+		interaction.clearWarnings();
+		
+		// Reuse interaction
+		...
+p. 
+
+Note that it is best practice to clear any warnings of an interaction before reusing the interaction in order to detect new warnings.  
+
+h2. Transaction Execution
+
+The JBoss SAP JCA Connector supports the creation and management of a local transaction context on a connection to an SAP system. Transaction contexts can be initiated and managed either by the application server, *container managed transactions* (CMT), or by application components, *bean managed transaction* (BMT). 
+
+h3. Container Managed Transactions
+
+A JBoss application component will set its *transaction attribute*, @trans-attribute@, in its deployment descriptor to enable CMT. It is also recommended that an application component set the *resource sharing scope* attribute (or accept the default) of any connection *resource reference*, @resource-ref@, to @Shared@ in order to enable the application server to coordinate transaction enlistment among application components via connection handle sharing. With CMT, the application server will transparently manage for applications the demarcation of transaction contexts
+
+Note that all of the remote function modules called during a transaction must conform to the BAPI transaction model. That is these RFMs must not execute database operations directly (call @COMMIT WORK@) in their execution but instead defer these database operations into an update task.
+
+h3. Bean Managed Transactions
+
+A JBoss application component can managed the demarcation of a local transaction context by obtaining a *local transaction* object, @javax.resource.cci.LocalTransaction@, from a connection. This local transaction object will enable an application component to manage and organize all interactions performed through that connection into recoverable logical units of work. The following example demonstrates the code structure an application component would use to manage a local transaction:
+
+bc.. 
+		// Perform a recoverable logical unit of work in connected SAP system.
+		try {
+			// Start local transaction in connected SAP system.
+			connection.getLocalTransaction().begin();
+			
+			// Execute a series of interactions with SAP system that constitutes the logical unit of work for the transaction.
+			...
+			
+			// Commit the local transaction.
+			connection.getLocalTransaction().commit();
+		} catch (Exception e) {
+			// Rollback the transaction upon error.
+			connection.getLocalTransaction().rollback();
+			throw e;
+		} finally {
+			// Close connection when done with it.
+			connection.close();
+		}
+p. 
+
+A JBoss application component begins a local transaction by calling @begin@ on a connection's local transaction object. After performing a sequence of interactions with the SAP system using the connection, the application component commits the logical unit of work by calling @commit@ on the local transaction object. If an exception occurs during the sequence of interactions, the application component can rollback the work performed by calling @rollback@ on the local transaction object.
 
 h1. JBoss SAP JCA Resource Adapter Implementation
 
@@ -56,27 +402,27 @@ The @jboss-sap-jca-impl.jar@ contains the classes that are imported into the JBo
 
 Both jars are deployed and exposed in the JBoss runtime as modules for import by application components and the JBoss runtime.
 
-h2. Common Client Interface
+h2. Common Client Interfaces
 
 The following sections describe the implementation of the *Common Client Interfaces* (CCI) of the JBoss SAP JCA Connector.
 
 h3. CCI Connections
 
-The following JBoss SAP JCA Connector classes implement the interfaces of the CCI Connection API
+The following JBoss SAP JCA Connector classes implement the interfaces of the CCI Connection API.
 
 h4. ConnectionFactoryImpl
 
-The @org.jboss.jca.adapters.sap.impl.ConnectionFactoryImpl@ implements the @javax.resource.cci.ConnectionFactory@ interface and provides the mechanism for application components to get connections to an SAP system. 
+The @org.jboss.jca.adapters.sap.impl.ConnectionFactoryImpl@ class implements the @javax.resource.cci.ConnectionFactory@ interface and provides the mechanism for application components to get connections to an SAP system. A connection factory is typically deployed to the JNDI naming service of the JBoss application server to make it available to application components. 
+
+The connection factory will pass the @JBossSAPConnectionSpec@ object supplied by the application to the application server when handling a connection request. This object will be used in selecting and possibly creating a managed connection in the connector runtime.
 
 h4. JBossSAPConnection
 
-The @org.jboss.jca.adapters.sap.cci.JBossSAPConnection@ interface extends the @javax.resource.cci.Connection@ interface and exposes properties and functionality of a connection that are specific to the JBoss SAP JCA Connector. 
+The @org.jboss.jca.adapters.sap.cci.JBossSAPConnection@ interface extends the @javax.resource.cci.Connection@ interface and exposes properties and functionality of a connection that are specific to the JBoss SAP JCA Connector. This interface exposes methods that enable a JBoss application component to directly manage a stateful session with the SAP system, ping the system and retrieve the configuration properties of the connection. 
 
 h4. ConnectionImpl
 
-The @org.jboss.jca.adapters.sap.impl.ConnectionImpl@ class implements the @org.jboss.jca.adapters.sap.cci.JBossSAPConnection@ interface and represents a connection handle to a managed connection in the connector runtime. 
-
-The @ConnectionImpl@ class maintains a reference to the @ManagedConnectionImpl@ it is associated with. 
+The @org.jboss.jca.adapters.sap.impl.ConnectionImpl@ class implements the @org.jboss.jca.adapters.sap.cci.JBossSAPConnection@ interface and represents a connection handle to a managed connection in the connector runtime. The class manages the state of the connection handle ( @ACTIVE@, @INACTIVE@ and @CLOSED@) and manages its association with a @ManagedConnectionImpl@ instance. 
 
 h5. Connection Sharing and Immutable Managed Connection
 
@@ -94,42 +440,52 @@ Please refer to the _Connection Establishment_ section for further details.
 
 h4. ConnectionMetaDataImpl
 
+The @org.jboss.jca.adapters.sap.impl.ConnectionMetaDataImpl@ class implements the @javax.resource.cci.ConnectionMetaData@ and @javax.resource.spi.ManagedConnectionMetaData@ interfaces. A *connection meta data* object is associated with a managed connection and exposes to the application server and application components the product name and version of the connected SAP system as well as the username used to authenticate with the system. The connection meta data object also signals to the application server that the managed connection supports an unlimited number of active concurrent application handles. 
+
+h4. ResourceAdapterMetaDataImpl
+
+The @org.jboss.jca.adapters.sap.impl.ResourceAdapterMetaDataImpl@ enumeration implements the @javax.resource.cci.ResourceAdapterMetaData@ interface and provides information about the capabilities of the JBoss SAP JCA Connector to JBoss application components. Application components access the *resource adapter meta data* through an instance of a connection factory. 
+
 h3. CCI Interactions
 
 The following JBoss SAP JCA Connector classes implement the interfaces of the CCI Interaction API
 
 h4. InteractionImpl
 
-The @org.jboss.jca.adapters.sap.impl.InteractionImpl@ implements the @javax.resource.cci.Interaction@ interface and implements the logic to invoke a remote function module (RFM) in an SAP system and pass parameters back and forth to the RFM. 
+The @org.jboss.jca.adapters.sap.impl.InteractionImpl@ class implements the @javax.resource.cci.Interaction@ interface and implements the logic to invoke a remote function module (RFM) in an SAP system and pass parameters back and forth to the RFM. The *interaction* class contains the logic to extract and populate parameters to and from records to underlying JCo parameter lists when executing interactions. The class determines which underlying parameter list a parameter resides in by evaluating the meta data of the remote function module being invoked. It also uses this meta data to validate that required parameters are being sent and returned.
 
 h4. JBossSAPInteractionSpec
 
-The @org.jboss.jca.adapters.sap.cci.JBossSAPInteractionSpec@ implements the @javax.resource.cci.InteractionSpec@ interface and provides a JBoss SAP JCA Connector specific way to configure interactions with an SAP system. 
+The @org.jboss.jca.adapters.sap.cci.JBossSAPInteractionSpec@ class implements the @javax.resource.cci.InteractionSpec@ interface and provides a JBoss SAP JCA Connector specific way to configure interactions with an SAP system. The *interaction specification* class implements the java bean attributes required by the J2EE JCA 1.5 specification but only the @functionName@ attribute is used by the connector runtime.
 
 h4. RecordFactoryImpl
 
-The @org.jboss.jca.adapters.sap.impl.RecordFactoryImpl@ implements the @javax.resource.cci.RecordFactory@ interface and provides a mechanism to create @javax.resource.cci.MappedRecord@ and @javax.resource.cci.IndexedRecord@ instances
+The @org.jboss.jca.adapters.sap.impl.RecordFactoryImpl@ class implements the @javax.resource.cci.RecordFactory@ interface and provides a mechanism to create @javax.resource.cci.MappedRecord@ and @javax.resource.cci.IndexedRecord@ instances. A *record factory* object is associated with a connection factory instance and is accessed by JBoss application components through this record factory. 
 
 h4. MappedRecordImpl
 
-The @org.jboss.jca.adapters.sap.impl.MappedRecordImpl@ implements the @javax.resource.cci.MappedRecord@ and provides a means to pass a map structure of parameters in an invocation to an RFM.
+The @org.jboss.jca.adapters.sap.impl.MappedRecordImpl@ class implements the @javax.resource.cci.MappedRecord@ and provides a means to pass a map structure of parameters in an invocation to an RFM. A *mapped record* object is used to hold the values of @com.sap.conn.jco.JCoStructure@ type parameter. It is also used to hold the values of a @com.sap.jco.JCoParameterList@ type. The @MappedRecord@ class also implements the @java.util.Map@ interface and this interface's standard methods are used to populate and extract values from the record.
 
 h4. IndexedRecordImpl
 
-The @org.jboss.jca.adapters.sap.impl.IndexedRecordImpl@ implements the @javax.resource.cci.IndexedRecord@ and provides a means to pass a indexed structure of parameters in an invocation to an RFM.
+The @org.jboss.jca.adapters.sap.impl.IndexedRecordImpl@ class implements the @javax.resource.cci.IndexedRecord@ and provides a means to pass a indexed structure of parameters in an invocation to an RFM. An *indexed record* object is used to hold the values of a @com.sap.conn.jco.JCoTable@ type parameter. Each item in the record corresponds to a row in the @JCoTable@ parameter.  The @IndexedRecord@ class also implements the @java.util.List@ interface and this interface's standard methods are used to populate and extract row items from the record.
 
 
-h2. Service Providers Interface
+h2. Service Providers Interfaces
 
 This section describes the implementation of the system contracts between the JBoss SAP JCA Connector and the application server. 
 
 h3. Resource Adapter
 
+The following JBoss SAP JCA Connector classes implement the interfaces of the Resource Adapter API.
+
 h4. ResourceAdapterImpl
 
-h4. ResourceAdapterMetaDataImpl
+The @org.jboss.jca.adapters.sap.impl.ResourceAdapterImpl@ class implements the @javax.resource.spi.ResourceAdapter@ interface and manages the lifecycle of the JBoss SAP JCA Connector. It also manages the registration of a @DestinationDataProvider@ instance with the underlying JCo runtime over its lifecycle. 
 
 h3. Managed Connections
+
+The following JBoss SAP JCA Connector classes implement the interfaces of the Managed Connection API.
 
 h4. ManagedConnectionFactoryImpl
 
@@ -185,29 +541,26 @@ h4. LocalTransactionImpl
 
 The @org.jboss.jca.adapters.sap.impl.LocalTransactionImpl@ class implements the @javax.resource.cci.LocalTransaction@ and @javax.resource.spi.LocalTransaction@ interfaces and provides access to the transaction logic in @ManageConnectionImpl@ for application components and the application server to manage and control the connection's transactions. 
 
-h1. CCI Connection Design
+h2. Connection Lifecycle
 
-The CCI connection class (CCIConnectionImpl) implements a handle to the underlying managed connection (ManagedConnectionImpl). 
+The following diagram demonstrates the interaction between the JBoss SAP JCA Connector implementation classes and the application server and JBoss application components through out the lifecycle of a connection within the connector.
 
-h1. Local Transactions
+!ConnectionLifecycle.png!
 
-A *local transaction* is associated with a *single managed connection*. All operations performed on an EIS through that managed connection during a local transaction constitute a *recoverable unit of work* called a *transaction context*. A transaction context includes all EIS operations that are either performed or not performed as a group. A managed connection contains a local transaction object, @LocalTransaction@, which represents the local transaction assocuated with a managed connection. 
+h2. Container Managed Transaction
 
-A local transaction context includes all operations performed through a managed connection during a transaction regardless of through which connection handle, @CCIConnection@, the operations were invoked. This enables multiple application components holding different connection handles to the same managed connection to participate in the same transaction  
+The following diagram demonstrates the interaction between the JBoss SAP JCA Connector implementation classes and the application server and JBoss application components in a container managed transaction.
 
-The application server container coordinates a transaction by ensuring that components participating in the same transaction all use the *same managed connection* to an EIS when performing operations on that EIS. 
+!ContainerManagedTransaction.png!
+
+h2. Bean Managed Transaction
+
+The following diagram demonstrates the interaction between the JBoss SAP JCA Connector implementation classes and the application server and JBoss application components in a bean managed transaction.
+
+!BeanManagedTransaction.png!
 
 h2. Connection Association
 
-The JBoss SAP JCA Connector supports, as required by the JCA specification, the association of connection handles with different managed connections through the handles life-cycle. The connector also supports the dissociating of connection handles from managed connection entirely (Lazy Connection Association). A connection handle in the JBoss JCA SAP Connection will thus be in one of three states: *ACTIVE* - valid and associated with a managed connection; *INACTIVE* - valid but not associated with a managed connection; *CLOSED* - invalid and not associated with a managed connection.
+The following diagram demonstrates the interaction between the JBoss SAP JCA Connector implementation classes and the application server and JBoss application components when re-associating a connection handle during a local transaction.
 
-h1. Application Programming Model
-
-h2. Connection Establishment
-
-h2. Record Management
-
-h2. Interaction Execution
-
-h2. Exception Handling
-
+!ConnectionAssociation.png!

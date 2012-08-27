@@ -93,7 +93,7 @@ public enum ResourceAdapterMetaDataImpl implements ResourceAdapterMetaData {
 	 * {@inheritDoc}
 	 */
 	public boolean supportsLocalTransactionDemarcation() {
-		return false; 
+		return true; 
 	}
 
 }

@@ -22,7 +22,7 @@
 	
 	http://www.fsf.org. 
 -->
-<connector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:jca="http://java.sun.com/xml/ns/javaee/connector_1_6.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd" version="1.5">
+<connector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:jca="http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd" version="1.5">
   <vendor-name>Red Hat Middleware LLC</vendor-name>
   <eis-type>SAP R/3</eis-type>
   <resourceadapter-version>1.0.0</resourceadapter-version>
