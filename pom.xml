@@ -68,6 +68,7 @@
 		<version.org.apache.maven.surefire.plugin>2.12</version.org.apache.maven.surefire.plugin>
 		<version.org.jboss.as.plugins.jboss.as.maven.plugin>7.1.1.Final</version.org.jboss.as.plugins.jboss.as.maven.plugin>
 		<version.org.codehaus.mojo.cobertura.maven.plugin>2.4</version.org.codehaus.mojo.cobertura.maven.plugin>
+		<version.org.apache.maven.plugins.maven.javadoc.plugin>2.9</version.org.apache.maven.plugins.maven.javadoc.plugin>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencyManagement>
@@ -205,6 +206,11 @@
 	  					<format>xml</format>
 	  				</formats>
 	  			</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${version.org.apache.maven.plugins.maven.javadoc.plugin}</version>
 			</plugin>
 		</plugins>
 	</reporting>
