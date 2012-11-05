@@ -46,7 +46,7 @@ import com.sap.conn.jco.JCoDestination;
  * 
  * @author William Collins
  * 
- * @version $Id$
+ * @version $Id: 20326b3f6833b7d6def7122d46e2b686f512ab3a $
  */
 public class ConnectionImpl implements JBossSAPConnection {
 

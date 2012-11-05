@@ -33,7 +33,7 @@ import javax.resource.spi.ConnectionRequestInfo;
  * 
  * @author William Collins
  * 
- * @version $Id: $
+ * @version $Id: a52ab4db9cd3199d7a71d9abb763e2b2391be2ff $
  */
 public class JBossSAPConnectionSpec extends Properties implements ConnectionSpec, ConnectionRequestInfo {
 

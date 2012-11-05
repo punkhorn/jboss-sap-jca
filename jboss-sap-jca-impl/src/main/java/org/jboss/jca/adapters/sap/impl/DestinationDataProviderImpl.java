@@ -35,7 +35,7 @@ import com.sap.conn.jco.ext.DestinationDataProvider;
  * 
  * @author William Collins
  *
- * @version $Id$
+ * @version $Id: 86b59570c21389062debc12e376c4e97049af4a9 $
  */
 public class DestinationDataProviderImpl implements DestinationDataProvider {
 

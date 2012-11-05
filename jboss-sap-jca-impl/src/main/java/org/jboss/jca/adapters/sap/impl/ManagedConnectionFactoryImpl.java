@@ -47,7 +47,7 @@ import com.sap.conn.jco.ext.DestinationDataProvider;
  * 
  * @author William Collins
  * 
- * @version $Id$
+ * @version $Id: 311164c81e43fe42ff1fb2ef00fe3c25cd624209 $
  */
 public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, ResourceAdapterAssociation {
 

@@ -28,7 +28,7 @@ import javax.resource.cci.InteractionSpec;
  * 
  * @author William Collins
  *
- * @version $Id$
+ * @version $Id: 9609fabdf84f071503e34c5c32cd1631f52f2944 $
  */
 public class JBossSAPInteractionSpec implements InteractionSpec {
 
