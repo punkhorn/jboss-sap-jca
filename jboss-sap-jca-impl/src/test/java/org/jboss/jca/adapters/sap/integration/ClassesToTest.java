@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.jca.adapters.sap;
+package org.jboss.jca.adapters.sap.integration;
 
 import org.jboss.jca.adapters.sap.cci.JBossSAPConnectionSpec;
 import org.jboss.jca.adapters.sap.cci.JBossSAPInteractionSpec;

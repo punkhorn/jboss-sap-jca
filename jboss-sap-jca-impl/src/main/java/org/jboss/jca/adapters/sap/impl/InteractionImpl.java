@@ -32,6 +32,7 @@ import org.jboss.jca.adapters.sap.cci.JBossSAPInteractionSpec;
 
 import com.sap.conn.jco.AbapException;
 import com.sap.conn.jco.ConversionException;
+import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoException;
 import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoListMetaData;
@@ -55,7 +56,9 @@ public class InteractionImpl implements Interaction {
 
 	private State state = State.ACTIVE;
 
-	private final ConnectionImpl connection;
+	private ConnectionImpl connection;
+	
+	private JCoDestination destination;
 
 	private ResourceWarning warnings;
 
@@ -66,6 +69,7 @@ public class InteractionImpl implements Interaction {
 	 */
 	InteractionImpl(ConnectionImpl connection) {
 		this.connection = connection;
+		this.destination = connection.getDestination();
 	}
 
 	/**
@@ -78,6 +82,8 @@ public class InteractionImpl implements Interaction {
 			state = State.CLOSED;
 		}
 		this.connection.interactionClosed(this);
+		this.destination = null;
+		this.connection = null;
 	}
 
 	/**
@@ -110,13 +116,13 @@ public class InteractionImpl implements Interaction {
 			throw new ResourceException("interaction-impl-invalid-function-name");
 
 		try {
-
-			JCoFunction function = connection.getDestination().getRepository().getFunction(functionName);
+			
+			JCoFunction function = destination.getRepository().getFunction(functionName);
 
 			populateInput(function, inputRecord);
 
 			try {
-				function.execute(connection.getDestination());
+				function.execute(destination);
 			} catch (AbapException e) {
 				warnings = new ResourceWarning("interaction-impl-remote-function-module-exeption", e);
 				return false;
@@ -237,6 +243,10 @@ public class InteractionImpl implements Interaction {
 
 	@SuppressWarnings("unchecked")
 	private void extractTable(JCoTable table, IndexedRecordImpl indexedRecord) throws ResourceException {
+		
+		if (table == null) 
+			return;
+		
 		table.firstRow();
 		for (int i = 0; i < table.getNumRows(); i++, table.nextRow()) {
 			MappedRecordImpl nestedRecord = new MappedRecordImpl(indexedRecord.getRecordName() + "[" + i + "]",
@@ -248,6 +258,9 @@ public class InteractionImpl implements Interaction {
 
 	@SuppressWarnings("unchecked")
 	private void extractStructure(JCoRecord record, MappedRecordImpl mappedRecord) throws ResourceException {
+		
+		if (record == null)
+			return;
 
 		JCoMetaData listMetaData = record.getMetaData();
 
@@ -327,10 +340,14 @@ public class InteractionImpl implements Interaction {
 	}
 
 	private void populateStructure(JCoRecord record, MappedRecordImpl mappedRecord) throws ResourceException {
+		
+		if (record == null)
+			return;
+		
 		JCoMetaData metaData = record.getMetaData();
+		
 		for (int i = 0; i < metaData.getFieldCount(); i++) {
 			Object field = mappedRecord.get(metaData.getName(i));
-			// Throw exception if no corresponding input field
 			if (field == null) {
 				// NB: Interaction depends on caller to know what items in structure needs to be populated
 				// before execution.
@@ -352,6 +369,10 @@ public class InteractionImpl implements Interaction {
 	}
 
 	private void populateTable(JCoTable table, IndexedRecordImpl indexedRecord) throws ResourceException {
+		
+		if (table == null)
+			return;
+		
 		for (Object item : indexedRecord) {
 			if (item instanceof MappedRecordImpl) {
 				populateTableRow(table, (MappedRecordImpl) item);

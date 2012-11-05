@@ -100,7 +100,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	/** 
 	 * The factory this managed connection is associated with 
 	 */
-	private final ManagedConnectionFactoryImpl managedConnectionFactory;
+	private ManagedConnectionFactoryImpl managedConnectionFactory;
 
 	/** 
 	 * The application server call backs observing this connection 
@@ -120,7 +120,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	/** 
 	 * Physical connection handle to SAP system in JCo runtime
 	 */
-	private final JCoDestination destination;
+	private JCoDestination destination;
 	
 	/** 
 	 * Meta data describing this managed connection 
@@ -171,7 +171,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 			this.destination = JCoDestinationManager.getDestination(destinationName);
 			this.destination.ping();
 		} catch (JCoException e) {
-			state = State.DESTROYED;
+			this.destroy();
 			throw new ResourceException("managed-connection-impl-connection-failed", e);
 		}
 
@@ -322,6 +322,8 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 		this.managedConnectionFactory.getResourceAdapter().getDestinationDataProvider()
 				.removeDestinationProperties(destinationName);
 		
+		managedConnectionFactory = null;
+		destination = null;
 	}
 
 	/**

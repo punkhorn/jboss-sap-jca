@@ -142,6 +142,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.sap.conn.jco</groupId>
@@ -151,78 +152,20 @@
 			<groupId>org.jboss.jca.adapters</groupId>
 			<artifactId>jboss-sap-jca-api</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>${version.org.apache.maven.jar.plugin}</version>
-				<executions>
-					<execution>
-						<id>jarCreation</id>
-						<phase>package</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-rar-plugin</artifactId>
-				<version>${version.org.apache.maven.rar.plugin}</version>
-				<executions>
-					<execution>
-						<id>test</id>
-						<goals>
-							<goal>rar</goal>
-						</goals>
-						<configuration>
-							<includeJar>true</includeJar>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>${version.org.apache.maven.source.plugin}</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<attach>true</attach>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${version.org.apache.maven.surefire.plugin}</version>
-				<configuration>
-					<includes>
-						<include>**/*Tests.java</include>
-					</includes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.jboss.as.plugins</groupId>
-				<artifactId>jboss-as-maven-plugin</artifactId>
-				<version>${version.org.jboss.as.plugins.jboss.as.maven.plugin}</version>
-				<configuration>
-					<hostname>localhost</hostname>
-					<port>9999</port>
-					<filename>${project.build.finalName}.${project.packaging}</filename>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
 </project>

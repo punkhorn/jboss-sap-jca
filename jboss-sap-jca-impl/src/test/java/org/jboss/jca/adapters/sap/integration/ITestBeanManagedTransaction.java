@@ -19,9 +19,9 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.jca.adapters.sap;
+package org.jboss.jca.adapters.sap.integration;
 
-import static org.jboss.jca.adapters.sap.ClassesToTest.CLASSES_TO_TEST;
+import static org.jboss.jca.adapters.sap.integration.ClassesToTest.CLASSES_TO_TEST;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -52,7 +52,7 @@ import org.junit.runner.RunWith;
  */
 @SuppressWarnings({ "unchecked" })
 @RunWith(Arquillian.class)
-public class BeanManagedTransactionTests {
+public class ITestBeanManagedTransaction {
 
 	private static Logger log = Logger.getLogger("BeanManagedTransactionTests");
 

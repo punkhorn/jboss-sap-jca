@@ -60,9 +60,9 @@ public class ConnectionImpl implements JBossSAPConnection {
 	}
 
 	/**
-	 * The managed connection factory permanently associated with this handle.
+	 * The managed connection factory associated with this handle.
 	 */
-	private final ManagedConnectionFactoryImpl managedConnectionFactory;
+	private ManagedConnectionFactoryImpl managedConnectionFactory;
 
 	/**
 	 * The connection manager set by the managed connection when first constructing the connection handle. 
@@ -112,11 +112,11 @@ public class ConnectionImpl implements JBossSAPConnection {
 		boolean wasInactive = false;
 		
 		synchronized (this) {
-			if (state == State.INACTIVE) 
+			if (state == State.CLOSED) 
 				return;
 			if (state == State.INACTIVE)
 				wasInactive = true;
-			state = State.INACTIVE;
+			state = State.CLOSED;
 		}
 		
 		// Close all outstanding active interactions 
@@ -141,6 +141,7 @@ public class ConnectionImpl implements JBossSAPConnection {
 		}
 		
 		managedConnection = null;
+		managedConnectionFactory = null;
 	}
 
 	/*
@@ -220,7 +221,9 @@ public class ConnectionImpl implements JBossSAPConnection {
 	 * @see org.jboss.jca.adapters.sap.impl.JBossSAPConnection#isStateful()
 	 */
 	public boolean isStateful() {
-		return managedConnection.isStateful();
+		if (state == State.ACTIVE)
+			return managedConnection.isStateful();
+		return false;
 	}
 
 	/*
@@ -229,6 +232,7 @@ public class ConnectionImpl implements JBossSAPConnection {
 	 * @see org.jboss.jca.adapters.sap.impl.JBossSAPConnection#ping()
 	 */
 	public void ping() throws ResourceException {
+		checkState();
 		managedConnection.ping();
 	}
 

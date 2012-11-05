@@ -31,7 +31,7 @@ import com.sap.conn.jco.ext.DestinationDataEventListener;
 import com.sap.conn.jco.ext.DestinationDataProvider;
 
 /**
- * Implements the {@link DestinationDataProvider} interface or the JBoss SAP JCA Connector
+ * Implements the {@link DestinationDataProvider} interface for the JBoss SAP JCA Connector
  * 
  * @author William Collins
  *
@@ -75,6 +75,8 @@ public class DestinationDataProviderImpl implements DestinationDataProvider {
 	 * @param destinationProperties - the properties added for the destination
 	 */
 	public void addDestinationProperties(String destinationName, JBossSAPConnectionSpec destinationProperties) {
+		if (destinationName == null) 
+			throw new DataProviderException(DataProviderException.Reason.INVALID_CONFIGURATION, "destination-data-provider-impl-null-destination-name", null);
 		destinationPropertiesMap.put(destinationName, destinationProperties);
 		updateProperties(destinationName, destinationProperties);
 	}
@@ -84,6 +86,8 @@ public class DestinationDataProviderImpl implements DestinationDataProvider {
 	 * @return the properties removed for the destination or <code>null</code> if no properties for destination were found
 	 */
 	public JBossSAPConnectionSpec removeDestinationProperties(String destinationName) {
+		if (destinationName == null) 
+			throw new DataProviderException(DataProviderException.Reason.INVALID_CONFIGURATION, "destination-data-provider-impl-null-destination-name", null);
 		JBossSAPConnectionSpec destinationProperties = destinationPropertiesMap.get(destinationName);
 		updateProperties(destinationName, null);
 		return destinationProperties;

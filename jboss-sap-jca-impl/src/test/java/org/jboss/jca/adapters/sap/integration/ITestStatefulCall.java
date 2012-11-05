@@ -1,9 +1,9 @@
-package org.jboss.jca.adapters.sap;
+package org.jboss.jca.adapters.sap.integration;
 
-import static org.jboss.jca.adapters.sap.ClassesToTest.CLASSES_TO_TEST;
+import static org.jboss.jca.adapters.sap.integration.ClassesToTest.CLASSES_TO_TEST;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +35,7 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class StatefulCallTests {
+public class ITestStatefulCall {
 
 	private static Logger log = Logger.getLogger("StatefulCollTests");
 

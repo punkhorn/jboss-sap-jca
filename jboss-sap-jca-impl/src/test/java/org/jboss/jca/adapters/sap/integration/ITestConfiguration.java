@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.jca.adapters.sap;
+package org.jboss.jca.adapters.sap.integration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -56,7 +56,7 @@ import com.sap.conn.jco.ext.DestinationDataProvider;
  *
  */
 @RunWith(Arquillian.class)
-public class ConfigurationTests {
+public class ITestConfiguration {
 
 	private static Logger log = Logger.getLogger("ConfigurationTests");
 
