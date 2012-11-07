@@ -62,7 +62,6 @@ To deploy the JBoss SAP JCA Connector project you will need to perform the follo
 
 * [Install JCo Module](#installJcoModule): Install JCo Module in JBoss AS7 to expose JCo library to JEE components.
 * [Install JBoss SAP JCA Module](#installJcaModule): Install JBoss SAP JCA Module in JBoss AS7 to expose JBoss SAP JCA Common Client Interfaces to JEE components.
-* [Configure JBoss AS7 Native Library Path](#configNativeLibPath): Configure JBoss AS7 native library path in order for JBoss to load JCo native libraries. 
 * [Deploy JBoss SAP JCA Connector](#deployJcaConnector): Deploy  the JBoss SAP JCA connector to JBoss AS7.
 
 <a id="installJcoModule"></a>
@@ -81,6 +80,11 @@ The JBoss SAP JCA connector requires that the JCo library be exposed in the JBos
 				</module>
 
 * Copy the `sapjco3.jar` from you local Maven repository to the module directory.
+* Create the the module native library directory  `<jboss-as-root-directory>/modules/com/sap/conn/jco/main/lib/<osname>-<cpuname>/`.
+	* Where `<osname>` corresponds to the operating system JBoss AS is installed on; is one of : `linux`, `macosx`, or `win`.
+	* Where `<cpuname>` corresponds to the CPU architecture of the machine JBoss AS is installed on; is one of : `i686` or `x86_64`.
+	
+* Copy the SAP Java Connector native library into the module native library directory.
 
 <a id="installJcaModule"></a>
 ### Install JBoss SAP JCA Module
@@ -100,19 +104,6 @@ The JBoss SAP JCA connector Common Client Interfaces need to be exposed in the J
 				    </resources>
 				</module>
 * Copy the `jboss-sap-jca-api-1.0.0-SNAPSHOT.jar` from you local Maven repository to the module directory.
-
-<a id="configNativeLibPath"></a>
-### Configure JBoss AS7 Native Library Path
-
-The native library path of the JBoss AS7 server needs to configured in order for the SAP Java Connector native library to loaded at runtime. To configure the native library path:
-
-* Create the native library directory `<jboss-as-root-directory>/bin/native`.
-* Copy the SAP Java Connector native library into the native library directory.
-* Add the following line to the bottom of the `standalone.conf` file in the `<jboss-as-root-directory>/bin` directory:
-
-				JAVA_OPTS="$JAVA_OPTS -Djava.library.path=<jboss-as-root-directory>/bin/native"
-
-* Restart the JBoss AS7 server.
 
 <a id="deployJcaConnector"></a>
 ### Deploy JBoss SAP JCA Connector
