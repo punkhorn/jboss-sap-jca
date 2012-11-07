@@ -141,7 +141,8 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 		PasswordCredential subjectCredential = null;
 		if (subject != null) {
 			for (PasswordCredential credential : subject.getPrivateCredentials(PasswordCredential.class)) {
-				if (credential.getManagedConnectionFactory().equals(this)) {
+				ManagedConnectionFactory credentialManagedConnectionFactory = credential.getManagedConnectionFactory();
+				if (credentialManagedConnectionFactory !=null && credentialManagedConnectionFactory.equals(this)) {
 					subjectCredential =  credential;
 					break;
 				}
@@ -165,11 +166,14 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 			// Validate passed subject credentials match those of the connection.
 			if (subjectCredential != null) {
 				
-				if (!candidateConnection.getProperties().getUserName()
-						.equals(subjectCredential.getUserName())) {
+				String candidateConnectionUserName = candidateConnection.getProperties().getUserName();
+				String candidateConnectionPassword = candidateConnection.getProperties().getPassword();
+				String subjectCredentialUserName = subjectCredential.getUserName();
+				String subjectCredentialPassword = new String(subjectCredential.getPassword());
+				
+				if (candidateConnectionUserName == null ? subjectCredentialUserName != null : !candidateConnectionUserName.equals(subjectCredentialUserName)) {
 					continue searchConnectionSet;
-				} else if (!candidateConnection.getProperties().getPassword()
-						.equals(new String(subjectCredential.getPassword()))) {
+				} else if (candidateConnectionPassword == null ? subjectCredentialPassword != null : !candidateConnectionPassword.equals(subjectCredentialPassword)) {
 					continue searchConnectionSet;
 				}
 				// Subject credentials match.
@@ -182,15 +186,19 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 					continue searchConnectionSet;
 				JBossSAPConnectionSpec jCxRequestInfo = (JBossSAPConnectionSpec) cxRequestInfo;
 				searchConnectionRequestProperties: for (Entry<Object, Object> entry : jCxRequestInfo.entrySet()) {
+
 					if (subject != null
 							&& (entry.getKey().equals(DestinationDataProvider.JCO_USER) || entry.getKey().equals(
 									DestinationDataProvider.JCO_PASSWD)))
 						// Already checked managed connection's credentials against subject credentials which override
 						// credentials in connection request info.
 						continue searchConnectionRequestProperties;
-
-					if (!candidateConnection.getProperties().get(entry.getKey())
-							.equals(entry.getValue()))
+					
+					Object candidateConnectionPropertyValue = candidateConnection.getProperties().get(entry.getKey());
+					Object cxRequestPropertyValue = entry.getValue();
+					
+					if (candidateConnectionPropertyValue == null ? cxRequestPropertyValue != null
+							: !candidateConnectionPropertyValue.equals(cxRequestPropertyValue))
 						continue searchConnectionSet;
 				}
 				// All connection request properties match.
