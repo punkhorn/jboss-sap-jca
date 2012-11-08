@@ -117,8 +117,7 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 			return false;
 
 		// Return true to prevent application server from deploying multiple instances of this resource adapter.
-		boolean result = true;
-		return result;
+		return true;
 	}
 
 	DestinationDataProviderImpl getDestinationDataProvider() {
