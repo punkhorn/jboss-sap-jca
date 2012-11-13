@@ -113,7 +113,8 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 		if (subject != null) {
 			boolean foundCredential = false;
 			for (PasswordCredential credential : subject.getPrivateCredentials(PasswordCredential.class)) {
-				if (credential.getManagedConnectionFactory().equals(this)) {
+				ManagedConnectionFactory mcf = credential.getManagedConnectionFactory();
+				if (mcf != null && mcf.equals(this)) {
 					cri.put(DestinationDataProvider.JCO_USER, credential.getUserName());
 					cri.put(DestinationDataProvider.JCO_PASSWD, new String(credential.getPassword()));
 					foundCredential = true;
@@ -135,6 +136,19 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	public ManagedConnection matchManagedConnections(Set connectionSet, Subject subject,
 			ConnectionRequestInfo cxRequestInfo) throws ResourceException {
 		
+		// Nothing to match
+		if (connectionSet == null)
+			return null;
+		
+		// If the application server does not provide connection request properties to match,
+		// search the connection set for a managed connection that matches the default connection properties.
+		if (cxRequestInfo == null)
+			cxRequestInfo = defaultConnectionRequestInfo;
+
+		// Can not match against invalid connection request info.
+		if (!(cxRequestInfo instanceof JBossSAPConnectionSpec))
+			return null;
+		
 		ManagedConnection result = null;
 
 		// Use credentials in non-null subject for matching.
@@ -152,11 +166,6 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 				return null;
 		}
 		
-		// If the application server does not provide connection request properties to match,
-		// search the connection set for a managed connection that matches the default connection properties.
-		if (cxRequestInfo == null)
-			cxRequestInfo = defaultConnectionRequestInfo;
-
 		// Search through the connection set for a managed connection that matches the passed credentials and connection request properties. 
 		Iterator it = connectionSet.iterator();
 		searchConnectionSet: while (result == null && it.hasNext()) {
@@ -173,7 +182,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 				
 				if (candidateConnectionUserName == null ? subjectCredentialUserName != null : !candidateConnectionUserName.equals(subjectCredentialUserName)) {
 					continue searchConnectionSet;
-				} else if (candidateConnectionPassword == null ? subjectCredentialPassword != null : !candidateConnectionPassword.equals(subjectCredentialPassword)) {
+				} else if (candidateConnectionPassword == null ? !subjectCredentialPassword.isEmpty() : !candidateConnectionPassword.equals(subjectCredentialPassword)) {
 					continue searchConnectionSet;
 				}
 				// Subject credentials match.
@@ -181,28 +190,24 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 
 			// Validate passed connection request info match those of the connection.
 			// NB: the set of passed connection request properties need only be a subset of managed connection's set of properties to match.  
-			if (cxRequestInfo != null) {
-				if (!(cxRequestInfo instanceof JBossSAPConnectionSpec))
-					continue searchConnectionSet;
-				JBossSAPConnectionSpec jCxRequestInfo = (JBossSAPConnectionSpec) cxRequestInfo;
-				searchConnectionRequestProperties: for (Entry<Object, Object> entry : jCxRequestInfo.entrySet()) {
+			JBossSAPConnectionSpec jCxRequestInfo = (JBossSAPConnectionSpec) cxRequestInfo;
+			searchConnectionRequestProperties: for (Entry<Object, Object> entry : jCxRequestInfo.entrySet()) {
 
-					if (subject != null
-							&& (entry.getKey().equals(DestinationDataProvider.JCO_USER) || entry.getKey().equals(
-									DestinationDataProvider.JCO_PASSWD)))
-						// Already checked managed connection's credentials against subject credentials which override
-						// credentials in connection request info.
-						continue searchConnectionRequestProperties;
-					
-					Object candidateConnectionPropertyValue = candidateConnection.getProperties().get(entry.getKey());
-					Object cxRequestPropertyValue = entry.getValue();
-					
-					if (candidateConnectionPropertyValue == null ? cxRequestPropertyValue != null
-							: !candidateConnectionPropertyValue.equals(cxRequestPropertyValue))
-						continue searchConnectionSet;
-				}
-				// All connection request properties match.
+				if (subject != null
+						&& (entry.getKey().equals(DestinationDataProvider.JCO_USER) || entry.getKey().equals(
+								DestinationDataProvider.JCO_PASSWD)))
+					// Already checked managed connection's credentials against subject credentials which override
+					// credentials in connection request info.
+					continue searchConnectionRequestProperties;
+				
+				Object candidateConnectionPropertyValue = candidateConnection.getProperties().get(entry.getKey());
+				Object cxRequestPropertyValue = entry.getValue();
+				
+				if (candidateConnectionPropertyValue == null ? cxRequestPropertyValue != null
+						: !candidateConnectionPropertyValue.equals(cxRequestPropertyValue))
+					continue searchConnectionSet;
 			}
+			// All connection request properties match.
 
 			// Found a managed connection that matches.
 			result = candidateConnection;
@@ -377,7 +382,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 */
 	public String getAliasUser() {
 
-		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_USER);
+		return defaultConnectionRequestInfo.getProperty(DestinationDataProvider.JCO_ALIAS_USER);
 	}
 
 	/**
@@ -1332,6 +1337,25 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 
 		defaultConnectionRequestInfo.setProperty(DestinationDataProvider.JCO_REPOSITORY_ROUNDTRIP_OPTIMIZATION,
 				repositoryRoundtripOptimization);
+	}
+	
+	/**
+	 * Indicates whether the Managed Connection will ping the connected SAP instance when created, <code>true</code>, or not, <code>false</code>.
+	 * Default is <code>false</code>.
+	 * 
+	 * @return Whether the Managed Connection will ping the connected SAP instance when created, <code>true</code>, or not, <code>false</code>.
+	 */
+	public String getPingOnCreate() {
+		return defaultConnectionRequestInfo.getProperty(JBossSAPConnectionSpec.JSJC_PING_ON_CREATE, "true");
+	}
+
+	/**
+	 * Sets whether the Managed Connection will ping the connected SAP instance when created, <code>true</code>, or not, <code>false</code>.
+	 * 
+	 * @param pingOnCreate - whether the Managed Connection will ping the connected SAP instance when created, <code>true</code>, or not, <code>false</code>.
+	 */
+	public void setPingOnCreate(String pingOnCreate) {
+		defaultConnectionRequestInfo.setProperty(JBossSAPConnectionSpec.JSJC_PING_ON_CREATE, pingOnCreate);
 	}
 
 	/**

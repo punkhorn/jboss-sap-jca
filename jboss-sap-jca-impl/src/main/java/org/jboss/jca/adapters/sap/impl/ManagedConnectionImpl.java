@@ -91,7 +91,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 		ACTIVE,		/* Valid managed connection with active physical connection to SAP system */ 
 		DESTROYED;	/* Invalid managed connection */
 	}
-
+	
 	/** 
 	 * The logwriter set by application server 
 	 */
@@ -144,7 +144,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 * Flag indicating whether this managed connection is in transaction.
 	 */
 	private boolean inTransaction = false;
-
+	
 	/**
 	 * Construct a managed connection with specified connection request info and associated with the specified managed
 	 * connection factory.
@@ -169,7 +169,8 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 		// Attempt to connect to SAP system.
 		try {
 			this.destination = JCoDestinationManager.getDestination(destinationName);
-			this.destination.ping();
+			if (connectionRequestInfo.getPingOnCreate().equals("true"))
+				this.destination.ping();
 		} catch (JCoException e) {
 			this.destroy();
 			throw new ResourceException("managed-connection-impl-connection-failed", e);

@@ -37,6 +37,11 @@ import javax.resource.spi.ConnectionRequestInfo;
  */
 public class JBossSAPConnectionSpec extends Properties implements ConnectionSpec, ConnectionRequestInfo {
 
+	/**
+	 * Name of Connection Spec/Connection Request Info parameter specifying whether Managed Connection will ping the connected SAP instance when created. Default is <code>false</code>.
+	 */
+	public static final String JSJC_PING_ON_CREATE = "jsjc.mc.poc";
+
 	private static final long serialVersionUID = -2520873677208651216L;
 	
 	private static final String USER = "jco.client.user";
@@ -102,6 +107,25 @@ public class JBossSAPConnectionSpec extends Properties implements ConnectionSpec
 	 */
 	public void setPassword(String password) {
 		setProperty(PASSWD, password);
+	}
+
+	/**
+	 * Indicates whether the Managed Connection will ping the connected SAP instance when created, <code>true</code>, or not, <code>false</code>.
+	 * Default is <code>false</code>.
+	 * 
+	 * @return Whether the Managed Connection will ping the connected SAP instance when created.
+	 */
+	public String getPingOnCreate() {
+		return getProperty(JBossSAPConnectionSpec.JSJC_PING_ON_CREATE, "false");
+	}
+
+	/**
+	 * Sets whether the Managed Connection will ping the connected SAP instance when created, <code>true</code>, or not, <code>false</code>.
+	 * 
+	 * @param pingOnCreate - whether the Managed Connection will ping the connected SAP instance when created, <code>true</code>, or not, <code>false</code>.
+	 */
+	public void setPingOnCreate(String pingOnCreate) {
+		setProperty(JBossSAPConnectionSpec.JSJC_PING_ON_CREATE, pingOnCreate);
 	}
 
 }

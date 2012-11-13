@@ -75,6 +75,8 @@
 		<version.org.mockito.mockito.core>1.9.0</version.org.mockito.mockito.core>
 		<version.org.hamcrest.hamcrest.library>1.1</version.org.hamcrest.hamcrest.library>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<skip.integration.tests>true</skip.integration.tests>
+		<skip.unit.tests>false</skip.unit.tests>
 	</properties>
 	<dependencyManagement>
 	 	<dependencies>
@@ -226,6 +228,15 @@
 			</dependency>
 	 	</dependencies>
 	</dependencyManagement>
+	<profiles>
+		<profile>
+			<id>integration-tests</id>
+			<properties>
+				<skip.integration.tests>false</skip.integration.tests>
+				<skip.unit.tests>true</skip.unit.tests>
+			</properties>
+		</profile>
+	</profiles>
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -292,6 +303,13 @@
 						<includes>
 							<include>**/Test*.java</include>
 						</includes>
+						<systemProperties>
+							<property>
+								<name>org.jboss.jca.adapters.sap.ManagedConnection.skipPingOnCreate</name>
+								<value>true</value>
+							</property>
+						</systemProperties>
+						<skipTests>${skip.unit.tests}</skipTests>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -306,7 +324,7 @@
 								<goal>verify</goal>
 							</goals>
 							<configuration>
-								<skipTests>true</skipTests>
+								<skipTests>${skip.integration.tests}</skipTests>
 							</configuration>
 						</execution>
 					</executions>
