@@ -807,6 +807,7 @@ public class TestInteractionImpl {
 		
 		/* Create Input Records */
 		input = new MappedRecordImpl(INPUT_RECORD_NAME);
+		mockBogusRecord = mock(Record.class);
 		
 		/* Create Parameter List Records */
 		structureRecord = new MappedRecordImpl(PARAM_LIST_STRUCTURE_PARAM);

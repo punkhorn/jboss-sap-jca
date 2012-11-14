@@ -74,6 +74,8 @@
 		<version.org.apache.maven.plugins.maven.javadoc.plugin>2.9</version.org.apache.maven.plugins.maven.javadoc.plugin>
 		<version.org.mockito.mockito.core>1.9.0</version.org.mockito.mockito.core>
 		<version.org.hamcrest.hamcrest.library>1.1</version.org.hamcrest.hamcrest.library>
+        <version.org.jboss.logging>3.1.1.GA</version.org.jboss.logging>
+        <version.org.jboss.logging.processor>1.0.3.Final</version.org.jboss.logging.processor>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<skip.integration.tests>true</skip.integration.tests>
 		<skip.unit.tests>false</skip.unit.tests>
@@ -226,6 +228,18 @@
 				<version>${version.org.hamcrest.hamcrest.library}</version>
 				<scope>test</scope>
 			</dependency>
+	        <dependency>
+	            <groupId>org.jboss.logging</groupId>
+	            <artifactId>jboss-logging-processor</artifactId>
+	            <version>${version.org.jboss.logging.processor}</version>
+	            <scope>provided</scope>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.jboss.logging</groupId>
+	            <artifactId>jboss-logging</artifactId>
+	            <version>${version.org.jboss.logging}</version>
+	            <scope>provided</scope>
+	        </dependency>
 	 	</dependencies>
 	</dependencyManagement>
 	<profiles>
@@ -247,6 +261,10 @@
 					<configuration>
 						<source>1.6</source>
 						<target>1.6</target>
+	                    <compilerArgument>
+	                        -AgeneratedTranslationFilesPath=${project.basedir}/target/generated-translation-files
+	                    </compilerArgument>
+	                    <showDeprecation>true</showDeprecation>
 					</configuration>
 				</plugin>
 				<plugin>

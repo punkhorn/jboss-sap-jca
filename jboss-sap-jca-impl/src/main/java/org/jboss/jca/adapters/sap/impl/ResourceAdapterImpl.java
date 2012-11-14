@@ -21,15 +21,12 @@
  */
 package org.jboss.jca.adapters.sap.impl;
 
-import java.util.logging.Logger;
-
 import javax.resource.ResourceException;
 import javax.resource.spi.ActivationSpec;
 import javax.resource.spi.BootstrapContext;
 import javax.resource.spi.ResourceAdapter;
 import javax.resource.spi.ResourceAdapterInternalException;
 import javax.resource.spi.endpoint.MessageEndpointFactory;
-
 import javax.transaction.xa.XAResource;
 
 import com.sap.conn.jco.ext.Environment;
@@ -42,9 +39,6 @@ import com.sap.conn.jco.ext.Environment;
  * @version $Id: 25d6694a6bed8a642b3ff41ca346848db6072ba6 $
  */
 public class ResourceAdapterImpl implements ResourceAdapter {
-
-	/** The logger */
-	private static Logger log = Logger.getLogger("JBossSAPResourceAdapter");
 
 	/** Destination Provider for JCo runtime. */
 	private final DestinationDataProviderImpl destinationDataProvider;
@@ -61,21 +55,18 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	 */
 	public void endpointActivation(MessageEndpointFactory endpointFactory, ActivationSpec spec)
 			throws ResourceException {
-		log.finest("endpointActivation()");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public void endpointDeactivation(MessageEndpointFactory endpointFactory, ActivationSpec spec) {
-		log.finest("endpointDeactivation()");
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public void start(BootstrapContext ctx) throws ResourceAdapterInternalException {
-		log.finest("Registering Destination Data Provider: " + destinationDataProvider);
 		Environment.registerDestinationDataProvider(destinationDataProvider);
 	}
 
@@ -83,7 +74,6 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	 * {@inheritDoc}
 	 */
 	public void stop() {
-		log.finest("Unregistering Destination Data Provider: " + destinationDataProvider);
 		Environment.unregisterDestinationDataProvider(destinationDataProvider);
 	}
 
@@ -91,7 +81,6 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	 * {@inheritDoc}
 	 */
 	public XAResource[] getXAResources(ActivationSpec[] specs) throws ResourceException {
-		log.finest("getXAResources()");
 		return null;
 	}
 

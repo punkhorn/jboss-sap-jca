@@ -75,9 +75,9 @@ public class ConnectionMetaDataImpl implements ManagedConnectionMetaData, Connec
 			EIS_MAX_CONNECTIONS = Integer.parseInt(metaDataProperties.getProperty(EIS_MAX_CONNECTIONS_PROP));
 			is.close();
 		} catch (IOException e) {
-			throw new RuntimeException("Could not load connection meta data properties file '" + CONNECTION_META_DATA_PROPERITES_FILE + "'");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.failedToLoadConnectionMetaDataPropertiesFile(CONNECTION_META_DATA_PROPERITES_FILE);
 		} catch (NumberFormatException e) {
-			throw new RuntimeException("'" + EIS_MAX_CONNECTIONS_PROP + "' property has an invalid integer value in property file '" + CONNECTION_META_DATA_PROPERITES_FILE + "'");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.propertyHasInvalidIntegerValue(EIS_MAX_CONNECTIONS_PROP, CONNECTION_META_DATA_PROPERITES_FILE);
 		}
 	}
 	
@@ -107,7 +107,7 @@ public class ConnectionMetaDataImpl implements ManagedConnectionMetaData, Connec
 		try {
 			return destination.getAttributes().getPartnerRelease();
 		} catch (JCoException e) {
-			throw new ResourceException(e);
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.failedToRetrieveEISProductVersion(e);
 		}
    }
 
@@ -127,7 +127,7 @@ public class ConnectionMetaDataImpl implements ManagedConnectionMetaData, Connec
 		try {
 			return destination.getAttributes().getUser();
 		} catch (JCoException e) {
-			throw new ResourceException(e);
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.failedToRetrieveUserName(e);
 		}
    }
 

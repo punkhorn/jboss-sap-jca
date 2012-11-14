@@ -91,7 +91,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 * {@inheritDoc}
 	 */
 	public Object createConnectionFactory() throws ResourceException {
-		throw new ResourceException("This resource adapter doesn't support non-managed environments");
+		throw JBossSapJCAExceptionBundle.EXCEPTIONS.nonManagedEnvironmentsNotSupported();
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 
 		// validate connection request info type
 		if (cxRequestInfo != null && !(cxRequestInfo instanceof JBossSAPConnectionSpec))
-			throw new ResourceException("jboss-sap-managed-connection-factory-invalid-connection-request-info-type");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.invalidConnectionRequestInfoType(cxRequestInfo.getClass().getName());
 
 		// merge client connection request info with defaults
 		JBossSAPConnectionSpec cri = new JBossSAPConnectionSpec(defaultConnectionRequestInfo);
@@ -123,7 +123,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 			}
 			if (!foundCredential)
 				// Did not find sufficient credentials in subject.
-				throw new SecurityException("jboss-sap-managed-connection-factory-insufficient-credentials");
+				throw JBossSapJCAExceptionBundle.EXCEPTIONS.insufficientSecurityCredentialsInSubject();
 		}
 
 		return new ManagedConnectionImpl(this, cri);
@@ -243,8 +243,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 	 */
 	public void setResourceAdapter(ResourceAdapter ra) {
 		if (!(ra instanceof ResourceAdapterImpl))
-			throw new IllegalArgumentException(
-					"managed-connection-factory-impl-set-resouce-adapter-invalid-resource-adapter");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.invalidResourceAdapterTypeSetOnManagedConnectionFactory(ra == null ? "null" : ra.getClass().getName());
 		this.ra = (ResourceAdapterImpl) ra;
 	}
 

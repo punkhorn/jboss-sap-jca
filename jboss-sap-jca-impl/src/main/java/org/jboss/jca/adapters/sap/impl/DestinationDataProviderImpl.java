@@ -26,7 +26,6 @@ import java.util.Map;
 
 import org.jboss.jca.adapters.sap.cci.JBossSAPConnectionSpec;
 
-import com.sap.conn.jco.ext.DataProviderException;
 import com.sap.conn.jco.ext.DestinationDataEventListener;
 import com.sap.conn.jco.ext.DestinationDataProvider;
 
@@ -55,16 +54,15 @@ public class DestinationDataProviderImpl implements DestinationDataProvider {
 	 */
 	public JBossSAPConnectionSpec getDestinationProperties(String destinationName) {
 		if (destinationName == null) 
-			throw new DataProviderException(DataProviderException.Reason.INVALID_CONFIGURATION, "destination-data-provider-impl-no-destination-name", null);
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.connectionSpecNameIsNull();
 		try {
 			JBossSAPConnectionSpec properties = destinationPropertiesMap.get(destinationName);
 			if (properties == null) {
-				throw new DataProviderException(DataProviderException.Reason.INVALID_CONFIGURATION,
-						"destination-data-provider-impl-invalid-destination-configuration", null);
+				throw JBossSapJCAExceptionBundle.EXCEPTIONS.connectionSpecDoesNotExist(destinationName);
 			}
 			return properties;
 		} catch (RuntimeException e) {
-			throw new DataProviderException(DataProviderException.Reason.INTERNAL_ERROR, e);
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.failedToRetrieveConnectionSpec(destinationName, e);
 		}
 	}
 
@@ -76,7 +74,7 @@ public class DestinationDataProviderImpl implements DestinationDataProvider {
 	 */
 	public void addDestinationProperties(String destinationName, JBossSAPConnectionSpec destinationProperties) {
 		if (destinationName == null) 
-			throw new DataProviderException(DataProviderException.Reason.INVALID_CONFIGURATION, "destination-data-provider-impl-null-destination-name", null);
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.connectionSpecNameIsNull();
 		destinationPropertiesMap.put(destinationName, destinationProperties);
 		updateProperties(destinationName, destinationProperties);
 	}
@@ -87,7 +85,7 @@ public class DestinationDataProviderImpl implements DestinationDataProvider {
 	 */
 	public JBossSAPConnectionSpec removeDestinationProperties(String destinationName) {
 		if (destinationName == null) 
-			throw new DataProviderException(DataProviderException.Reason.INVALID_CONFIGURATION, "destination-data-provider-impl-null-destination-name", null);
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.connectionSpecNameIsNull();
 		JBossSAPConnectionSpec destinationProperties = destinationPropertiesMap.get(destinationName);
 		updateProperties(destinationName, null);
 		return destinationProperties;

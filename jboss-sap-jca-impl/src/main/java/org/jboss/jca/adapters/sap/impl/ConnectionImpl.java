@@ -26,7 +26,6 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
-import javax.resource.NotSupportedException;
 import javax.resource.ResourceException;
 import javax.resource.cci.Connection;
 import javax.resource.cci.ConnectionMetaData;
@@ -183,7 +182,7 @@ public class ConnectionImpl implements JBossSAPConnection {
 	 */
 	public ResultSetInfo getResultSetInfo() throws ResourceException {
 		checkState();
-		throw new NotSupportedException("connection-impl-result-set-info-not-supported");
+		throw JBossSapJCAExceptionBundle.EXCEPTIONS.resultSetInfoIsNotSupported();
 	}
 
 	/*
@@ -308,7 +307,7 @@ public class ConnectionImpl implements JBossSAPConnection {
 	 */
 	void checkState() throws ResourceException {
 		if (state == State.CLOSED)
-			throw new ResourceException("connection-impl-is-closed");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.connectionIsClosed();
 
 		if (state == State.INACTIVE) {
 			if (connectionManager instanceof LazyAssociatableConnectionManager) {
@@ -316,7 +315,7 @@ public class ConnectionImpl implements JBossSAPConnection {
 				((LazyAssociatableConnectionManager) connectionManager).associateConnection(this,
 						managedConnectionFactory, connectionSpec);
 			} else {
-				throw new ResourceException("connection-impl-is-inactive");
+				throw JBossSapJCAExceptionBundle.EXCEPTIONS.connectionIsInactive();
 			}
 		}
 	}

@@ -31,7 +31,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.resource.NotSupportedException;
 import javax.resource.ResourceException;
 import javax.resource.spi.ConnectionEvent;
 import javax.resource.spi.ConnectionEventListener;
@@ -173,7 +172,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 				this.destination.ping();
 		} catch (JCoException e) {
 			this.destroy();
-			throw new ResourceException("managed-connection-impl-connection-failed", e);
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.failedToCreateManagedConnection(e);
 		}
 
 		this.managedConnectionFactory.associateConnection(this);
@@ -228,7 +227,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 				}
 			}
 			if (!foundMatchingCredential) 
-				throw new SecurityException("managed-connection-impl-no-matching-security-credential");
+				throw JBossSapJCAExceptionBundle.EXCEPTIONS.failedToFindMatchingSecurityCredentialsInSubject();
 		}
 		
 		if (cxRequestInfo != null) {
@@ -242,7 +241,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 					continue searchConnectionRequestProperties;
 	
 				if (!getProperties().get(entry.getKey()).equals(entry.getValue()))
-					throw new ResourceException("managed-connection-impl-connection-request-properties-do-not-match");
+					throw JBossSapJCAExceptionBundle.EXCEPTIONS.connectionRequestInfoParameterDoesNotMatch(entry.getValue().toString(), entry.getKey().toString(), getProperties().get(entry.getKey()).toString());
 			}
 		}
 
@@ -257,7 +256,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	public void associateConnection(Object connection) throws ResourceException {
 		checkState();
 		if (!(connection instanceof ConnectionImpl))
-			throw new ResourceException("managed-connection-impl-invalid-cci-connection-type");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.invalidConnectionTypeAssociatedWithManagedConnection(connection == null ? "null": connection.getClass().getName());
 
 		ConnectionImpl cciConnection = (ConnectionImpl) connection;
 		cciConnection.associateManagedConnection(this);
@@ -332,7 +331,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 */
 	public void addConnectionEventListener(ConnectionEventListener listener) {
 		if (listener == null)
-			throw new IllegalArgumentException("managed-connection-impl-connection-event-listener-is-null");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.connectionEventListenerIsNull();
 		synchronized (listeners) {
 			listeners.add(listener);
 		}
@@ -343,7 +342,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 */
 	public void removeConnectionEventListener(ConnectionEventListener listener) {
 		if (listener == null)
-			throw new IllegalArgumentException("managed-connection-impl-connection-event-listener-is-null");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.connectionEventListenerIsNull();
 		synchronized (listeners) {
 			listeners.remove(listener);
 		}
@@ -374,7 +373,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 * {@inheritDoc}
 	 */
 	public XAResource getXAResource() throws ResourceException {
-		throw new NotSupportedException("managed-connection-impl-get-xa-resource-not-supported");
+		throw JBossSapJCAExceptionBundle.EXCEPTIONS.xaResourceIsNotSupported();
 	}
 
 	/**
@@ -397,7 +396,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 		
 		if (inTransaction) 
 			// JCA 1.5 Specification: 7.8.3
-			throw new ResourceException("managed-connection-impl-already-in-transaction");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.connectionHasOutstandingTransaction();
 		inTransaction = true;
 		
 		// Start stateful session for transaction
@@ -429,7 +428,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 		
 		if (!inTransaction) 
 			// JCA 1.5 Specification: 7.8.3
-			throw new ResourceException("managed-connection-impl-not-in-transaction");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.connectionHasNoOutstandingTransaction();
 		inTransaction = false;
 		
 		// Commit transaction synchronously in SAP system
@@ -439,7 +438,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 			commit.execute(destination);
 		} catch (JCoException e) {
 			// Note transaction should be implicitly rolled back in SAP system on error.
-			throw new ResourceException("managed-connection-impl-commit-failed", e);
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.commitFailed(e);
 		} finally {
 			// End stateful session for transaction.
 			endStatefulSession();
@@ -472,16 +471,16 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 		
 		if (!inTransaction) 
 			// JCA 1.5 Specification: 7.8.3
-			throw new ResourceException("managed-connection-impl-not-in-transaction");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.connectionHasNoOutstandingTransaction();
 		inTransaction = false;
 		
 		// Commit transaction synchronously in SAP system
 		try {
-			JCoFunction commit = destination.getRepository().getFunction(ROLLBACK_FUNCTION);
-			commit.execute(destination);
+			JCoFunction rollback = destination.getRepository().getFunction(ROLLBACK_FUNCTION);
+			rollback.execute(destination);
 		} catch (JCoException e) {
 			// Note transaction should be implicitly rolled back in SAP system on error.
-			throw new ResourceException("managed-connection-impl-rollback-failed", e);
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.rollBackFailed(e);
 		} finally {
 			// End stateful session for transaction.
 			endStatefulSession();
@@ -533,7 +532,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 		checkState();
 		
 		if (inTransaction)
-			throw new ResourceException("managed-connection-impl-in-transaction");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.connectionHasOutstandingTransaction();
 		
 		if (!JCoContext.isStateful(destination))
 			return;
@@ -571,7 +570,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 		try {
 			destination.ping();
 		} catch (JCoException e) {
-			throw new ResourceException(e);
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.pingFailed(e);
 		}
 	}
 
@@ -640,7 +639,7 @@ public class ManagedConnectionImpl implements ManagedConnection, DissociatableMa
 	 */
 	void checkState() throws ResourceException {
 		if (state == State.DESTROYED) {
-			throw new ResourceException("managed-connection-impl-is-destroyed");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.connectionIsDestroyed();
 		}
 	}
 

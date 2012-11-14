@@ -88,7 +88,8 @@ public class ConnectionFactoryImpl implements ConnectionFactory {
 	 */
 	public ConnectionImpl getConnection(ConnectionSpec connectionSpec) throws ResourceException {
 		if (!(connectionSpec instanceof JBossSAPConnectionSpec))
-			throw new ResourceException("cci-connection-factory-impl-invalid-connection-spec-type");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.invalidConnectionSpecType(connectionSpec.getClass().getName());
+
 		JBossSAPConnectionSpec connectionRequestInfo = (JBossSAPConnectionSpec) connectionSpec;
 
 		ConnectionImpl newConnection = (ConnectionImpl) connectionManager.allocateConnection(
@@ -116,8 +117,8 @@ public class ConnectionFactoryImpl implements ConnectionFactory {
 	 * {@inheritDoc}
 	 */
 	public Reference getReference() throws NamingException {
-		if (reference == null) 
-			throw new NamingException("cci-connection-factory-impl-reference-is-null");
+		if (reference == null)
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.referenceIsNull();
 		return reference;
 	}
 

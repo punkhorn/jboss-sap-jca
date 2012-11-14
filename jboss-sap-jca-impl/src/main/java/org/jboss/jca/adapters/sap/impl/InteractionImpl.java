@@ -100,20 +100,20 @@ public class InteractionImpl implements Interaction {
 		checkState();
 		
 		if (!(ispec instanceof JBossSAPInteractionSpec))
-			throw new ResourceException("interaction-impl-invalid-specification");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.invalidConnectionSpecType(ispec == null? "null" : ispec.getClass().getName());
 		JBossSAPInteractionSpec interactionSpec = (JBossSAPInteractionSpec) ispec;
 
 		if (!(input instanceof MappedRecordImpl))
-			throw new ResourceException("interaction-impl-invalid-input-record");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.invalidInputRecordType(input == null? "null" : input.getClass().getName());
 		MappedRecordImpl inputRecord = (MappedRecordImpl) input;
 
 		if (!(output instanceof MappedRecordImpl))
-			throw new ResourceException("interaction-impl-invalid-output-record");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.invalidOutputRecordType(output == null? "null" : output.getClass().getName());
 		MappedRecordImpl outputRecord = (MappedRecordImpl) output;
 
 		String functionName = interactionSpec.getFunctionName();
 		if (functionName == null)
-			throw new ResourceException("interaction-impl-invalid-function-name");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.functionNameOfInteractionSpecIsNull();
 
 		try {
 			
@@ -124,7 +124,7 @@ public class InteractionImpl implements Interaction {
 			try {
 				function.execute(destination);
 			} catch (AbapException e) {
-				warnings = new ResourceWarning("interaction-impl-remote-function-module-exeption", e);
+				warnings = JBossSapJCAExceptionBundle.EXCEPTIONS.remoteFunctionModuleThrewABAPException(e);
 				return false;
 			}
 
@@ -201,7 +201,7 @@ public class InteractionImpl implements Interaction {
 				if (listMetaData.isOptional(i))
 					continue;
 				else
-					throw new ResourceException("interaction-impl-required-field-missing");
+					throw JBossSapJCAExceptionBundle.EXCEPTIONS.requiredParameterIsMissingInParameterList(name, listMetaData.getName());
 			}
 
 			if (listMetaData.isStructure(i)) {
@@ -299,7 +299,7 @@ public class InteractionImpl implements Interaction {
 				continue;
 
 			if (!(tableData instanceof IndexedRecordImpl))
-				throw new ResourceException("interaction-impl-invalid-table-value");
+				throw JBossSapJCAExceptionBundle.EXCEPTIONS.invalidRecordTypeForTableParameterInTableParameterList(listMetaData.getName(i), listMetaData.getName(), tableData.getClass().getName());
 
 			populateTable(table, (IndexedRecordImpl) tableData);
 		}
@@ -322,16 +322,16 @@ public class InteractionImpl implements Interaction {
 				if (listMetaData.isOptional(i))
 					continue;
 				else
-					throw new ResourceException("interaction-impl-required-field-missing");
+					throw JBossSapJCAExceptionBundle.EXCEPTIONS.requiredParameterIsMissingInParameterList(listMetaData.getName(i), listMetaData.getName());
 			}
 
 			if (listMetaData.isStructure(i)) {
 				if (!(value instanceof MappedRecordImpl))
-					throw new ResourceException("interaction-impl-invalid-structure-value");
+					throw JBossSapJCAExceptionBundle.EXCEPTIONS.invalidRecordTypeForStructureParameterInParameterList(listMetaData.getName(i), listMetaData.getName(), value.getClass().getName());
 				populateStructure(parameterList.getStructure(i), (MappedRecordImpl) value);
 			} else if (listMetaData.isTable(i)) {
 				if (!(value instanceof IndexedRecordImpl))
-					throw new ResourceException("interaction-impl-invalid-table-value");
+					throw JBossSapJCAExceptionBundle.EXCEPTIONS.invalidRecordTypeForTableParameterInParameterList(listMetaData.getName(i), listMetaData.getName(), value.getClass().getName());
 				populateTable(parameterList.getTable(i), (IndexedRecordImpl) value);
 			} else {
 				populateField(parameterList, i, value);
@@ -356,11 +356,11 @@ public class InteractionImpl implements Interaction {
 
 			if (metaData.isStructure(i)) {
 				if (!(field instanceof MappedRecordImpl))
-					throw new ResourceException("interaction-impl-invalid-structure-value");
+					throw JBossSapJCAExceptionBundle.EXCEPTIONS.invalidRecordTypeForStructureParameterInStructure(metaData.getName(i), metaData.getName(), field.getClass().getName());
 				populateStructure(record.getStructure(i), (MappedRecordImpl) field);
 			} else if (metaData.isTable(i)) {
 				if (!(field instanceof IndexedRecordImpl))
-					throw new ResourceException("interaction-impl-invalid-table-value");
+					throw JBossSapJCAExceptionBundle.EXCEPTIONS.invalidRecordTypeForTableParameterInStructure(metaData.getName(i), metaData.getName(), field.getClass().getName());
 				populateTable(record.getTable(i), (IndexedRecordImpl) field);
 			} else {
 				populateField(record, i, field);
@@ -377,7 +377,7 @@ public class InteractionImpl implements Interaction {
 			if (item instanceof MappedRecordImpl) {
 				populateTableRow(table, (MappedRecordImpl) item);
 			} else {
-				throw new ResourceException("interaction-impl-invalid-table-row-value");
+				throw JBossSapJCAExceptionBundle.EXCEPTIONS.invalidRecordTypeForTableRowInTable(table.getMetaData().getName(), item.getClass().getName());
 			}
 		}
 	}
@@ -391,13 +391,13 @@ public class InteractionImpl implements Interaction {
 		try {
 			record.setValue(index, value);
 		} catch (ConversionException e) {
-			throw new ResourceException(e);
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.settingValueOnRecordCausedConversionException(value.toString(), record.getMetaData().getName(index), record.getMetaData().getName(), e);
 		}
 	}
 
 	private void checkState() throws ResourceException {
 		if (state == State.CLOSED)
-			throw new ResourceException("interaction-impl-is-closed");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.interactionIsClosed();
 	}
 
 }

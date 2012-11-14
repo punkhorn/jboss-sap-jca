@@ -156,7 +156,7 @@ public enum ResourceAdapterMetaDataImpl implements ResourceAdapterMetaData {
 			RESOURCE_ADAPTER_SUPPORTS_LOCAL_TRANSACTION_DEMARCATION = Boolean.parseBoolean(metaDataProperties.getProperty(RESOURCE_ADAPTER_SUPPORTS_LOCAL_TRANSACTION_DEMARCATION_PROP));
 			is.close();
 		} catch (IOException e) {
-			throw new RuntimeException("Could not load resource adapter meta data properties file '" + RESOURCE_ADAPTER_META_DATA_PROPERITES_FILE + "'");
+			throw JBossSapJCAExceptionBundle.EXCEPTIONS.failedToLoadResourceAdapterMetaDataPropertiesFile(RESOURCE_ADAPTER_META_DATA_PROPERITES_FILE);
 		}
 	}
 	
