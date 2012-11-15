@@ -44,6 +44,13 @@ To build the JBoss SAP JCA Connector project you will need to perform the follow
 * [Install JCo Library](#installJco2Repo): Install JCo library into local Maven repository.
 * [Build Project](#buildProject): Build project artifacts. 
 
+<a id="installJco2Repo"></a>
+### Install JCo Library
+
+The JCA connector project requires the sapjco3 library jar  be installed in your local Maven repository in order to build. Use this command to install the jar:
+
+		mvn install:install-file -Dfile=<your-path-to>sapjco3<your-version>.jar -DgroupId=com.sap.conn.jco -DartifactId=sapjco3 -Dversion=<your-version> -Dpackaging=jar
+
 <a id="buildProject"></a>
 ### Build Project
 
