@@ -349,7 +349,7 @@ public class TestManagedConnectionFactoryImpl {
 	}
 
 	@Test
-	public void testMatchManagedConnectionsWithCredentialWithNullonnectionFactory() throws ResourceException {
+	public void testMatchManagedConnectionsWithCredentialWithNullConnectionFactory() throws ResourceException {
 		//Given
 		Set<Principal> principals = new HashSet<Principal>();
 		Set<PasswordCredential> publicCredentials = new HashSet<PasswordCredential>();
@@ -701,6 +701,36 @@ public class TestManagedConnectionFactoryImpl {
 		
 		// Then
 		assertThat("ManagedConnectionFactoryImpl.matchManagedConnections(connectionSetWithMatchingProperties, null, connectionRequestInfoWithSubsetOfMatchingProperties) did not return null", managedConnection, is((ManagedConnection)mockManagedConnectionWithSupersetOfProperties));
+	}
+
+	@Test
+	public void testMatchManagedConnectionsWithConnectionRequestInfoWithDefaultProperties() throws ResourceException {
+		//Given
+		Set<ManagedConnectionImpl> connectionSetWithMatchingProperties = new HashSet<ManagedConnectionImpl>();
+		
+		ManagedConnectionImpl mockManagedConnectionWithSupersetOfProperties = mock(ManagedConnectionImpl.class);
+		JBossSAPConnectionSpec connectionSpecWithDefaultProperties = new JBossSAPConnectionSpec();
+		connectionSpecWithDefaultProperties.setUserName(TEST_USER);
+		connectionSpecWithDefaultProperties.setPassword(TEST_PASSWD);
+		connectionSpecWithDefaultProperties.setProperty(DestinationDataProvider.JCO_CLIENT, TEST_CLIENT);
+		connectionSpecWithDefaultProperties.setProperty(DestinationDataProvider.JCO_SYSNR, TEST_SYSNR);
+		connectionSpecWithDefaultProperties = new JBossSAPConnectionSpec(connectionSpecWithDefaultProperties);
+		when(mockManagedConnectionWithSupersetOfProperties.getProperties()).thenReturn(connectionSpecWithDefaultProperties);
+		connectionSetWithMatchingProperties.add(mockManagedConnectionWithSupersetOfProperties);
+		
+		/* Create Connection Request that is a superset of candidate connection's properties. */
+		JBossSAPConnectionSpec connectionRequestInfoWithDefaultProperties = new JBossSAPConnectionSpec();
+		connectionRequestInfoWithDefaultProperties.setUserName(TEST_USER);
+		connectionRequestInfoWithDefaultProperties.setPassword(TEST_PASSWD);
+		connectionRequestInfoWithDefaultProperties.setProperty(DestinationDataProvider.JCO_CLIENT, TEST_CLIENT);
+		connectionRequestInfoWithDefaultProperties.setProperty(DestinationDataProvider.JCO_SYSNR, TEST_SYSNR);
+		connectionRequestInfoWithDefaultProperties = new JBossSAPConnectionSpec(connectionRequestInfoWithDefaultProperties);
+		
+		// When
+		ManagedConnection managedConnection = managedConnectionFactoryImpl.matchManagedConnections(connectionSetWithMatchingProperties, null, connectionRequestInfoWithDefaultProperties);
+		
+		// Then
+		assertThat("ManagedConnectionFactoryImpl.matchManagedConnections(connectionSetWithMatchingProperties, null, connectionRequestInfoWithDefaultProperties) did not return null", managedConnection, is((ManagedConnection)mockManagedConnectionWithSupersetOfProperties));
 	}
 
 	@Test

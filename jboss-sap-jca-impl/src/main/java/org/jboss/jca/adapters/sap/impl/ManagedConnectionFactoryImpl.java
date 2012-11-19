@@ -115,8 +115,8 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 			for (PasswordCredential credential : subject.getPrivateCredentials(PasswordCredential.class)) {
 				ManagedConnectionFactory mcf = credential.getManagedConnectionFactory();
 				if (mcf != null && mcf.equals(this)) {
-					cri.put(DestinationDataProvider.JCO_USER, credential.getUserName());
-					cri.put(DestinationDataProvider.JCO_PASSWD, new String(credential.getPassword()));
+					cri.setProperty(DestinationDataProvider.JCO_USER, credential.getUserName());
+					cri.setProperty(DestinationDataProvider.JCO_PASSWD, new String(credential.getPassword()));
 					foundCredential = true;
 					break;
 				}
@@ -191,17 +191,17 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, R
 			// Validate passed connection request info match those of the connection.
 			// NB: the set of passed connection request properties need only be a subset of managed connection's set of properties to match.  
 			JBossSAPConnectionSpec jCxRequestInfo = (JBossSAPConnectionSpec) cxRequestInfo;
-			searchConnectionRequestProperties: for (Entry<Object, Object> entry : jCxRequestInfo.entrySet()) {
+			searchConnectionRequestProperties: for (String propertyName : jCxRequestInfo.stringPropertyNames()) {
 
 				if (subject != null
-						&& (entry.getKey().equals(DestinationDataProvider.JCO_USER) || entry.getKey().equals(
+						&& (propertyName.equals(DestinationDataProvider.JCO_USER) || propertyName.equals(
 								DestinationDataProvider.JCO_PASSWD)))
 					// Already checked managed connection's credentials against subject credentials which override
 					// credentials in connection request info.
 					continue searchConnectionRequestProperties;
 				
-				Object candidateConnectionPropertyValue = candidateConnection.getProperties().get(entry.getKey());
-				Object cxRequestPropertyValue = entry.getValue();
+				String candidateConnectionPropertyValue = candidateConnection.getProperties().getProperty(propertyName);
+				String cxRequestPropertyValue = jCxRequestInfo.getProperty(propertyName);
 				
 				if (candidateConnectionPropertyValue == null ? cxRequestPropertyValue != null
 						: !candidateConnectionPropertyValue.equals(cxRequestPropertyValue))
