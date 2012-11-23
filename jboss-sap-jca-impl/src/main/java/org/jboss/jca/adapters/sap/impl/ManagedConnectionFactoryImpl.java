@@ -24,7 +24,6 @@ package org.jboss.jca.adapters.sap.impl;
 import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.resource.ResourceException;
