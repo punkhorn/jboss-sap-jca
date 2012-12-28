@@ -30,7 +30,7 @@
 
 	<connection-definitions>
 		<connection-definition
-			class-name="org.jboss.jca.adapters.sap.impl.ManagedConnectionFactoryImpl"
+			class-name="org.jboss.jca.adapters.sap.spi.impl.ManagedConnectionFactoryImpl"
 			jndi-name="java:/eis/JBossSAPConnectionFactory" pool-name="JBossSAPConnectionFactory">
 			<config-property name="ashost">nplhost</config-property>
 			<config-property name="sysnr">42</config-property>

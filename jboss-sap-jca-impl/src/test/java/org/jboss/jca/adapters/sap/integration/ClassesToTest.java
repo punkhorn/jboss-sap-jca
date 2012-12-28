@@ -21,19 +21,16 @@
  */
 package org.jboss.jca.adapters.sap.integration;
 
-import org.jboss.jca.adapters.sap.cci.JBossSAPConnectionSpec;
-import org.jboss.jca.adapters.sap.cci.JBossSAPInteractionSpec;
-import org.jboss.jca.adapters.sap.impl.DestinationDataProviderImpl;
-import org.jboss.jca.adapters.sap.impl.ConnectionImpl;
-import org.jboss.jca.adapters.sap.impl.ConnectionMetaDataImpl;
-import org.jboss.jca.adapters.sap.impl.IndexedRecordImpl;
-import org.jboss.jca.adapters.sap.impl.InteractionImpl;
-import org.jboss.jca.adapters.sap.impl.ManagedConnectionImpl;
-import org.jboss.jca.adapters.sap.impl.ManagedConnectionFactoryImpl;
-import org.jboss.jca.adapters.sap.impl.MappedRecordImpl;
-import org.jboss.jca.adapters.sap.impl.RecordFactoryImpl;
-import org.jboss.jca.adapters.sap.impl.ResourceAdapterImpl;
-import org.jboss.jca.adapters.sap.impl.ResourceAdapterMetaDataImpl;
+import org.jboss.jca.adapters.sap.cci.impl.ExceptionBundle;
+import org.jboss.jca.adapters.sap.cci.impl.LocalTransactionImpl;
+import org.jboss.jca.adapters.sap.spi.impl.ConnectionRequestInfoImpl;
+import org.jboss.jca.adapters.sap.spi.impl.DataProviderInternalError;
+import org.jboss.jca.adapters.sap.spi.impl.DestinationDataProviderImpl;
+import org.jboss.jca.adapters.sap.spi.impl.InvalidConfigurationException;
+import org.jboss.jca.adapters.sap.spi.impl.ManagedConnectionFactoryImpl;
+import org.jboss.jca.adapters.sap.spi.impl.ManagedConnectionImpl;
+import org.jboss.jca.adapters.sap.spi.impl.ManagedConnectionMetaDataImpl;
+import org.jboss.jca.adapters.sap.spi.impl.ResourceAdapterImpl;
 
 /**
  * ClassesToTest - Defines the list of Classes deployed and tested by unit tests
@@ -46,11 +43,17 @@ public interface ClassesToTest {
 	/**
 	 * Specifies the list of classes archived in RARs used by unit tests
 	 */
-	public static final Class<?>[] CLASSES_TO_TEST = new Class[] { DestinationDataProviderImpl.class,
-			ConnectionImpl.class, ConnectionImpl.class, ConnectionMetaDataImpl.class,
-			JBossSAPConnectionSpec.class, IndexedRecordImpl.class, InteractionImpl.class,
-			JBossSAPInteractionSpec.class, ManagedConnectionImpl.class, ManagedConnectionFactoryImpl.class,
-			MappedRecordImpl.class, RecordFactoryImpl.class, ResourceAdapterImpl.class,
-			ResourceAdapterMetaDataImpl.class };
+	public static final Class<?>[] CLASSES_TO_TEST = new Class[] { 
+			ConnectionRequestInfoImpl.class,
+			DataProviderInternalError.class,
+			DestinationDataProviderImpl.class,
+			ExceptionBundle.class,
+			InvalidConfigurationException.class,
+			LocalTransactionImpl.class,
+			ManagedConnectionFactoryImpl.class,
+			ManagedConnectionImpl.class, 
+			ManagedConnectionMetaDataImpl.class,
+			ResourceAdapterImpl.class,
+			};
 
 }

@@ -21,10 +21,10 @@
  */
 package org.jboss.jca.adapters.sap.integration;
 
+import static org.jboss.jca.adapters.sap.integration.ClassesToTest.CLASSES_TO_TEST;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Properties;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -33,21 +33,13 @@ import javax.resource.cci.ConnectionFactory;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.jca.adapters.sap.cci.JBossSAPConnection;
-import org.jboss.jca.adapters.sap.cci.JBossSAPConnectionSpec;
-import org.jboss.jca.adapters.sap.impl.ConnectionFactoryImpl;
-import org.jboss.jca.adapters.sap.impl.ConnectionMetaDataImpl;
-import org.jboss.jca.adapters.sap.impl.ManagedConnectionFactoryImpl;
-import org.jboss.jca.adapters.sap.impl.ManagedConnectionImpl;
-import org.jboss.jca.adapters.sap.impl.ResourceAdapterImpl;
-import org.jboss.jca.adapters.sap.impl.ResourceAdapterMetaDataImpl;
+import org.jboss.jca.adapters.sap.cci.Connection;
+import org.jboss.jca.adapters.sap.cci.ConnectionSpec;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.ResourceAdapterArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import com.sap.conn.jco.ext.DestinationDataProvider;
 
 /**
  * ConfigurationTests - Tests configuration of JBoss SAP JCA Connector
@@ -73,10 +65,7 @@ public class ITestConfiguration {
 		
 		ResourceAdapterArchive raa = ShrinkWrap.create(ResourceAdapterArchive.class, deploymentName + ".rar");
 		JavaArchive ja = ShrinkWrap.create(JavaArchive.class, UUID.randomUUID().toString() + ".jar");
-		ja.addClasses(ResourceAdapterImpl.class, ManagedConnectionFactoryImpl.class,
-				ManagedConnectionImpl.class, ConnectionFactoryImpl.class,
-				ConnectionFactoryImpl.class, ConnectionMetaDataImpl.class, ResourceAdapterMetaDataImpl.class,
-				JBossSAPConnectionSpec.class);
+		ja.addClasses(CLASSES_TO_TEST);
 		raa.addAsLibrary(ja);
 
 		raa.addAsManifestResource("META-INF/ra.xml", "ra.xml");
@@ -100,27 +89,27 @@ public class ITestConfiguration {
 		log.info("Testing Connection Factory Configuration");
 		
 		assertNotNull("Failed to access 'ConfigurationTestsFactory'", connectionFactory);
-		JBossSAPConnection connection = (JBossSAPConnection) connectionFactory.getConnection();
+		Connection connection = (Connection) connectionFactory.getConnection();
 		assertNotNull("Failed to create connection", connection);
 
 		//
 		// Test JCoDestination properties
 		//
 
-		Properties properties = connection.getProperties();
-		assertNotNull("Connection has not properties", properties);
+		ConnectionSpec connectionSpec = connection.getConnectionSpec();
+		assertNotNull("Connection has not properties", connectionSpec);
 		assertEquals("Application Server Host value does not match", "nplhost",
-				properties.getProperty(DestinationDataProvider.JCO_ASHOST));
+				connectionSpec.getAshost());
 		assertEquals("System Number value does not match", "42",
-				properties.getProperty(DestinationDataProvider.JCO_SYSNR));
+				connectionSpec.getSysnr());
 		assertEquals("Client value does not match", "001", 
-				properties.getProperty(DestinationDataProvider.JCO_CLIENT));
+				connectionSpec.getClient());
 		assertEquals("User value does not match", "developer",
-				properties.getProperty(DestinationDataProvider.JCO_USER));
+				connectionSpec.getUser());
 		assertEquals("Password value does not match", "ch4ngeme",
-				properties.getProperty(DestinationDataProvider.JCO_PASSWD));
+				connectionSpec.getPasswd());
 		assertEquals("Language value does not match", "en", 
-				properties.getProperty(DestinationDataProvider.JCO_LANG));
+				connectionSpec.getLang());
 
 		
 //		assertEquals("Authentication Type value does not match", "CONFIGURED_USER",

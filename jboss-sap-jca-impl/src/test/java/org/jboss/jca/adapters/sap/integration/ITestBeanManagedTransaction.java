@@ -36,8 +36,9 @@ import javax.resource.cci.MappedRecord;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.jca.adapters.sap.cci.JBossSAPConnection;
-import org.jboss.jca.adapters.sap.cci.JBossSAPInteractionSpec;
+import org.jboss.jca.adapters.sap.cci.CciFactory;
+import org.jboss.jca.adapters.sap.cci.Connection;
+import org.jboss.jca.adapters.sap.cci.InteractionSpec;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.ResourceAdapterArchive;
@@ -149,7 +150,7 @@ public class ITestBeanManagedTransaction {
 
 	@Test
 	public void testTransactionSequence() throws Throwable {
-		JBossSAPConnection connection = null;
+		Connection connection = null;
 		MappedRecord counters = null;
 		String countersId = null;
 		int countersValue;
@@ -157,7 +158,7 @@ public class ITestBeanManagedTransaction {
 		try {
 			log.info("Testing Transaction Sequence");
 			assertNotNull("Failed to access connection factory 'DefaultTestsFactory'", connectionFactory);
-			connection = (JBossSAPConnection) connectionFactory.getConnection();
+			connection = (Connection) connectionFactory.getConnection();
 			assertNotNull("Failed to create connection", connection);
 			
 			// Start transaction
@@ -165,9 +166,9 @@ public class ITestBeanManagedTransaction {
 			
 			// Create a counters structure.
 			Interaction interaction = connection.createInteraction();
-			JBossSAPInteractionSpec interactionSpec = new JBossSAPInteractionSpec();
+			InteractionSpec interactionSpec = CciFactory.eINSTANCE.createInteractionSpec();
 			interactionSpec.setFunctionName(CREATE_COUNTERS_FUNC);
-			MappedRecord input = connectionFactory.getRecordFactory().createMappedRecord("input");
+			MappedRecord input = connectionFactory.getRecordFactory().createMappedRecord(CREATE_COUNTERS_FUNC + ".INPUT_RECORD");
 			input.put(IV_INIT_VAL_PARAM, 7);
 			MappedRecord output = (MappedRecord) interaction.execute(interactionSpec, input);
 			assertNotNull("Failed to create counters structure", output);
@@ -176,9 +177,9 @@ public class ITestBeanManagedTransaction {
 			
 			// Read counters structure.
 			interactionSpec.setFunctionName(READ_COUNTERS_FUNC);
-			input.clear();
+			input = connectionFactory.getRecordFactory().createMappedRecord(READ_COUNTERS_FUNC + ".INPUT_RECORD");
 			input.put(IV_COUNTERID_PARAM, countersId);
-			output.clear();
+			output = connectionFactory.getRecordFactory().createMappedRecord(READ_COUNTERS_FUNC + ".OUTPUT_RECORD");
 			assertTrue("Failed to read counters structure", interaction.execute(interactionSpec, input, output));
 			counters = (MappedRecord) output.get(OV_COUNTERS_PARAM);
 			assertNotNull("Counters  structure not returned in read", counters);
@@ -191,9 +192,9 @@ public class ITestBeanManagedTransaction {
 			
 			// Update counters structure
 			interactionSpec.setFunctionName(UPDATE_COUNTERS_FUNC);
-			input.clear();
+			input = connectionFactory.getRecordFactory().createMappedRecord(UPDATE_COUNTERS_FUNC + ".INPUT_RECORD");
 			input.put(IV_COUNTERS_PARAM, counters);
-			output.clear();
+			output = connectionFactory.getRecordFactory().createMappedRecord(UPDATE_COUNTERS_FUNC + ".OUTPUT_RECORD");
 			assertTrue("Failed to update counters structure", interaction.execute(interactionSpec, input, output));
 			
 			// Commit transaction
@@ -201,9 +202,9 @@ public class ITestBeanManagedTransaction {
 			
 			// Read counters structure.
 			interactionSpec.setFunctionName(READ_COUNTERS_FUNC);
-			input.clear();
-			input.put(IV_COUNTERID_PARAM, countersId);
-			output.clear();
+			input = connectionFactory.getRecordFactory().createMappedRecord(READ_COUNTERS_FUNC + ".INPUT_RECORD");
+			input.put(IV_COUNTERID_PARAM,countersId);
+			output = connectionFactory.getRecordFactory().createMappedRecord(READ_COUNTERS_FUNC + ".OUTPUT_RECORD");
 			assertTrue("Failed to read counters structure", interaction.execute(interactionSpec, input, output));
 			counters = (MappedRecord) output.get(OV_COUNTERS_PARAM);
 			assertNotNull("Counters  structure not returned in read", counters);
@@ -215,9 +216,9 @@ public class ITestBeanManagedTransaction {
 			
 			// Delete counters structure
 			interactionSpec.setFunctionName(DELETE_COUNTERS_FUNC);
-			input.clear();
-			input.put(IV_COUNTERID_PARAM, countersId);
-			output.clear();
+			input = connectionFactory.getRecordFactory().createMappedRecord(DELETE_COUNTERS_FUNC + ".INPUT_RECORD");
+			input.put(IV_COUNTERID_PARAM, Integer.valueOf(countersId));
+			output = connectionFactory.getRecordFactory().createMappedRecord(DELETE_COUNTERS_FUNC + ".OUTPUT_RECORD");
 			assertTrue("Failed to delete counters structure", interaction.execute(interactionSpec, input, output));
 			
 			// Commit transaction
@@ -225,9 +226,9 @@ public class ITestBeanManagedTransaction {
 			
 			// Verify counters structure deleted.
 			interactionSpec.setFunctionName(READ_COUNTERS_FUNC);
-			input.clear();
+			input = connectionFactory.getRecordFactory().createMappedRecord(READ_COUNTERS_FUNC + ".INPUT_RECORD");
 			input.put(IV_COUNTERID_PARAM, countersId);
-			output.clear();
+			output = connectionFactory.getRecordFactory().createMappedRecord(READ_COUNTERS_FUNC + ".OUTPUT_RECORD");
 			assertFalse("Failed to delete counters structure", interaction.execute(interactionSpec, input, output));
 			
 			

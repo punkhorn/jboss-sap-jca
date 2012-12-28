@@ -55,10 +55,10 @@
 	<license-required>false</license-required>
   </license>
   <resourceadapter>
-    <resourceadapter-class>org.jboss.jca.adapters.sap.impl.ResourceAdapterImpl</resourceadapter-class>
+    <resourceadapter-class>org.jboss.jca.adapters.sap.spi.impl.ResourceAdapterImpl</resourceadapter-class>
     <outbound-resourceadapter>
       <connection-definition>
-        <managedconnectionfactory-class>org.jboss.jca.adapters.sap.impl.ManagedConnectionFactoryImpl</managedconnectionfactory-class>
+        <managedconnectionfactory-class>org.jboss.jca.adapters.sap.spi.impl.ManagedConnectionFactoryImpl</managedconnectionfactory-class>
         <config-property>
           <description>
 					
@@ -506,9 +506,9 @@
           <config-property-type>java.lang.String</config-property-type>
         </config-property>
         <connectionfactory-interface>javax.resource.cci.ConnectionFactory</connectionfactory-interface>
-        <connectionfactory-impl-class>org.jboss.jca.adapters.sap.impl.ConnectionFactoryImpl</connectionfactory-impl-class>
-        <connection-interface>org.jboss.jca.adapters.sap.cci.JBossSAPConnection</connection-interface>
-        <connection-impl-class>org.jboss.jca.adapters.sap.impl.ConnectionImpl</connection-impl-class>
+        <connectionfactory-impl-class>org.jboss.jca.adapters.sap.cci.impl.ConnectionFactoryImpl</connectionfactory-impl-class>
+        <connection-interface>org.jboss.jca.adapters.sap.cci.Connection</connection-interface>
+        <connection-impl-class>org.jboss.jca.adapters.sap.cci.impl.ConnectionImpl</connection-impl-class>
       </connection-definition>
       <transaction-support>LocalTransaction</transaction-support>
       <authentication-mechanism>

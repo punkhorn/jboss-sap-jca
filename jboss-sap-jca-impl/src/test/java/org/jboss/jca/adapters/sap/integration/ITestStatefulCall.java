@@ -20,8 +20,9 @@ import javax.resource.cci.MappedRecord;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.jca.adapters.sap.cci.JBossSAPConnection;
-import org.jboss.jca.adapters.sap.cci.JBossSAPInteractionSpec;
+import org.jboss.jca.adapters.sap.cci.CciFactory;
+import org.jboss.jca.adapters.sap.cci.Connection;
+import org.jboss.jca.adapters.sap.cci.InteractionSpec;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.ResourceAdapterArchive;
@@ -80,11 +81,11 @@ public class ITestStatefulCall {
 		 */
 		@Override
 		public Integer call() throws Exception {
-			JBossSAPConnection connection = null;
+			Connection connection = null;
 			try {
 				log.info("Testing Stateful Call Sequence");
 				assertNotNull("Failed to access connection factory 'CciTestsFactory'", connectionFactory);
-				connection = (JBossSAPConnection) connectionFactory.getConnection();
+				connection = (Connection) connectionFactory.getConnection();
 				assertNotNull("Failed to create connection", connection);
 				connection.ping();
 
@@ -93,17 +94,17 @@ public class ITestStatefulCall {
 				//
 
 				Interaction interaction = connection.createInteraction();
-				JBossSAPInteractionSpec incrementCounter = new JBossSAPInteractionSpec();
+				InteractionSpec incrementCounter = CciFactory.eINSTANCE.createInteractionSpec();
 				incrementCounter.setFunctionName("ZJBOSS_INCREMENT_COUNTER");
-				JBossSAPInteractionSpec getCounter = new JBossSAPInteractionSpec();
+				InteractionSpec getCounter = CciFactory.eINSTANCE.createInteractionSpec();
 				getCounter.setFunctionName("ZJBOSS_GET_COUNTER");
 
 				//
 				// Create input record to pass parameters to function module.
 				//
 
-				MappedRecord input = connectionFactory.getRecordFactory().createMappedRecord("input");
-				MappedRecord output = connectionFactory.getRecordFactory().createMappedRecord("output");
+				MappedRecord input = connectionFactory.getRecordFactory().createMappedRecord("ZJBOSS_INCREMENT_COUNTER.INPUT_RECORD");
+				MappedRecord output = connectionFactory.getRecordFactory().createMappedRecord("ZJBOSS_INCREMENT_COUNTER.OUTPUT_RECORD");
 
 				// Start stateful sequence and execute interaction multiple times.
 				connection.begin();
@@ -111,6 +112,8 @@ public class ITestStatefulCall {
 					assertTrue("ZJBOSS_INCREMENT_COUNTER failed", interaction.execute(incrementCounter, input, output));
 				}
 
+				input = connectionFactory.getRecordFactory().createMappedRecord("ZJBOSS_GET_COUNTER.INPUT_RECORD");
+				output = connectionFactory.getRecordFactory().createMappedRecord("ZJBOSS_GET_COUNTER.OUTPUT_RECORD");
 				assertTrue("ZJBOSS_GET_COUNTER failed", interaction.execute(getCounter, input, output));
 
 				return (Integer) output.get("GET_VALUE");

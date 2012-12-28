@@ -34,15 +34,15 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
-import javax.resource.cci.IndexedRecord;
 import javax.resource.cci.Interaction;
-import javax.resource.cci.MappedRecord;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.jca.adapters.sap.cci.JBossSAPConnection;
-import org.jboss.jca.adapters.sap.cci.JBossSAPInteractionSpec;
-import org.jboss.jca.adapters.sap.impl.RecordFactoryImpl;
+import org.jboss.jca.adapters.sap.cci.CciFactory;
+import org.jboss.jca.adapters.sap.cci.Connection;
+import org.jboss.jca.adapters.sap.cci.IndexedRecord;
+import org.jboss.jca.adapters.sap.cci.InteractionSpec;
+import org.jboss.jca.adapters.sap.cci.MappedRecord;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.ResourceAdapterArchive;
@@ -55,7 +55,6 @@ import org.junit.runner.RunWith;
  * @author William Collins
  * 
  */
-@SuppressWarnings({ "unchecked" })
 @RunWith(Arquillian.class)
 public class ITestCci {
 
@@ -164,7 +163,7 @@ public class ITestCci {
 	@Deployment
 	public static ResourceAdapterArchive createDeployment() {
 		log.info("Creating deployment for Cci Tests");
-
+		
 		ResourceAdapterArchive raa = ShrinkWrap.create(ResourceAdapterArchive.class, deploymentName + ".rar");
 		JavaArchive ja = ShrinkWrap.create(JavaArchive.class, UUID.randomUUID().toString() + ".jar");
 		ja.addClasses(CLASSES_TO_TEST);
@@ -188,11 +187,11 @@ public class ITestCci {
 	 */
 	@Test
 	public void testConnection() throws Throwable {
-		JBossSAPConnection connection = null;
+		Connection connection = null;
 		try {
 			log.info("Testing Connection");
 			assertNotNull("Failed to access connection factory 'DefaultTestsFactory'", connectionFactory);
-			connection = (JBossSAPConnection) connectionFactory.getConnection();
+			connection = (Connection) connectionFactory.getConnection();
 			assertNotNull("Failed to create connection", connection);
 			log.info("Connection test succeeded!");
 		} finally {
@@ -210,19 +209,19 @@ public class ITestCci {
 	 */
 	@Test
 	public void testSimpleInteraction() throws Throwable {
-		JBossSAPConnection connection = null;
+		Connection connection = null;
 		try {
 			log.info("Testing Simple Interaction");
 			assertNotNull("Failed to access connection factory 'DefaultTestsFactory'", connectionFactory);
-			connection = (JBossSAPConnection) connectionFactory.getConnection();
+			connection = (Connection) connectionFactory.getConnection();
 			assertNotNull("Failed to create connection", connection);
 
 			Interaction interaction = connection.createInteraction();
-			JBossSAPInteractionSpec interactionSpec = new JBossSAPInteractionSpec();
+			InteractionSpec interactionSpec = CciFactory.eINSTANCE.createInteractionSpec();
 			interactionSpec.setFunctionName("STFC_CONNECTION");
-			MappedRecord input = RecordFactoryImpl.INSTANCE.createMappedRecord("input");
+			MappedRecord input = (MappedRecord)  connectionFactory.getRecordFactory().createMappedRecord("STFC_CONNECTION.INPUT_RECORD");
 			input.put(REQUTEXT_PARAM, REQUTEXT);
-			MappedRecord output = RecordFactoryImpl.INSTANCE.createMappedRecord("output");
+			MappedRecord output = (MappedRecord) connectionFactory.getRecordFactory().createMappedRecord("STFC_CONNECTION.OUTPUT_RECORD");
 			assertTrue("Simple Interaction Execution Failed", interaction.execute(interactionSpec, input, output));
 			String echoText = (String) output.get(ECHOTEXT_PARAM);
 			assertEquals("Echoed text does not match request text", REQUTEXT, echoText);
@@ -246,11 +245,11 @@ public class ITestCci {
 	 */
 	@Test
 	public void testParameterPassing() throws Throwable {
-		JBossSAPConnection connection = null;
+		Connection connection = null;
 		try {
 			log.info("Testing Parameter Passing");
 			assertNotNull("Failed to access connection factory 'DefaultTestsFactory'", connectionFactory);
-			connection = (JBossSAPConnection) connectionFactory.getConnection();
+			connection = (Connection) connectionFactory.getConnection();
 			assertNotNull("Failed to create connection", connection);
 
 			//
@@ -258,14 +257,14 @@ public class ITestCci {
 			//
 
 			Interaction interaction = connection.createInteraction();
-			JBossSAPInteractionSpec interactionSpec = new JBossSAPInteractionSpec();
+			InteractionSpec interactionSpec = CciFactory.eINSTANCE.createInteractionSpec();
 			interactionSpec.setFunctionName("ZJBOSS_PARAM_TEST");
 
 			//
 			// Create input record to pass parameters to function module.
 			//
 
-			MappedRecord input = connectionFactory.getRecordFactory().createMappedRecord("input");
+			MappedRecord input = (MappedRecord) connectionFactory.getRecordFactory().createMappedRecord("ZJBOSS_PARAM_TEST.INPUT_RECORD");
 
 			//
 			// Populate input record with import and changing parameters.
@@ -293,7 +292,7 @@ public class ITestCci {
 			input.put(CHANGING_STRING_PARAM, STRING_PARAM_VAL);
 
 			// Create embedded import structure, populate and add to input record.
-			MappedRecord importStructureParam = RecordFactoryImpl.INSTANCE.createMappedRecord(IMPORT_STRUCTURE_PARAM);
+			MappedRecord importStructureParam = (MappedRecord) input.get(IMPORT_STRUCTURE_PARAM);
 			importStructureParam.put(CHAR_PARAM, CHAR_PARAM_VAL);
 			importStructureParam.put(NUM_PARAM, NUM_PARAM_VAL);
 			importStructureParam.put(INT_PARAM, INT_PARAM_VAL);
@@ -304,11 +303,9 @@ public class ITestCci {
 			importStructureParam.put(DATE_PARAM, DATE_PARAM_VAL);
 			importStructureParam.put(TIME_PARAM, TIME_PARAM_VAL);
 			importStructureParam.put(STRING_PARAM, STRING_PARAM_VAL);
-			input.put(IMPORT_STRUCTURE_PARAM, importStructureParam);
 
 			// Create embedded changing structure, populate and add to input record.
-			MappedRecord changingStructureParam = RecordFactoryImpl.INSTANCE
-					.createMappedRecord(CHANGING_STRUCTURE_PARAM);
+			MappedRecord changingStructureParam = (MappedRecord) input.get(CHANGING_STRUCTURE_PARAM);
 			changingStructureParam.put(CHAR_PARAM, CHAR_PARAM_VAL);
 			changingStructureParam.put(NUM_PARAM, NUM_PARAM_VAL);
 			changingStructureParam.put(INT_PARAM, INT_PARAM_VAL);
@@ -319,14 +316,13 @@ public class ITestCci {
 			changingStructureParam.put(DATE_PARAM, DATE_PARAM_VAL);
 			changingStructureParam.put(TIME_PARAM, TIME_PARAM_VAL);
 			changingStructureParam.put(STRING_PARAM, STRING_PARAM_VAL);
-			input.put(CHANGING_STRUCTURE_PARAM, importStructureParam);
 
 			//
 			// Populate input record with table parameters
 			//
 
-			IndexedRecord tableTableParam = RecordFactoryImpl.INSTANCE.createIndexedRecord(TABLE_TABLE_PARAM);
-			MappedRecord tableTableRowParam = RecordFactoryImpl.INSTANCE.createMappedRecord(TABLE_TABLE_PARAM);
+			IndexedRecord tableTableParam = (IndexedRecord)  input.get(TABLE_TABLE_PARAM);
+			MappedRecord tableTableRowParam = (MappedRecord) tableTableParam.add();
 			tableTableRowParam.put(CHAR_PARAM, CHAR_PARAM_VAL);
 			tableTableRowParam.put(NUM_PARAM, NUM_PARAM_VAL);
 			tableTableRowParam.put(INT_PARAM, INT_PARAM_VAL);
@@ -343,7 +339,7 @@ public class ITestCci {
 			// Create output record and execute interaction.
 			//
 
-			MappedRecord output = connectionFactory.getRecordFactory().createMappedRecord("output");
+			MappedRecord output = (MappedRecord) connectionFactory.getRecordFactory().createMappedRecord("ZJBOSS_PARAM_TEST.OUTPUT_RECORD");
 			assertTrue("ZJBOSS_PARAM_TEST failed", interaction.execute(interactionSpec, input, output));
 
 			//

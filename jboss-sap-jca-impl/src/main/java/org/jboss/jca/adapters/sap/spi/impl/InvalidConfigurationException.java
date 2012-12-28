@@ -1,4 +1,3 @@
-<!--
 /*
  * JBoss, Home of Professional Open Source.
  * Copyright 2012, Red Hat Middleware LLC, and individual contributors
@@ -20,25 +19,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
--->
+package org.jboss.jca.adapters.sap.spi.impl;
 
-<ironjacamar xmlns="http://www.jboss.org/ironjacamar/schema"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema 
-             http://www.jboss.org/ironjacamar/schema/ironjacamar_1_0.xsd">
+import com.sap.conn.jco.ext.DataProviderException;
 
-  <transaction-support>LocalTransaction</transaction-support>
-  
-  <connection-definitions>
-    <connection-definition class-name="org.jboss.jca.adapters.sap.spi.impl.ManagedConnectionFactoryImpl" jndi-name="java:/eis/DefaultTestsFactory" pool-name="JBossSAPConnectionFactory">
-    	<config-property name="ashost">nplhost</config-property>
-    	<config-property name="sysnr">42</config-property>
-    	<config-property name="client">001</config-property>
-    	<config-property name="user">developer</config-property>
-    	<config-property name="passwd">ch4ngeme</config-property>
-    	<config-property name="lang">en</config-property>
-    </connection-definition>
-  </connection-definitions>
+/**
+ * RuntimeException for DestinationDataProvider
+ * 
+ * <p>This exception is throw when an invalid destination configuration is encountered by destination data provider.
+ * 
+ * @author William Collins
+ *
+ */
+public class InvalidConfigurationException extends DataProviderException {
 
+	private static final long serialVersionUID = 4266129377595388109L;
 
-</ironjacamar>
+	public InvalidConfigurationException(String message) {
+		super(DataProviderException.Reason.INVALID_CONFIGURATION, message, null);
+	}
+
+}
