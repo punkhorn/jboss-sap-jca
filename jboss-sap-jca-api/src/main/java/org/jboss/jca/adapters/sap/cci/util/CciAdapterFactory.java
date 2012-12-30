@@ -31,13 +31,14 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 
 import org.jboss.jca.adapters.sap.cci.*;
+import org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl;
 
 /**
  * <!-- begin-user-doc -->
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see org.jboss.jca.adapters.sap.cci.CciPackage
+ * @see org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl
  * @generated
  */
 public class CciAdapterFactory extends AdapterFactoryImpl {
@@ -47,7 +48,7 @@ public class CciAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static CciPackage modelPackage;
+	protected static CciPackageImpl modelPackage;
 
 	/**
 	 * Creates an instance of the adapter factory.
@@ -57,7 +58,7 @@ public class CciAdapterFactory extends AdapterFactoryImpl {
 	 */
 	public CciAdapterFactory() {
 		if (modelPackage == null) {
-			modelPackage = CciPackage.eINSTANCE;
+			modelPackage = CciPackageImpl.eINSTANCE;
 		}
 	}
 

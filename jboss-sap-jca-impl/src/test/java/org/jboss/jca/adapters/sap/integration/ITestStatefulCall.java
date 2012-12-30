@@ -94,9 +94,9 @@ public class ITestStatefulCall {
 				//
 
 				Interaction interaction = connection.createInteraction();
-				InteractionSpec incrementCounter = CciFactory.eINSTANCE.createInteractionSpec();
+				InteractionSpec incrementCounter = CciFactory.INSTANCE.createInteractionSpec();
 				incrementCounter.setFunctionName("ZJBOSS_INCREMENT_COUNTER");
-				InteractionSpec getCounter = CciFactory.eINSTANCE.createInteractionSpec();
+				InteractionSpec getCounter = CciFactory.INSTANCE.createInteractionSpec();
 				getCounter.setFunctionName("ZJBOSS_GET_COUNTER");
 
 				//

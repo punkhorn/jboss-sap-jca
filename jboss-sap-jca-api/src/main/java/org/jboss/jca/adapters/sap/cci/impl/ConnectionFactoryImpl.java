@@ -32,7 +32,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.jboss.jca.adapters.sap.cci.CciPackage;
 import org.jboss.jca.adapters.sap.cci.Connection;
 import org.jboss.jca.adapters.sap.cci.ConnectionFactory;
 import org.jboss.jca.adapters.sap.cci.RecordFactory;
@@ -132,7 +131,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return CciPackage.Literals.CONNECTION_FACTORY;
+		return CciPackageImpl.Literals.CONNECTION_FACTORY;
 	}
 
 	/**
@@ -164,7 +163,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 		Reference oldReference = reference;
 		reference = newReference;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_FACTORY__REFERENCE, oldReference, reference));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_FACTORY__REFERENCE, oldReference, reference));
 	}
 
 	/**
@@ -207,7 +206,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 		try {
 			if (recordFactory == null) {
 				JCoRepository repository = ((ConnectionImpl)getConnection()).getDestination().getRepository();
-				recordFactory = CciPackage.eINSTANCE.getCciFactory().createRecordFactory();
+				recordFactory = CciFactoryImpl.eINSTANCE.createRecordFactory();
 				((org.jboss.jca.adapters.sap.cci.impl.RecordFactoryImpl)recordFactory).setRepository(repository);
 			}
 			return recordFactory;
@@ -236,7 +235,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case CciPackage.CONNECTION_FACTORY__REFERENCE:
+			case CciPackageImpl.CONNECTION_FACTORY__REFERENCE:
 				return getReferenceGen();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -250,7 +249,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case CciPackage.CONNECTION_FACTORY__REFERENCE:
+			case CciPackageImpl.CONNECTION_FACTORY__REFERENCE:
 				setReference((Reference)newValue);
 				return;
 		}
@@ -265,7 +264,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case CciPackage.CONNECTION_FACTORY__REFERENCE:
+			case CciPackageImpl.CONNECTION_FACTORY__REFERENCE:
 				setReference(REFERENCE_EDEFAULT);
 				return;
 		}
@@ -280,7 +279,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case CciPackage.CONNECTION_FACTORY__REFERENCE:
+			case CciPackageImpl.CONNECTION_FACTORY__REFERENCE:
 				return REFERENCE_EDEFAULT == null ? reference != null : !REFERENCE_EDEFAULT.equals(reference);
 		}
 		return super.eIsSet(featureID);

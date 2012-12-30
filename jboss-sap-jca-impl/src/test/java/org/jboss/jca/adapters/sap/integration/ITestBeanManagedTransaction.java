@@ -166,7 +166,7 @@ public class ITestBeanManagedTransaction {
 			
 			// Create a counters structure.
 			Interaction interaction = connection.createInteraction();
-			InteractionSpec interactionSpec = CciFactory.eINSTANCE.createInteractionSpec();
+			InteractionSpec interactionSpec = CciFactory.INSTANCE.createInteractionSpec();
 			interactionSpec.setFunctionName(CREATE_COUNTERS_FUNC);
 			MappedRecord input = connectionFactory.getRecordFactory().createMappedRecord(CREATE_COUNTERS_FUNC + ".INPUT_RECORD");
 			input.put(IV_INIT_VAL_PARAM, 7);

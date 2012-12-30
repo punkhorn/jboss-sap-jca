@@ -32,13 +32,15 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  *
- * @see org.jboss.jca.adapters.sap.cci.CciPackage#getLocalTransaction()
  * @model superTypes="org.jboss.jca.adapters.sap.cci.CCILocalTransaction"
  * @generated
  */
 public interface LocalTransaction extends EObject, javax.resource.cci.LocalTransaction {
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -47,6 +49,9 @@ public interface LocalTransaction extends EObject, javax.resource.cci.LocalTrans
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -55,6 +60,9 @@ public interface LocalTransaction extends EObject, javax.resource.cci.LocalTrans
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated

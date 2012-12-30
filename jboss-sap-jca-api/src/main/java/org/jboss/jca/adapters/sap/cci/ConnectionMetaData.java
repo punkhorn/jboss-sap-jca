@@ -32,13 +32,15 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  *
- * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionMetaData()
  * @model superTypes="org.jboss.jca.adapters.sap.cci.CCIConnectionMetaData"
  * @generated
  */
 public interface ConnectionMetaData extends EObject, javax.resource.cci.ConnectionMetaData {
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -47,6 +49,9 @@ public interface ConnectionMetaData extends EObject, javax.resource.cci.Connecti
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -55,6 +60,9 @@ public interface ConnectionMetaData extends EObject, javax.resource.cci.Connecti
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated

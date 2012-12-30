@@ -217,7 +217,7 @@ public class ITestCci {
 			assertNotNull("Failed to create connection", connection);
 
 			Interaction interaction = connection.createInteraction();
-			InteractionSpec interactionSpec = CciFactory.eINSTANCE.createInteractionSpec();
+			InteractionSpec interactionSpec = CciFactory.INSTANCE.createInteractionSpec();
 			interactionSpec.setFunctionName("STFC_CONNECTION");
 			MappedRecord input = (MappedRecord)  connectionFactory.getRecordFactory().createMappedRecord("STFC_CONNECTION.INPUT_RECORD");
 			input.put(REQUTEXT_PARAM, REQUTEXT);
@@ -257,7 +257,7 @@ public class ITestCci {
 			//
 
 			Interaction interaction = connection.createInteraction();
-			InteractionSpec interactionSpec = CciFactory.eINSTANCE.createInteractionSpec();
+			InteractionSpec interactionSpec = CciFactory.INSTANCE.createInteractionSpec();
 			interactionSpec.setFunctionName("ZJBOSS_PARAM_TEST");
 
 			//

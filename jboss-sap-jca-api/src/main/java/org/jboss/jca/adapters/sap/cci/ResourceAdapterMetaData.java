@@ -30,13 +30,15 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  *
- * @see org.jboss.jca.adapters.sap.cci.CciPackage#getResourceAdapterMetaData()
  * @model superTypes="org.jboss.jca.adapters.sap.cci.CCIResourceAdapterMetaData"
  * @generated
  */
 public interface ResourceAdapterMetaData extends EObject, javax.resource.cci.ResourceAdapterMetaData {
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
 	 * @generated
@@ -45,6 +47,9 @@ public interface ResourceAdapterMetaData extends EObject, javax.resource.cci.Res
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
 	 * @generated
@@ -53,6 +58,9 @@ public interface ResourceAdapterMetaData extends EObject, javax.resource.cci.Res
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
 	 * @generated
@@ -61,6 +69,9 @@ public interface ResourceAdapterMetaData extends EObject, javax.resource.cci.Res
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
 	 * @generated
@@ -69,6 +80,9 @@ public interface ResourceAdapterMetaData extends EObject, javax.resource.cci.Res
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
 	 * @generated
@@ -77,6 +91,9 @@ public interface ResourceAdapterMetaData extends EObject, javax.resource.cci.Res
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="org.jboss.jca.adapters.sap.cci.StringArray"
 	 * @generated
@@ -85,6 +102,9 @@ public interface ResourceAdapterMetaData extends EObject, javax.resource.cci.Res
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -93,6 +113,9 @@ public interface ResourceAdapterMetaData extends EObject, javax.resource.cci.Res
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -101,6 +124,9 @@ public interface ResourceAdapterMetaData extends EObject, javax.resource.cci.Res
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated

@@ -38,7 +38,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.jboss.jca.adapters.sap.cci.CciPackage;
 import org.jboss.jca.adapters.sap.cci.MappedRecord;
 
 import com.sap.conn.jco.JCoField;
@@ -362,7 +361,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return CciPackage.Literals.MAPPED_RECORD;
+		return CciPackageImpl.Literals.MAPPED_RECORD;
 	}
 
 	/**
@@ -383,7 +382,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 		String oldRecordName = recordName;
 		recordName = newRecordName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.MAPPED_RECORD__RECORD_NAME, oldRecordName, recordName));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.MAPPED_RECORD__RECORD_NAME, oldRecordName, recordName));
 	}
 
 	/**
@@ -404,7 +403,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 		String oldRecordShortDescription = recordShortDescription;
 		recordShortDescription = newRecordShortDescription;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.MAPPED_RECORD__RECORD_SHORT_DESCRIPTION, oldRecordShortDescription, recordShortDescription));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.MAPPED_RECORD__RECORD_SHORT_DESCRIPTION, oldRecordShortDescription, recordShortDescription));
 	}
 
 	/**
@@ -523,7 +522,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 		Object retValue = eGet(eFeature);
 		if(retValue == null && eFeature.getEType() instanceof EClass) {
 			EClass recordClass = (EClass) eFeature.getEType();
-			if(CciPackage.eINSTANCE.getMappedRecord().isSuperTypeOf(recordClass) || CciPackage.eINSTANCE.getIndexedRecord().isSuperTypeOf(recordClass)) {
+			if(CciPackageImpl.eINSTANCE.getMappedRecord().isSuperTypeOf(recordClass) || CciPackageImpl.eINSTANCE.getIndexedRecord().isSuperTypeOf(recordClass)) {
 				Record record = (Record) eClass().getEPackage().getEFactoryInstance().create(recordClass);
 				record.setRecordName(featureName);
 				put(key, record);
@@ -642,9 +641,9 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case CciPackage.MAPPED_RECORD__RECORD_NAME:
+			case CciPackageImpl.MAPPED_RECORD__RECORD_NAME:
 				return getRecordName();
-			case CciPackage.MAPPED_RECORD__RECORD_SHORT_DESCRIPTION:
+			case CciPackageImpl.MAPPED_RECORD__RECORD_SHORT_DESCRIPTION:
 				return getRecordShortDescription();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -658,10 +657,10 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case CciPackage.MAPPED_RECORD__RECORD_NAME:
+			case CciPackageImpl.MAPPED_RECORD__RECORD_NAME:
 				setRecordName((String)newValue);
 				return;
-			case CciPackage.MAPPED_RECORD__RECORD_SHORT_DESCRIPTION:
+			case CciPackageImpl.MAPPED_RECORD__RECORD_SHORT_DESCRIPTION:
 				setRecordShortDescription((String)newValue);
 				return;
 		}
@@ -676,10 +675,10 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case CciPackage.MAPPED_RECORD__RECORD_NAME:
+			case CciPackageImpl.MAPPED_RECORD__RECORD_NAME:
 				setRecordName(RECORD_NAME_EDEFAULT);
 				return;
-			case CciPackage.MAPPED_RECORD__RECORD_SHORT_DESCRIPTION:
+			case CciPackageImpl.MAPPED_RECORD__RECORD_SHORT_DESCRIPTION:
 				setRecordShortDescription(RECORD_SHORT_DESCRIPTION_EDEFAULT);
 				return;
 		}
@@ -694,9 +693,9 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case CciPackage.MAPPED_RECORD__RECORD_NAME:
+			case CciPackageImpl.MAPPED_RECORD__RECORD_NAME:
 				return RECORD_NAME_EDEFAULT == null ? recordName != null : !RECORD_NAME_EDEFAULT.equals(recordName);
-			case CciPackage.MAPPED_RECORD__RECORD_SHORT_DESCRIPTION:
+			case CciPackageImpl.MAPPED_RECORD__RECORD_SHORT_DESCRIPTION:
 				return RECORD_SHORT_DESCRIPTION_EDEFAULT == null ? recordShortDescription != null : !RECORD_SHORT_DESCRIPTION_EDEFAULT.equals(recordShortDescription);
 		}
 		return super.eIsSet(featureID);

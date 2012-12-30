@@ -26,7 +26,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.jboss.jca.adapters.sap.cci.CciPackage;
 import org.jboss.jca.adapters.sap.cci.ConnectionSpec;
 import org.jboss.jca.adapters.sap.spi.ConnectionRequestInfo;
 
@@ -1048,7 +1047,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return CciPackage.Literals.CONNECTION_SPEC;
+		return CciPackageImpl.Literals.CONNECTION_SPEC;
 	}
 
 	/**
@@ -1069,7 +1068,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldUserName = userName;
 		userName = newUserName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__USER_NAME, oldUserName, userName));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__USER_NAME, oldUserName, userName));
 	}
 
 	/**
@@ -1090,7 +1089,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldPassword = password;
 		password = newPassword;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__PASSWORD, oldPassword, password));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__PASSWORD, oldPassword, password));
 	}
 
 	/**
@@ -1111,7 +1110,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldAuthType = authType;
 		authType = newAuthType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__AUTH_TYPE, oldAuthType, authType));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__AUTH_TYPE, oldAuthType, authType));
 	}
 
 	/**
@@ -1132,7 +1131,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldUserId = userId;
 		userId = newUserId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__USER_ID, oldUserId, userId));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__USER_ID, oldUserId, userId));
 	}
 
 	/**
@@ -1153,7 +1152,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldClient = client;
 		client = newClient;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__CLIENT, oldClient, client));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__CLIENT, oldClient, client));
 	}
 
 	/**
@@ -1174,7 +1173,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldUser = user;
 		user = newUser;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__USER, oldUser, user));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__USER, oldUser, user));
 	}
 
 	/**
@@ -1195,7 +1194,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldAliasUser = aliasUser;
 		aliasUser = newAliasUser;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__ALIAS_USER, oldAliasUser, aliasUser));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__ALIAS_USER, oldAliasUser, aliasUser));
 	}
 
 	/**
@@ -1216,7 +1215,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldPasswd = passwd;
 		passwd = newPasswd;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__PASSWD, oldPasswd, passwd));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__PASSWD, oldPasswd, passwd));
 	}
 
 	/**
@@ -1237,7 +1236,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldLang = lang;
 		lang = newLang;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__LANG, oldLang, lang));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__LANG, oldLang, lang));
 	}
 
 	/**
@@ -1258,7 +1257,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldMysapsso2 = mysapsso2;
 		mysapsso2 = newMysapsso2;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__MYSAPSSO2, oldMysapsso2, mysapsso2));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__MYSAPSSO2, oldMysapsso2, mysapsso2));
 	}
 
 	/**
@@ -1279,7 +1278,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldX509cert = x509cert;
 		x509cert = newX509cert;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__X509CERT, oldX509cert, x509cert));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__X509CERT, oldX509cert, x509cert));
 	}
 
 	/**
@@ -1300,7 +1299,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldPcs = pcs;
 		pcs = newPcs;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__PCS, oldPcs, pcs));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__PCS, oldPcs, pcs));
 	}
 
 	/**
@@ -1321,7 +1320,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldType = type;
 		type = newType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__TYPE, oldType, type));
 	}
 
 	/**
@@ -1342,7 +1341,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldSaprouter = saprouter;
 		saprouter = newSaprouter;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__SAPROUTER, oldSaprouter, saprouter));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__SAPROUTER, oldSaprouter, saprouter));
 	}
 
 	/**
@@ -1363,7 +1362,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldSysnr = sysnr;
 		sysnr = newSysnr;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__SYSNR, oldSysnr, sysnr));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__SYSNR, oldSysnr, sysnr));
 	}
 
 	/**
@@ -1384,7 +1383,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldAshost = ashost;
 		ashost = newAshost;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__ASHOST, oldAshost, ashost));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__ASHOST, oldAshost, ashost));
 	}
 
 	/**
@@ -1405,7 +1404,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldMshost = mshost;
 		mshost = newMshost;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__MSHOST, oldMshost, mshost));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__MSHOST, oldMshost, mshost));
 	}
 
 	/**
@@ -1426,7 +1425,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldMsserv = msserv;
 		msserv = newMsserv;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__MSSERV, oldMsserv, msserv));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__MSSERV, oldMsserv, msserv));
 	}
 
 	/**
@@ -1447,7 +1446,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldGwhost = gwhost;
 		gwhost = newGwhost;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__GWHOST, oldGwhost, gwhost));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__GWHOST, oldGwhost, gwhost));
 	}
 
 	/**
@@ -1468,7 +1467,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldGwserv = gwserv;
 		gwserv = newGwserv;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__GWSERV, oldGwserv, gwserv));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__GWSERV, oldGwserv, gwserv));
 	}
 
 	/**
@@ -1489,7 +1488,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldTphost = tphost;
 		tphost = newTphost;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__TPHOST, oldTphost, tphost));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__TPHOST, oldTphost, tphost));
 	}
 
 	/**
@@ -1510,7 +1509,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldTpname = tpname;
 		tpname = newTpname;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__TPNAME, oldTpname, tpname));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__TPNAME, oldTpname, tpname));
 	}
 
 	/**
@@ -1531,7 +1530,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldR3name = r3name;
 		r3name = newR3name;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__R3NAME, oldR3name, r3name));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__R3NAME, oldR3name, r3name));
 	}
 
 	/**
@@ -1552,7 +1551,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldGroup = group;
 		group = newGroup;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__GROUP, oldGroup, group));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__GROUP, oldGroup, group));
 	}
 
 	/**
@@ -1573,7 +1572,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldTrace = trace;
 		trace = newTrace;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__TRACE, oldTrace, trace));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__TRACE, oldTrace, trace));
 	}
 
 	/**
@@ -1594,7 +1593,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldCpicTrace = cpicTrace;
 		cpicTrace = newCpicTrace;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__CPIC_TRACE, oldCpicTrace, cpicTrace));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__CPIC_TRACE, oldCpicTrace, cpicTrace));
 	}
 
 	/**
@@ -1615,7 +1614,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldLcheck = lcheck;
 		lcheck = newLcheck;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__LCHECK, oldLcheck, lcheck));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__LCHECK, oldLcheck, lcheck));
 	}
 
 	/**
@@ -1636,7 +1635,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldUseSapgui = useSapgui;
 		useSapgui = newUseSapgui;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__USE_SAPGUI, oldUseSapgui, useSapgui));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__USE_SAPGUI, oldUseSapgui, useSapgui));
 	}
 
 	/**
@@ -1657,7 +1656,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldCodepage = codepage;
 		codepage = newCodepage;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__CODEPAGE, oldCodepage, codepage));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__CODEPAGE, oldCodepage, codepage));
 	}
 
 	/**
@@ -1678,7 +1677,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldGetsso2 = getsso2;
 		getsso2 = newGetsso2;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__GETSSO2, oldGetsso2, getsso2));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__GETSSO2, oldGetsso2, getsso2));
 	}
 
 	/**
@@ -1699,7 +1698,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldDenyInitialPassword = denyInitialPassword;
 		denyInitialPassword = newDenyInitialPassword;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__DENY_INITIAL_PASSWORD, oldDenyInitialPassword, denyInitialPassword));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__DENY_INITIAL_PASSWORD, oldDenyInitialPassword, denyInitialPassword));
 	}
 
 	/**
@@ -1720,7 +1719,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldPeakLimit = peakLimit;
 		peakLimit = newPeakLimit;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__PEAK_LIMIT, oldPeakLimit, peakLimit));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__PEAK_LIMIT, oldPeakLimit, peakLimit));
 	}
 
 	/**
@@ -1741,7 +1740,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldPoolCapacity = poolCapacity;
 		poolCapacity = newPoolCapacity;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__POOL_CAPACITY, oldPoolCapacity, poolCapacity));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__POOL_CAPACITY, oldPoolCapacity, poolCapacity));
 	}
 
 	/**
@@ -1762,7 +1761,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldExpirationTime = expirationTime;
 		expirationTime = newExpirationTime;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__EXPIRATION_TIME, oldExpirationTime, expirationTime));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__EXPIRATION_TIME, oldExpirationTime, expirationTime));
 	}
 
 	/**
@@ -1783,7 +1782,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldExpirationPeriod = expirationPeriod;
 		expirationPeriod = newExpirationPeriod;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__EXPIRATION_PERIOD, oldExpirationPeriod, expirationPeriod));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__EXPIRATION_PERIOD, oldExpirationPeriod, expirationPeriod));
 	}
 
 	/**
@@ -1804,7 +1803,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldMaxGetTime = maxGetTime;
 		maxGetTime = newMaxGetTime;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__MAX_GET_TIME, oldMaxGetTime, maxGetTime));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__MAX_GET_TIME, oldMaxGetTime, maxGetTime));
 	}
 
 	/**
@@ -1825,7 +1824,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldSncMode = sncMode;
 		sncMode = newSncMode;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__SNC_MODE, oldSncMode, sncMode));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__SNC_MODE, oldSncMode, sncMode));
 	}
 
 	/**
@@ -1846,7 +1845,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldSncPartnername = sncPartnername;
 		sncPartnername = newSncPartnername;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__SNC_PARTNERNAME, oldSncPartnername, sncPartnername));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__SNC_PARTNERNAME, oldSncPartnername, sncPartnername));
 	}
 
 	/**
@@ -1867,7 +1866,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldSncQop = sncQop;
 		sncQop = newSncQop;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__SNC_QOP, oldSncQop, sncQop));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__SNC_QOP, oldSncQop, sncQop));
 	}
 
 	/**
@@ -1888,7 +1887,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldSncMyname = sncMyname;
 		sncMyname = newSncMyname;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__SNC_MYNAME, oldSncMyname, sncMyname));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__SNC_MYNAME, oldSncMyname, sncMyname));
 	}
 
 	/**
@@ -1909,7 +1908,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldSncLibrary = sncLibrary;
 		sncLibrary = newSncLibrary;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__SNC_LIBRARY, oldSncLibrary, sncLibrary));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__SNC_LIBRARY, oldSncLibrary, sncLibrary));
 	}
 
 	/**
@@ -1930,7 +1929,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldRepositoryDest = repositoryDest;
 		repositoryDest = newRepositoryDest;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__REPOSITORY_DEST, oldRepositoryDest, repositoryDest));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__REPOSITORY_DEST, oldRepositoryDest, repositoryDest));
 	}
 
 	/**
@@ -1951,7 +1950,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldRepositoryUser = repositoryUser;
 		repositoryUser = newRepositoryUser;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__REPOSITORY_USER, oldRepositoryUser, repositoryUser));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__REPOSITORY_USER, oldRepositoryUser, repositoryUser));
 	}
 
 	/**
@@ -1972,7 +1971,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldRepositoryPasswd = repositoryPasswd;
 		repositoryPasswd = newRepositoryPasswd;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__REPOSITORY_PASSWD, oldRepositoryPasswd, repositoryPasswd));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__REPOSITORY_PASSWD, oldRepositoryPasswd, repositoryPasswd));
 	}
 
 	/**
@@ -1993,7 +1992,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldRepositorySnc = repositorySnc;
 		repositorySnc = newRepositorySnc;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__REPOSITORY_SNC, oldRepositorySnc, repositorySnc));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__REPOSITORY_SNC, oldRepositorySnc, repositorySnc));
 	}
 
 	/**
@@ -2014,7 +2013,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldRepositoryRoundtripOptimization = repositoryRoundtripOptimization;
 		repositoryRoundtripOptimization = newRepositoryRoundtripOptimization;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__REPOSITORY_ROUNDTRIP_OPTIMIZATION, oldRepositoryRoundtripOptimization, repositoryRoundtripOptimization));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__REPOSITORY_ROUNDTRIP_OPTIMIZATION, oldRepositoryRoundtripOptimization, repositoryRoundtripOptimization));
 	}
 
 	/**
@@ -2035,7 +2034,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 		String oldPingOnCreate = pingOnCreate;
 		pingOnCreate = newPingOnCreate;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.CONNECTION_SPEC__PING_ON_CREATE, oldPingOnCreate, pingOnCreate));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.CONNECTION_SPEC__PING_ON_CREATE, oldPingOnCreate, pingOnCreate));
 	}
 
 	/**
@@ -2046,99 +2045,99 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case CciPackage.CONNECTION_SPEC__USER_NAME:
+			case CciPackageImpl.CONNECTION_SPEC__USER_NAME:
 				return getUserName();
-			case CciPackage.CONNECTION_SPEC__PASSWORD:
+			case CciPackageImpl.CONNECTION_SPEC__PASSWORD:
 				return getPassword();
-			case CciPackage.CONNECTION_SPEC__AUTH_TYPE:
+			case CciPackageImpl.CONNECTION_SPEC__AUTH_TYPE:
 				return getAuthType();
-			case CciPackage.CONNECTION_SPEC__USER_ID:
+			case CciPackageImpl.CONNECTION_SPEC__USER_ID:
 				return getUserId();
-			case CciPackage.CONNECTION_SPEC__CLIENT:
+			case CciPackageImpl.CONNECTION_SPEC__CLIENT:
 				return getClient();
-			case CciPackage.CONNECTION_SPEC__USER:
+			case CciPackageImpl.CONNECTION_SPEC__USER:
 				return getUser();
-			case CciPackage.CONNECTION_SPEC__ALIAS_USER:
+			case CciPackageImpl.CONNECTION_SPEC__ALIAS_USER:
 				return getAliasUser();
-			case CciPackage.CONNECTION_SPEC__PASSWD:
+			case CciPackageImpl.CONNECTION_SPEC__PASSWD:
 				return getPasswd();
-			case CciPackage.CONNECTION_SPEC__LANG:
+			case CciPackageImpl.CONNECTION_SPEC__LANG:
 				return getLang();
-			case CciPackage.CONNECTION_SPEC__MYSAPSSO2:
+			case CciPackageImpl.CONNECTION_SPEC__MYSAPSSO2:
 				return getMysapsso2();
-			case CciPackage.CONNECTION_SPEC__X509CERT:
+			case CciPackageImpl.CONNECTION_SPEC__X509CERT:
 				return getX509cert();
-			case CciPackage.CONNECTION_SPEC__PCS:
+			case CciPackageImpl.CONNECTION_SPEC__PCS:
 				return getPcs();
-			case CciPackage.CONNECTION_SPEC__TYPE:
+			case CciPackageImpl.CONNECTION_SPEC__TYPE:
 				return getType();
-			case CciPackage.CONNECTION_SPEC__SAPROUTER:
+			case CciPackageImpl.CONNECTION_SPEC__SAPROUTER:
 				return getSaprouter();
-			case CciPackage.CONNECTION_SPEC__SYSNR:
+			case CciPackageImpl.CONNECTION_SPEC__SYSNR:
 				return getSysnr();
-			case CciPackage.CONNECTION_SPEC__ASHOST:
+			case CciPackageImpl.CONNECTION_SPEC__ASHOST:
 				return getAshost();
-			case CciPackage.CONNECTION_SPEC__MSHOST:
+			case CciPackageImpl.CONNECTION_SPEC__MSHOST:
 				return getMshost();
-			case CciPackage.CONNECTION_SPEC__MSSERV:
+			case CciPackageImpl.CONNECTION_SPEC__MSSERV:
 				return getMsserv();
-			case CciPackage.CONNECTION_SPEC__GWHOST:
+			case CciPackageImpl.CONNECTION_SPEC__GWHOST:
 				return getGwhost();
-			case CciPackage.CONNECTION_SPEC__GWSERV:
+			case CciPackageImpl.CONNECTION_SPEC__GWSERV:
 				return getGwserv();
-			case CciPackage.CONNECTION_SPEC__TPHOST:
+			case CciPackageImpl.CONNECTION_SPEC__TPHOST:
 				return getTphost();
-			case CciPackage.CONNECTION_SPEC__TPNAME:
+			case CciPackageImpl.CONNECTION_SPEC__TPNAME:
 				return getTpname();
-			case CciPackage.CONNECTION_SPEC__R3NAME:
+			case CciPackageImpl.CONNECTION_SPEC__R3NAME:
 				return getR3name();
-			case CciPackage.CONNECTION_SPEC__GROUP:
+			case CciPackageImpl.CONNECTION_SPEC__GROUP:
 				return getGroup();
-			case CciPackage.CONNECTION_SPEC__TRACE:
+			case CciPackageImpl.CONNECTION_SPEC__TRACE:
 				return getTrace();
-			case CciPackage.CONNECTION_SPEC__CPIC_TRACE:
+			case CciPackageImpl.CONNECTION_SPEC__CPIC_TRACE:
 				return getCpicTrace();
-			case CciPackage.CONNECTION_SPEC__LCHECK:
+			case CciPackageImpl.CONNECTION_SPEC__LCHECK:
 				return getLcheck();
-			case CciPackage.CONNECTION_SPEC__USE_SAPGUI:
+			case CciPackageImpl.CONNECTION_SPEC__USE_SAPGUI:
 				return getUseSapgui();
-			case CciPackage.CONNECTION_SPEC__CODEPAGE:
+			case CciPackageImpl.CONNECTION_SPEC__CODEPAGE:
 				return getCodepage();
-			case CciPackage.CONNECTION_SPEC__GETSSO2:
+			case CciPackageImpl.CONNECTION_SPEC__GETSSO2:
 				return getGetsso2();
-			case CciPackage.CONNECTION_SPEC__DENY_INITIAL_PASSWORD:
+			case CciPackageImpl.CONNECTION_SPEC__DENY_INITIAL_PASSWORD:
 				return getDenyInitialPassword();
-			case CciPackage.CONNECTION_SPEC__PEAK_LIMIT:
+			case CciPackageImpl.CONNECTION_SPEC__PEAK_LIMIT:
 				return getPeakLimit();
-			case CciPackage.CONNECTION_SPEC__POOL_CAPACITY:
+			case CciPackageImpl.CONNECTION_SPEC__POOL_CAPACITY:
 				return getPoolCapacity();
-			case CciPackage.CONNECTION_SPEC__EXPIRATION_TIME:
+			case CciPackageImpl.CONNECTION_SPEC__EXPIRATION_TIME:
 				return getExpirationTime();
-			case CciPackage.CONNECTION_SPEC__EXPIRATION_PERIOD:
+			case CciPackageImpl.CONNECTION_SPEC__EXPIRATION_PERIOD:
 				return getExpirationPeriod();
-			case CciPackage.CONNECTION_SPEC__MAX_GET_TIME:
+			case CciPackageImpl.CONNECTION_SPEC__MAX_GET_TIME:
 				return getMaxGetTime();
-			case CciPackage.CONNECTION_SPEC__SNC_MODE:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_MODE:
 				return getSncMode();
-			case CciPackage.CONNECTION_SPEC__SNC_PARTNERNAME:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_PARTNERNAME:
 				return getSncPartnername();
-			case CciPackage.CONNECTION_SPEC__SNC_QOP:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_QOP:
 				return getSncQop();
-			case CciPackage.CONNECTION_SPEC__SNC_MYNAME:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_MYNAME:
 				return getSncMyname();
-			case CciPackage.CONNECTION_SPEC__SNC_LIBRARY:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_LIBRARY:
 				return getSncLibrary();
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_DEST:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_DEST:
 				return getRepositoryDest();
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_USER:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_USER:
 				return getRepositoryUser();
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_PASSWD:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_PASSWD:
 				return getRepositoryPasswd();
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_SNC:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_SNC:
 				return getRepositorySnc();
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_ROUNDTRIP_OPTIMIZATION:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_ROUNDTRIP_OPTIMIZATION:
 				return getRepositoryRoundtripOptimization();
-			case CciPackage.CONNECTION_SPEC__PING_ON_CREATE:
+			case CciPackageImpl.CONNECTION_SPEC__PING_ON_CREATE:
 				return getPingOnCreate();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -2152,145 +2151,145 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case CciPackage.CONNECTION_SPEC__USER_NAME:
+			case CciPackageImpl.CONNECTION_SPEC__USER_NAME:
 				setUserName((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__PASSWORD:
+			case CciPackageImpl.CONNECTION_SPEC__PASSWORD:
 				setPassword((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__AUTH_TYPE:
+			case CciPackageImpl.CONNECTION_SPEC__AUTH_TYPE:
 				setAuthType((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__USER_ID:
+			case CciPackageImpl.CONNECTION_SPEC__USER_ID:
 				setUserId((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__CLIENT:
+			case CciPackageImpl.CONNECTION_SPEC__CLIENT:
 				setClient((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__USER:
+			case CciPackageImpl.CONNECTION_SPEC__USER:
 				setUser((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__ALIAS_USER:
+			case CciPackageImpl.CONNECTION_SPEC__ALIAS_USER:
 				setAliasUser((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__PASSWD:
+			case CciPackageImpl.CONNECTION_SPEC__PASSWD:
 				setPasswd((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__LANG:
+			case CciPackageImpl.CONNECTION_SPEC__LANG:
 				setLang((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__MYSAPSSO2:
+			case CciPackageImpl.CONNECTION_SPEC__MYSAPSSO2:
 				setMysapsso2((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__X509CERT:
+			case CciPackageImpl.CONNECTION_SPEC__X509CERT:
 				setX509cert((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__PCS:
+			case CciPackageImpl.CONNECTION_SPEC__PCS:
 				setPcs((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__TYPE:
+			case CciPackageImpl.CONNECTION_SPEC__TYPE:
 				setType((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__SAPROUTER:
+			case CciPackageImpl.CONNECTION_SPEC__SAPROUTER:
 				setSaprouter((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__SYSNR:
+			case CciPackageImpl.CONNECTION_SPEC__SYSNR:
 				setSysnr((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__ASHOST:
+			case CciPackageImpl.CONNECTION_SPEC__ASHOST:
 				setAshost((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__MSHOST:
+			case CciPackageImpl.CONNECTION_SPEC__MSHOST:
 				setMshost((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__MSSERV:
+			case CciPackageImpl.CONNECTION_SPEC__MSSERV:
 				setMsserv((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__GWHOST:
+			case CciPackageImpl.CONNECTION_SPEC__GWHOST:
 				setGwhost((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__GWSERV:
+			case CciPackageImpl.CONNECTION_SPEC__GWSERV:
 				setGwserv((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__TPHOST:
+			case CciPackageImpl.CONNECTION_SPEC__TPHOST:
 				setTphost((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__TPNAME:
+			case CciPackageImpl.CONNECTION_SPEC__TPNAME:
 				setTpname((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__R3NAME:
+			case CciPackageImpl.CONNECTION_SPEC__R3NAME:
 				setR3name((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__GROUP:
+			case CciPackageImpl.CONNECTION_SPEC__GROUP:
 				setGroup((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__TRACE:
+			case CciPackageImpl.CONNECTION_SPEC__TRACE:
 				setTrace((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__CPIC_TRACE:
+			case CciPackageImpl.CONNECTION_SPEC__CPIC_TRACE:
 				setCpicTrace((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__LCHECK:
+			case CciPackageImpl.CONNECTION_SPEC__LCHECK:
 				setLcheck((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__USE_SAPGUI:
+			case CciPackageImpl.CONNECTION_SPEC__USE_SAPGUI:
 				setUseSapgui((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__CODEPAGE:
+			case CciPackageImpl.CONNECTION_SPEC__CODEPAGE:
 				setCodepage((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__GETSSO2:
+			case CciPackageImpl.CONNECTION_SPEC__GETSSO2:
 				setGetsso2((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__DENY_INITIAL_PASSWORD:
+			case CciPackageImpl.CONNECTION_SPEC__DENY_INITIAL_PASSWORD:
 				setDenyInitialPassword((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__PEAK_LIMIT:
+			case CciPackageImpl.CONNECTION_SPEC__PEAK_LIMIT:
 				setPeakLimit((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__POOL_CAPACITY:
+			case CciPackageImpl.CONNECTION_SPEC__POOL_CAPACITY:
 				setPoolCapacity((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__EXPIRATION_TIME:
+			case CciPackageImpl.CONNECTION_SPEC__EXPIRATION_TIME:
 				setExpirationTime((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__EXPIRATION_PERIOD:
+			case CciPackageImpl.CONNECTION_SPEC__EXPIRATION_PERIOD:
 				setExpirationPeriod((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__MAX_GET_TIME:
+			case CciPackageImpl.CONNECTION_SPEC__MAX_GET_TIME:
 				setMaxGetTime((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__SNC_MODE:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_MODE:
 				setSncMode((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__SNC_PARTNERNAME:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_PARTNERNAME:
 				setSncPartnername((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__SNC_QOP:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_QOP:
 				setSncQop((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__SNC_MYNAME:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_MYNAME:
 				setSncMyname((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__SNC_LIBRARY:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_LIBRARY:
 				setSncLibrary((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_DEST:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_DEST:
 				setRepositoryDest((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_USER:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_USER:
 				setRepositoryUser((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_PASSWD:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_PASSWD:
 				setRepositoryPasswd((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_SNC:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_SNC:
 				setRepositorySnc((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_ROUNDTRIP_OPTIMIZATION:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_ROUNDTRIP_OPTIMIZATION:
 				setRepositoryRoundtripOptimization((String)newValue);
 				return;
-			case CciPackage.CONNECTION_SPEC__PING_ON_CREATE:
+			case CciPackageImpl.CONNECTION_SPEC__PING_ON_CREATE:
 				setPingOnCreate((String)newValue);
 				return;
 		}
@@ -2305,145 +2304,145 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case CciPackage.CONNECTION_SPEC__USER_NAME:
+			case CciPackageImpl.CONNECTION_SPEC__USER_NAME:
 				setUserName(USER_NAME_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__PASSWORD:
+			case CciPackageImpl.CONNECTION_SPEC__PASSWORD:
 				setPassword(PASSWORD_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__AUTH_TYPE:
+			case CciPackageImpl.CONNECTION_SPEC__AUTH_TYPE:
 				setAuthType(AUTH_TYPE_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__USER_ID:
+			case CciPackageImpl.CONNECTION_SPEC__USER_ID:
 				setUserId(USER_ID_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__CLIENT:
+			case CciPackageImpl.CONNECTION_SPEC__CLIENT:
 				setClient(CLIENT_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__USER:
+			case CciPackageImpl.CONNECTION_SPEC__USER:
 				setUser(USER_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__ALIAS_USER:
+			case CciPackageImpl.CONNECTION_SPEC__ALIAS_USER:
 				setAliasUser(ALIAS_USER_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__PASSWD:
+			case CciPackageImpl.CONNECTION_SPEC__PASSWD:
 				setPasswd(PASSWD_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__LANG:
+			case CciPackageImpl.CONNECTION_SPEC__LANG:
 				setLang(LANG_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__MYSAPSSO2:
+			case CciPackageImpl.CONNECTION_SPEC__MYSAPSSO2:
 				setMysapsso2(MYSAPSSO2_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__X509CERT:
+			case CciPackageImpl.CONNECTION_SPEC__X509CERT:
 				setX509cert(X509CERT_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__PCS:
+			case CciPackageImpl.CONNECTION_SPEC__PCS:
 				setPcs(PCS_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__TYPE:
+			case CciPackageImpl.CONNECTION_SPEC__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__SAPROUTER:
+			case CciPackageImpl.CONNECTION_SPEC__SAPROUTER:
 				setSaprouter(SAPROUTER_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__SYSNR:
+			case CciPackageImpl.CONNECTION_SPEC__SYSNR:
 				setSysnr(SYSNR_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__ASHOST:
+			case CciPackageImpl.CONNECTION_SPEC__ASHOST:
 				setAshost(ASHOST_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__MSHOST:
+			case CciPackageImpl.CONNECTION_SPEC__MSHOST:
 				setMshost(MSHOST_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__MSSERV:
+			case CciPackageImpl.CONNECTION_SPEC__MSSERV:
 				setMsserv(MSSERV_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__GWHOST:
+			case CciPackageImpl.CONNECTION_SPEC__GWHOST:
 				setGwhost(GWHOST_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__GWSERV:
+			case CciPackageImpl.CONNECTION_SPEC__GWSERV:
 				setGwserv(GWSERV_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__TPHOST:
+			case CciPackageImpl.CONNECTION_SPEC__TPHOST:
 				setTphost(TPHOST_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__TPNAME:
+			case CciPackageImpl.CONNECTION_SPEC__TPNAME:
 				setTpname(TPNAME_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__R3NAME:
+			case CciPackageImpl.CONNECTION_SPEC__R3NAME:
 				setR3name(R3NAME_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__GROUP:
+			case CciPackageImpl.CONNECTION_SPEC__GROUP:
 				setGroup(GROUP_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__TRACE:
+			case CciPackageImpl.CONNECTION_SPEC__TRACE:
 				setTrace(TRACE_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__CPIC_TRACE:
+			case CciPackageImpl.CONNECTION_SPEC__CPIC_TRACE:
 				setCpicTrace(CPIC_TRACE_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__LCHECK:
+			case CciPackageImpl.CONNECTION_SPEC__LCHECK:
 				setLcheck(LCHECK_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__USE_SAPGUI:
+			case CciPackageImpl.CONNECTION_SPEC__USE_SAPGUI:
 				setUseSapgui(USE_SAPGUI_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__CODEPAGE:
+			case CciPackageImpl.CONNECTION_SPEC__CODEPAGE:
 				setCodepage(CODEPAGE_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__GETSSO2:
+			case CciPackageImpl.CONNECTION_SPEC__GETSSO2:
 				setGetsso2(GETSSO2_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__DENY_INITIAL_PASSWORD:
+			case CciPackageImpl.CONNECTION_SPEC__DENY_INITIAL_PASSWORD:
 				setDenyInitialPassword(DENY_INITIAL_PASSWORD_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__PEAK_LIMIT:
+			case CciPackageImpl.CONNECTION_SPEC__PEAK_LIMIT:
 				setPeakLimit(PEAK_LIMIT_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__POOL_CAPACITY:
+			case CciPackageImpl.CONNECTION_SPEC__POOL_CAPACITY:
 				setPoolCapacity(POOL_CAPACITY_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__EXPIRATION_TIME:
+			case CciPackageImpl.CONNECTION_SPEC__EXPIRATION_TIME:
 				setExpirationTime(EXPIRATION_TIME_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__EXPIRATION_PERIOD:
+			case CciPackageImpl.CONNECTION_SPEC__EXPIRATION_PERIOD:
 				setExpirationPeriod(EXPIRATION_PERIOD_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__MAX_GET_TIME:
+			case CciPackageImpl.CONNECTION_SPEC__MAX_GET_TIME:
 				setMaxGetTime(MAX_GET_TIME_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__SNC_MODE:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_MODE:
 				setSncMode(SNC_MODE_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__SNC_PARTNERNAME:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_PARTNERNAME:
 				setSncPartnername(SNC_PARTNERNAME_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__SNC_QOP:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_QOP:
 				setSncQop(SNC_QOP_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__SNC_MYNAME:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_MYNAME:
 				setSncMyname(SNC_MYNAME_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__SNC_LIBRARY:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_LIBRARY:
 				setSncLibrary(SNC_LIBRARY_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_DEST:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_DEST:
 				setRepositoryDest(REPOSITORY_DEST_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_USER:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_USER:
 				setRepositoryUser(REPOSITORY_USER_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_PASSWD:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_PASSWD:
 				setRepositoryPasswd(REPOSITORY_PASSWD_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_SNC:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_SNC:
 				setRepositorySnc(REPOSITORY_SNC_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_ROUNDTRIP_OPTIMIZATION:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_ROUNDTRIP_OPTIMIZATION:
 				setRepositoryRoundtripOptimization(REPOSITORY_ROUNDTRIP_OPTIMIZATION_EDEFAULT);
 				return;
-			case CciPackage.CONNECTION_SPEC__PING_ON_CREATE:
+			case CciPackageImpl.CONNECTION_SPEC__PING_ON_CREATE:
 				setPingOnCreate(PING_ON_CREATE_EDEFAULT);
 				return;
 		}
@@ -2458,99 +2457,99 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case CciPackage.CONNECTION_SPEC__USER_NAME:
+			case CciPackageImpl.CONNECTION_SPEC__USER_NAME:
 				return USER_NAME_EDEFAULT == null ? userName != null : !USER_NAME_EDEFAULT.equals(userName);
-			case CciPackage.CONNECTION_SPEC__PASSWORD:
+			case CciPackageImpl.CONNECTION_SPEC__PASSWORD:
 				return PASSWORD_EDEFAULT == null ? password != null : !PASSWORD_EDEFAULT.equals(password);
-			case CciPackage.CONNECTION_SPEC__AUTH_TYPE:
+			case CciPackageImpl.CONNECTION_SPEC__AUTH_TYPE:
 				return AUTH_TYPE_EDEFAULT == null ? authType != null : !AUTH_TYPE_EDEFAULT.equals(authType);
-			case CciPackage.CONNECTION_SPEC__USER_ID:
+			case CciPackageImpl.CONNECTION_SPEC__USER_ID:
 				return USER_ID_EDEFAULT == null ? userId != null : !USER_ID_EDEFAULT.equals(userId);
-			case CciPackage.CONNECTION_SPEC__CLIENT:
+			case CciPackageImpl.CONNECTION_SPEC__CLIENT:
 				return CLIENT_EDEFAULT == null ? client != null : !CLIENT_EDEFAULT.equals(client);
-			case CciPackage.CONNECTION_SPEC__USER:
+			case CciPackageImpl.CONNECTION_SPEC__USER:
 				return USER_EDEFAULT == null ? user != null : !USER_EDEFAULT.equals(user);
-			case CciPackage.CONNECTION_SPEC__ALIAS_USER:
+			case CciPackageImpl.CONNECTION_SPEC__ALIAS_USER:
 				return ALIAS_USER_EDEFAULT == null ? aliasUser != null : !ALIAS_USER_EDEFAULT.equals(aliasUser);
-			case CciPackage.CONNECTION_SPEC__PASSWD:
+			case CciPackageImpl.CONNECTION_SPEC__PASSWD:
 				return PASSWD_EDEFAULT == null ? passwd != null : !PASSWD_EDEFAULT.equals(passwd);
-			case CciPackage.CONNECTION_SPEC__LANG:
+			case CciPackageImpl.CONNECTION_SPEC__LANG:
 				return LANG_EDEFAULT == null ? lang != null : !LANG_EDEFAULT.equals(lang);
-			case CciPackage.CONNECTION_SPEC__MYSAPSSO2:
+			case CciPackageImpl.CONNECTION_SPEC__MYSAPSSO2:
 				return MYSAPSSO2_EDEFAULT == null ? mysapsso2 != null : !MYSAPSSO2_EDEFAULT.equals(mysapsso2);
-			case CciPackage.CONNECTION_SPEC__X509CERT:
+			case CciPackageImpl.CONNECTION_SPEC__X509CERT:
 				return X509CERT_EDEFAULT == null ? x509cert != null : !X509CERT_EDEFAULT.equals(x509cert);
-			case CciPackage.CONNECTION_SPEC__PCS:
+			case CciPackageImpl.CONNECTION_SPEC__PCS:
 				return PCS_EDEFAULT == null ? pcs != null : !PCS_EDEFAULT.equals(pcs);
-			case CciPackage.CONNECTION_SPEC__TYPE:
+			case CciPackageImpl.CONNECTION_SPEC__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-			case CciPackage.CONNECTION_SPEC__SAPROUTER:
+			case CciPackageImpl.CONNECTION_SPEC__SAPROUTER:
 				return SAPROUTER_EDEFAULT == null ? saprouter != null : !SAPROUTER_EDEFAULT.equals(saprouter);
-			case CciPackage.CONNECTION_SPEC__SYSNR:
+			case CciPackageImpl.CONNECTION_SPEC__SYSNR:
 				return SYSNR_EDEFAULT == null ? sysnr != null : !SYSNR_EDEFAULT.equals(sysnr);
-			case CciPackage.CONNECTION_SPEC__ASHOST:
+			case CciPackageImpl.CONNECTION_SPEC__ASHOST:
 				return ASHOST_EDEFAULT == null ? ashost != null : !ASHOST_EDEFAULT.equals(ashost);
-			case CciPackage.CONNECTION_SPEC__MSHOST:
+			case CciPackageImpl.CONNECTION_SPEC__MSHOST:
 				return MSHOST_EDEFAULT == null ? mshost != null : !MSHOST_EDEFAULT.equals(mshost);
-			case CciPackage.CONNECTION_SPEC__MSSERV:
+			case CciPackageImpl.CONNECTION_SPEC__MSSERV:
 				return MSSERV_EDEFAULT == null ? msserv != null : !MSSERV_EDEFAULT.equals(msserv);
-			case CciPackage.CONNECTION_SPEC__GWHOST:
+			case CciPackageImpl.CONNECTION_SPEC__GWHOST:
 				return GWHOST_EDEFAULT == null ? gwhost != null : !GWHOST_EDEFAULT.equals(gwhost);
-			case CciPackage.CONNECTION_SPEC__GWSERV:
+			case CciPackageImpl.CONNECTION_SPEC__GWSERV:
 				return GWSERV_EDEFAULT == null ? gwserv != null : !GWSERV_EDEFAULT.equals(gwserv);
-			case CciPackage.CONNECTION_SPEC__TPHOST:
+			case CciPackageImpl.CONNECTION_SPEC__TPHOST:
 				return TPHOST_EDEFAULT == null ? tphost != null : !TPHOST_EDEFAULT.equals(tphost);
-			case CciPackage.CONNECTION_SPEC__TPNAME:
+			case CciPackageImpl.CONNECTION_SPEC__TPNAME:
 				return TPNAME_EDEFAULT == null ? tpname != null : !TPNAME_EDEFAULT.equals(tpname);
-			case CciPackage.CONNECTION_SPEC__R3NAME:
+			case CciPackageImpl.CONNECTION_SPEC__R3NAME:
 				return R3NAME_EDEFAULT == null ? r3name != null : !R3NAME_EDEFAULT.equals(r3name);
-			case CciPackage.CONNECTION_SPEC__GROUP:
+			case CciPackageImpl.CONNECTION_SPEC__GROUP:
 				return GROUP_EDEFAULT == null ? group != null : !GROUP_EDEFAULT.equals(group);
-			case CciPackage.CONNECTION_SPEC__TRACE:
+			case CciPackageImpl.CONNECTION_SPEC__TRACE:
 				return TRACE_EDEFAULT == null ? trace != null : !TRACE_EDEFAULT.equals(trace);
-			case CciPackage.CONNECTION_SPEC__CPIC_TRACE:
+			case CciPackageImpl.CONNECTION_SPEC__CPIC_TRACE:
 				return CPIC_TRACE_EDEFAULT == null ? cpicTrace != null : !CPIC_TRACE_EDEFAULT.equals(cpicTrace);
-			case CciPackage.CONNECTION_SPEC__LCHECK:
+			case CciPackageImpl.CONNECTION_SPEC__LCHECK:
 				return LCHECK_EDEFAULT == null ? lcheck != null : !LCHECK_EDEFAULT.equals(lcheck);
-			case CciPackage.CONNECTION_SPEC__USE_SAPGUI:
+			case CciPackageImpl.CONNECTION_SPEC__USE_SAPGUI:
 				return USE_SAPGUI_EDEFAULT == null ? useSapgui != null : !USE_SAPGUI_EDEFAULT.equals(useSapgui);
-			case CciPackage.CONNECTION_SPEC__CODEPAGE:
+			case CciPackageImpl.CONNECTION_SPEC__CODEPAGE:
 				return CODEPAGE_EDEFAULT == null ? codepage != null : !CODEPAGE_EDEFAULT.equals(codepage);
-			case CciPackage.CONNECTION_SPEC__GETSSO2:
+			case CciPackageImpl.CONNECTION_SPEC__GETSSO2:
 				return GETSSO2_EDEFAULT == null ? getsso2 != null : !GETSSO2_EDEFAULT.equals(getsso2);
-			case CciPackage.CONNECTION_SPEC__DENY_INITIAL_PASSWORD:
+			case CciPackageImpl.CONNECTION_SPEC__DENY_INITIAL_PASSWORD:
 				return DENY_INITIAL_PASSWORD_EDEFAULT == null ? denyInitialPassword != null : !DENY_INITIAL_PASSWORD_EDEFAULT.equals(denyInitialPassword);
-			case CciPackage.CONNECTION_SPEC__PEAK_LIMIT:
+			case CciPackageImpl.CONNECTION_SPEC__PEAK_LIMIT:
 				return PEAK_LIMIT_EDEFAULT == null ? peakLimit != null : !PEAK_LIMIT_EDEFAULT.equals(peakLimit);
-			case CciPackage.CONNECTION_SPEC__POOL_CAPACITY:
+			case CciPackageImpl.CONNECTION_SPEC__POOL_CAPACITY:
 				return POOL_CAPACITY_EDEFAULT == null ? poolCapacity != null : !POOL_CAPACITY_EDEFAULT.equals(poolCapacity);
-			case CciPackage.CONNECTION_SPEC__EXPIRATION_TIME:
+			case CciPackageImpl.CONNECTION_SPEC__EXPIRATION_TIME:
 				return EXPIRATION_TIME_EDEFAULT == null ? expirationTime != null : !EXPIRATION_TIME_EDEFAULT.equals(expirationTime);
-			case CciPackage.CONNECTION_SPEC__EXPIRATION_PERIOD:
+			case CciPackageImpl.CONNECTION_SPEC__EXPIRATION_PERIOD:
 				return EXPIRATION_PERIOD_EDEFAULT == null ? expirationPeriod != null : !EXPIRATION_PERIOD_EDEFAULT.equals(expirationPeriod);
-			case CciPackage.CONNECTION_SPEC__MAX_GET_TIME:
+			case CciPackageImpl.CONNECTION_SPEC__MAX_GET_TIME:
 				return MAX_GET_TIME_EDEFAULT == null ? maxGetTime != null : !MAX_GET_TIME_EDEFAULT.equals(maxGetTime);
-			case CciPackage.CONNECTION_SPEC__SNC_MODE:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_MODE:
 				return SNC_MODE_EDEFAULT == null ? sncMode != null : !SNC_MODE_EDEFAULT.equals(sncMode);
-			case CciPackage.CONNECTION_SPEC__SNC_PARTNERNAME:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_PARTNERNAME:
 				return SNC_PARTNERNAME_EDEFAULT == null ? sncPartnername != null : !SNC_PARTNERNAME_EDEFAULT.equals(sncPartnername);
-			case CciPackage.CONNECTION_SPEC__SNC_QOP:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_QOP:
 				return SNC_QOP_EDEFAULT == null ? sncQop != null : !SNC_QOP_EDEFAULT.equals(sncQop);
-			case CciPackage.CONNECTION_SPEC__SNC_MYNAME:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_MYNAME:
 				return SNC_MYNAME_EDEFAULT == null ? sncMyname != null : !SNC_MYNAME_EDEFAULT.equals(sncMyname);
-			case CciPackage.CONNECTION_SPEC__SNC_LIBRARY:
+			case CciPackageImpl.CONNECTION_SPEC__SNC_LIBRARY:
 				return SNC_LIBRARY_EDEFAULT == null ? sncLibrary != null : !SNC_LIBRARY_EDEFAULT.equals(sncLibrary);
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_DEST:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_DEST:
 				return REPOSITORY_DEST_EDEFAULT == null ? repositoryDest != null : !REPOSITORY_DEST_EDEFAULT.equals(repositoryDest);
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_USER:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_USER:
 				return REPOSITORY_USER_EDEFAULT == null ? repositoryUser != null : !REPOSITORY_USER_EDEFAULT.equals(repositoryUser);
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_PASSWD:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_PASSWD:
 				return REPOSITORY_PASSWD_EDEFAULT == null ? repositoryPasswd != null : !REPOSITORY_PASSWD_EDEFAULT.equals(repositoryPasswd);
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_SNC:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_SNC:
 				return REPOSITORY_SNC_EDEFAULT == null ? repositorySnc != null : !REPOSITORY_SNC_EDEFAULT.equals(repositorySnc);
-			case CciPackage.CONNECTION_SPEC__REPOSITORY_ROUNDTRIP_OPTIMIZATION:
+			case CciPackageImpl.CONNECTION_SPEC__REPOSITORY_ROUNDTRIP_OPTIMIZATION:
 				return REPOSITORY_ROUNDTRIP_OPTIMIZATION_EDEFAULT == null ? repositoryRoundtripOptimization != null : !REPOSITORY_ROUNDTRIP_OPTIMIZATION_EDEFAULT.equals(repositoryRoundtripOptimization);
-			case CciPackage.CONNECTION_SPEC__PING_ON_CREATE:
+			case CciPackageImpl.CONNECTION_SPEC__PING_ON_CREATE:
 				return PING_ON_CREATE_EDEFAULT == null ? pingOnCreate != null : !PING_ON_CREATE_EDEFAULT.equals(pingOnCreate);
 		}
 		return super.eIsSet(featureID);

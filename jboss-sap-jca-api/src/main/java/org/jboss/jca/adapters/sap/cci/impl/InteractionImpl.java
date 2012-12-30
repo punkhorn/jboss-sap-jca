@@ -23,12 +23,12 @@
 package org.jboss.jca.adapters.sap.cci.impl;
 
 import javax.resource.ResourceException;
+import javax.resource.cci.InteractionSpec;
 import javax.resource.cci.Record;
 import javax.resource.cci.ResourceWarning;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.jboss.jca.adapters.sap.cci.CciPackage;
 import org.jboss.jca.adapters.sap.cci.Connection;
 import org.jboss.jca.adapters.sap.cci.Interaction;
 import org.jboss.jca.adapters.sap.cci.MappedRecord;
@@ -112,7 +112,7 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return CciPackage.Literals.INTERACTION;
+		return CciPackageImpl.Literals.INTERACTION;
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public boolean execute(javax.resource.cci.InteractionSpec ispec, Record input, Record output) throws ResourceException {
+	public boolean execute(InteractionSpec ispec, Record input, Record output) throws ResourceException {
 		checkState();
 		
 		if (!(ispec instanceof org.jboss.jca.adapters.sap.cci.InteractionSpec))
@@ -190,7 +190,7 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public Record execute(javax.resource.cci.InteractionSpec ispec, Record input) throws ResourceException {
+	public Record execute(InteractionSpec ispec, Record input) throws ResourceException {
 		checkState();
 
 		if (!(ispec instanceof org.jboss.jca.adapters.sap.cci.InteractionSpec))
@@ -231,7 +231,7 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 	protected RecordFactory getRecordFactory() throws ResourceException {
 		try {
 			if(recordFactory == null) {
-				recordFactory = CciPackage.eINSTANCE.getCciFactory().createRecordFactory();
+				recordFactory = CciFactoryImpl.eINSTANCE.createRecordFactory();
 				((RecordFactoryImpl)recordFactory).setRepository(destination.getRepository());
 			}
 			return recordFactory;

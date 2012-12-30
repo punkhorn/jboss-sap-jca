@@ -24,8 +24,10 @@ package org.jboss.jca.adapters.sap.cci;
 
 import javax.resource.ResourceException;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,11 +35,15 @@ import org.eclipse.emf.ecore.EPackage;
  * <!-- end-user-doc -->
  *
  *
- * @see org.jboss.jca.adapters.sap.cci.CciPackage#getRecordFactory()
  * @model superTypes="org.jboss.jca.adapters.sap.cci.CCIRecordFactory"
  * @generated
  */
 public interface RecordFactory extends EObject, javax.resource.cci.RecordFactory {
+	/**
+	 * @generated NOT
+	 */
+	public static final String CciNS_URI = CciPackageImpl.eNS_URI;
+	
 	/**
 	 * @generated NOT
 	 */
@@ -140,6 +146,9 @@ public interface RecordFactory extends EObject, javax.resource.cci.RecordFactory
 	
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -148,6 +157,9 @@ public interface RecordFactory extends EObject, javax.resource.cci.RecordFactory
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -156,6 +168,14 @@ public interface RecordFactory extends EObject, javax.resource.cci.RecordFactory
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Return the {@link EPackage} describing the meta-data of the specified function module's input and output records. 
+	 * The package contains two {@link EClass} definitions named INPUT_RECORD and OUTPUT_RECORD describing respectively the 
+	 * meta-data of the input and output records of the specified function module. The package will also contain {@link EClass} 
+	 * definitions for any sub-records of the input and output records.
+	 * @param functionModuleName the name of function module
+	 * @return EPackage describing meta data of specified module's input and output records.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated

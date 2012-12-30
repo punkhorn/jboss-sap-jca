@@ -28,7 +28,6 @@ import java.util.Properties;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.jboss.jca.adapters.sap.cci.CciPackage;
 import org.jboss.jca.adapters.sap.cci.ResourceAdapterMetaData;
 
 /**
@@ -199,7 +198,7 @@ public class ResourceAdapterMetaDataImpl extends EObjectImpl implements Resource
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return CciPackage.Literals.RESOURCE_ADAPTER_META_DATA;
+		return CciPackageImpl.Literals.RESOURCE_ADAPTER_META_DATA;
 	}
 
 	/**

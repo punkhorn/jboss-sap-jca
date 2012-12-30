@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 
 import org.jboss.jca.adapters.sap.cci.*;
+import org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,7 +41,7 @@ import org.jboss.jca.adapters.sap.cci.*;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see org.jboss.jca.adapters.sap.cci.CciPackage
+ * @see org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl
  * @generated
  */
 public class CciSwitch<T> extends Switch<T> {
@@ -50,7 +51,7 @@ public class CciSwitch<T> extends Switch<T> {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static CciPackage modelPackage;
+	protected static CciPackageImpl modelPackage;
 
 	/**
 	 * Creates an instance of the switch.
@@ -60,7 +61,7 @@ public class CciSwitch<T> extends Switch<T> {
 	 */
 	public CciSwitch() {
 		if (modelPackage == null) {
-			modelPackage = CciPackage.eINSTANCE;
+			modelPackage = CciPackageImpl.eINSTANCE;
 		}
 	}
 
@@ -87,77 +88,77 @@ public class CciSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case CciPackage.RECORD_FACTORY: {
+			case CciPackageImpl.RECORD_FACTORY: {
 				RecordFactory recordFactory = (RecordFactory)theEObject;
 				T result = caseRecordFactory(recordFactory);
 				if (result == null) result = caseCCIRecordFactory(recordFactory);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case CciPackage.MAPPED_RECORD: {
+			case CciPackageImpl.MAPPED_RECORD: {
 				MappedRecord mappedRecord = (MappedRecord)theEObject;
 				T result = caseMappedRecord(mappedRecord);
 				if (result == null) result = caseCCIMappedRecord(mappedRecord);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case CciPackage.INDEXED_RECORD: {
+			case CciPackageImpl.INDEXED_RECORD: {
 				IndexedRecord indexedRecord = (IndexedRecord)theEObject;
 				T result = caseIndexedRecord(indexedRecord);
 				if (result == null) result = caseCCIIndexedRecord(indexedRecord);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case CciPackage.INTERACTION_SPEC: {
+			case CciPackageImpl.INTERACTION_SPEC: {
 				InteractionSpec interactionSpec = (InteractionSpec)theEObject;
 				T result = caseInteractionSpec(interactionSpec);
 				if (result == null) result = caseCCIInteractionSpec(interactionSpec);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case CciPackage.INTERACTION: {
+			case CciPackageImpl.INTERACTION: {
 				Interaction interaction = (Interaction)theEObject;
 				T result = caseInteraction(interaction);
 				if (result == null) result = caseCCIInteraction(interaction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case CciPackage.CONNECTION_FACTORY: {
+			case CciPackageImpl.CONNECTION_FACTORY: {
 				ConnectionFactory connectionFactory = (ConnectionFactory)theEObject;
 				T result = caseConnectionFactory(connectionFactory);
 				if (result == null) result = caseCCIConnectionFactory(connectionFactory);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case CciPackage.CONNECTION: {
+			case CciPackageImpl.CONNECTION: {
 				Connection connection = (Connection)theEObject;
 				T result = caseConnection(connection);
 				if (result == null) result = caseCCIConnection(connection);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case CciPackage.CONNECTION_SPEC: {
+			case CciPackageImpl.CONNECTION_SPEC: {
 				ConnectionSpec connectionSpec = (ConnectionSpec)theEObject;
 				T result = caseConnectionSpec(connectionSpec);
 				if (result == null) result = caseCCIConnectionSpec(connectionSpec);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case CciPackage.CONNECTION_META_DATA: {
+			case CciPackageImpl.CONNECTION_META_DATA: {
 				ConnectionMetaData connectionMetaData = (ConnectionMetaData)theEObject;
 				T result = caseConnectionMetaData(connectionMetaData);
 				if (result == null) result = caseCCIConnectionMetaData(connectionMetaData);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case CciPackage.LOCAL_TRANSACTION: {
+			case CciPackageImpl.LOCAL_TRANSACTION: {
 				LocalTransaction localTransaction = (LocalTransaction)theEObject;
 				T result = caseLocalTransaction(localTransaction);
 				if (result == null) result = caseCCILocalTransaction(localTransaction);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case CciPackage.RESOURCE_ADAPTER_META_DATA: {
+			case CciPackageImpl.RESOURCE_ADAPTER_META_DATA: {
 				ResourceAdapterMetaData resourceAdapterMetaData = (ResourceAdapterMetaData)theEObject;
 				T result = caseResourceAdapterMetaData(resourceAdapterMetaData);
 				if (result == null) result = caseCCIResourceAdapterMetaData(resourceAdapterMetaData);

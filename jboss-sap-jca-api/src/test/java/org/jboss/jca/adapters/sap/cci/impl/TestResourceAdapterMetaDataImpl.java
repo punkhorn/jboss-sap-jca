@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.jboss.jca.adapters.sap.cci.CciFactory;
 import org.jboss.jca.adapters.sap.cci.ResourceAdapterMetaData;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,7 +58,7 @@ public class TestResourceAdapterMetaDataImpl {
 	@Before
 	public void setUp() throws Exception {
 		// Given
-		resourceAdapter = CciFactory.eINSTANCE.createResourceAdapterMetaData();
+		resourceAdapter = CciFactoryImpl.eINSTANCE.createResourceAdapterMetaData();
 	}
 
 	@Test

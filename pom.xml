@@ -58,7 +58,7 @@
 	
 	<properties>
 		<version.org.jboss.spec.jboss.javaee.6.0>1.0.0.Final</version.org.jboss.spec.jboss.javaee.6.0>
-		<version.org.jboss.ironjacamar>1.0.13.Final</version.org.jboss.ironjacamar>
+		<version.org.jboss.ironjacamar>1.0.14.Final</version.org.jboss.ironjacamar>
 		<version.org.jboss.shrinkwrap.descriptors>2.0.0-alpha-2</version.org.jboss.shrinkwrap.descriptors>
 		<version.org.jboss.shrinkwrap>1.0.0</version.org.jboss.shrinkwrap>
 		<version.org.jboss.shrinkwrap.resolver>2.0.0-alpha-6</version.org.jboss.shrinkwrap.resolver>
@@ -66,7 +66,7 @@
 		<version.sapjco3>3.0.8</version.sapjco3>
 		<version.org.apache.maven.compiler.plugin>2.3.2</version.org.apache.maven.compiler.plugin>
 		<version.org.apache.maven.jar.plugin>2.4</version.org.apache.maven.jar.plugin>
-		<version.org.apache.maven.rar.plugin>2.2</version.org.apache.maven.rar.plugin>
+		<version.org.apache.maven.rar.plugin>2.3</version.org.apache.maven.rar.plugin>
 		<version.org.apache.maven.source.plugin>2.1.2</version.org.apache.maven.source.plugin>
 		<version.org.apache.maven.surefire.plugin>2.12</version.org.apache.maven.surefire.plugin>
 		<version.org.apache.maven.failsafe.plugin>2.12</version.org.apache.maven.failsafe.plugin>
@@ -420,6 +420,10 @@
 		<repository>
 			<id>fungal</id>
 			<url>http://jesperpedersen.github.com/fungal/maven2</url>
+		</repository>
+		<repository>
+			<id>central</id>
+			<url>http://repo.maven.apache.org/maven2</url>
 		</repository>
 	</repositories>
 </project>

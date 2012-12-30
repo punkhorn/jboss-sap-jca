@@ -22,51 +22,22 @@
  */
 package org.jboss.jca.adapters.sap.cci;
 
-import org.eclipse.emf.ecore.EFactory;
 
 /**
  * <!-- begin-user-doc -->
  * The <b>Factory</b> for the model.
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
- * @see org.jboss.jca.adapters.sap.cci.CciPackage
- * @generated
+ * @generated NOT
  */
-public interface CciFactory extends EFactory {
+public interface CciFactory {
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	CciFactory eINSTANCE = org.jboss.jca.adapters.sap.cci.impl.CciFactoryImpl.init();
-
-	/**
-	 * Returns a new object of class '<em>Record Factory</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Record Factory</em>'.
-	 * @generated
-	 */
-	RecordFactory createRecordFactory();
-
-	/**
-	 * Returns a new object of class '<em>Mapped Record</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Mapped Record</em>'.
-	 * @generated
-	 */
-	MappedRecord createMappedRecord();
-
-	/**
-	 * Returns a new object of class '<em>Indexed Record</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Indexed Record</em>'.
-	 * @generated
-	 */
-	IndexedRecord createIndexedRecord();
+	CciFactory INSTANCE = org.jboss.jca.adapters.sap.cci.impl.CciFactoryImpl.eINSTANCE;
 
 	/**
 	 * Returns a new object of class '<em>Interaction Spec</em>'.
@@ -78,33 +49,6 @@ public interface CciFactory extends EFactory {
 	InteractionSpec createInteractionSpec();
 
 	/**
-	 * Returns a new object of class '<em>Interaction</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Interaction</em>'.
-	 * @generated
-	 */
-	Interaction createInteraction();
-
-	/**
-	 * Returns a new object of class '<em>Connection Factory</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Connection Factory</em>'.
-	 * @generated
-	 */
-	ConnectionFactory createConnectionFactory();
-
-	/**
-	 * Returns a new object of class '<em>Connection</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Connection</em>'.
-	 * @generated
-	 */
-	Connection createConnection();
-
-	/**
 	 * Returns a new object of class '<em>Connection Spec</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -112,41 +56,5 @@ public interface CciFactory extends EFactory {
 	 * @generated
 	 */
 	ConnectionSpec createConnectionSpec();
-
-	/**
-	 * Returns a new object of class '<em>Connection Meta Data</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Connection Meta Data</em>'.
-	 * @generated
-	 */
-	ConnectionMetaData createConnectionMetaData();
-
-	/**
-	 * Returns a new object of class '<em>Local Transaction</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Local Transaction</em>'.
-	 * @generated
-	 */
-	LocalTransaction createLocalTransaction();
-
-	/**
-	 * Returns a new object of class '<em>Resource Adapter Meta Data</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Resource Adapter Meta Data</em>'.
-	 * @generated
-	 */
-	ResourceAdapterMetaData createResourceAdapterMetaData();
-
-	/**
-	 * Returns the package supported by this factory.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the package supported by this factory.
-	 * @generated
-	 */
-	CciPackage getCciPackage();
 
 } //CciFactory

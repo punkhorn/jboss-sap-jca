@@ -28,7 +28,6 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.jboss.jca.adapters.sap.cci.CciPackage;
 import org.jboss.jca.adapters.sap.cci.LocalTransaction;
 
 /**
@@ -68,7 +67,7 @@ public class LocalTransactionImpl extends EObjectImpl implements LocalTransactio
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return CciPackage.Literals.LOCAL_TRANSACTION;
+		return CciPackageImpl.Literals.LOCAL_TRANSACTION;
 	}
 
 	/**

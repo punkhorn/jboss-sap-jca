@@ -24,7 +24,6 @@ package org.jboss.jca.adapters.sap.cci.impl;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.jboss.jca.adapters.sap.cci.CciFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,7 +50,7 @@ public class TestIndexedRecordImpl {
 	@Before
 	public void setUp() throws Exception {
 		// Given
-		indexedRecord = (IndexedRecordImpl) CciFactory.eINSTANCE.createIndexedRecord();
+		indexedRecord = (IndexedRecordImpl) CciFactoryImpl.eINSTANCE.createIndexedRecord();
 	}
 
 	@Test

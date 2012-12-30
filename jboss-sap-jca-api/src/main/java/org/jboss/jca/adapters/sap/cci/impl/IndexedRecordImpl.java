@@ -35,7 +35,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.jboss.jca.adapters.sap.cci.CciPackage;
 import org.jboss.jca.adapters.sap.cci.IndexedRecord;
 import org.jboss.jca.adapters.sap.cci.MappedRecord;
 
@@ -129,7 +128,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return CciPackage.Literals.INDEXED_RECORD;
+		return CciPackageImpl.Literals.INDEXED_RECORD;
 	}
 
 	/**
@@ -150,7 +149,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 		String oldRecordName = recordName;
 		recordName = newRecordName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.INDEXED_RECORD__RECORD_NAME, oldRecordName, recordName));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.INDEXED_RECORD__RECORD_NAME, oldRecordName, recordName));
 	}
 
 	/**
@@ -171,7 +170,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 		String oldRecordShortDescription = recordShortDescription;
 		recordShortDescription = newRecordShortDescription;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION, oldRecordShortDescription, recordShortDescription));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION, oldRecordShortDescription, recordShortDescription));
 	}
 
 	/**
@@ -514,11 +513,11 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case CciPackage.INDEXED_RECORD__RECORD_NAME:
+			case CciPackageImpl.INDEXED_RECORD__RECORD_NAME:
 				return getRecordName();
-			case CciPackage.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION:
+			case CciPackageImpl.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION:
 				return getRecordShortDescription();
-			case CciPackage.INDEXED_RECORD__RECORD_TYPE:
+			case CciPackageImpl.INDEXED_RECORD__RECORD_TYPE:
 				return getRecordType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -532,10 +531,10 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case CciPackage.INDEXED_RECORD__RECORD_NAME:
+			case CciPackageImpl.INDEXED_RECORD__RECORD_NAME:
 				setRecordName((String)newValue);
 				return;
-			case CciPackage.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION:
+			case CciPackageImpl.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION:
 				setRecordShortDescription((String)newValue);
 				return;
 		}
@@ -550,10 +549,10 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case CciPackage.INDEXED_RECORD__RECORD_NAME:
+			case CciPackageImpl.INDEXED_RECORD__RECORD_NAME:
 				setRecordName(RECORD_NAME_EDEFAULT);
 				return;
-			case CciPackage.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION:
+			case CciPackageImpl.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION:
 				setRecordShortDescription(RECORD_SHORT_DESCRIPTION_EDEFAULT);
 				return;
 		}
@@ -568,11 +567,11 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case CciPackage.INDEXED_RECORD__RECORD_NAME:
+			case CciPackageImpl.INDEXED_RECORD__RECORD_NAME:
 				return RECORD_NAME_EDEFAULT == null ? recordName != null : !RECORD_NAME_EDEFAULT.equals(recordName);
-			case CciPackage.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION:
+			case CciPackageImpl.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION:
 				return RECORD_SHORT_DESCRIPTION_EDEFAULT == null ? recordShortDescription != null : !RECORD_SHORT_DESCRIPTION_EDEFAULT.equals(recordShortDescription);
-			case CciPackage.INDEXED_RECORD__RECORD_TYPE:
+			case CciPackageImpl.INDEXED_RECORD__RECORD_TYPE:
 				return isSetRecordType();
 		}
 		return super.eIsSet(featureID);

@@ -36,13 +36,15 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  *
- * @see org.jboss.jca.adapters.sap.cci.CciPackage#getInteraction()
  * @model superTypes="org.jboss.jca.adapters.sap.cci.CCIInteraction"
  * @generated
  */
 public interface Interaction extends EObject, javax.resource.cci.Interaction {
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -51,6 +53,9 @@ public interface Interaction extends EObject, javax.resource.cci.Interaction {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
 	 * @generated
@@ -59,6 +64,9 @@ public interface Interaction extends EObject, javax.resource.cci.Interaction {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException" ispecType="org.jboss.jca.adapters.sap.cci.CCIInteractionSpec" inputType="org.jboss.jca.adapters.sap.cci.CCIRecord" outputType="org.jboss.jca.adapters.sap.cci.CCIRecord"
 	 * @generated
@@ -67,6 +75,9 @@ public interface Interaction extends EObject, javax.resource.cci.Interaction {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model type="org.jboss.jca.adapters.sap.cci.CCIRecord" exceptions="org.jboss.jca.adapters.sap.cci.ResourceException" ispecType="org.jboss.jca.adapters.sap.cci.CCIInteractionSpec" inputType="org.jboss.jca.adapters.sap.cci.CCIRecord"
 	 * @generated
@@ -75,6 +86,9 @@ public interface Interaction extends EObject, javax.resource.cci.Interaction {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="org.jboss.jca.adapters.sap.cci.ResourceWarning" exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -83,6 +97,9 @@ public interface Interaction extends EObject, javax.resource.cci.Interaction {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated

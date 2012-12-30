@@ -29,7 +29,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.jboss.jca.adapters.sap.cci.CciPackage;
 import org.jboss.jca.adapters.sap.cci.InteractionSpec;
 
 /**
@@ -129,7 +128,7 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return CciPackage.Literals.INTERACTION_SPEC;
+		return CciPackageImpl.Literals.INTERACTION_SPEC;
 	}
 
 	/**
@@ -150,7 +149,7 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 		String oldFunctionName = functionName;
 		functionName = newFunctionName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.INTERACTION_SPEC__FUNCTION_NAME, oldFunctionName, functionName));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.INTERACTION_SPEC__FUNCTION_NAME, oldFunctionName, functionName));
 	}
 
 	/**
@@ -171,7 +170,7 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 		int oldInteractionVerb = interactionVerb;
 		interactionVerb = newInteractionVerb;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.INTERACTION_SPEC__INTERACTION_VERB, oldInteractionVerb, interactionVerb));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.INTERACTION_SPEC__INTERACTION_VERB, oldInteractionVerb, interactionVerb));
 	}
 
 	/**
@@ -192,7 +191,7 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 		int oldExecutionTimeout = executionTimeout;
 		executionTimeout = newExecutionTimeout;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CciPackage.INTERACTION_SPEC__EXECUTION_TIMEOUT, oldExecutionTimeout, executionTimeout));
+			eNotify(new ENotificationImpl(this, Notification.SET, CciPackageImpl.INTERACTION_SPEC__EXECUTION_TIMEOUT, oldExecutionTimeout, executionTimeout));
 	}
 
 	/**
@@ -203,11 +202,11 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case CciPackage.INTERACTION_SPEC__FUNCTION_NAME:
+			case CciPackageImpl.INTERACTION_SPEC__FUNCTION_NAME:
 				return getFunctionName();
-			case CciPackage.INTERACTION_SPEC__INTERACTION_VERB:
+			case CciPackageImpl.INTERACTION_SPEC__INTERACTION_VERB:
 				return getInteractionVerb();
-			case CciPackage.INTERACTION_SPEC__EXECUTION_TIMEOUT:
+			case CciPackageImpl.INTERACTION_SPEC__EXECUTION_TIMEOUT:
 				return getExecutionTimeout();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -221,13 +220,13 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case CciPackage.INTERACTION_SPEC__FUNCTION_NAME:
+			case CciPackageImpl.INTERACTION_SPEC__FUNCTION_NAME:
 				setFunctionName((String)newValue);
 				return;
-			case CciPackage.INTERACTION_SPEC__INTERACTION_VERB:
+			case CciPackageImpl.INTERACTION_SPEC__INTERACTION_VERB:
 				setInteractionVerb((Integer)newValue);
 				return;
-			case CciPackage.INTERACTION_SPEC__EXECUTION_TIMEOUT:
+			case CciPackageImpl.INTERACTION_SPEC__EXECUTION_TIMEOUT:
 				setExecutionTimeout((Integer)newValue);
 				return;
 		}
@@ -242,13 +241,13 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case CciPackage.INTERACTION_SPEC__FUNCTION_NAME:
+			case CciPackageImpl.INTERACTION_SPEC__FUNCTION_NAME:
 				setFunctionName(FUNCTION_NAME_EDEFAULT);
 				return;
-			case CciPackage.INTERACTION_SPEC__INTERACTION_VERB:
+			case CciPackageImpl.INTERACTION_SPEC__INTERACTION_VERB:
 				setInteractionVerb(INTERACTION_VERB_EDEFAULT);
 				return;
-			case CciPackage.INTERACTION_SPEC__EXECUTION_TIMEOUT:
+			case CciPackageImpl.INTERACTION_SPEC__EXECUTION_TIMEOUT:
 				setExecutionTimeout(EXECUTION_TIMEOUT_EDEFAULT);
 				return;
 		}
@@ -263,11 +262,11 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case CciPackage.INTERACTION_SPEC__FUNCTION_NAME:
+			case CciPackageImpl.INTERACTION_SPEC__FUNCTION_NAME:
 				return FUNCTION_NAME_EDEFAULT == null ? functionName != null : !FUNCTION_NAME_EDEFAULT.equals(functionName);
-			case CciPackage.INTERACTION_SPEC__INTERACTION_VERB:
+			case CciPackageImpl.INTERACTION_SPEC__INTERACTION_VERB:
 				return interactionVerb != INTERACTION_VERB_EDEFAULT;
-			case CciPackage.INTERACTION_SPEC__EXECUTION_TIMEOUT:
+			case CciPackageImpl.INTERACTION_SPEC__EXECUTION_TIMEOUT:
 				return executionTimeout != EXECUTION_TIMEOUT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);

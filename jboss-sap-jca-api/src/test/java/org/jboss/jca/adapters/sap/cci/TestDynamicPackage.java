@@ -8,8 +8,9 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
+import org.jboss.jca.adapters.sap.cci.impl.CciFactoryImpl;
+import org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl;
 import org.jboss.jca.adapters.sap.cci.impl.RecordFactoryImpl;
-import org.junit.Test;
 
 import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoDestinationManager;
@@ -32,7 +33,7 @@ public class TestDynamicPackage {
 
 		JCoRepository aRepository = destination.getRepository();
 		
-		RecordFactory recordFactory = CciPackage.eINSTANCE.getCciFactory().createRecordFactory();
+		RecordFactory recordFactory = CciFactoryImpl.eINSTANCE.createRecordFactory();
 		((RecordFactoryImpl)recordFactory).setRepository(aRepository);
 		EPackage dPackage = recordFactory.getPackage("BAPI_FLCUST_GETLIST");
 
@@ -41,7 +42,7 @@ public class TestDynamicPackage {
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 		URI uri = URI.createURI("file:///tmp/BAPI_FLCUST_GETLIST.ecore");
 		Resource resource = resourceSet.createResource(uri);
-		resource.getContents().add(CciPackage.eINSTANCE);
+		resource.getContents().add(CciPackageImpl.eINSTANCE);
 		resource.getContents().add(dPackage);
 		resource.save(null);
 		

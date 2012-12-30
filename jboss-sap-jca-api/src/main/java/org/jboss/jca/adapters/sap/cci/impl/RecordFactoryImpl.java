@@ -37,7 +37,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.jboss.jca.adapters.sap.cci.CciPackage;
 import org.jboss.jca.adapters.sap.cci.IndexedRecord;
 import org.jboss.jca.adapters.sap.cci.MappedRecord;
 import org.jboss.jca.adapters.sap.cci.RecordFactory;
@@ -90,7 +89,7 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return CciPackage.Literals.RECORD_FACTORY;
+		return CciPackageImpl.Literals.RECORD_FACTORY;
 	}
 
 	/**
@@ -101,7 +100,7 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 	public MappedRecord createMappedRecord(String recordName) throws ResourceException {
 
 		EObject eObject = createRecord(recordName);
-		if (eObject == null || !CciPackage.eINSTANCE.getCCIMappedRecord().isInstance(eObject))
+		if (eObject == null || !CciPackageImpl.eINSTANCE.getCCIMappedRecord().isInstance(eObject))
 				return null;
 		
 		return (MappedRecord) eObject;
@@ -114,7 +113,7 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 	 */
 	public IndexedRecord createIndexedRecord(String recordName) throws ResourceException {
 		EObject eObject = createRecord(recordName);
-		if (eObject == null || !CciPackage.eINSTANCE.getCCIIndexedRecord().isInstance(eObject))
+		if (eObject == null || !CciPackageImpl.eINSTANCE.getCCIIndexedRecord().isInstance(eObject))
 				return null;
 		
 		return (IndexedRecord) eObject;
@@ -151,7 +150,7 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 				EClass inputRecordClass = ecoreFactory.createEClass();
 				ePackage.getEClassifiers().add(inputRecordClass);
 				inputRecordClass.setName("INPUT_RECORD");
-				inputRecordClass.getESuperTypes().add(CciPackage.eINSTANCE.getMappedRecord());
+				inputRecordClass.getESuperTypes().add(CciPackageImpl.eINSTANCE.getMappedRecord());
 				addListMetaData(inputRecordClass, importParameterListMetaData);
 				addListMetaData(inputRecordClass, changingParameterListMetaData);
 				addListMetaData(inputRecordClass, tableParameterListMetaData);
@@ -162,7 +161,7 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 				EClass outputRecordClass = ecoreFactory.createEClass();
 				ePackage.getEClassifiers().add(outputRecordClass);
 				outputRecordClass.setName("OUTPUT_RECORD");
-				outputRecordClass.getESuperTypes().add(CciPackage.eINSTANCE.getMappedRecord());
+				outputRecordClass.getESuperTypes().add(CciPackageImpl.eINSTANCE.getMappedRecord());
 				addListMetaData(outputRecordClass, exportParameterListMetaData);
 				addListMetaData(outputRecordClass, changingParameterListMetaData);
 				addListMetaData(outputRecordClass, tableParameterListMetaData);
@@ -254,7 +253,7 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 				reference.setEType(mappedRecordClass);
 				reference.setContainment(true);
 				structuralFeature = reference;
-				addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_CLASS_NAME_OF_FIELD_KEY, MappedRecord.class.getName());
+				addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_CLASS_NAME_OF_FIELD_KEY, MappedRecord.class.getName());
 			} else if (jcoListMetaData.isTable(i)) {
 				JCoRecordMetaData jcoRecordMetaData = jcoListMetaData.getRecordMetaData(i);
 				EClass indexedRecordClass = getIndexedRecordClass(ePackage, jcoRecordMetaData);
@@ -262,12 +261,12 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 				reference.setEType(indexedRecordClass);
 				reference.setContainment(true);
 				structuralFeature = reference;
-				addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_CLASS_NAME_OF_FIELD_KEY, IndexedRecord.class.getName());
+				addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_CLASS_NAME_OF_FIELD_KEY, IndexedRecord.class.getName());
 			} else {
 				EAttribute attribute = ecoreFactory.createEAttribute();
 				attribute.setEType(getEDataType(jcoListMetaData.getType(i)));
 				structuralFeature = attribute;
-				addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_CLASS_NAME_OF_FIELD_KEY, jcoListMetaData.getClassNameOfField(i));
+				addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_CLASS_NAME_OF_FIELD_KEY, jcoListMetaData.getClassNameOfField(i));
 			}
 			structuralFeature.setName(jcoListMetaData.getName(i));
 			if (!jcoListMetaData.isOptional(i))
@@ -275,24 +274,24 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 			if (jcoListMetaData.getDefault(i) != null)
 				structuralFeature.setDefaultValueLiteral(jcoListMetaData.getDefault(i));
 			addAnnotation(structuralFeature, GenNS_URI, GenNS_DOCUMENTATION_KEY, jcoListMetaData.getDescription(i));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_DESCRIPTION_KEY, jcoListMetaData.getDescription(i));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_TYPE_KEY, Integer.toString(jcoListMetaData.getType(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_TYPE_AS_STRING_KEY, jcoListMetaData.getTypeAsString(i));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_RECORD_TYPE_NAME_KEY, jcoListMetaData.getRecordTypeName(i));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_LENGTH_KEY, Integer.toString(jcoListMetaData.getLength(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_BYTE_LENGTH_KEY, Integer.toString(jcoListMetaData.getByteLength(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_UNICODE_BYTE_LENGTH_KEY, Integer.toString(jcoListMetaData.getUnicodeByteLength(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_DECIMALS_KEY, Integer.toString(jcoListMetaData.getDecimals(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_DEFAULT_KEY, jcoListMetaData.getDefault(i));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_RECORD_FIELD_NAME_KEY, jcoListMetaData.getRecordFieldName(i));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_IS_ABAP_OBJECT_KEY, Boolean.toString(jcoListMetaData.isAbapObject(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_IS_NESTED_TYPE1_STRUCTURE_KEY, Boolean.toString(jcoListMetaData.isNestedType1Structure(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_IS_STRUCTURE_KEY, Boolean.toString(jcoListMetaData.isStructure(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_IS_TABLE_KEY, Boolean.toString(jcoListMetaData.isTable(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_IS_IMPORT_KEY, Boolean.toString(jcoListMetaData.isImport(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_IS_EXPORT_KEY, Boolean.toString(jcoListMetaData.isExport(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_IS_CHANGING_KEY, Boolean.toString(jcoListMetaData.isChanging(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_IS_OPTIONAL_KEY, Boolean.toString(jcoListMetaData.isOptional(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_DESCRIPTION_KEY, jcoListMetaData.getDescription(i));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_TYPE_KEY, Integer.toString(jcoListMetaData.getType(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_TYPE_AS_STRING_KEY, jcoListMetaData.getTypeAsString(i));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_RECORD_TYPE_NAME_KEY, jcoListMetaData.getRecordTypeName(i));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_LENGTH_KEY, Integer.toString(jcoListMetaData.getLength(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_BYTE_LENGTH_KEY, Integer.toString(jcoListMetaData.getByteLength(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_UNICODE_BYTE_LENGTH_KEY, Integer.toString(jcoListMetaData.getUnicodeByteLength(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_DECIMALS_KEY, Integer.toString(jcoListMetaData.getDecimals(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_DEFAULT_KEY, jcoListMetaData.getDefault(i));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_RECORD_FIELD_NAME_KEY, jcoListMetaData.getRecordFieldName(i));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_IS_ABAP_OBJECT_KEY, Boolean.toString(jcoListMetaData.isAbapObject(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_IS_NESTED_TYPE1_STRUCTURE_KEY, Boolean.toString(jcoListMetaData.isNestedType1Structure(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_IS_STRUCTURE_KEY, Boolean.toString(jcoListMetaData.isStructure(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_IS_TABLE_KEY, Boolean.toString(jcoListMetaData.isTable(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_IS_IMPORT_KEY, Boolean.toString(jcoListMetaData.isImport(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_IS_EXPORT_KEY, Boolean.toString(jcoListMetaData.isExport(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_IS_CHANGING_KEY, Boolean.toString(jcoListMetaData.isChanging(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_IS_OPTIONAL_KEY, Boolean.toString(jcoListMetaData.isOptional(i)));
 			eClass.getEStructuralFeatures().add(structuralFeature);
 		}
 	}
@@ -307,7 +306,7 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 			eClassifier = EcoreFactory.eINSTANCE.createEClass();
 			ePackage.getEClassifiers().add(eClassifier);
 			eClassifier.setName(jcoRecordMetaData.getName());
-			((EClass)eClassifier).getESuperTypes().add(CciPackage.eINSTANCE.getMappedRecord());
+			((EClass)eClassifier).getESuperTypes().add(CciPackageImpl.eINSTANCE.getMappedRecord());
 			addRecordMetaData(((EClass)eClassifier), jcoRecordMetaData);
 		}
 		return (EClass) eClassifier;
@@ -323,7 +322,7 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 			eClassifier = EcoreFactory.eINSTANCE.createEClass();
 			ePackage.getEClassifiers().add(eClassifier);
 			eClassifier.setName(jcoRecordMetaData.getName() + "_TABLE");
-			((EClass)eClassifier).getESuperTypes().add(CciPackage.eINSTANCE.getIndexedRecord());
+			((EClass)eClassifier).getESuperTypes().add(CciPackageImpl.eINSTANCE.getIndexedRecord());
 			
 			// Set Record Type
 			EClass recordType = getMappedRecordClass(ePackage, jcoRecordMetaData);
@@ -352,7 +351,7 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 				structuralFeature = reference;
 				reference.setEType(structureClass);
 				reference.setContainment(true);
-				addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_CLASS_NAME_OF_FIELD_KEY, MappedRecord.class.getName());
+				addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_CLASS_NAME_OF_FIELD_KEY, MappedRecord.class.getName());
 			} else if (jcoRecordMetaData.isTable(i)) {
 				JCoRecordMetaData jcoSubRecordMetaData = jcoRecordMetaData.getRecordMetaData(i);
 				EClass tableClass = getIndexedRecordClass(ePackage, jcoSubRecordMetaData);
@@ -360,27 +359,27 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 				structuralFeature = reference;
 				reference.setEType(tableClass);
 				reference.setContainment(true);
-				addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_CLASS_NAME_OF_FIELD_KEY, IndexedRecord.class.getName());
+				addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_CLASS_NAME_OF_FIELD_KEY, IndexedRecord.class.getName());
 			} else {
 				EAttribute attribute = ecoreFactory.createEAttribute();
 				structuralFeature = attribute;
 				attribute.setEType(getEDataType(jcoRecordMetaData.getType(i)));
-				addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_CLASS_NAME_OF_FIELD_KEY, jcoRecordMetaData.getClassNameOfField(i));
+				addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_CLASS_NAME_OF_FIELD_KEY, jcoRecordMetaData.getClassNameOfField(i));
 			}
 			structuralFeature.setName(jcoRecordMetaData.getName(i));
 			addAnnotation(structuralFeature, GenNS_URI, GenNS_DOCUMENTATION_KEY, jcoRecordMetaData.getDescription(i));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_DESCRIPTION_KEY, jcoRecordMetaData.getDescription(i));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_TYPE_KEY, Integer.toString(jcoRecordMetaData.getType(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_TYPE_AS_STRING_KEY, jcoRecordMetaData.getTypeAsString(i));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_RECORD_TYPE_NAME_KEY, jcoRecordMetaData.getRecordTypeName(i));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_LENGTH_KEY, Integer.toString(jcoRecordMetaData.getLength(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_BYTE_LENGTH_KEY, Integer.toString(jcoRecordMetaData.getByteLength(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_UNICODE_BYTE_LENGTH_KEY, Integer.toString(jcoRecordMetaData.getUnicodeByteLength(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_DECIMALS_KEY, Integer.toString(jcoRecordMetaData.getDecimals(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_IS_ABAP_OBJECT_KEY, Boolean.toString(jcoRecordMetaData.isAbapObject(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_IS_NESTED_TYPE1_STRUCTURE_KEY, Boolean.toString(jcoRecordMetaData.isNestedType1Structure(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_IS_STRUCTURE_KEY, Boolean.toString(jcoRecordMetaData.isStructure(i)));
-			addAnnotation(structuralFeature, CciPackage.eNS_URI, CciNS_IS_TABLE_KEY, Boolean.toString(jcoRecordMetaData.isTable(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_DESCRIPTION_KEY, jcoRecordMetaData.getDescription(i));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_TYPE_KEY, Integer.toString(jcoRecordMetaData.getType(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_TYPE_AS_STRING_KEY, jcoRecordMetaData.getTypeAsString(i));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_RECORD_TYPE_NAME_KEY, jcoRecordMetaData.getRecordTypeName(i));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_LENGTH_KEY, Integer.toString(jcoRecordMetaData.getLength(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_BYTE_LENGTH_KEY, Integer.toString(jcoRecordMetaData.getByteLength(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_UNICODE_BYTE_LENGTH_KEY, Integer.toString(jcoRecordMetaData.getUnicodeByteLength(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_DECIMALS_KEY, Integer.toString(jcoRecordMetaData.getDecimals(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_IS_ABAP_OBJECT_KEY, Boolean.toString(jcoRecordMetaData.isAbapObject(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_IS_NESTED_TYPE1_STRUCTURE_KEY, Boolean.toString(jcoRecordMetaData.isNestedType1Structure(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_IS_STRUCTURE_KEY, Boolean.toString(jcoRecordMetaData.isStructure(i)));
+			addAnnotation(structuralFeature, CciPackageImpl.eNS_URI, CciNS_IS_TABLE_KEY, Boolean.toString(jcoRecordMetaData.isTable(i)));
 			eClass.getEStructuralFeatures().add(structuralFeature);
 			
 		}
@@ -433,10 +432,10 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 			return EcorePackage.Literals.EBIG_DECIMAL;
 
 		case JCoMetaData.TYPE_STRUCTURE:
-			return CciPackage.Literals.MAPPED_RECORD;
+			return CciPackageImpl.Literals.MAPPED_RECORD;
 
 		case JCoMetaData.TYPE_TABLE:
-			return CciPackage.Literals.INDEXED_RECORD;
+			return CciPackageImpl.Literals.INDEXED_RECORD;
 
 		default:
 			return EcorePackage.Literals.EBYTE_ARRAY;

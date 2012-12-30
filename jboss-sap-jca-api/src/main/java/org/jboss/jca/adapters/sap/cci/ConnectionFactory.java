@@ -41,7 +41,6 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionFactory()
  * @model superTypes="org.jboss.jca.adapters.sap.cci.CCIConnectionFactory"
  * @generated
  */
@@ -50,8 +49,7 @@ public interface ConnectionFactory extends EObject, javax.resource.cci.Connectio
 	 * Returns the value of the '<em><b>Reference</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Reference</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Reference</em>' attribute.
@@ -65,6 +63,9 @@ public interface ConnectionFactory extends EObject, javax.resource.cci.Connectio
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionFactory#getReference <em>Reference</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Reference</em>' attribute.
 	 * @see #getReference()
@@ -74,6 +75,9 @@ public interface ConnectionFactory extends EObject, javax.resource.cci.Connectio
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -82,6 +86,9 @@ public interface ConnectionFactory extends EObject, javax.resource.cci.Connectio
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException" propertiesType="org.jboss.jca.adapters.sap.cci.CCIConnectionSpec"
 	 * @generated
@@ -90,6 +97,9 @@ public interface ConnectionFactory extends EObject, javax.resource.cci.Connectio
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -98,6 +108,9 @@ public interface ConnectionFactory extends EObject, javax.resource.cci.Connectio
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated

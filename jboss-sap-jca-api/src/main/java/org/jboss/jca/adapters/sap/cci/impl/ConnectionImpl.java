@@ -33,7 +33,6 @@ import javax.resource.spi.LazyAssociatableConnectionManager;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.jboss.jca.adapters.sap.cci.CciPackage;
 import org.jboss.jca.adapters.sap.cci.Connection;
 import org.jboss.jca.adapters.sap.cci.ConnectionMetaData;
 import org.jboss.jca.adapters.sap.cci.ConnectionSpec;
@@ -145,7 +144,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return CciPackage.Literals.CONNECTION;
+		return CciPackageImpl.Literals.CONNECTION;
 	}
 
 	/**

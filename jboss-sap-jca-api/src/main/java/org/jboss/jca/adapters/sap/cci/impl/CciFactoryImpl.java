@@ -42,7 +42,6 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.jboss.jca.adapters.sap.cci.*;
 import org.jboss.jca.adapters.sap.cci.CciFactory;
-import org.jboss.jca.adapters.sap.cci.CciPackage;
 import org.jboss.jca.adapters.sap.cci.IndexedRecord;
 import org.jboss.jca.adapters.sap.cci.MappedRecord;
 
@@ -57,14 +56,22 @@ import com.sap.conn.jco.JCoMetaData;
 @SuppressWarnings("rawtypes")
 public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	/**
+	 * The singleton instance of the factory.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final CciFactoryImpl eINSTANCE = init();
+
+	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static CciFactory init() {
+	public static CciFactoryImpl init() {
 		try {
-			CciFactory theCciFactory = (CciFactory)EPackage.Registry.INSTANCE.getEFactory("http://sap.adapters.jca.jboss.org/cci"); 
+			CciFactoryImpl theCciFactory = (CciFactoryImpl)EPackage.Registry.INSTANCE.getEFactory("http://sap.adapters.jca.jboss.org/cci"); 
 			if (theCciFactory != null) {
 				return theCciFactory;
 			}
@@ -102,17 +109,17 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case CciPackage.RECORD_FACTORY: return createRecordFactory();
-			case CciPackage.MAPPED_RECORD: return createMappedRecord();
-			case CciPackage.INDEXED_RECORD: return createIndexedRecord();
-			case CciPackage.INTERACTION_SPEC: return createInteractionSpec();
-			case CciPackage.INTERACTION: return createInteraction();
-			case CciPackage.CONNECTION_FACTORY: return createConnectionFactory();
-			case CciPackage.CONNECTION: return createConnection();
-			case CciPackage.CONNECTION_SPEC: return createConnectionSpec();
-			case CciPackage.CONNECTION_META_DATA: return createConnectionMetaData();
-			case CciPackage.LOCAL_TRANSACTION: return createLocalTransaction();
-			case CciPackage.RESOURCE_ADAPTER_META_DATA: return createResourceAdapterMetaData();
+			case CciPackageImpl.RECORD_FACTORY: return createRecordFactory();
+			case CciPackageImpl.MAPPED_RECORD: return createMappedRecord();
+			case CciPackageImpl.INDEXED_RECORD: return createIndexedRecord();
+			case CciPackageImpl.INTERACTION_SPEC: return createInteractionSpec();
+			case CciPackageImpl.INTERACTION: return createInteraction();
+			case CciPackageImpl.CONNECTION_FACTORY: return createConnectionFactory();
+			case CciPackageImpl.CONNECTION: return createConnection();
+			case CciPackageImpl.CONNECTION_SPEC: return createConnectionSpec();
+			case CciPackageImpl.CONNECTION_META_DATA: return createConnectionMetaData();
+			case CciPackageImpl.LOCAL_TRANSACTION: return createLocalTransaction();
+			case CciPackageImpl.RESOURCE_ADAPTER_META_DATA: return createResourceAdapterMetaData();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -126,33 +133,33 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case CciPackage.OBJECT_ARRAY:
+			case CciPackageImpl.OBJECT_ARRAY:
 				return createObjectArrayFromString(eDataType, initialValue);
-			case CciPackage.STRING_ARRAY:
+			case CciPackageImpl.STRING_ARRAY:
 				return createStringArrayFromString(eDataType, initialValue);
-			case CciPackage.MAPPED_RECORD_COLLECTION:
+			case CciPackageImpl.MAPPED_RECORD_COLLECTION:
 				return createMappedRecordCollectionFromString(eDataType, initialValue);
-			case CciPackage.MAPPED_RECORD_LIST_ITERATOR:
+			case CciPackageImpl.MAPPED_RECORD_LIST_ITERATOR:
 				return createMappedRecordListIteratorFromString(eDataType, initialValue);
-			case CciPackage.MAPPED_RECORD_ITERATOR:
+			case CciPackageImpl.MAPPED_RECORD_ITERATOR:
 				return createMappedRecordIteratorFromString(eDataType, initialValue);
-			case CciPackage.MAPPED_RECORD_LIST:
+			case CciPackageImpl.MAPPED_RECORD_LIST:
 				return createMappedRecordListFromString(eDataType, initialValue);
-			case CciPackage.RAW_COLLECTION:
+			case CciPackageImpl.RAW_COLLECTION:
 				return createRawCollectionFromString(eDataType, initialValue);
-			case CciPackage.RAW_MAP:
+			case CciPackageImpl.RAW_MAP:
 				return createRawMapFromString(eDataType, initialValue);
-			case CciPackage.RAW_SET:
+			case CciPackageImpl.RAW_SET:
 				return createRawSetFromString(eDataType, initialValue);
-			case CciPackage.PROPERTIES:
+			case CciPackageImpl.PROPERTIES:
 				return createPropertiesFromString(eDataType, initialValue);
-			case CciPackage.RESOURCE_EXCEPTION:
+			case CciPackageImpl.RESOURCE_EXCEPTION:
 				return createResourceExceptionFromString(eDataType, initialValue);
-			case CciPackage.RESOURCE_WARNING:
+			case CciPackageImpl.RESOURCE_WARNING:
 				return createResourceWarningFromString(eDataType, initialValue);
-			case CciPackage.RESULT_SET_INFO:
+			case CciPackageImpl.RESULT_SET_INFO:
 				return createResultSetInfoFromString(eDataType, initialValue);
-			case CciPackage.REFERENCE:
+			case CciPackageImpl.REFERENCE:
 				return createReferenceFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
@@ -167,33 +174,33 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case CciPackage.OBJECT_ARRAY:
+			case CciPackageImpl.OBJECT_ARRAY:
 				return convertObjectArrayToString(eDataType, instanceValue);
-			case CciPackage.STRING_ARRAY:
+			case CciPackageImpl.STRING_ARRAY:
 				return convertStringArrayToString(eDataType, instanceValue);
-			case CciPackage.MAPPED_RECORD_COLLECTION:
+			case CciPackageImpl.MAPPED_RECORD_COLLECTION:
 				return convertMappedRecordCollectionToString(eDataType, instanceValue);
-			case CciPackage.MAPPED_RECORD_LIST_ITERATOR:
+			case CciPackageImpl.MAPPED_RECORD_LIST_ITERATOR:
 				return convertMappedRecordListIteratorToString(eDataType, instanceValue);
-			case CciPackage.MAPPED_RECORD_ITERATOR:
+			case CciPackageImpl.MAPPED_RECORD_ITERATOR:
 				return convertMappedRecordIteratorToString(eDataType, instanceValue);
-			case CciPackage.MAPPED_RECORD_LIST:
+			case CciPackageImpl.MAPPED_RECORD_LIST:
 				return convertMappedRecordListToString(eDataType, instanceValue);
-			case CciPackage.RAW_COLLECTION:
+			case CciPackageImpl.RAW_COLLECTION:
 				return convertRawCollectionToString(eDataType, instanceValue);
-			case CciPackage.RAW_MAP:
+			case CciPackageImpl.RAW_MAP:
 				return convertRawMapToString(eDataType, instanceValue);
-			case CciPackage.RAW_SET:
+			case CciPackageImpl.RAW_SET:
 				return convertRawSetToString(eDataType, instanceValue);
-			case CciPackage.PROPERTIES:
+			case CciPackageImpl.PROPERTIES:
 				return convertPropertiesToString(eDataType, instanceValue);
-			case CciPackage.RESOURCE_EXCEPTION:
+			case CciPackageImpl.RESOURCE_EXCEPTION:
 				return convertResourceExceptionToString(eDataType, instanceValue);
-			case CciPackage.RESOURCE_WARNING:
+			case CciPackageImpl.RESOURCE_WARNING:
 				return convertResourceWarningToString(eDataType, instanceValue);
-			case CciPackage.RESULT_SET_INFO:
+			case CciPackageImpl.RESULT_SET_INFO:
 				return convertResultSetInfoToString(eDataType, instanceValue);
-			case CciPackage.REFERENCE:
+			case CciPackageImpl.REFERENCE:
 				return convertReferenceToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
@@ -315,7 +322,6 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	public Iterator createMappedRecordIteratorFromString(EDataType eDataType, String initialValue) {
 		return (Iterator)super.createFromString(initialValue);
 	}
@@ -388,7 +394,6 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	public Collection createMappedRecordCollectionFromString(EDataType eDataType, String initialValue) {
 		return (Collection)super.createFromString(initialValue);
 	}
@@ -407,7 +412,6 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	public ListIterator createMappedRecordListIteratorFromString(EDataType eDataType, String initialValue) {
 		return (ListIterator)super.createFromString(initialValue);
 	}
@@ -426,7 +430,6 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	public List createMappedRecordListFromString(EDataType eDataType, String initialValue) {
 		return (List)super.createFromString(initialValue);
 	}
@@ -571,8 +574,8 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CciPackage getCciPackage() {
-		return (CciPackage)getEPackage();
+	public CciPackageImpl getCciPackage() {
+		return (CciPackageImpl)getEPackage();
 	}
 
 	/**
@@ -582,8 +585,8 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	 * @generated
 	 */
 	@Deprecated
-	public static CciPackage getPackage() {
-		return CciPackage.eINSTANCE;
+	public static CciPackageImpl getPackage() {
+		return CciPackageImpl.eINSTANCE;
 	}
 
 } //CciFactoryImpl

@@ -82,7 +82,6 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec()
  * @model superTypes="org.jboss.jca.adapters.sap.cci.CCIConnectionSpec"
  * @generated
  */
@@ -91,13 +90,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>User Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>User Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Logon user, logon parameter for password based authentication.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>User Name</em>' attribute.
 	 * @see #setUserName(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_UserName()
 	 * @model
 	 * @generated
 	 */
@@ -106,6 +103,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getUserName <em>User Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Logon user, logon parameter for password based authentication.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>User Name</em>' attribute.
 	 * @see #getUserName()
@@ -117,13 +117,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Password</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Password</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Logon password, logon parameter for password based authentication.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Password</em>' attribute.
 	 * @see #setPassword(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Password()
 	 * @model
 	 * @generated
 	 */
@@ -132,6 +130,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getPassword <em>Password</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Logon password, logon parameter for password based authentication.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Password</em>' attribute.
 	 * @see #getPassword()
@@ -143,13 +144,20 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Auth Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Auth Type</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Authentication type used by the destination. Known types are
+	 * 
+	 * CONFIGURED_USER - the destination configured for the specified user only. All connections opened via this
+	 * destination belongs to the same user. This value is used in default case, if this property is missing.
+	 * 
+	 * CURRENT_USER - the connection created using this destination belongs to the current user. Before the connection
+	 * is opened the runtime check the property "jco.client.current_user" in order to get the current user name.
+	 * Note:This type is supported in SAP NetWeaver AS only
+	 * 
+	 * Note:This property is optional, default value is CONFIGURED_USER
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Auth Type</em>' attribute.
 	 * @see #setAuthType(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_AuthType()
 	 * @model
 	 * @generated
 	 */
@@ -158,6 +166,18 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getAuthType <em>Auth Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Authentication type used by the destination. Known types are
+	 * 
+	 * CONFIGURED_USER - the destination configured for the specified user only. All connections opened via this
+	 * destination belongs to the same user. This value is used in default case, if this property is missing.
+	 * 
+	 * CURRENT_USER - the connection created using this destination belongs to the current user. Before the connection
+	 * is opened the runtime check the property "jco.client.current_user" in order to get the current user name.
+	 * Note:This type is supported in SAP NetWeaver AS only
+	 * 
+	 * Note:This property is optional, default value is CONFIGURED_USER
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Auth Type</em>' attribute.
 	 * @see #getAuthType()
@@ -169,13 +189,15 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>User Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>User Id</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * User identity which is used for logon to the ABAP AS.
+	 * 
+	 * Used by the JCo runtime, if the destination configuration uses SSO/assertion ticket, certificate, "current" user
+	 * or SNC environment for authentication. The user id is mandatory, if neither user not user alias is set. This id
+	 * will never be sent to SAP backend, it will be used by the JCo runtime locally.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>User Id</em>' attribute.
 	 * @see #setUserId(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_UserId()
 	 * @model
 	 * @generated
 	 */
@@ -184,6 +206,13 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getUserId <em>User Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * User identity which is used for logon to the ABAP AS.
+	 * 
+	 * Used by the JCo runtime, if the destination configuration uses SSO/assertion ticket, certificate, "current" user
+	 * or SNC environment for authentication. The user id is mandatory, if neither user not user alias is set. This id
+	 * will never be sent to SAP backend, it will be used by the JCo runtime locally.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>User Id</em>' attribute.
 	 * @see #getUserId()
@@ -195,13 +224,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Client</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Client</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * SAP client, mandatory logon parameter.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Client</em>' attribute.
 	 * @see #setClient(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Client()
 	 * @model
 	 * @generated
 	 */
@@ -210,6 +237,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getClient <em>Client</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * SAP client, mandatory logon parameter.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Client</em>' attribute.
 	 * @see #getClient()
@@ -221,13 +251,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>User</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>User</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Logon user, logon parameter for password based authentication.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>User</em>' attribute.
 	 * @see #setUser(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_User()
 	 * @model
 	 * @generated
 	 */
@@ -236,6 +264,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getUser <em>User</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Logon user, logon parameter for password based authentication.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>User</em>' attribute.
 	 * @see #getUser()
@@ -247,13 +278,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Alias User</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Alias User</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Logon user alias, can be used instead of logon user.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Alias User</em>' attribute.
 	 * @see #setAliasUser(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_AliasUser()
 	 * @model
 	 * @generated
 	 */
@@ -262,6 +291,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getAliasUser <em>Alias User</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Logon user alias, can be used instead of logon user.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Alias User</em>' attribute.
 	 * @see #getAliasUser()
@@ -273,13 +305,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Passwd</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Passwd</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Logon password, logon parameter for password based authentication.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Passwd</em>' attribute.
 	 * @see #setPasswd(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Passwd()
 	 * @model
 	 * @generated
 	 */
@@ -288,6 +318,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getPasswd <em>Passwd</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Logon password, logon parameter for password based authentication.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Passwd</em>' attribute.
 	 * @see #getPasswd()
@@ -299,13 +332,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Lang</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Lang</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Logon language, if not defined the default user language is used.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Lang</em>' attribute.
 	 * @see #setLang(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Lang()
 	 * @model
 	 * @generated
 	 */
@@ -314,6 +345,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getLang <em>Lang</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Logon language, if not defined the default user language is used.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Lang</em>' attribute.
 	 * @see #getLang()
@@ -325,13 +359,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Mysapsso2</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Mysapsso2</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * The SAP Cookie Version 2 used as logon ticket for SSO based authentication.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Mysapsso2</em>' attribute.
 	 * @see #setMysapsso2(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Mysapsso2()
 	 * @model
 	 * @generated
 	 */
@@ -340,6 +372,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getMysapsso2 <em>Mysapsso2</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * The SAP Cookie Version 2 used as logon ticket for SSO based authentication.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Mysapsso2</em>' attribute.
 	 * @see #getMysapsso2()
@@ -351,13 +386,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>X50 9cert</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>X50 9cert</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * The specified X509 certificate used for certificate based authentication
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>X50 9cert</em>' attribute.
 	 * @see #setX509cert(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_X509cert()
 	 * @model
 	 * @generated
 	 */
@@ -366,6 +399,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getX509cert <em>X50 9cert</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * The specified X509 certificate used for certificate based authentication
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>X50 9cert</em>' attribute.
 	 * @see #getX509cert()
@@ -377,13 +413,15 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Pcs</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Pcs</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Additional logon parameter to define the codepage type of the SAP System,
+	 * 
+	 * 1 - non unicode, 2 - unicode enabled.
+	 * 
+	 * Used in special cases only
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Pcs</em>' attribute.
 	 * @see #setPcs(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Pcs()
 	 * @model
 	 * @generated
 	 */
@@ -392,6 +430,13 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getPcs <em>Pcs</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Additional logon parameter to define the codepage type of the SAP System,
+	 * 
+	 * 1 - non unicode, 2 - unicode enabled.
+	 * 
+	 * Used in special cases only
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Pcs</em>' attribute.
 	 * @see #getPcs()
@@ -403,13 +448,13 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Type of remote host.
+	 * 
+	 * The type will be recognized automatically and should not be set manually.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Type</em>' attribute.
 	 * @see #setType(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Type()
 	 * @model
 	 * @generated
 	 */
@@ -418,6 +463,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getType <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Type of remote host.
+	 * 
+	 * The type will be recognized automatically and should not be set manually.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Type</em>' attribute.
 	 * @see #getType()
@@ -429,13 +479,15 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Saprouter</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Saprouter</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * SAP Router string for connection to systems behind a SAP Router.
+	 * 
+	 * SAP Router string contains the chain of SAP Routers and its port numbers and has the form:
+	 * 
+	 * (/H/<host>[/S/<port>])+
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Saprouter</em>' attribute.
 	 * @see #setSaprouter(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Saprouter()
 	 * @model
 	 * @generated
 	 */
@@ -444,6 +496,13 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSaprouter <em>Saprouter</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * SAP Router string for connection to systems behind a SAP Router.
+	 * 
+	 * SAP Router string contains the chain of SAP Routers and its port numbers and has the form:
+	 * 
+	 * (/H/<host>[/S/<port>])+
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Saprouter</em>' attribute.
 	 * @see #getSaprouter()
@@ -455,13 +514,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Sysnr</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Sysnr</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * System number of the SAP ABAP application server, mandatory for a direct connection.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Sysnr</em>' attribute.
 	 * @see #setSysnr(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Sysnr()
 	 * @model
 	 * @generated
 	 */
@@ -470,6 +527,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSysnr <em>Sysnr</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * System number of the SAP ABAP application server, mandatory for a direct connection.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Sysnr</em>' attribute.
 	 * @see #getSysnr()
@@ -481,13 +541,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Ashost</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Ashost</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * SAP ABAP application server, mandatory for a direct connection .
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Ashost</em>' attribute.
 	 * @see #setAshost(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Ashost()
 	 * @model
 	 * @generated
 	 */
@@ -496,6 +554,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getAshost <em>Ashost</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * SAP ABAP application server, mandatory for a direct connection .
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Ashost</em>' attribute.
 	 * @see #getAshost()
@@ -507,13 +568,15 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Mshost</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Mshost</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * SAP message server port, optional property for a load balancing connection.
+	 * 
+	 * In order to resolve the service names sapmsXXX a lookup in etc/services is performed by the network layer of the
+	 * operating system. If using port numbers instead of symbolic service names, no lookups are performed and no
+	 * additional entries are needed.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Mshost</em>' attribute.
 	 * @see #setMshost(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Mshost()
 	 * @model
 	 * @generated
 	 */
@@ -522,6 +585,13 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getMshost <em>Mshost</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * SAP message server port, optional property for a load balancing connection.
+	 * 
+	 * In order to resolve the service names sapmsXXX a lookup in etc/services is performed by the network layer of the
+	 * operating system. If using port numbers instead of symbolic service names, no lookups are performed and no
+	 * additional entries are needed.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Mshost</em>' attribute.
 	 * @see #getMshost()
@@ -533,13 +603,15 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Msserv</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Msserv</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * SAP message server port, optional property for a load balancing connection.
+	 * 
+	 * In order to resolve the service names sapmsXXX a lookup in etc/services is performed by the network layer of the
+	 * operating system. If using port numbers instead of symbolic service names, no lookups are performed and no
+	 * additional entries are needed.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Msserv</em>' attribute.
 	 * @see #setMsserv(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Msserv()
 	 * @model
 	 * @generated
 	 */
@@ -548,6 +620,13 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getMsserv <em>Msserv</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * SAP message server port, optional property for a load balancing connection.
+	 * 
+	 * In order to resolve the service names sapmsXXX a lookup in etc/services is performed by the network layer of the
+	 * operating system. If using port numbers instead of symbolic service names, no lookups are performed and no
+	 * additional entries are needed.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Msserv</em>' attribute.
 	 * @see #getMsserv()
@@ -559,13 +638,14 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Gwhost</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Gwhost</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Allows specifying a concrete gateway, which should be used for establishing the connection to an application
+	 * server.
+	 * 
+	 * If not specified the gateway on the application server is used.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Gwhost</em>' attribute.
 	 * @see #setGwhost(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Gwhost()
 	 * @model
 	 * @generated
 	 */
@@ -574,6 +654,12 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getGwhost <em>Gwhost</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Allows specifying a concrete gateway, which should be used for establishing the connection to an application
+	 * server.
+	 * 
+	 * If not specified the gateway on the application server is used.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Gwhost</em>' attribute.
 	 * @see #getGwhost()
@@ -585,13 +671,20 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Gwserv</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Gwserv</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Gateway server port.
+	 * 
+	 * Should be set, when setting GWhost.
+	 * 
+	 * Allows specifying the port used on that gateway. If not specified the port of the gateway on the application
+	 * server is used.
+	 * 
+	 * In order to resolve the service names sapgwXXX a lookup in etc/services is performed by the network layer of the
+	 * operating system. If using port numbers instead of symbolic service names, no lookups are performed and no
+	 * additional entries are needed.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Gwserv</em>' attribute.
 	 * @see #setGwserv(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Gwserv()
 	 * @model
 	 * @generated
 	 */
@@ -600,6 +693,18 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getGwserv <em>Gwserv</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Gateway server port.
+	 * 
+	 * Should be set, when setting GWhost.
+	 * 
+	 * Allows specifying the port used on that gateway. If not specified the port of the gateway on the application
+	 * server is used.
+	 * 
+	 * In order to resolve the service names sapgwXXX a lookup in etc/services is performed by the network layer of the
+	 * operating system. If using port numbers instead of symbolic service names, no lookups are performed and no
+	 * additional entries are needed.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Gwserv</em>' attribute.
 	 * @see #getGwserv()
@@ -611,13 +716,13 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Tphost</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Tphost</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Host of external server.
+	 * 
+	 * Not supported in all runtime environments.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Tphost</em>' attribute.
 	 * @see #setTphost(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Tphost()
 	 * @model
 	 * @generated
 	 */
@@ -626,6 +731,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getTphost <em>Tphost</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Host of external server.
+	 * 
+	 * Not supported in all runtime environments.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Tphost</em>' attribute.
 	 * @see #getTphost()
@@ -637,13 +747,13 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Tpname</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Tpname</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Program ID of external server.
+	 * 
+	 * Not supported in all runtime environments.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Tpname</em>' attribute.
 	 * @see #setTpname(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Tpname()
 	 * @model
 	 * @generated
 	 */
@@ -652,6 +762,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getTpname <em>Tpname</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Program ID of external server.
+	 * 
+	 * Not supported in all runtime environments.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Tpname</em>' attribute.
 	 * @see #getTpname()
@@ -663,13 +778,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>R3name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>R3name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * System ID of the SAP system, mandatory property for a load balancing connection.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>R3name</em>' attribute.
 	 * @see #setR3name(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_R3name()
 	 * @model
 	 * @generated
 	 */
@@ -678,6 +791,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getR3name <em>R3name</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * System ID of the SAP system, mandatory property for a load balancing connection.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>R3name</em>' attribute.
 	 * @see #getR3name()
@@ -689,13 +805,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Group</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Group</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Group of SAP application servers, mandatory property for a load balancing connection.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Group</em>' attribute.
 	 * @see #setGroup(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Group()
 	 * @model
 	 * @generated
 	 */
@@ -704,6 +818,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getGroup <em>Group</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Group of SAP application servers, mandatory property for a load balancing connection.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Group</em>' attribute.
 	 * @see #getGroup()
@@ -715,13 +832,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Trace</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Trace</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Enable/disable RFC trace (0 or 1).
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Trace</em>' attribute.
 	 * @see #setTrace(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Trace()
 	 * @model
 	 * @generated
 	 */
@@ -730,6 +845,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getTrace <em>Trace</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Enable/disable RFC trace (0 or 1).
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Trace</em>' attribute.
 	 * @see #getTrace()
@@ -741,13 +859,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Cpic Trace</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Cpic Trace</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Enable/disable CPIC trace [0..3].
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Cpic Trace</em>' attribute.
 	 * @see #setCpicTrace(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_CpicTrace()
 	 * @model
 	 * @generated
 	 */
@@ -756,6 +872,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getCpicTrace <em>Cpic Trace</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Enable/disable CPIC trace [0..3].
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Cpic Trace</em>' attribute.
 	 * @see #getCpicTrace()
@@ -767,13 +886,15 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Lcheck</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Lcheck</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Enable/Disable logon check at open time, 1 (enable) or 0 (disable).
+	 * 
+	 * Postpones the authentication until the first call - 1 (enable).
+	 * 
+	 * Used in special cases only.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Lcheck</em>' attribute.
 	 * @see #setLcheck(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Lcheck()
 	 * @model
 	 * @generated
 	 */
@@ -782,6 +903,13 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getLcheck <em>Lcheck</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Enable/Disable logon check at open time, 1 (enable) or 0 (disable).
+	 * 
+	 * Postpones the authentication until the first call - 1 (enable).
+	 * 
+	 * Used in special cases only.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Lcheck</em>' attribute.
 	 * @see #getLcheck()
@@ -793,13 +921,12 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Use Sapgui</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Use Sapgui</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Start an SAP GUI and associate with the connection. (0 - do not start [default], 1 start GUI, 2 start GUI and
+	 * hide if not used)
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Use Sapgui</em>' attribute.
 	 * @see #setUseSapgui(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_UseSapgui()
 	 * @model
 	 * @generated
 	 */
@@ -808,6 +935,10 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getUseSapgui <em>Use Sapgui</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Start an SAP GUI and associate with the connection. (0 - do not start [default], 1 start GUI, 2 start GUI and
+	 * hide if not used)
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Use Sapgui</em>' attribute.
 	 * @see #getUseSapgui()
@@ -819,13 +950,15 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Codepage</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Codepage</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Initial codepage in SAP notation.
+	 * 
+	 * Additional logon parameter to define the codepage that will used to convert the logon parameters.
+	 * 
+	 * Used in special cases only.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Codepage</em>' attribute.
 	 * @see #setCodepage(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Codepage()
 	 * @model
 	 * @generated
 	 */
@@ -834,6 +967,13 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getCodepage <em>Codepage</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Initial codepage in SAP notation.
+	 * 
+	 * Additional logon parameter to define the codepage that will used to convert the logon parameters.
+	 * 
+	 * Used in special cases only.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Codepage</em>' attribute.
 	 * @see #getCodepage()
@@ -845,13 +985,13 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Getsso2</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Getsso2</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Get/Don't get a SSO ticket after logon (1 or 0)
+	 * 
+	 * Order a SSO ticket after logon, the obtained ticket is available in the destination attributes.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Getsso2</em>' attribute.
 	 * @see #setGetsso2(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_Getsso2()
 	 * @model
 	 * @generated
 	 */
@@ -860,6 +1000,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getGetsso2 <em>Getsso2</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Get/Don't get a SSO ticket after logon (1 or 0)
+	 * 
+	 * Order a SSO ticket after logon, the obtained ticket is available in the destination attributes.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Getsso2</em>' attribute.
 	 * @see #getGetsso2()
@@ -871,13 +1016,13 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Deny Initial Password</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Deny Initial Password</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Deny usage of initial passwords (0[default] or 1).
+	 * 
+	 * If set to 1, using initial passwords will lead to an exception (default=0).
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Deny Initial Password</em>' attribute.
 	 * @see #setDenyInitialPassword(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_DenyInitialPassword()
 	 * @model
 	 * @generated
 	 */
@@ -886,6 +1031,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getDenyInitialPassword <em>Deny Initial Password</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Deny usage of initial passwords (0[default] or 1).
+	 * 
+	 * If set to 1, using initial passwords will lead to an exception (default=0).
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Deny Initial Password</em>' attribute.
 	 * @see #getDenyInitialPassword()
@@ -897,13 +1047,17 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Peak Limit</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Peak Limit</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Maximum number of active connections that can be created for a destination simultaneously.
+	 * 
+	 * A value of 0 allows an unlimited number of active connections, otherwise if the value is less than the value of
+	 * jco.destination.pool_capacity, it will be automatically increased to this value.
+	 * 
+	 * Default setting is the value of jco.destination.pool_capacity, or in case of jco.destination.pool_capacity not
+	 * being specified as well, the default is 0 (unlimited).
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Peak Limit</em>' attribute.
 	 * @see #setPeakLimit(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_PeakLimit()
 	 * @model
 	 * @generated
 	 */
@@ -912,6 +1066,15 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getPeakLimit <em>Peak Limit</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Maximum number of active connections that can be created for a destination simultaneously.
+	 * 
+	 * A value of 0 allows an unlimited number of active connections, otherwise if the value is less than the value of
+	 * jco.destination.pool_capacity, it will be automatically increased to this value.
+	 * 
+	 * Default setting is the value of jco.destination.pool_capacity, or in case of jco.destination.pool_capacity not
+	 * being specified as well, the default is 0 (unlimited).
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Peak Limit</em>' attribute.
 	 * @see #getPeakLimit()
@@ -923,13 +1086,14 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Pool Capacity</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Pool Capacity</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Maximum number of idle connections kept open by the destination. A value of 0 has the effect that there is no
+	 * connection pooling, i.e. connections will be closed after each request.
+	 * 
+	 * A value of 0 has the effect that there is no connection pooling (default=1)
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Pool Capacity</em>' attribute.
 	 * @see #setPoolCapacity(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_PoolCapacity()
 	 * @model
 	 * @generated
 	 */
@@ -938,6 +1102,12 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getPoolCapacity <em>Pool Capacity</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Maximum number of idle connections kept open by the destination. A value of 0 has the effect that there is no
+	 * connection pooling, i.e. connections will be closed after each request.
+	 * 
+	 * A value of 0 has the effect that there is no connection pooling (default=1)
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Pool Capacity</em>' attribute.
 	 * @see #getPoolCapacity()
@@ -949,13 +1119,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Expiration Time</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Expiration Time</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Time in ms after that a free connections hold internally by the destination can be closed.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Expiration Time</em>' attribute.
 	 * @see #setExpirationTime(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_ExpirationTime()
 	 * @model
 	 * @generated
 	 */
@@ -964,6 +1132,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getExpirationTime <em>Expiration Time</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Time in ms after that a free connections hold internally by the destination can be closed.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Expiration Time</em>' attribute.
 	 * @see #getExpirationTime()
@@ -975,13 +1146,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Expiration Period</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Expiration Period</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Interval in ms with which the timeout checker thread checks the connections in the pool for expiration.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Expiration Period</em>' attribute.
 	 * @see #setExpirationPeriod(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_ExpirationPeriod()
 	 * @model
 	 * @generated
 	 */
@@ -990,6 +1159,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getExpirationPeriod <em>Expiration Period</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Interval in ms with which the timeout checker thread checks the connections in the pool for expiration.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Expiration Period</em>' attribute.
 	 * @see #getExpirationPeriod()
@@ -1001,13 +1173,12 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Max Get Time</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Max Get Time</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Max time in ms to wait for a connection, if the max allowed number of connections is allocated by the application
+	 * SNC configuration
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Max Get Time</em>' attribute.
 	 * @see #setMaxGetTime(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_MaxGetTime()
 	 * @model
 	 * @generated
 	 */
@@ -1016,6 +1187,10 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getMaxGetTime <em>Max Get Time</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Max time in ms to wait for a connection, if the max allowed number of connections is allocated by the application
+	 * SNC configuration
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Max Get Time</em>' attribute.
 	 * @see #getMaxGetTime()
@@ -1027,13 +1202,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Snc Mode</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Snc Mode</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Secure network connection (SNC) mode, 0 (off) or 1 (on).
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Snc Mode</em>' attribute.
 	 * @see #setSncMode(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_SncMode()
 	 * @model
 	 * @generated
 	 */
@@ -1042,6 +1215,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSncMode <em>Snc Mode</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Secure network connection (SNC) mode, 0 (off) or 1 (on).
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Snc Mode</em>' attribute.
 	 * @see #getSncMode()
@@ -1053,13 +1229,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Snc Partnername</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Snc Partnername</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * SNC partner, e.g. p:CN=R3, O=XYZ-INC, C=EN
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Snc Partnername</em>' attribute.
 	 * @see #setSncPartnername(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_SncPartnername()
 	 * @model
 	 * @generated
 	 */
@@ -1068,6 +1242,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSncPartnername <em>Snc Partnername</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * SNC partner, e.g. p:CN=R3, O=XYZ-INC, C=EN
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Snc Partnername</em>' attribute.
 	 * @see #getSncPartnername()
@@ -1079,13 +1256,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Snc Qop</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Snc Qop</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * SNC level of security, 1 to 9.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Snc Qop</em>' attribute.
 	 * @see #setSncQop(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_SncQop()
 	 * @model
 	 * @generated
 	 */
@@ -1094,6 +1269,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSncQop <em>Snc Qop</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * SNC level of security, 1 to 9.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Snc Qop</em>' attribute.
 	 * @see #getSncQop()
@@ -1105,13 +1283,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Snc Myname</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Snc Myname</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Overrides default SNC partner.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Snc Myname</em>' attribute.
 	 * @see #setSncMyname(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_SncMyname()
 	 * @model
 	 * @generated
 	 */
@@ -1120,6 +1296,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSncMyname <em>Snc Myname</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Overrides default SNC partner.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Snc Myname</em>' attribute.
 	 * @see #getSncMyname()
@@ -1131,13 +1310,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Snc Library</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Snc Library</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Path to library which provides SNC service.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Snc Library</em>' attribute.
 	 * @see #setSncLibrary(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_SncLibrary()
 	 * @model
 	 * @generated
 	 */
@@ -1146,6 +1323,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSncLibrary <em>Snc Library</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Path to library which provides SNC service.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Snc Library</em>' attribute.
 	 * @see #getSncLibrary()
@@ -1157,13 +1337,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Repository Dest</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Repository Dest</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Specifies which destination should be used as repository, i.e. use this destination's repository.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Repository Dest</em>' attribute.
 	 * @see #setRepositoryDest(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_RepositoryDest()
 	 * @model
 	 * @generated
 	 */
@@ -1172,6 +1350,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getRepositoryDest <em>Repository Dest</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Specifies which destination should be used as repository, i.e. use this destination's repository.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Repository Dest</em>' attribute.
 	 * @see #getRepositoryDest()
@@ -1183,13 +1364,14 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Repository User</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Repository User</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * User to use for repository calls.
+	 * 
+	 * Optional: If repository destination is not set, and this property is set, it will be used as user for repository
+	 * queries. This allows using a different user for repository lookups and restrict the permissions accordingly.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Repository User</em>' attribute.
 	 * @see #setRepositoryUser(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_RepositoryUser()
 	 * @model
 	 * @generated
 	 */
@@ -1198,6 +1380,12 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getRepositoryUser <em>Repository User</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * User to use for repository calls.
+	 * 
+	 * Optional: If repository destination is not set, and this property is set, it will be used as user for repository
+	 * queries. This allows using a different user for repository lookups and restrict the permissions accordingly.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Repository User</em>' attribute.
 	 * @see #getRepositoryUser()
@@ -1209,13 +1397,11 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Repository Passwd</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Repository Passwd</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * The password for a repository user. Mandatory, if a repository user should be used.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Repository Passwd</em>' attribute.
 	 * @see #setRepositoryPasswd(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_RepositoryPasswd()
 	 * @model
 	 * @generated
 	 */
@@ -1224,6 +1410,9 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getRepositoryPasswd <em>Repository Passwd</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * The password for a repository user. Mandatory, if a repository user should be used.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Repository Passwd</em>' attribute.
 	 * @see #getRepositoryPasswd()
@@ -1235,13 +1424,15 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Repository Snc</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Repository Snc</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * If SNC is used for this destination.
+	 * 
+	 * Optional: It is possible to turn it off for repository connections, if this property is set to 0.
+	 * 
+	 * Default setting is the value of jco.client.snc_mode. For special cases only.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Repository Snc</em>' attribute.
 	 * @see #setRepositorySnc(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_RepositorySnc()
 	 * @model
 	 * @generated
 	 */
@@ -1250,6 +1441,13 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getRepositorySnc <em>Repository Snc</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If SNC is used for this destination.
+	 * 
+	 * Optional: It is possible to turn it off for repository connections, if this property is set to 0.
+	 * 
+	 * Default setting is the value of jco.client.snc_mode. For special cases only.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Repository Snc</em>' attribute.
 	 * @see #getRepositorySnc()
@@ -1261,13 +1459,20 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Repository Roundtrip Optimization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Repository Roundtrip Optimization</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Is the usage of RFC_METADATA_GET API enabled, which is providing repository data in one single roundtrip.
+	 * 
+	 * 1 indicates the usage of RFC_METADATA_GET in ABAP System is forced, 0 indicated it is deactivated.
+	 * 
+	 * If the property is not set, the destination will initially do a remote call to check whether RFC_METADATA_GET is
+	 * available. In case it is available, it will use it.
+	 * 
+	 * Note: If the repository is already initialized, for example because it is used by some other destination, this
+	 * property does not have any effect. Generally, this property is related to the ABAP System, and should have the
+	 * same value on all destinations pointing to the same ABAP System.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Repository Roundtrip Optimization</em>' attribute.
 	 * @see #setRepositoryRoundtripOptimization(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_RepositoryRoundtripOptimization()
 	 * @model
 	 * @generated
 	 */
@@ -1276,6 +1481,18 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getRepositoryRoundtripOptimization <em>Repository Roundtrip Optimization</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Is the usage of RFC_METADATA_GET API enabled, which is providing repository data in one single roundtrip.
+	 * 
+	 * 1 indicates the usage of RFC_METADATA_GET in ABAP System is forced, 0 indicated it is deactivated.
+	 * 
+	 * If the property is not set, the destination will initially do a remote call to check whether RFC_METADATA_GET is
+	 * available. In case it is available, it will use it.
+	 * 
+	 * Note: If the repository is already initialized, for example because it is used by some other destination, this
+	 * property does not have any effect. Generally, this property is related to the ABAP System, and should have the
+	 * same value on all destinations pointing to the same ABAP System.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Repository Roundtrip Optimization</em>' attribute.
 	 * @see #getRepositoryRoundtripOptimization()
@@ -1287,13 +1504,12 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	 * Returns the value of the '<em><b>Ping On Create</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Ping On Create</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * Indicates whether the Managed Connection will ping the connected SAP instance when created, <code>true</code>, or not, <code>false</code>.
+	 * Default is <code>false</code>.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Ping On Create</em>' attribute.
 	 * @see #setPingOnCreate(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnectionSpec_PingOnCreate()
 	 * @model
 	 * @generated
 	 */
@@ -1302,6 +1518,10 @@ public interface ConnectionSpec extends EObject, javax.resource.cci.ConnectionSp
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getPingOnCreate <em>Ping On Create</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Indicates whether the Managed Connection will ping the connected SAP instance when created, <code>true</code>, or not, <code>false</code>.
+	 * Default is <code>false</code>.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Ping On Create</em>' attribute.
 	 * @see #getPingOnCreate()

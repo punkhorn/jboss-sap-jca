@@ -29,7 +29,6 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.jboss.jca.adapters.sap.cci.CciPackage;
 import org.jboss.jca.adapters.sap.cci.ConnectionMetaData;
 
 /**
@@ -71,7 +70,7 @@ public class ConnectionMetaDataImpl extends EObjectImpl implements ConnectionMet
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return CciPackage.Literals.CONNECTION_META_DATA;
+		return CciPackageImpl.Literals.CONNECTION_META_DATA;
 	}
 
 	/**

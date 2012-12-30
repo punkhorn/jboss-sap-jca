@@ -38,7 +38,6 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.jboss.jca.adapters.sap.cci.CciPackage#getInteractionSpec()
  * @model superTypes="org.jboss.jca.adapters.sap.cci.CCIInteractionSpec"
  * @generated
  */
@@ -47,13 +46,11 @@ public interface InteractionSpec extends EObject, javax.resource.cci.Interaction
 	 * Returns the value of the '<em><b>Function Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Function Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * A string representing the name of an ABAP Function Module.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Function Name</em>' attribute.
 	 * @see #setFunctionName(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getInteractionSpec_FunctionName()
 	 * @model
 	 * @generated
 	 */
@@ -62,6 +59,9 @@ public interface InteractionSpec extends EObject, javax.resource.cci.Interaction
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.InteractionSpec#getFunctionName <em>Function Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * A string representing the name of an ABAP Function Module.
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Function Name</em>' attribute.
 	 * @see #getFunctionName()
@@ -73,13 +73,15 @@ public interface InteractionSpec extends EObject, javax.resource.cci.Interaction
 	 * Returns the value of the '<em><b>Interaction Verb</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Interaction Verb</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * An integer representing the mode of interaction with an EIS instance as specified by the InteractionSpec.
+	 * The values of the interaction verb may be one of the following: SYNC_SEND, SYNC_SEND_RECEIVE, SYNC_RECEIVE
 	 * </p>
+	 * <p>
+	 * NB: currently not used.
+	 * </p
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Interaction Verb</em>' attribute.
 	 * @see #setInteractionVerb(int)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getInteractionSpec_InteractionVerb()
 	 * @model
 	 * @generated
 	 */
@@ -88,6 +90,13 @@ public interface InteractionSpec extends EObject, javax.resource.cci.Interaction
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.InteractionSpec#getInteractionVerb <em>Interaction Verb</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * An integer representing the mode of interaction with an EIS instance as specified by the InteractionSpec.
+	 * The values of the interaction verb may be one of the following: SYNC_SEND, SYNC_SEND_RECEIVE, SYNC_RECEIVE
+	 * </p>
+	 * <p>
+	 * NB: currently not used.
+	 * </p
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Interaction Verb</em>' attribute.
 	 * @see #getInteractionVerb()
@@ -99,13 +108,14 @@ public interface InteractionSpec extends EObject, javax.resource.cci.Interaction
 	 * Returns the value of the '<em><b>Execution Timeout</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Execution Timeout</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * An integer representing the number of milliseconds an {@link Interaction} waits for an EIS to execute the specified function.
 	 * </p>
+	 * <p>
+	 * NB: currently not used.
+	 * </p
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Execution Timeout</em>' attribute.
 	 * @see #setExecutionTimeout(int)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getInteractionSpec_ExecutionTimeout()
 	 * @model
 	 * @generated
 	 */
@@ -114,6 +124,12 @@ public interface InteractionSpec extends EObject, javax.resource.cci.Interaction
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.InteractionSpec#getExecutionTimeout <em>Execution Timeout</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * An integer representing the number of milliseconds an {@link Interaction} waits for an EIS to execute the specified function.
+	 * </p>
+	 * <p>
+	 * NB: currently not used.
+	 * </p
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Execution Timeout</em>' attribute.
 	 * @see #getExecutionTimeout()

@@ -44,7 +44,6 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see org.jboss.jca.adapters.sap.cci.CciPackage#getIndexedRecord()
  * @model superTypes="org.jboss.jca.adapters.sap.cci.CCIIndexedRecord"
  * @generated
  */
@@ -55,13 +54,11 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Record Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Record Name</em>' attribute.
 	 * @see #setRecordName(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getIndexedRecord_RecordName()
 	 * @model default="0"
 	 * @generated
 	 */
@@ -70,6 +67,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecordName <em>Record Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Record Name</em>' attribute.
 	 * @see #getRecordName()
@@ -81,13 +81,11 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 	 * Returns the value of the '<em><b>Record Short Description</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Record Short Description</em>' attribute isn't clear,
-	 * there really should be more of a description here...
+	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Record Short Description</em>' attribute.
 	 * @see #setRecordShortDescription(String)
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getIndexedRecord_RecordShortDescription()
 	 * @model
 	 * @generated
 	 */
@@ -96,6 +94,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 	/**
 	 * Sets the value of the '{@link org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecordShortDescription <em>Record Short Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Record Short Description</em>' attribute.
 	 * @see #getRecordShortDescription()
@@ -107,13 +108,11 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 	 * Returns the value of the '<em><b>Record Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Record Type</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
+	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Record Type</em>' reference.
 	 * @see #isSetRecordType()
-	 * @see org.jboss.jca.adapters.sap.cci.CciPackage#getIndexedRecord_RecordType()
 	 * @model resolveProxies="false" unsettable="true" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
@@ -122,6 +121,8 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 	/**
 	 * Returns whether the value of the '{@link org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecordType <em>Record Type</em>}' reference is set.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return whether the value of the '<em>Record Type</em>' reference is set.
 	 * @see #getRecordType()
@@ -131,6 +132,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -139,6 +143,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -147,6 +154,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -155,6 +165,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -163,6 +176,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
 	 * @generated
@@ -171,6 +187,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -179,6 +198,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model dataType="org.jboss.jca.adapters.sap.cci.MappedRecordIterator"
 	 * @generated
@@ -187,6 +209,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model dataType="org.jboss.jca.adapters.sap.cci.ObjectArray"
 	 * @generated
@@ -195,6 +220,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model dataType="org.jboss.jca.adapters.sap.cci.ObjectArray" aDataType="org.jboss.jca.adapters.sap.cci.ObjectArray"
 	 * @generated
@@ -203,6 +231,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -211,6 +242,11 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+     * Appends and returns a new MappedRecord to the end of this list 
+     *
+     * @return the new MappedRecord
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -219,6 +255,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -227,6 +266,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model cDataType="org.jboss.jca.adapters.sap.cci.RawCollection"
 	 * @generated
@@ -235,6 +277,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model cDataType="org.jboss.jca.adapters.sap.cci.RawCollection"
 	 * @generated
@@ -243,6 +288,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model cDataType="org.jboss.jca.adapters.sap.cci.RawCollection"
 	 * @generated
@@ -251,6 +299,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model cDataType="org.jboss.jca.adapters.sap.cci.RawCollection"
 	 * @generated
@@ -259,6 +310,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model cDataType="org.jboss.jca.adapters.sap.cci.RawCollection"
 	 * @generated
@@ -267,6 +321,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -275,6 +332,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -283,6 +343,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -291,6 +354,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -299,6 +365,14 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+     * Inserts and returns a new MappedRecord at the specified position in this list.
+     * Shifts the element currently at that position (if any) and any subsequent
+     * elements to the right (adds one to their indices).
+     *
+     * @param index index at which the new MappedRecord is to be inserted
+     * @return the new MappedRecord
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -307,6 +381,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -315,6 +392,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -323,6 +403,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
@@ -331,6 +414,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model dataType="org.jboss.jca.adapters.sap.cci.MappedRecordListIterator"
 	 * @generated
@@ -339,6 +425,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model dataType="org.jboss.jca.adapters.sap.cci.MappedRecordListIterator"
 	 * @generated
@@ -347,6 +436,9 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model dataType="org.jboss.jca.adapters.sap.cci.MappedRecordList"
 	 * @generated

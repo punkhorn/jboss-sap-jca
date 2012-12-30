@@ -33,13 +33,17 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  *
- * @see org.jboss.jca.adapters.sap.cci.CciPackage#getConnection()
  * @model superTypes="org.jboss.jca.adapters.sap.cci.CCIConnection"
  * @generated
  */
 public interface Connection extends EObject, javax.resource.cci.Connection {
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Begins a stateful call sequence for calls through this connection. The connections will not be reset or closed between <code>begin()</code> and <code>end()</code>. As a consequence the user context in the ABAP backend will be kept.
+	 * </p>
+	 * <p>
+	 * <b>Note</b>: As <code>begin()</code> reserves this connection for exclusive usage, you should only switch to stateful if this is really required. Stateless processing should be preferred if this is possible, i.e. avoid using <code>begin()/end()</code> sequences if the used function modules do not store state in the ABAP system. 	 * 
 	 * <!-- end-user-doc -->
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -48,6 +52,9 @@ public interface Connection extends EObject, javax.resource.cci.Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Ends a stateful call sequence for calls through this connection. The connection is now either returned for reuse to a pool or is at least no longer guaranteed to be kept open. Note: The number of invocations of begin() are not counted, i.e. a single invocation of end() will already release the context for the given destination. 
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -56,6 +63,7 @@ public interface Connection extends EObject, javax.resource.cci.Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * Returns <code>true</code> if this connection is in a closed state; <code>false</code> otherwise.
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
 	 * @generated
@@ -64,6 +72,9 @@ public interface Connection extends EObject, javax.resource.cci.Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Returns true if in the current session the stateful sequence was started, i.e. begin() was invoked and not finished by end(). Returns false otherwise.  
+	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
 	 * @generated
@@ -72,6 +83,7 @@ public interface Connection extends EObject, javax.resource.cci.Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * Returns the connection's properties
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
 	 * @generated
@@ -80,6 +92,7 @@ public interface Connection extends EObject, javax.resource.cci.Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -88,6 +101,7 @@ public interface Connection extends EObject, javax.resource.cci.Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -96,6 +110,7 @@ public interface Connection extends EObject, javax.resource.cci.Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -104,6 +119,7 @@ public interface Connection extends EObject, javax.resource.cci.Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @model kind="operation" dataType="org.jboss.jca.adapters.sap.cci.ResultSetInfo" exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -112,6 +128,7 @@ public interface Connection extends EObject, javax.resource.cci.Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * Executes a connection test for this connection.
 	 * <!-- end-user-doc -->
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
@@ -120,6 +137,7 @@ public interface Connection extends EObject, javax.resource.cci.Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated

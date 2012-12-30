@@ -683,9 +683,9 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory {
 	}
 
 	/**
-	 * SAP message server, mandatory property for a load balancing connection.
+	 * SAP ABAP application server, mandatory for a direct connection.
 	 * 
-	 * @return SAP message server.
+	 * @return SAP ABAP application server, mandatory for a direct connection.
 	 */
 	public String getAshost() {
 
@@ -693,10 +693,10 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory {
 	}
 
 	/**
-	 * Set SAP message server, mandatory property for a load balancing connection.
+	 * Set ABAP application server.
 	 * 
 	 * @param ashost
-	 *            - SAP message server.
+	 *            - SAP ABAP application server.
 	 */
 	public void setAshost(String ashost) {
 
@@ -780,7 +780,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory {
 	/**
 	 * Gateway server port.
 	 * 
-	 * Should be set, when using JCO_GWHOST.
+	 * Should be set, when setting GWhost.
 	 * 
 	 * Allows specifying the port used on that gateway. If not specified the port of the gateway on the application
 	 * server is used.
