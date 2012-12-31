@@ -1,13 +1,11 @@
 package org.jboss.jca.adapters.sap.integration;
 
-import static org.jboss.jca.adapters.sap.integration.ClassesToTest.CLASSES_TO_TEST;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,7 +22,6 @@ import org.jboss.jca.adapters.sap.cci.CciFactory;
 import org.jboss.jca.adapters.sap.cci.Connection;
 import org.jboss.jca.adapters.sap.cci.InteractionSpec;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.ResourceAdapterArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,9 +53,9 @@ public class ITestStatefulCall {
 		log.info("Creating deployment for StatefulCallTests");
 
 		ResourceAdapterArchive raa = ShrinkWrap.create(ResourceAdapterArchive.class, deploymentName + ".rar");
-		JavaArchive ja = ShrinkWrap.create(JavaArchive.class, UUID.randomUUID().toString() + ".jar");
-		ja.addClasses(CLASSES_TO_TEST);
-		raa.addAsLibrary(ja);
+//		JavaArchive ja = ShrinkWrap.create(JavaArchive.class, UUID.randomUUID().toString() + ".jar");
+//		ja.addClasses(CLASSES_TO_TEST);
+//		raa.addAsLibrary(ja);
 
 		raa.addAsManifestResource("META-INF/ra.xml", "ra.xml");
 

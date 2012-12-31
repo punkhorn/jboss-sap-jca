@@ -21,7 +21,6 @@
  */
 package org.jboss.jca.adapters.sap.integration;
 
-import static org.jboss.jca.adapters.sap.integration.ClassesToTest.CLASSES_TO_TEST;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -30,7 +29,6 @@ import static org.junit.Assert.assertTrue;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
@@ -44,7 +42,6 @@ import org.jboss.jca.adapters.sap.cci.IndexedRecord;
 import org.jboss.jca.adapters.sap.cci.InteractionSpec;
 import org.jboss.jca.adapters.sap.cci.MappedRecord;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.ResourceAdapterArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -165,9 +162,6 @@ public class ITestCci {
 		log.info("Creating deployment for Cci Tests");
 		
 		ResourceAdapterArchive raa = ShrinkWrap.create(ResourceAdapterArchive.class, deploymentName + ".rar");
-		JavaArchive ja = ShrinkWrap.create(JavaArchive.class, UUID.randomUUID().toString() + ".jar");
-		ja.addClasses(CLASSES_TO_TEST);
-		raa.addAsLibrary(ja);
 
 		raa.addAsManifestResource("META-INF/ra.xml", "ra.xml");
 

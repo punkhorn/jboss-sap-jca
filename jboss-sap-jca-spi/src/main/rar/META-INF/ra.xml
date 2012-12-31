@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	JBoss, Home of Professional Open Source. 
+	Copyright 2012, Red Hat Middleware	LLC, and individual contributors 
+	as indicated by the @author tags. See the copyright.txt file in the 
+	distribution for a full listing of individual contributors. 
+	 
+	This is free software; you can redistribute it and/or modify it 
+	under the terms of the GNU Lesser General Public License as 
+	published by the Free Software Foundation; either version 2.1 of 
+	the License, or	(at your option) any later version. 
+	
+	This software is distributed in the	hope that it will be useful, 
+	but WITHOUT ANY WARRANTY; without even the implied warranty of 
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+	Lesser General Public License for more details. 
+	
+	You should have received a copy of the GNU Lesser General Public 
+	License along with this software; if not, write to the Free 
+	Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 
+	02110-1301 USA, or see the FSF site: 
+	
+	http://www.fsf.org. 
+-->
+<connector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:jca="http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd" version="1.5">
+  <vendor-name>Red Hat Middleware LLC</vendor-name>
+  <eis-type>SAP R/3</eis-type>
+  <resourceadapter-version>1.0.0</resourceadapter-version>
+  <license>
+  	<description>
+  	<![CDATA[
+		JBoss, Home of Professional Open Source. 
+		Copyright 2012, Red Hat Middleware	LLC, and individual contributors 
+		as indicated by the @author tags. See the copyright.txt file in the 
+		distribution for a full listing of individual contributors. 
+		 
+		This is free software; you can redistribute it and/or modify it 
+		under the terms of the GNU Lesser General Public License as 
+		published by the Free Software Foundation; either version 2.1 of 
+		the License, or	(at your option) any later version. 
+		
+		This software is distributed in the	hope that it will be useful, 
+		but WITHOUT ANY WARRANTY; without even the implied warranty of 
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+		Lesser General Public License for more details. 
+		
+		You should have received a copy of the GNU Lesser General Public 
+		License along with this software; if not, write to the Free 
+		Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 
+		02110-1301 USA, or see the FSF site: 
+		
+		http://www.fsf.org. 
+	]]>
+	</description>
+	<license-required>false</license-required>
+  </license>
+  <resourceadapter>
+    <resourceadapter-class>org.jboss.jca.adapters.sap.spi.impl.ResourceAdapterImpl</resourceadapter-class>
+    <outbound-resourceadapter>
+      <connection-definition>
+        <managedconnectionfactory-class>org.jboss.jca.adapters.sap.spi.impl.ManagedConnectionFactoryImpl</managedconnectionfactory-class>
+        <config-property>
+          <description>
+					
+						Authentication type used by the destination. Known types are
+
+    					CONFIGURED_USER - the destination configured for the specified user only.
+    					All connections opened via this destination belongs to the same user. This value is used in default case, if this property is missing.
+    					
+		    			CURRENT_USER - the connection created using this destination belongs to the current user.
+    					Before the connection is opened the runtime check the property &quot;jco.client.current_user&quot; in order to get the current user name. Note:This type is supported in SAP NetWeaver AS only 
+
+						Note:This property is optional, default value is CONFIGURED_USER
+					
+					</description>
+          <config-property-name>authType</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						User identity which is used for logon to the ABAP AS. 
+						Used by the JCo runtime, if the destination configuration uses SSO/assertion ticket, certificate, &quot;current&quot; user or SNC environment for authentication. 
+						The user id is mandatory, if neither user not user alias is set. This id will never be sent to SAP backend, it will be used by the JCo runtime locally. 					
+					
+					</description>
+          <config-property-name>userId</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						SAP client, mandatory logon parameter.
+					
+					</description>
+          <config-property-name>client</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Logon user, logon parameter for password based authentication. 
+					
+					</description>
+          <config-property-name>user</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Logon user alias, can be used instead of logon user.
+					
+					</description>
+          <config-property-name>aliasUser</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Logon password, logon parameter for password based authentication. 
+					
+					</description>
+          <config-property-name>passwd</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Logon language, if not defined the default user language is used.
+					
+					</description>
+          <config-property-name>lang</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Use the specified SAP Cookie Version 2 as logon ticket for SSO based authentication.
+					
+					</description>
+          <config-property-name>mysapsso2</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Use the specified X509 certificate for certificate based authentication 
+					
+					</description>
+          <config-property-name>x509cert</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Additional logon parameter to define the codepage type of the SAP System, 1 - non unicode, 2 - unicode enabled. 
+						
+						Used in special cases only 
+					
+					</description>
+          <config-property-name>pcs</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Type of remote host. 
+						
+						The type will be recognized automatically and should not be set manually. 
+					
+					</description>
+          <config-property-name>type</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						SAP Router string for connection to systems behind a SAP Router. 
+						
+						SAP Router string contains the chain of SAP Routers and its port numbers and has the form:
+
+							(/H/&lt;host>[/S/&lt;port>])+
+					
+					</description>
+          <config-property-name>saprouter</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						System number of the SAP ABAP application server, mandatory for a direct connection.
+					
+					</description>
+          <config-property-name>sysnr</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						SAP ABAP application server, mandatory for a direct connection.
+					
+					</description>
+          <config-property-name>ashost</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						SAP message server, mandatory property for a load balancing connection.
+					
+					</description>
+          <config-property-name>mshost</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						SAP message server port, optional property for a load balancing connection. 
+						
+						In order to resolve the service names sapmsXXX a lookup in etc/services is performed by the network layer of the operating system. 
+						If using port numbers instead of symbolic service names, no lookups are performed and no additional entries are needed. 
+					
+					</description>
+          <config-property-name>msserv</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Allows specifying a concrete gateway, which should be used for establishing the connection to an application server. 
+						
+						If not specified the gateway on the application server is used.
+					
+					</description>
+          <config-property-name>gwhost</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Should be set, when using JCO_GWHOST. 
+						
+						Allows specifying the port used on that gateway. If not specified the port of the gateway on the application server is used. 
+						
+						In order to resolve the service names sapgwXXX a lookup in etc/services is performed by the network layer of the operating system. 
+						If using port numbers instead of symbolic service names, no lookups are performed and no additional entries are needed. 
+					
+					</description>
+          <config-property-name>gwserv</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Not supported in all runtime environments. Host of external server.
+					
+					</description>
+          <config-property-name>tphost</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Not supported in all runtime environments. Program ID of external server.
+					
+					</description>
+          <config-property-name>tpname</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						System ID of the SAP system, mandatory property for a load balancing connection.
+					
+					</description>
+          <config-property-name>r3name</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Group of SAP application servers, mandatory property for a load balancing connection.
+					
+					</description>
+          <config-property-name>group</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Enable/disable RFC trace (0 or 1).
+					
+					</description>
+          <config-property-name>trace</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Enable/disable CPIC trace [0..3].
+					
+					</description>
+          <config-property-name>cpicTrace</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Postpone the authentication until the first call - 1 (enable). 
+						
+						Used in special cases only.
+					
+					</description>
+          <config-property-name>lcheck</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Use a visible, hidden, or do not use SAP GUI
+					
+					</description>
+          <config-property-name>useSapgui</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Additional logon parameter to define the codepage that will used to convert the logon parameters.
+						
+						Used in special cases only.
+					
+					</description>
+          <config-property-name>codepage</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Order a SSO ticket after logon, the obtained ticket is available in the destination attributes.
+					
+					</description>
+          <config-property-name>getsso2</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						If set to 1, using initial passwords will lead to an exception (default=0).
+					
+					</description>
+          <config-property-name>denyInitialPassword</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Maximum number of active connections that can be created for a destination simultaneously. 
+						
+						A value of 0 allows an unlimited number of active connections, otherwise if the value is less than the value of jco.destination.pool_capacity, it will be automatically increased to this value. 
+						
+						Default setting is the value of jco.destination.pool_capacity, or in case of jco.destination.pool_capacity not being specified as well, the default is 0 (unlimited).
+					
+					</description>
+          <config-property-name>peakLimit</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Maximum number of idle connections kept open by the destination. 
+						
+						A value of 0 has the effect that there is no connection pooling (default=1) 
+					
+					</description>
+          <config-property-name>poolCapacity</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Time in ms after that a free connections hold internally by the destination can be closed
+					
+					</description>
+          <config-property-name>expirationTime</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Period in ms after that the destination checks the released connections for expiration
+					
+					</description>
+          <config-property-name>expirationPeriod</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Max time in ms to wait for a connection, if the max allowed number of connections is allocated by the application. 
+					
+					</description>
+          <config-property-name>maxGetTime</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Secure network connection (SNC) mode, 0 (off) or 1 (on).
+					
+					</description>
+          <config-property-name>sncMode</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						SNC partner, e.g. p:CN=R3, O=XYZ-INC, C=EN .
+					
+					</description>
+          <config-property-name>sncPartnername</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						SNC level of security, 1 to 9.
+					
+					</description>
+          <config-property-name>sncQop</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Own SNC name. Overrides environment settings.
+					
+					</description>
+          <config-property-name>sncMyname</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Path to library which provides SNC service. 
+					
+					</description>
+          <config-property-name>sncLibrary</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Specifies which destination should be used as repository, i.e. use this destination's repository.
+					
+					</description>
+          <config-property-name>repositoryDest</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						If repository destination is not set, and this property is set, it will be used as user for repository calls. 
+						
+						This allows using a different user for repository lookups. 
+					
+					</description>
+          <config-property-name>repositoryUser</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						The password for a repository user. Mandatory, if a repository user should be used.
+					
+					</description>
+          <config-property-name>repositoryPasswd</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Optional: If SNC is used for this destination, it is possible to turn it off for repository connections, if this property is set to 0. 
+						
+						Default setting is the value of jco.client.snc_mode. For special cases only. 
+					
+					</description>
+          <config-property-name>repositorySnc</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <config-property>
+          <description>
+					
+						Enable the usage of RFC_METADATA_GET API, which is providing repository data in one single roundtrip.
+
+						1 forces the usage of RFC_METADATA_GET in ABAP System, 
+						0 deactivates it. 
+						
+						If the property is not set, the destination will initially do a remote call to check whether RFC_METADATA_GET is available. In case it is available, it will use it.
+
+						Note: If the repository is already initializated, for example because it is used by some other destination, this property does not have any effect. 
+						Generally, this property is related to the ABAP System, and should have the same value on all destinations pointing to the same ABAP System. 
+					
+					</description>
+          <config-property-name>repositoryRoundtripOptimization</config-property-name>
+          <config-property-type>java.lang.String</config-property-type>
+        </config-property>
+        <connectionfactory-interface>javax.resource.cci.ConnectionFactory</connectionfactory-interface>
+        <connectionfactory-impl-class>org.jboss.jca.adapters.sap.cci.impl.ConnectionFactoryImpl</connectionfactory-impl-class>
+        <connection-interface>org.jboss.jca.adapters.sap.cci.Connection</connection-interface>
+        <connection-impl-class>org.jboss.jca.adapters.sap.cci.impl.ConnectionImpl</connection-impl-class>
+      </connection-definition>
+      <transaction-support>LocalTransaction</transaction-support>
+      <authentication-mechanism>
+      	<authentication-mechanism-type>BasicPassword</authentication-mechanism-type>
+      	<credential-interface>javax.resource.spi.security.PasswordCredential</credential-interface>
+      </authentication-mechanism>
+      <reauthentication-support>false</reauthentication-support>
+    </outbound-resourceadapter>
+  </resourceadapter>
+</connector>

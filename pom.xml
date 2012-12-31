@@ -31,8 +31,9 @@
 	<description>JBoss SAP JCA Connector implements a Java EE version 1.5 connector to an SAP EIS</description>
 	<url>http://www.jboss.org</url>
 	<modules>
-		<module>jboss-sap-jca-api</module>
-		<module>jboss-sap-jca-impl</module>
+		<module>jboss-sap-jca-cci</module>
+		<module>jboss-sap-jca-spi</module>
+		<module>jboss-sap-jca-rar</module>
 	</modules>
 	
   <developers>
@@ -220,13 +221,19 @@
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.jca.adapters</groupId>
-				<artifactId>jboss-sap-jca-api</artifactId>
+				<artifactId>jboss-sap-jca-cci</artifactId>
 				<version>${project.version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.jca.adapters</groupId>
-				<artifactId>jboss-sap-jca-impl</artifactId>
+				<artifactId>jboss-sap-jca-spi</artifactId>
+				<version>${project.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.jca.adapters</groupId>
+				<artifactId>jboss-sap-jca-rar</artifactId>
 				<version>${project.version}</version>
 				<scope>provided</scope>
 			</dependency>
