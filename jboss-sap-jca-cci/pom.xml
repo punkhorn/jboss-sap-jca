@@ -32,8 +32,8 @@
   </parent>
   <artifactId>jboss-sap-jca-cci</artifactId>
 
-  <name>JBoss SAP JCA Connector (API module)</name>
-  <description>JBoss SAP JCA Connector (API module)</description>
+  <name>JBoss SAP JCA Connector (CCI module)</name>
+  <description>JBoss SAP JCA Connector (CCI module)</description>
   <url>http://www.jboss.org</url>
 
   <developers>
@@ -56,6 +56,12 @@
     <name>JBoss, a division of Red Hat, Inc.</name>
     <url>http://www.jboss.org</url>
   </organization>
+  
+  <properties>
+  	<as7module.srcdir>${project.basedir}/src/main/as7module</as7module.srcdir>
+  	<as7module.destdir>${project.build.directory}/as7module</as7module.destdir>
+  	<CCI_JAR_NAME>${project.artifactId}-${project.version}.${project.packaging}</CCI_JAR_NAME>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -113,11 +119,128 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-module-skeleton</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${as7module.destdir}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${as7module.srcdir}</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-plugin-xml</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/src/main/resources</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}</directory>
+									<filtering>false</filtering>
+									<includes>
+										<include>plugin.xml</include>
+									</includes>
+								</resource>
+							</resources>
+						<overwrite>true</overwrite>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-cci-jar</id>
+						<phase>install</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${as7module.destdir}/org/jboss/jca/adapters/sap/main</outputDirectory>
+						<resources>
+							<resource>
+								<directory>${project.build.directory}</directory>
+								<filtering>false</filtering>
+								<includes>
+									<include>${CCI_JAR_NAME}</include>
+								</includes>
+							</resource>
+						</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependency-jars</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${as7module.destdir}/org/jboss/jca/adapters/sap/main</outputDirectory>
+							<artifactItems>
+								<artifactItem>
+							    	<groupId>org.eclipse.emf</groupId>
+							    	<artifactId>org.eclipse.emf.common</artifactId>
+							    	<type>jar</type>
+							    	<overWrite>true</overWrite>
+								</artifactItem>
+								<artifactItem>
+							    	<groupId>org.eclipse.emf</groupId>
+   									<artifactId>org.eclipse.emf.ecore</artifactId>
+							    	<type>jar</type>
+							    	<overWrite>true</overWrite>
+								</artifactItem>
+								<artifactItem>
+							    	<groupId>org.eclipse.emf</groupId>
+							    	<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+							    	<type>jar</type>
+							    	<overWrite>true</overWrite>
+								</artifactItem>
+<!-- 								<artifactItem> -->
+<!-- 							    	<groupId>com.sap.conn.jco</groupId> -->
+<!-- 							    	<artifactId>sapjco3</artifactId> -->
+<!-- 							    	<type>jar</type> -->
+<!-- 							    	<overWrite>true</overWrite> -->
+<!-- 							    	<outputDirectory>${as7module.destdir}/com/sap/conn/jco/main</outputDirectory> -->
+<!-- 								</artifactItem> -->
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<plugin>
+			  <groupId>org.apache.felix</groupId>
+			  <artifactId>maven-bundle-plugin</artifactId>
+			  <executions>
+			    <execution>
+			      <id>bundle-manifest</id>
+			      <phase>process-classes</phase>
+			      <goals>
+			        <goal>manifest</goal>
+			      </goals>
+			    </execution>
+			  </executions>
 			</plugin>
 		</plugins>
 	</build>

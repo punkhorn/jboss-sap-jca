@@ -34,6 +34,7 @@
 		<module>jboss-sap-jca-cci</module>
 		<module>jboss-sap-jca-spi</module>
 		<module>jboss-sap-jca-rar</module>
+		<module>jboss-sap-jca-dependencies</module>
 	</modules>
 	
   <developers>
@@ -65,8 +66,11 @@
 		<version.org.jboss.shrinkwrap.resolver>2.0.0-alpha-6</version.org.jboss.shrinkwrap.resolver>
 		<version.junit>4.8.1</version.junit>
 		<version.sapjco3>3.0.8</version.sapjco3>
+		<version.org.apache.felix.maven.bundle.plugin>2.3.7</version.org.apache.felix.maven.bundle.plugin>
 		<version.org.apache.maven.compiler.plugin>2.3.2</version.org.apache.maven.compiler.plugin>
-		<version.org.apache.maven.jar.plugin>2.4</version.org.apache.maven.jar.plugin>
+		<version.org.apache.maven.jar.plugin>2.3.2</version.org.apache.maven.jar.plugin>
+		<version.org.apache.maven.resources.plugin>2.5</version.org.apache.maven.resources.plugin>
+		<version.org.apache.maven.dependency.plugin>2.4</version.org.apache.maven.dependency.plugin>
 		<version.org.apache.maven.rar.plugin>2.3</version.org.apache.maven.rar.plugin>
 		<version.org.apache.maven.source.plugin>2.1.2</version.org.apache.maven.source.plugin>
 		<version.org.apache.maven.surefire.plugin>2.12</version.org.apache.maven.surefire.plugin>
@@ -81,6 +85,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<skip.integration.tests>true</skip.integration.tests>
 		<skip.unit.tests>false</skip.unit.tests>
+		<manifest-location>src/main/resources/META-INF</manifest-location>
 	</properties>
 	<dependencyManagement>
 	 	<dependencies>
@@ -319,6 +324,21 @@
 							</goals>
 						</execution>
 					</executions>
+					<configuration>
+					  <archive>
+					    <manifestFile>${manifest-location}/MANIFEST.MF</manifestFile>
+					  </archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${version.org.apache.maven.resources.plugin}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>${version.org.apache.maven.dependency.plugin}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -386,6 +406,17 @@
 						</execution>
 					</executions>
 				</plugin>
+		        <plugin>
+		          <groupId>org.apache.felix</groupId>
+		          <artifactId>maven-bundle-plugin</artifactId>
+		          <version>${version.org.apache.felix.maven.bundle.plugin}</version>
+		          <configuration>
+		          	<archive>
+		          		<forced>true</forced><!-- dummy entry to stop bundleplugin from picking up jar config --> 
+		          	</archive>
+		            <manifestLocation>${manifest-location}</manifestLocation>
+		          </configuration>
+		        </plugin>
 				<plugin>
 					<groupId>org.jboss.as.plugins</groupId>
 					<artifactId>jboss-as-maven-plugin</artifactId>
