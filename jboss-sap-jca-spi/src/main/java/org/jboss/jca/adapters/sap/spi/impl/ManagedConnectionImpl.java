@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2012, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2013, Red Hat Middleware LLC, and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -301,7 +301,7 @@ public class ManagedConnectionImpl implements ManagedConnection {
 		}
 		
 		// End any stateful session.
-		endStatefulSession();
+		internalEndStatefulSession();
 	}
 
 	/**
@@ -535,6 +535,15 @@ public class ManagedConnectionImpl implements ManagedConnection {
 		if (inTransaction)
 			throw ExceptionBundle.EXCEPTIONS.connectionHasOutstandingTransaction();
 		
+		internalEndStatefulSession();
+	}
+	
+	/**
+	 * Internal logic to end stateful session.
+	 * <p>NB: logic refactored into internal method in order to call without state and transaction checks from {@link #cleanup() }.
+	 * @throws ResourceException
+	 */
+	protected void internalEndStatefulSession() throws ResourceException {
 		if (!JCoContext.isStateful(destination))
 			return;
 		
@@ -638,7 +647,7 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	 * 
 	 * @throws ResourceException if connection is in a <code>DESTROYED</code> state.
 	 */
-	void checkState() throws ResourceException {
+	private void checkState() throws ResourceException {
 		if (state == State.DESTROYED) {
 			throw ExceptionBundle.EXCEPTIONS.connectionIsDestroyed();
 		}

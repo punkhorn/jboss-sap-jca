@@ -57,6 +57,14 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * States of a manage connection factory.
+	 */
+	public static enum State {
+		ACTIVE,		/* Active managed connection factory capable of creating managed connection*/ 
+		DESTROYED;	/* Destroyed managed connection factory; unusable state */
+	}
+
 	/** 
 	 * The resource adapter 
 	 */
@@ -80,6 +88,14 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory {
 	 * The set of active managed connection currently managed by this factory.
 	 */
 	private final Set<ManagedConnectionImpl> connections = new HashSet<ManagedConnectionImpl>();
+	
+	/** 
+	 * State of connection.
+	 * 
+	 * Managed connection factory starts in <code>ACTIVE</code> state when created and transitions to final <code>DESTROYED</code> state 
+	 * when destroyed by application server. 
+	 */
+	private State state = State.ACTIVE;
 	
 	/**
 	 * 
@@ -196,7 +212,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory {
 	 * {@inheritDoc}
 	 */
 	public Object createConnectionFactory() throws ResourceException {
-		throw ExceptionBundle.EXCEPTIONS.nonManagedEnvironmentsNotSupported();
+		return new ConnectionFactoryImpl(this, new DefaultConnectionManagerImpl());
 	}
 
 	/**
@@ -204,7 +220,8 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory {
 	 */
 	public ManagedConnection createManagedConnection(Subject subject, ConnectionRequestInfo cxRequestInfo)
 			throws ResourceException {
-
+		checkState();
+		
 		// validate connection request info type
 		if (cxRequestInfo != null && !(cxRequestInfo instanceof ConnectionRequestInfoImpl))
 			throw ExceptionBundle.EXCEPTIONS.invalidConnectionRequestInfoType(cxRequestInfo.getClass().getName());
@@ -240,6 +257,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory {
 	@SuppressWarnings("rawtypes")
 	public ManagedConnection matchManagedConnections(Set connectionSet, Subject subject,
 			ConnectionRequestInfo cxRequestInfo) throws ResourceException {
+		checkState();
 		
 		// Nothing to match
 		if (connectionSet == null)
@@ -349,7 +367,11 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory {
 	public void setResourceAdapter(ResourceAdapter ra) {
 		if (!(ra instanceof ResourceAdapterImpl))
 			throw ExceptionBundle.EXCEPTIONS.invalidResourceAdapterTypeSetOnManagedConnectionFactory(ra == null ? "null" : ra.getClass().getName());
+		if (this.ra != null)
+			throw ExceptionBundle.EXCEPTIONS.canNotChangeAssociationOfManagedConnectionFactoryDuringItsLifeTime();
+		
 		this.ra = (ResourceAdapterImpl) ra;
+		this.ra.associateConnectionFactory(this);
 	}
 
 	/**
@@ -373,6 +395,35 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory {
 			return false;
 		ManagedConnectionFactoryImpl obj = (ManagedConnectionFactoryImpl) other;
 		return obj.defaultConnectionRequestInfo.equals(defaultConnectionRequestInfo);
+	}
+	
+	/**
+	 * Destroys all managed connection associated with this managed connection
+	 * factory and places this factory permanently into a destroyed unusable state.
+	 * 
+	 * @throws ResourceException
+	 */
+	public void destroy() throws ResourceException {
+		
+		synchronized (state) {
+			if (state == State.DESTROYED)
+				return;
+			state = State.DESTROYED;
+		}
+
+		Set<ManagedConnectionImpl> copy = null;
+		synchronized(connections) {
+			if (connections.size() > 0)
+				copy = new HashSet<ManagedConnectionImpl>(connections);
+		}
+		
+		if (copy != null) {
+			for (ManagedConnectionImpl managedConnection: copy) {
+				managedConnection.destroy();
+			}
+		}
+		
+		this.ra.dissociateConnection(this);
 	}
 
 	/*
@@ -1467,7 +1518,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory {
 	 *  
 	 * @param connection - The managed connection to be associated.
 	 */
-	void associateConnection(ManagedConnectionImpl connection) {
+	protected void associateConnection(ManagedConnectionImpl connection) {
 		synchronized (connections) {
 			connections.add(connection);
 		}
@@ -1475,11 +1526,24 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory {
 
 	/**
 	 * Dissociate the given managed connection with this factory 
-	 * @param connection
+	 * @param connection - The managed connection to be dissociated.
 	 */
-	void dissociateConnection(ManagedConnectionImpl connection) {
+	protected void dissociateConnection(ManagedConnectionImpl connection) {
 		synchronized (connections) {
 			connections.remove(connection);
 		}
 	}
+	
+	/**
+	 * Internal helper method used by public methods to check the state of this connection factory before performing an operation on it. This
+	 * method prevents operations from being performed on a connection in a <code>DESTROYED</code> state.
+	 * 
+	 * @throws ResourceException if connection is in a <code>DESTROYED</code> state.
+	 */
+	private void checkState() throws ResourceException {
+		if (state == State.DESTROYED) {
+			throw ExceptionBundle.EXCEPTIONS.connectionIsDestroyed();
+		}
+	}
+
 }

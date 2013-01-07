@@ -21,6 +21,9 @@
  */
 package org.jboss.jca.adapters.sap.spi.impl;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.resource.ResourceException;
 import javax.resource.spi.ActivationSpec;
 import javax.resource.spi.BootstrapContext;
@@ -43,6 +46,11 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	/** Destination Provider for JCo runtime. */
 	private final DestinationDataProviderImpl destinationDataProvider;
 
+	/**
+	 * The set of active managed connection factories currently managed by this resource adapter.
+	 */
+	private final Set<ManagedConnectionFactoryImpl> factories = new HashSet<ManagedConnectionFactoryImpl>();
+	
 	/**
 	 * Default constructor
 	 */
@@ -74,6 +82,24 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	 * {@inheritDoc}
 	 */
 	public void stop() {
+
+		// Destroy all outstanding connection factories
+		Set<ManagedConnectionFactoryImpl> copy = null;
+		synchronized (factories) {
+			if (factories.size() > 0) 
+				copy = new HashSet<ManagedConnectionFactoryImpl>(factories);
+		}
+		
+		if (copy != null) {
+			for (ManagedConnectionFactoryImpl managedConnectionFactory: copy) {
+				try {
+					managedConnectionFactory.destroy();
+				} catch (ResourceException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 		Environment.unregisterDestinationDataProvider(destinationDataProvider);
 	}
 
@@ -109,8 +135,29 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 		return true;
 	}
 
-	DestinationDataProviderImpl getDestinationDataProvider() {
+	protected DestinationDataProviderImpl getDestinationDataProvider() {
 		return destinationDataProvider;
 	}
 
+	/**
+	 * Associate the given managed connection factory with this adapter.
+	 *  
+	 * @param factory - The managed connection factory to be associated.
+	 */
+	protected void associateConnectionFactory(ManagedConnectionFactoryImpl factory) {
+		synchronized (factories) {
+			factories.add(factory);
+		}
+	}
+
+	/**
+	 * Dissociate the given managed connection factory with this a adapter.
+	 * @param factory - The managed connection factory to be dissociated.
+	 */
+	protected void dissociateConnection(ManagedConnectionFactoryImpl factory) {
+		synchronized (factories) {
+			factories.remove(factory);
+		}
+	}
+	
 }

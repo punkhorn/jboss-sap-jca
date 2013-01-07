@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
@@ -24,6 +25,7 @@ import javax.resource.spi.ResourceAdapterInternalException;
 import javax.resource.spi.security.PasswordCredential;
 import javax.security.auth.Subject;
 
+import org.jboss.jca.adapters.sap.cci.impl.ConnectionFactoryImpl;
 import org.jboss.jca.adapters.sap.spi.impl.ConnectionRequestInfoImpl;
 import org.jboss.jca.adapters.sap.spi.impl.ManagedConnectionFactoryImpl;
 import org.jboss.jca.adapters.sap.spi.impl.ManagedConnectionImpl;
@@ -162,10 +164,10 @@ public class TestManagedConnectionFactoryImpl {
 		ConnectionManager connectionManager = mock(ConnectionManager.class);
 		
 		// When
-		managedConnectionFactoryImpl.createConnectionFactory(connectionManager);
+		Object connectionFactory = managedConnectionFactoryImpl.createConnectionFactory(connectionManager);
 		
 		// Then
-		/* No exceptions happened; life is good! */
+		assertThat("managedConnectionFactory.createConnectionFactory() returned invalid type of connection factory", connectionFactory, instanceOf(ConnectionFactoryImpl.class));
 	}
 
 	@Test()
@@ -180,13 +182,13 @@ public class TestManagedConnectionFactoryImpl {
 		assertThat("ManagedConnectionFactoryImpl.createManagedConnection(subjectWithValidCredentials, null) returned null", managedConnection, notNullValue());
 	}
 
-	@Test(expected = ResourceException.class)
+	@Test
 	public void testCreateConnectionFactoryWithoutConnectionManager() throws ResourceException {
 		// When
-		managedConnectionFactoryImpl.createConnectionFactory();
+		Object connectionFactory = managedConnectionFactoryImpl.createConnectionFactory();
 		
 		// Then
-		fail("ManagedConnectionFactoryImpl.createConnectionFactory() failed to throw ResourceException");
+		assertThat("managedConnectionFactory.createConnectionFactory() returned invalid type of connection factory", connectionFactory, instanceOf(ConnectionFactoryImpl.class));
 	}
 
 	@Test(expected = ResourceException.class)

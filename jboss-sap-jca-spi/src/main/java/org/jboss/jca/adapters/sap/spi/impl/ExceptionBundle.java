@@ -172,6 +172,12 @@ public interface ExceptionBundle {
 	@Message(id = 43, value = "Failed to get record factory")
 	ResourceException failedToGetRecordFactory(@Cause Throwable ex);
 
+	@Message(id = 44, value = "The association of managed connection factory can not be changed during its lifetime")
+	IllegalStateException canNotChangeAssociationOfManagedConnectionFactoryDuringItsLifeTime();
+	
+	@Message(id = 45, value = "The resource adapter is undeployed")
+	ResourceException resourceAdapterIsUndeployed();
+
 }
 
 
