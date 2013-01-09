@@ -31,8 +31,8 @@
 	</parent>
 	<artifactId>jboss-sap-jca-rar</artifactId>
 	<packaging>rar</packaging>
-	<name>JBoss SAP JCA Connector (RAR module)</name>
-	<description>JBoss SAP JCA Connector (RAR module)</description>
+	<name>JBoss SAP JCA Connector (Resource Adapter Archive module)</name>
+	<description>This project packages the JCA connector library of the JBoss SAP JCA Connector into a resource adapter archive.</description>
 	<url>http://www.jboss.org</url>
 	
   <developers>
@@ -161,22 +161,17 @@
 			<artifactId>sapjco3</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.jboss.jca.adapters</groupId>
-			<artifactId>jboss-sap-jca-cci</artifactId>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.jca.adapters</groupId>
-			<artifactId>jboss-sap-jca-spi</artifactId>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-library</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.jca.adapters</groupId>
+			<artifactId>jboss-sap-jca-connector</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

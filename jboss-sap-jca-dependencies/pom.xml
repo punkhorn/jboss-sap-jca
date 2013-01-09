@@ -29,10 +29,10 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>jboss-sap-jca-dependencies</artifactId>
-	<packaging>bundle</packaging>
+	<packaging>jar</packaging>
 
-	<name>JBoss SAP JCA Connector (DEPENDENCIES module)</name>
-	<description>JBoss SAP JCA Connector (DEPENDENCIES module)</description>
+	<name>JBoss SAP JCA Connector (Pluging Dependencies module)</name>
+	<description>This project packages the dependencies of the JCA connector library of the JBoss SAP JCA Connector into an Eclipse plugin. It is used when deploying the JCA connector library into the Eclipse environment as an Eclipse plugin</description>
 	<url>http://www.jboss.org</url>
 
 	<dependencies>
@@ -47,6 +47,10 @@
 		<dependency>
 			<groupId>org.jboss.ironjacamar</groupId>
 			<artifactId>ironjacamar-spec-api</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>org.jboss.spec.javax.transaction</groupId>
+            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -74,6 +78,49 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependency-jars</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/src/main/resources/jars</outputDirectory>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.jboss.ironjacamar</groupId>
+									<artifactId>ironjacamar-spec-api</artifactId>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+								</artifactItem>
+								<artifactItem>
+						            <groupId>org.jboss.logging</groupId>
+						            <artifactId>jboss-logging</artifactId>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+								</artifactItem>
+								<artifactItem>
+						            <groupId>org.jboss.logging</groupId>
+						            <artifactId>jboss-logging-processor</artifactId>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+								</artifactItem>
+								<artifactItem>
+						            <groupId>org.jboss.spec.javax.transaction</groupId>
+						            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- 
+			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<extensions>true</extensions>
@@ -88,11 +135,14 @@
 						<Bundle-ClassPath>{maven-dependencies}</Bundle-ClassPath>
 						<Embed-Transitive>true</Embed-Transitive>
 						<Embed-Directory>jars</Embed-Directory>
+						<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+						<Bundle-Version>1.0.0.qualifier</Bundle-Version>
 						<_failok>true</_failok>
 						<_nouses>true</_nouses>
 					</instructions>
 				</configuration>
 			</plugin>
+			 -->
 		</plugins>
 	</build>
 </project>
