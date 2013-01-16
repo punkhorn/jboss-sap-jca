@@ -54,6 +54,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The name of this Record
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Record Name</em>' attribute.
 	 * @see #setRecordName(String)
 	 * @model default="0"
@@ -81,6 +84,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The short description of this Record
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Record Short Description</em>' attribute.
 	 * @see #setRecordShortDescription(String)
 	 * @model
@@ -107,6 +113,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Create a copy of this Record
+	 * <!-- end-model-doc -->
 	 * @model
 	 * @generated
 	 */
@@ -118,6 +127,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Compare two Records for equality
+	 * <!-- end-model-doc -->
 	 * @model
 	 * @generated
 	 */
@@ -129,6 +141,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Return a hashcode for this Record
+	 * <!-- end-model-doc -->
 	 * @model
 	 * @generated
 	 */
@@ -140,6 +155,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns the number of attributes defined for this Record.
+	 * <!-- end-model-doc -->
 	 * @model
 	 * @generated
 	 */
@@ -151,6 +169,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns <code>true</code> if this Record has no defined attributes.
+	 * <!-- end-model-doc -->
 	 * @model kind="operation"
 	 * @generated
 	 */
@@ -162,6 +183,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns <code>true</code> if this Record has attribute with name equal to specified key.
+	 * <!-- end-model-doc -->
 	 * @model
 	 * @generated
 	 */
@@ -173,6 +197,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns <code>true</code> if this Record contains one or more attributes with specified value.
+	 * <!-- end-model-doc -->
 	 * @model
 	 * @generated
 	 */
@@ -187,6 +214,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * <b>NB:</b> {@link MappedRecord} and {@link IndexRecord} values of record are automatically created when first retrieved.
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns the value of attribute with name equal to specified key. Returns <code>null</code> if there is no attribute with name equal to specified key in this Record. 
+	 * <!-- end-model-doc -->
 	 * @model
 	 * @generated
 	 */
@@ -198,6 +228,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Sets the value of attribute with name equal to specified key to the specified value. No value is set if there is no attribute with name equal to specified key in this Record.
+	 * <!-- end-model-doc -->
 	 * @model
 	 * @generated
 	 */
@@ -209,6 +242,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Unsets the value of the attribute with name equal to the specified key. No value is unset if there is no attribute with name equal to specified key in this Record.
+	 * <!-- end-model-doc -->
 	 * @model
 	 * @generated
 	 */
@@ -220,6 +256,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * For each mapping in the specified map, sets the value of attribute with name equal to the mappings key to the mappings value. Mappings in specified map with key values that do not correspond to an attribute name in record are ignored.
+	 * <!-- end-model-doc -->
 	 * @model mDataType="org.jboss.jca.adapters.sap.cci.RawMap"
 	 * @generated
 	 */
@@ -231,6 +270,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 *  Unsets the value of all attributes in this Record.
+	 * <!-- end-model-doc -->
 	 * @model
 	 * @generated
 	 */
@@ -242,6 +284,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns a {@link Set} view of attribute names in this Record.
+	 * <!-- end-model-doc -->
 	 * @model dataType="org.jboss.jca.adapters.sap.cci.RawSet"
 	 * @generated
 	 */
@@ -253,6 +298,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns a {@link Set} view of attribute values in this Record.
+	 * <!-- end-model-doc -->
 	 * @model dataType="org.jboss.jca.adapters.sap.cci.RawCollection"
 	 * @generated
 	 */
@@ -264,6 +312,9 @@ public interface MappedRecord extends EObject, javax.resource.cci.MappedRecord {
 	 * {@inheritDoc}
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns a {@link Set} view of entries in this Record.
+	 * <!-- end-model-doc -->
 	 * @model dataType="org.jboss.jca.adapters.sap.cci.RawSet"
 	 * @generated
 	 */

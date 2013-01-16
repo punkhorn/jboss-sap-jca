@@ -166,6 +166,9 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 				addListMetaData(outputRecordClass, changingParameterListMetaData);
 				addListMetaData(outputRecordClass, tableParameterListMetaData);
 				addAnnotation(outputRecordClass, GenNS_URI, GenNS_DOCUMENTATION_KEY, "Output Record for " + functionModuleName);
+				
+				// Register Package
+				EPackage.Registry.INSTANCE.put(nsURI, ePackage);
 			}
 			
 			return ePackage;

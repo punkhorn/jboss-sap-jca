@@ -22,7 +22,6 @@
  */
 package org.jboss.jca.adapters.sap.cci.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -31,10 +30,15 @@ import java.util.ListIterator;
 import javax.resource.ResourceException;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.jboss.jca.adapters.sap.cci.IndexedRecord;
 import org.jboss.jca.adapters.sap.cci.MappedRecord;
 
@@ -110,7 +114,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	/**
 	 * @generated NOT
 	 */
-	private List<MappedRecord> records = new ArrayList<MappedRecord>();
+	protected EList<MappedRecord> records = new BasicInternalEList<MappedRecord>(MappedRecord.class);
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -188,6 +192,33 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * @generated NOT
 	 */
 	public boolean isSetRecordType() {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<MappedRecord> getRecord() {
+		return records;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void unsetRecord() {
+		// NOOP
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean isSetRecord() {
 		return true;
 	}
 
@@ -511,6 +542,20 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case CciPackageImpl.INDEXED_RECORD__RECORD:
+				return ((InternalEList<?>)getRecord()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CciPackageImpl.INDEXED_RECORD__RECORD_NAME:
@@ -519,6 +564,8 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 				return getRecordShortDescription();
 			case CciPackageImpl.INDEXED_RECORD__RECORD_TYPE:
 				return getRecordType();
+			case CciPackageImpl.INDEXED_RECORD__RECORD:
+				return getRecord();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -528,6 +575,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -536,6 +584,10 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 				return;
 			case CciPackageImpl.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION:
 				setRecordShortDescription((String)newValue);
+				return;
+			case CciPackageImpl.INDEXED_RECORD__RECORD:
+				getRecord().clear();
+				getRecord().addAll((Collection<? extends MappedRecord>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -555,6 +607,9 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 			case CciPackageImpl.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION:
 				setRecordShortDescription(RECORD_SHORT_DESCRIPTION_EDEFAULT);
 				return;
+			case CciPackageImpl.INDEXED_RECORD__RECORD:
+				unsetRecord();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -573,6 +628,8 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 				return RECORD_SHORT_DESCRIPTION_EDEFAULT == null ? recordShortDescription != null : !RECORD_SHORT_DESCRIPTION_EDEFAULT.equals(recordShortDescription);
 			case CciPackageImpl.INDEXED_RECORD__RECORD_TYPE:
 				return isSetRecordType();
+			case CciPackageImpl.INDEXED_RECORD__RECORD:
+				return isSetRecord();
 		}
 		return super.eIsSet(featureID);
 	}

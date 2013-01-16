@@ -44,7 +44,8 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @model superTypes="org.jboss.jca.adapters.sap.cci.CCIIndexedRecord"
+ * @model features="record" 
+ *        recordType="org.jboss.jca.adapters.sap.cci.MappedRecord" recordContainment="true" recordUnsettable="true" recordMany="true" recordVolatile="true" recordSuppressedGetVisibility="true" recordSuppressedSetVisibility="true" superTypes="org.jboss.jca.adapters.sap.cci.CCIIndexedRecord"
  * @generated
  */
 @SuppressWarnings("rawtypes")
@@ -129,6 +130,27 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 	 * @generated
 	 */
 	boolean isSetRecordType();
+
+	/**
+	 * Unsets the value of the '{@link org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecord <em>Record</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetRecord()
+	 * @see #getRecord()
+	 * @generated
+	 */
+	void unsetRecord();
+
+	/**
+	 * Returns whether the value of the '{@link org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecord <em>Record</em>}' containment reference list is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Record</em>' containment reference list is set.
+	 * @see #unsetRecord()
+	 * @see #getRecord()
+	 * @generated
+	 */
+	boolean isSetRecord();
 
 	/**
 	 * <!-- begin-user-doc -->

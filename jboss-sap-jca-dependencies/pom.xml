@@ -31,8 +31,8 @@
 	<artifactId>jboss-sap-jca-dependencies</artifactId>
 	<packaging>jar</packaging>
 
-	<name>JBoss SAP JCA Connector (Pluging Dependencies module)</name>
-	<description>This project packages the dependencies of the JCA connector library of the JBoss SAP JCA Connector into an Eclipse plugin. It is used when deploying the JCA connector library into the Eclipse environment as an Eclipse plugin</description>
+	<name>JBoss SAP JCA Connector (Plug-in Dependencies module)</name>
+	<description>This project packages the dependencies of the JCA connector library of the JBoss SAP JCA Connector into an Eclipse plug-in. It is used when deploying the JCA connector library into the Eclipse environment as an Eclipse plug-in</description>
 	<url>http://www.jboss.org</url>
 
 	<dependencies>
@@ -119,30 +119,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- 
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<Embed-Dependency>
-							jboss-logging-processor, jboss-logging, ironjacamar-spec-api
-						</Embed-Dependency>
-						<_exportcontents>
-							*
-						</_exportcontents>
-						<Bundle-ClassPath>{maven-dependencies}</Bundle-ClassPath>
-						<Embed-Transitive>true</Embed-Transitive>
-						<Embed-Directory>jars</Embed-Directory>
-						<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
-						<Bundle-Version>1.0.0.qualifier</Bundle-Version>
-						<_failok>true</_failok>
-						<_nouses>true</_nouses>
-					</instructions>
-				</configuration>
-			</plugin>
-			 -->
 		</plugins>
 	</build>
 </project>
