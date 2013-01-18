@@ -24,7 +24,6 @@ package org.jboss.jca.adapters.sap.spi;
 import java.util.Map;
 
 import javax.resource.ResourceException;
-import javax.resource.spi.ManagedConnectionFactory;
 
 /**
  * The administration interface of the JBoss SAP JCA Connector for controlling

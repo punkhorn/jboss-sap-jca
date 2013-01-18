@@ -21,6 +21,7 @@
  */
 package org.jboss.jca.adapters.sap.spi;
 
+import javax.resource.ResourceException;
 import javax.resource.spi.ResourceAdapterAssociation;
 
 import org.jboss.jca.adapters.sap.cci.ConnectionSpec;
@@ -28,13 +29,16 @@ import org.jboss.jca.adapters.sap.cci.ConnectionSpec;
 public interface ManagedConnectionFactory extends
 		javax.resource.spi.ManagedConnectionFactory, ResourceAdapterAssociation {
 	
-	@Override
-	public boolean equals(Object other);
-	
-	@Override
-	public int hashCode();
-	
+	/**
+	 * Destroys all managed connection associated with this managed connection
+	 * factory and places this factory permanently into a destroyed unusable state.
+	 * 
+	 * @throws ResourceException
+	 */
+	public void destroy() throws ResourceException;
+
 	public ConnectionRequestInfo convertConnectionSpecToConnectionRequestInfo(ConnectionSpec connectionSpec);
+
 	public ConnectionSpec convertConnectionRequestInfoToConnectionSpec(ConnectionRequestInfo connectionRequestInfo);
 
 }

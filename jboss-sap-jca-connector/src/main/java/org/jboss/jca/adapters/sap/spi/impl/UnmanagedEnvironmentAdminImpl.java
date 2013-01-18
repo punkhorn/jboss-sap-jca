@@ -30,8 +30,8 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 import javax.resource.ResourceException;
-import javax.resource.spi.ManagedConnectionFactory;
 
+import org.jboss.jca.adapters.sap.spi.ManagedConnectionFactory;
 import org.jboss.jca.adapters.sap.spi.UnmanagedEnvironmentAdmin;
 
 /**
