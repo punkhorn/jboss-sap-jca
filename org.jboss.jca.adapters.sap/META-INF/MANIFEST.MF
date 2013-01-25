@@ -1,0 +1,32 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JBoss SAP JCA Connector Plugin
+Bundle-SymbolicName: org.jboss.jca.adapters.sap;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: lib/jboss-sap-jca-connector.jar, lib/ironjacamar-spec-api.jar, lib/jboss-logging.jar, lib/jboss-logging-processor.jar, lib/jboss-transaction-api_1.1_spec.jar
+Export-Package: org.jboss.jca.adapters.sap.cci,
+ org.jboss.jca.adapters.sap.cci.impl,
+ org.jboss.jca.adapters.sap.cci.util,
+ org.jboss.jca.adapters.sap.spi,
+ org.jboss.jca.adapters.sap.spi.impl, 
+ org.jboss.logging,
+ org.jboss.logging.processor,
+ org.jboss.logging.processor.apt,
+ org.jboss.logging.processor.intf.model,
+ org.jboss.logging.processor.model,
+ org.jboss.logging.processor.util,
+ org.jboss.logging.processor.validation,
+ javax.resource,
+ javax.resource.cci,
+ javax.resource.spi,
+ javax.resource.spi.endpoint,
+ javax.resource.spi.security,
+ javax.resource.spi.work,
+ javax.transaction,
+ javax.transaction.xa
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport,
+ com.sap.conn.jco;bundle-version="3.0.8"
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: JBoss by Red Hat

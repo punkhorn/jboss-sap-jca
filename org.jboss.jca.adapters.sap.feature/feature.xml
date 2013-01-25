@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.jboss.jca.adapters.sap.feature"
+      label="JBoss SAP JCA Connector Feature"
+      version="1.0.0.qualifier"
+      provider-name="JBoss by Red Hat">
+
+   <description url="http://www.jboss.org">
+      The JBoss SAP JCA Connector Feature provides tooling to connect to and interact with SAP Enterprise Information Systems.
+   </description>
+
+   <copyright>
+      Copyright 2013 Red Hat, Inc. and/or its affiliates.
+   </copyright>
+
+   <license url="http://www.eclipse.org/legal/epl-v10.html">
+      [Enter License Description here.]
+   </license>
+
+   <plugin
+         id="com.sap.conn.jco"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.jboss.jca.adapters.sap"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.jboss.jca.adapters.sap.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.jboss.jca.adapters.sap.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.jboss.jca.adapters.sap.feature_1.0.0.qualifier.jar" id="org.jboss.jca.adapters.sap.feature" version="1.0.0.qualifier">
+      <category name="org.jboss.jca.adapters.sap"/>
+   </feature>
+   <category-def name="org.jboss.jca.adapters.sap" label="JBoss SAP JCA Connector">
+      <description>
+         Provides tooling to connect to and interact with SAP Enterprise Information Systems.
+      </description>
+   </category-def>
+</site>

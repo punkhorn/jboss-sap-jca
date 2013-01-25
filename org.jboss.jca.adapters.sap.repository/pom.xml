@@ -1,0 +1,38 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>org.jboss.jca.adapters.sap.repository</artifactId>
+	<packaging>eclipse-repository</packaging>
+
+	<parent>
+		<groupId>org.jboss.jca.adapters</groupId>
+		<artifactId>jboss-sap-jca</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<name>JBoss SAP JCA Connector (Eclipse Repository module)</name>
+	<url>http://www.jboss.org</url>
+	<description>This project builds the JCA connector Eclipse Repository for the  JBoss SAP JCA Connector.</description>
+	<organization>
+		<name>JBoss, a division of Red Hat, Inc.</name>
+		<url>http://www.jboss.org</url>
+	</organization>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-repository-plugin</artifactId>
+			</plugin>
+		 </plugins>
+	</build>
+</project>

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: JBoss SAP JCA Connector
-Bundle-SymbolicName: org.jboss.jca.adapters.sap;singleton:=true
+Bundle-SymbolicName: org.jboss.jca.adapters.sap.connector;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Description: JBoss SAP JCA Connector
 Bundle-ClassPath: .
@@ -21,5 +21,5 @@ Export-Package: org.jboss.jca.adapters.sap.cci;uses:="com.sap.conn.jco.ext",
  org.jboss.jca.adapters.sap.spi;uses:="javax.resource.spi,org.jboss.jca.adapters.sap.cci,com.sap.conn.jco",
  org.jboss.jca.adapters.sap.spi.impl
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore, com.sap.conn.jco,org.jboss.jca.adapters.jboss-sap-jca-dependencies
+ org.eclipse.emf.ecore, com.sap.conn.jco
 Bundle-ActivationPolicy: lazy
