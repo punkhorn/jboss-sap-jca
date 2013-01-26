@@ -152,7 +152,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void begin() throws ResourceException {
+	public synchronized void begin() throws ResourceException {
 		checkState();
 		managedConnection.beginStatefulSession();
 	}
@@ -162,7 +162,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void end() throws ResourceException {
+	public synchronized void end() throws ResourceException {
 		checkState();
 		managedConnection.endStatefulSession();
 	}
@@ -181,7 +181,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public boolean isStateful() {
+	public synchronized boolean isStateful() {
 		if (state == State.ACTIVE)
 			return managedConnection.isStateful();
 		return false;
@@ -190,9 +190,11 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @throws ResourceException 
 	 * @generated NOT
 	 */
-	public ConnectionSpec getConnectionSpec() {
+	public synchronized ConnectionSpec getConnectionSpec() throws ResourceException {
+		checkState();
 		return managedConnectionFactory.convertConnectionRequestInfoToConnectionSpec(connectionRequestInfo);
 	}
 
@@ -201,7 +203,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public Interaction createInteraction() throws ResourceException {
+	public synchronized Interaction createInteraction() throws ResourceException {
 		checkState();
 		InteractionImpl interaction = new InteractionImpl(this);
 		activeInteractions.add(interaction);
@@ -213,7 +215,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public LocalTransaction getLocalTransaction() throws ResourceException {
+	public synchronized LocalTransaction getLocalTransaction() throws ResourceException {
 		checkState();
 		if (localTransaction == null) {
 			localTransaction = new LocalTransactionImpl(managedConnection.getLocalTransaction());
@@ -226,7 +228,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public ConnectionMetaData getMetaData() throws ResourceException {
+	public synchronized ConnectionMetaData getMetaData() throws ResourceException {
 		checkState();
 		if(connectionMetaData == null) {
 			connectionMetaData = new ConnectionMetaDataImpl(managedConnection.getMetaData());
@@ -248,7 +250,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void ping() throws ResourceException {
+	public synchronized void ping() throws ResourceException {
 		checkState();
 		managedConnection.ping();
 	}
@@ -258,24 +260,20 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void close() throws ResourceException {
+	public synchronized void close() throws ResourceException {
 		
 		boolean wasInactive = false;
 		
-		synchronized (this) {
-			if (state == State.CLOSED) 
-				return;
-			if (state == State.INACTIVE)
-				wasInactive = true;
-			state = State.CLOSED;
-		}
+		if (state == State.CLOSED) 
+			return;
+		if (state == State.INACTIVE)
+			wasInactive = true;
+		state = State.CLOSED;
 		
 		// Close all outstanding active interactions 
 		Collection<Interaction> copy = null;
-		synchronized (activeInteractions) {
-			if (activeInteractions.size() > 0)
-				copy = new HashSet<Interaction>(activeInteractions);
-		}
+		if (activeInteractions.size() > 0)
+			copy = new HashSet<Interaction>(activeInteractions);
 		if (copy != null) {
 			for (Interaction interaction: copy) {
 				interaction.close();
@@ -301,9 +299,10 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * Called during the construction of this connection handle and by a {@link ManagedConnection} when it associates with handle.
 	 *  
 	 * @param managedConnection - the managed connection to associate with.
+	 * @throws ResourceException 
 	 * @generated NOT
 	 */
-	public void associateManagedConnection(ManagedConnection managedConnection) {
+	public synchronized void associateManagedConnection(ManagedConnection managedConnection) throws ResourceException {
 		if (this.managedConnection != null) {
 			dissociateManagedConnection();
 		}
@@ -314,9 +313,10 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 
 	/**
 	 * Called by {@link ManagedConnection} when dissociating all of its connection handles. 
+	 * @throws ResourceException 
 	 * @generated NOT
 	 */
-	public void dissociateManagedConnection() {
+	public synchronized void dissociateManagedConnection() throws ResourceException {
 		this.managedConnection.dissociateHandle(this);
 		this.managedConnection = null;
 		this.localTransaction = null;
@@ -328,9 +328,11 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * Called by {@link InteractionImpl} when creating and executing a JCo function.
 	 * 
 	 * @return The underlying destination of the managed connection associated with this connection handle.
+	 * @throws ResourceException 
 	 * @generated NOT
 	 */
-	protected JCoDestination getDestination() {
+	protected synchronized JCoDestination getDestination() throws ResourceException {
+		checkState();
 		return managedConnection.getDestination();
 	}
 
@@ -349,10 +351,8 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * @param interaction the newly closed interaction.
 	 * @generated NOT
 	 */
-	protected void interactionClosed(InteractionImpl interaction) {
-		synchronized (activeInteractions) {
-			activeInteractions.remove(interaction);
-		}
+	protected synchronized void interactionClosed(InteractionImpl interaction) {
+		activeInteractions.remove(interaction);
 	}
 
 	/**
@@ -364,7 +364,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 	 * @throws ResourceException if connection is closed or can not be placed in an <code>ACTIVE</code> state.
 	 * @generated NOT
 	 */
-	protected void checkState() throws ResourceException {
+	private void checkState() throws ResourceException {
 		if (state == State.CLOSED)
 			throw ExceptionBundle.EXCEPTIONS.connectionIsClosed();
 

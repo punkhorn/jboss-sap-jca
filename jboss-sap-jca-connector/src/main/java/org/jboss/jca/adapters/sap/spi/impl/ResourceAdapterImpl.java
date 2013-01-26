@@ -43,6 +43,14 @@ import com.sap.conn.jco.ext.Environment;
  */
 public class ResourceAdapterImpl implements ResourceAdapter {
 
+	/**
+	 * States of a Resource Adapter
+	 */
+	public static enum State {
+		STARTED,
+		STOPPED;
+	}
+
 	/** Destination Provider for JCo runtime. */
 	private final DestinationDataProviderImpl destinationDataProvider;
 
@@ -51,6 +59,15 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	 */
 	private final Set<ManagedConnectionFactoryImpl> factories = new HashSet<ManagedConnectionFactoryImpl>();
 	
+	/** 
+	 * State of resource adapter
+	 * 
+	 * Resource adapter starts in <code>STOPPED</code> state when created and can
+	 * transition back and forth to and from <code>STARTED</code> and
+	 * <code>STOPPED</code> states.
+	 */
+	private State state = State.STOPPED;
+
 	/**
 	 * Default constructor
 	 */
@@ -70,18 +87,33 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	 */
 	public void endpointDeactivation(MessageEndpointFactory endpointFactory, ActivationSpec spec) {
 	}
+	
+	/**
+	 * Returns <code>true</code> if resource adapter is started; <code>false</code> otherwise.
+	 * 
+	 * @return <code>true</code> if resource adapter is started; <code>false</code> otherwise.
+	 */
+	public boolean isStarted() {
+		return state == State.STARTED;
+	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public void start(BootstrapContext ctx) throws ResourceAdapterInternalException {
+	public synchronized void start(BootstrapContext ctx) throws ResourceAdapterInternalException {
+		if (state == State.STARTED)
+			return;
+		state = State.STARTED;
 		Environment.registerDestinationDataProvider(destinationDataProvider);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public void stop() {
+	public synchronized void stop() {
+		if (state == State.STOPPED)
+			return;
+		state = State.STOPPED;
 
 		// Destroy all outstanding connection factories
 		Set<ManagedConnectionFactoryImpl> copy = null;
@@ -144,7 +176,8 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	 *  
 	 * @param factory - The managed connection factory to be associated.
 	 */
-	protected void associateConnectionFactory(ManagedConnectionFactoryImpl factory) {
+	protected void associateConnectionFactory(ManagedConnectionFactoryImpl factory) throws ResourceException {
+		checkState();
 		synchronized (factories) {
 			factories.add(factory);
 		}
@@ -160,4 +193,15 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 		}
 	}
 	
+	/**
+	 * Internal helper method used by public methods to check the state of the Resource Adapter instance before performing an operation on it. This
+	 * method prevents operations from being performed on Resource Adapter instance when it is in a <code>STOPPED</code> state.
+	 * 
+	 * @throws ResourceException if Resource Adapter instance is in an <code>STOPPED</code> state.
+	 */
+	private void checkState() throws ResourceException {
+		if (state == State.STOPPED) {
+			throw ExceptionBundle.EXCEPTIONS.resourceAdapterIsStopped();
+		}
+	}
 }

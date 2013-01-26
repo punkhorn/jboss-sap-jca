@@ -41,36 +41,41 @@ public interface ManagedConnection extends javax.resource.spi.ManagedConnection,
 	 * Called by {@link Connection} when constructing itself.
 	 * 
 	 * @return the managed connection factory associated with this managed connection. 
+	 * @throws ResourceException 
 	 */
-	public ManagedConnectionFactory getManagedConnectionFactory();
+	public ManagedConnectionFactory getManagedConnectionFactory() throws ResourceException;
 	
 	/**
 	 * Called by {@link Connection} and {@link ManagedConnection} when constructing connection handle.
 	 * @return
+	 * @throws ResourceException 
 	 */
-	ConnectionRequestInfo getProperties();
+	ConnectionRequestInfo getProperties() throws ResourceException;
 	
 	/**
 	 * Called by {@link Connection} when associating with this managed connection.
 	 * 
 	 * @param handle - The handle to be associated with managed connection.
+	 * @throws ResourceException 
 	 */
-	public void associateHandle(Connection handle);
+	public void associateHandle(Connection handle) throws ResourceException;
 
 	/**
 	 * Called by {@link ManagedConnection} when closing handle and by {@link Connection} when dissociating from managed connection.
 	 * 
 	 * @param handle - The connection handle to be dissociated from managed connection.
+	 * @throws ResourceException 
 	 */
-	public void dissociateHandle(Connection handle);
+	public void dissociateHandle(Connection handle) throws ResourceException;
 
 	/**
 	 * Close application level handle handle to this connection
 	 * 
 	 * @param handle -
 	 *            The application handle
+	 * @throws ResourceException 
 	 */
-	void closeHandle(Connection handle);
+	void closeHandle(Connection handle) throws ResourceException;
 
 	/**
 	 * Called by {@link ConnectionImpl#getDestination()}

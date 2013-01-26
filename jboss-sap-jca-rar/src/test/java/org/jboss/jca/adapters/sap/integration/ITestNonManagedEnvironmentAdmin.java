@@ -14,19 +14,19 @@ import javax.resource.spi.ManagedConnectionFactory;
 
 import org.jboss.jca.adapters.sap.cci.CciFactory;
 import org.jboss.jca.adapters.sap.cci.InteractionSpec;
-import org.jboss.jca.adapters.sap.spi.UnmanagedEnvironmentAdmin;
+import org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ITestUnmanagedEnvironmentAdmin {
+public class ITestNonManagedEnvironmentAdmin {
 
-	private UnmanagedEnvironmentAdmin spiFactory;
+	private NonManagedEnvironmentAdmin spiFactory;
 
 	@Before
 	public void setUp() throws Exception {
 		// Given
-		spiFactory = UnmanagedEnvironmentAdmin.INSTANCE;
+		spiFactory = NonManagedEnvironmentAdmin.INSTANCE;
 		spiFactory.deployResourceAdapter(null);
 	}
 

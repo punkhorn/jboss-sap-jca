@@ -32,16 +32,16 @@ import java.util.Map;
 import javax.resource.ResourceException;
 
 import org.jboss.jca.adapters.sap.spi.ManagedConnectionFactory;
-import org.jboss.jca.adapters.sap.spi.UnmanagedEnvironmentAdmin;
+import org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin;
 
 /**
- * Implements the {@link UnmanagedEnvironmentAdmin } interface for the JBoss SAP JCA Connector.
+ * Implements the {@link NonManagedEnvironmentAdmin } interface for the JBoss SAP JCA Connector.
  * 
  * @author William Collins
  * 
  * @version $Id: $
  */
-public class UnmanagedEnvironmentAdminImpl implements UnmanagedEnvironmentAdmin {
+public class NonManagedEnvironmentAdminImpl implements NonManagedEnvironmentAdmin {
 
 	/**
 	 * States of Administration instance
@@ -54,7 +54,7 @@ public class UnmanagedEnvironmentAdminImpl implements UnmanagedEnvironmentAdmin 
 	/**
 	 * The Administration instance
 	 */
-	public static final UnmanagedEnvironmentAdmin INSTANCE = new UnmanagedEnvironmentAdminImpl();
+	public static final NonManagedEnvironmentAdmin INSTANCE = new NonManagedEnvironmentAdminImpl();
 
 	/**
 	 * State of Administration instance
@@ -74,7 +74,7 @@ public class UnmanagedEnvironmentAdminImpl implements UnmanagedEnvironmentAdmin 
 	 * Default constructor of Administration instance; protected to prevent multiple
 	 * instances from being constructed.
 	 */
-	protected UnmanagedEnvironmentAdminImpl() {
+	protected NonManagedEnvironmentAdminImpl() {
 	}
 	
 	@Override
@@ -83,7 +83,7 @@ public class UnmanagedEnvironmentAdminImpl implements UnmanagedEnvironmentAdmin 
 	}
 
 	/**
-	 * @see org.jboss.jca.adapters.sap.spi.UnmanagedEnvironmentAdmin#createManagedConnectionFactory(java.util.Map)
+	 * @see org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin#createManagedConnectionFactory(java.util.Map)
 	 */
 	@Override
 	public ManagedConnectionFactory createManagedConnectionFactory(Map<String, String> config) throws ResourceException {
@@ -99,15 +99,14 @@ public class UnmanagedEnvironmentAdminImpl implements UnmanagedEnvironmentAdmin 
 	}
 
 	/**
-	 * @see org.jboss.jca.adapters.sap.spi.UnmanagedEnvironmentAdmin#deployResourceAdapter(java.util.Map)
+	 * @see org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin#deployResourceAdapter(java.util.Map)
 	 */
 	@Override
-	public void deployResourceAdapter(Map<String, String> config) throws ResourceException {
-		synchronized (this) {
-			if (state == State.DEPLOYED)
-				return;
-			state = State.DEPLOYED;
-		}
+	public synchronized void deployResourceAdapter(Map<String, String> config) throws ResourceException {
+		if (state == State.DEPLOYED)
+			return;
+		state = State.DEPLOYED;
+
 		ra = new ResourceAdapterImpl();
 		if (config != null && config.size() > 0) {
 			setProperties(ra, config);
@@ -116,15 +115,14 @@ public class UnmanagedEnvironmentAdminImpl implements UnmanagedEnvironmentAdmin 
 	}
 
 	/**
-	 * @see org.jboss.jca.adapters.sap.spi.UnmanagedEnvironmentAdmin#undeployResourceAdapter()
+	 * @see org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin#undeployResourceAdapter()
 	 */
 	@Override
-	public void undeployResourceAdapter() {
-		synchronized (this) {
-			if (state == State.UNDEPLOYED)
-				return;
-			state = State.UNDEPLOYED;
-		}
+	public synchronized void undeployResourceAdapter() {
+		if (state == State.UNDEPLOYED)
+			return;
+		state = State.UNDEPLOYED;
+
 		ra.stop();
 		ra = null;
 	}

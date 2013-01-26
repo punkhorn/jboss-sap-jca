@@ -293,7 +293,7 @@ public class TestConnectionImpl {
 	}
 
 	@Test
-	public void testGetProperties() {
+	public void testGetProperties() throws ResourceException {
 		// Given 
 		when(mockManagedConnectionFactory.convertConnectionRequestInfoToConnectionSpec(mockConnectionRequestInfo)).thenReturn(mockConnectionSpec);
 		

@@ -720,7 +720,9 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 	}
 	
 	/**
-	 * @param record
+	 * Populate this record with the contents of <code>record</code>.
+	 * 
+	 * @param record - the {@link JCoRecord} whose contents are populated into this record.
 	 * @throws ResourceException
 	 * @generated NOT
 	 */
@@ -748,7 +750,9 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 	}
 	
 	/**
-	 * @param record
+	 * Populate <code>record</code> with the contents of this record.
+
+	 * @param record - the {@link JCoRecord} populated with the contents of this record.
 	 * @throws ResourceException
 	 * @generated NOT
 	 */

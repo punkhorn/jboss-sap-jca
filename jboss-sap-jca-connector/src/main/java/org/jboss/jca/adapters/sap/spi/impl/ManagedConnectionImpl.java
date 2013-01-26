@@ -183,7 +183,9 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int hashCode() {
+	public synchronized int hashCode() {
+		if (state == State.DESTROYED) 
+			return 7;
 		return destination.getProperties().hashCode();
 	}
 	
@@ -191,7 +193,9 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean equals(Object other) {
+	public synchronized boolean equals(Object other) {
+		if (state == State.DESTROYED)
+			return false;
 		if (other == null)
 			return false;
 		if (other == this)
@@ -205,7 +209,7 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	/**
 	 * {@inheritDoc}
 	 */
-	public Object getConnection(Subject subject, ConnectionRequestInfo cxRequestInfo) throws ResourceException {
+	public synchronized Object getConnection(Subject subject, ConnectionRequestInfo cxRequestInfo) throws ResourceException {
 		checkState();
 		if (cxRequestInfo != null && !(cxRequestInfo instanceof ConnectionRequestInfoImpl))
 			throw new ResourceException("managed-connection-impl-invalid-connection-request-info-type");
@@ -254,7 +258,7 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void associateConnection(Object connection) throws ResourceException {
+	public synchronized void associateConnection(Object connection) throws ResourceException {
 		checkState();
 		if (!(connection instanceof ConnectionImpl))
 			throw ExceptionBundle.EXCEPTIONS.invalidConnectionTypeAssociatedWithManagedConnection(connection == null ? "null": connection.getClass().getName());
@@ -266,14 +270,12 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void dissociateConnections() throws ResourceException {
+	public synchronized void dissociateConnections() throws ResourceException {
 		checkState();
 
 		Collection<Connection> copy = null;
-		synchronized (handles) {
-			if (handles.size() > 0)
-				copy = new HashSet<Connection>(handles);
-		}
+		if (handles.size() > 0)
+			copy = new HashSet<Connection>(handles);
 
 		if (copy != null) {
 			for (Connection cciConnection : copy) {
@@ -286,13 +288,11 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void cleanup() throws ResourceException
+	public synchronized void cleanup() throws ResourceException
 	{
 		Collection<Connection> copy = null;
-		synchronized (handles) {
-			if (handles.size() > 0)
-				copy = new HashSet<Connection>(handles);
-		}
+		if (handles.size() > 0)
+			copy = new HashSet<Connection>(handles);
 
 		if (copy != null) {
 			for (Connection cciConnection : copy) {
@@ -307,12 +307,10 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void destroy() throws ResourceException {
-		synchronized (state) {
-			if (state == State.DESTROYED)
-				return;
-			state = State.DESTROYED;
-		}
+	public synchronized void destroy() throws ResourceException {
+		if (state == State.DESTROYED)
+			return;
+		state = State.DESTROYED;
 
 		// Cleanup any outstanding connection handles.
 		cleanup();
@@ -380,7 +378,7 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	/**
 	 * {@inheritDoc}
 	 */
-	public ManagedConnectionMetaData getMetaData() throws ResourceException {
+	public synchronized ManagedConnectionMetaData getMetaData() throws ResourceException {
 		checkState();
 		if (connectionMetaData == null) 
 			connectionMetaData = new ManagedConnectionMetaDataImpl(destination); 
@@ -560,14 +558,18 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	 * @return <code>true</code> if connection is in a stateful state; <code>false</code> otherwise.
 	 */
 	public boolean isStateful() {
+		if (state == State.DESTROYED)
+			return false;
 		return JCoContext.isStateful(destination);
 	}
 	
 	/**
 	 * Called by {@link ConnectionImpl} and {@link ManagedConnectionImpl} when constructing connection handle.
 	 * @return
+	 * @throws ResourceException 
 	 */
-	public ConnectionRequestInfoImpl getProperties() {
+	public ConnectionRequestInfoImpl getProperties() throws ResourceException {
+		checkState();
 		return managedConnectionFactory.getResourceAdapter().getDestinationDataProvider().getDestinationProperties(destinationName);
 	}
 	
@@ -577,6 +579,7 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	 * @throws ResourceException if underlying JCo runtime throws exception when pinging.
 	 */
 	public void ping() throws ResourceException {
+		checkState();
 		try {
 			destination.ping();
 		} catch (JCoException e) {
@@ -588,8 +591,10 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	 * Called by {@link ConnectionImpl} when constructing itself.
 	 * 
 	 * @return the managed connection factory associated with this managed connection. 
+	 * @throws ResourceException 
 	 */
-	public ManagedConnectionFactory getManagedConnectionFactory() {
+	public ManagedConnectionFactory getManagedConnectionFactory() throws ResourceException {
+		checkState();
 		return managedConnectionFactory;
 	}
 
@@ -597,22 +602,22 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	 * Called by {@link ConnectionImpl} when associating with this managed connection.
 	 * 
 	 * @param handle - The handle to be associated with managed connection.
+	 * @throws ResourceException 
 	 */
-	public void associateHandle(Connection handle) {
-		synchronized (handles) {
-			handles.add(handle);
-		}
+	public synchronized void associateHandle(Connection handle) throws ResourceException {
+		checkState();
+		handles.add(handle);
 	}
 
 	/**
 	 * Called by {@link ManagedConnectionImpl} when closing handle and by {@link ConnectionImpl} when dissociating from managed connection.
 	 * 
 	 * @param handle - The connection handle to be dissociated from managed connection.
+	 * @throws ResourceException 
 	 */
-	public void dissociateHandle(Connection handle) {
-		synchronized (handles) {
-			handles.remove(handle);
-		}
+	public synchronized void dissociateHandle(Connection handle) throws ResourceException {
+		checkState();
+		handles.remove(handle);
 	}
 
 	/**
@@ -620,8 +625,9 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	 * 
 	 * @param handle -
 	 *            The application handle
+	 * @throws ResourceException 
 	 */
-	public void closeHandle(Connection handle) {
+	public void closeHandle(Connection handle) throws ResourceException {
 
 		dissociateHandle(handle);
 

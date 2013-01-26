@@ -204,21 +204,23 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, j
 	/**
 	 * {@inheritDoc}
 	 */
-	public Object createConnectionFactory(ConnectionManager cxManager) throws ResourceException {
+	public synchronized Object createConnectionFactory(ConnectionManager cxManager) throws ResourceException {
+		checkState();
 		return new ConnectionFactoryImpl(this, cxManager);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public Object createConnectionFactory() throws ResourceException {
+	public synchronized Object createConnectionFactory() throws ResourceException {
+		checkState();
 		return new ConnectionFactoryImpl(this, new DefaultConnectionManagerImpl());
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public ManagedConnection createManagedConnection(Subject subject, ConnectionRequestInfo cxRequestInfo)
+	public synchronized ManagedConnection createManagedConnection(Subject subject, ConnectionRequestInfo cxRequestInfo)
 			throws ResourceException {
 		checkState();
 		
@@ -255,7 +257,7 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, j
 	 * {@inheritDoc}
 	 */
 	@SuppressWarnings("rawtypes")
-	public ManagedConnection matchManagedConnections(Set connectionSet, Subject subject,
+	public synchronized ManagedConnection matchManagedConnections(Set connectionSet, Subject subject,
 			ConnectionRequestInfo cxRequestInfo) throws ResourceException {
 		checkState();
 		
@@ -364,7 +366,8 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, j
 	/**
 	 * {@inheritDoc}
 	 */
-	public void setResourceAdapter(ResourceAdapter ra) {
+	public synchronized void setResourceAdapter(ResourceAdapter ra) throws ResourceException {
+		checkState();
 		if (!(ra instanceof ResourceAdapterImpl))
 			throw ExceptionBundle.EXCEPTIONS.invalidResourceAdapterTypeSetOnManagedConnectionFactory(ra == null ? "null" : ra.getClass().getName());
 		if (this.ra != null)
@@ -403,19 +406,15 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, j
 	 * 
 	 * @throws ResourceException
 	 */
-	public void destroy() throws ResourceException {
+	public synchronized void destroy() throws ResourceException {
 		
-		synchronized (state) {
-			if (state == State.DESTROYED)
-				return;
-			state = State.DESTROYED;
-		}
+		if (state == State.DESTROYED)
+			return;
+		state = State.DESTROYED;
 
 		Set<ManagedConnectionImpl> copy = null;
-		synchronized(connections) {
-			if (connections.size() > 0)
-				copy = new HashSet<ManagedConnectionImpl>(connections);
-		}
+		if (connections.size() > 0)
+			copy = new HashSet<ManagedConnectionImpl>(connections);
 		
 		if (copy != null) {
 			for (ManagedConnectionImpl managedConnection: copy) {
@@ -1517,21 +1516,21 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, j
 	 * Associate the given managed connection with this factory.
 	 *  
 	 * @param connection - The managed connection to be associated.
+	 * @throws ResourceException 
 	 */
-	protected void associateConnection(ManagedConnectionImpl connection) {
-		synchronized (connections) {
-			connections.add(connection);
-		}
+	protected synchronized void associateConnection(ManagedConnectionImpl connection) throws ResourceException {
+		checkState();
+		connections.add(connection);
 	}
 
 	/**
 	 * Dissociate the given managed connection with this factory 
 	 * @param connection - The managed connection to be dissociated.
+	 * @throws ResourceException 
 	 */
-	protected void dissociateConnection(ManagedConnectionImpl connection) {
-		synchronized (connections) {
-			connections.remove(connection);
-		}
+	protected synchronized void dissociateConnection(ManagedConnectionImpl connection) throws ResourceException {
+		checkState();
+		connections.remove(connection);
 	}
 	
 	/**

@@ -178,6 +178,9 @@ public interface ExceptionBundle {
 	@Message(id = 45, value = "The resource adapter is undeployed")
 	ResourceException resourceAdapterIsUndeployed();
 
+	@Message(id = 46, value = "The resource adapter is stopped")
+	ResourceException resourceAdapterIsStopped();
+
 }
 
 

@@ -653,7 +653,9 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	}
 
 	/**
-	 * @param table
+	 * Populate this record with the contents of <code>table</code>.
+	 * 
+	 * @param table - the {@link JCoTable} whose contents are populated into this record.
 	 * @throws ResourceException
 	 * @generated NOT
 	 */
@@ -663,14 +665,16 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 			return;
 		
 		table.firstRow();
-			for (int i = 0; i < table.getNumRows(); i++, table.nextRow()) {
+		for (int i = 0; i < table.getNumRows(); i++, table.nextRow()) {
 			MappedRecord nestedRecord = add();
 			((MappedRecordImpl)nestedRecord).put(table);
 		}
 	}
 
 	/**
-	 * @param table
+	 * Populate <code>table</code> with the contents of this record.
+	 * 
+	 * @param table - the {@link JCoTable} populated with the contents of this record.
 	 * @throws ResourceException
 	 * @generated NOT
 	 */

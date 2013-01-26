@@ -97,9 +97,10 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 	 * Create interaction with specified connection.
 	 * 
 	 * @param connection - the connection
+	 * @throws ResourceException 
 	 * @generated NOT	
 	 */
-	protected InteractionImpl(ConnectionImpl connection) {
+	protected InteractionImpl(ConnectionImpl connection) throws ResourceException {
 		super();
 		this.connection = connection;
 		this.destination = connection.getDestination();
@@ -120,12 +121,11 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void close() throws ResourceException {
-		synchronized (state) {
-			if (state == State.CLOSED) 
-				return;
-			state = State.CLOSED;
-		}
+	public synchronized void close() throws ResourceException {
+		if (state == State.CLOSED) 
+			return;
+		state = State.CLOSED;
+
 		this.connection.interactionClosed(this);
 		this.destination = null;
 		this.connection = null;
@@ -145,7 +145,7 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public boolean execute(InteractionSpec ispec, Record input, Record output) throws ResourceException {
+	public synchronized boolean execute(InteractionSpec ispec, Record input, Record output) throws ResourceException {
 		checkState();
 		
 		if (!(ispec instanceof org.jboss.jca.adapters.sap.cci.InteractionSpec))
@@ -190,7 +190,7 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public Record execute(InteractionSpec ispec, Record input) throws ResourceException {
+	public synchronized Record execute(InteractionSpec ispec, Record input) throws ResourceException {
 		checkState();
 
 		if (!(ispec instanceof org.jboss.jca.adapters.sap.cci.InteractionSpec))
@@ -223,12 +223,27 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 		warnings = null;
 	}
 
-	protected void checkState() throws ResourceException {
+	/**
+	 * Internal helper method used by public methods to check the state of this connection before performing an operation on it. This
+	 * method prevents operations from being performed on a connection in a <code>CLOSED</code> state.
+	 * 
+	 * @throws ResourceException if connection is in a <code>CLOSED</code> state.
+	 * @generated NOT
+	 */
+	private void checkState() throws ResourceException {
 		if (state == State.CLOSED)
 			throw ExceptionBundle.EXCEPTIONS.interactionIsClosed();
 	}
 	
-	protected RecordFactory getRecordFactory() throws ResourceException {
+	/**
+	 * Internal assessor method to {@link RecordFactory} which lazy initializes the factory.
+	 * 
+	 * <p>NB: Must guarantee this method is never called when interaction is closed.
+	 * 
+	 * @throws ResourceException if SAP repository can not be retrieved from JCo runtime.
+	 * @generated NOT
+	 */
+	private RecordFactory getRecordFactory() throws ResourceException {
 		try {
 			if(recordFactory == null) {
 				recordFactory = CciFactoryImpl.eINSTANCE.createRecordFactory();

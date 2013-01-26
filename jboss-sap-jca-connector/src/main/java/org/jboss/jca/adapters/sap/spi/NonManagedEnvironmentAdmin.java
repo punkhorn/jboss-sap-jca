@@ -28,18 +28,18 @@ import javax.resource.ResourceException;
 /**
  * The administration interface of the JBoss SAP JCA Connector for controlling
  * the connector's resource adapter and creating Managed Connection Factory instances in
- * an unmanaged environment.
+ * an non-managed environment (i.e. outside and application server container).
  * 
  * @author William Collins
  * 
  * @version $Id: $
  */
-public interface UnmanagedEnvironmentAdmin {
+public interface NonManagedEnvironmentAdmin {
 
 	/**
 	 * The singleton instance of the Administration interface.
 	 */
-	public static UnmanagedEnvironmentAdmin INSTANCE = org.jboss.jca.adapters.sap.spi.impl.UnmanagedEnvironmentAdminImpl.INSTANCE;
+	public static NonManagedEnvironmentAdmin INSTANCE = org.jboss.jca.adapters.sap.spi.impl.NonManagedEnvironmentAdminImpl.INSTANCE;
 
 	/**
 	 * Returns <code>true</code> if resource adapter is deployed;
@@ -56,7 +56,7 @@ public interface UnmanagedEnvironmentAdmin {
 	 * <p>
 	 * NB: Destroys all resources managed by the resource adapter including
 	 * managed connections and managed connection factories. While in an
-	 * <code>undeployed<CODE> state, all methods of the SPI factory except {@link UnmanagedEnvironmentAdmin#deployResourceAdapter(Map)} will fail by throwing an {@link ResourceException}.
+	 * <code>undeployed<CODE> state, all methods of the SPI factory except {@link NonManagedEnvironmentAdmin#deployResourceAdapter(Map)} will fail by throwing an {@link ResourceException}.
 	 */
 	public abstract void undeployResourceAdapter();
 

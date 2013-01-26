@@ -85,10 +85,11 @@ public interface Connection extends EObject, javax.resource.cci.Connection {
 	 * <!-- begin-user-doc -->
 	 * Returns the connection's properties
 	 * <!-- end-user-doc -->
+	 * @throws ResourceException 
 	 * @model kind="operation"
 	 * @generated
 	 */
-	ConnectionSpec getConnectionSpec();
+	ConnectionSpec getConnectionSpec() throws ResourceException;
 
 	/**
 	 * <!-- begin-user-doc -->
