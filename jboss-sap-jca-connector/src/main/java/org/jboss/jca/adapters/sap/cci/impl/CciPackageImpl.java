@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.resource.Resource.Internal;
 import org.jboss.jca.adapters.sap.cci.CciFactory;
+import org.jboss.jca.adapters.sap.cci.CciPackage;
 import org.jboss.jca.adapters.sap.cci.Connection;
 import org.jboss.jca.adapters.sap.cci.ConnectionFactory;
 import org.jboss.jca.adapters.sap.cci.ConnectionMetaData;
@@ -66,7 +67,7 @@ import org.jboss.jca.adapters.sap.cci.ResourceAdapterMetaData;
  * @model kind="package"
  * @generated
  */
-public class CciPackageImpl extends EPackageImpl {
+public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	
 	/**
 	 * The package name.

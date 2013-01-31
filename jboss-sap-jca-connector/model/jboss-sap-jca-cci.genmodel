@@ -27,6 +27,7 @@
     <genDataTypes ecoreDataType="jboss-sap-jca-cci.ecore#//ResourceWarning"/>
     <genDataTypes ecoreDataType="jboss-sap-jca-cci.ecore#//ResultSetInfo"/>
     <genDataTypes ecoreDataType="jboss-sap-jca-cci.ecore#//Reference"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca-cci.ecore#//Registry"/>
     <genClasses ecoreClass="jboss-sap-jca-cci.ecore#//RecordFactory">
       <genOperations ecoreOperation="jboss-sap-jca-cci.ecore#//RecordFactory/createMappedRecord">
         <genParameters ecoreParameter="jboss-sap-jca-cci.ecore#//RecordFactory/createMappedRecord/recordName"/>
@@ -34,8 +35,8 @@
       <genOperations ecoreOperation="jboss-sap-jca-cci.ecore#//RecordFactory/createIndexedRecord">
         <genParameters ecoreParameter="jboss-sap-jca-cci.ecore#//RecordFactory/createIndexedRecord/recordName"/>
       </genOperations>
-      <genOperations ecoreOperation="jboss-sap-jca-cci.ecore#//RecordFactory/getPackage">
-        <genParameters ecoreParameter="jboss-sap-jca-cci.ecore#//RecordFactory/getPackage/functionModuleName"/>
+      <genOperations ecoreOperation="jboss-sap-jca-cci.ecore#//RecordFactory/getPackageRegistry">
+        <genParameters ecoreParameter="jboss-sap-jca-cci.ecore#//RecordFactory/getPackageRegistry/functionModuleName"/>
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="jboss-sap-jca-cci.ecore#//MappedRecord">

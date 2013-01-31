@@ -10,8 +10,7 @@
     <eOperations name="createIndexedRecord" eType="#//IndexedRecord" eExceptions="#//ResourceException">
       <eParameters name="recordName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
-    <eOperations name="getPackage" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EPackage"
-        eExceptions="#//ResourceException">
+    <eOperations name="getPackageRegistry" eType="#//Registry" eExceptions="#//ResourceException">
       <eParameters name="functionModuleName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
   </eClassifiers>
@@ -353,4 +352,5 @@
   <eClassifiers xsi:type="ecore:EDataType" name="ResourceWarning" instanceClassName="javax.resource.cci.ResourceWarning"/>
   <eClassifiers xsi:type="ecore:EDataType" name="ResultSetInfo" instanceClassName="javax.resource.cci.ResultSetInfo"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Reference" instanceClassName="javax.naming.Reference"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Registry" instanceClassName="org.eclipse.emf.ecore.EPackage.Registry"/>
 </ecore:EPackage>

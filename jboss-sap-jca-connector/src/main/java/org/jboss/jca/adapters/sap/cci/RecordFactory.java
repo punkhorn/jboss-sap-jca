@@ -165,21 +165,28 @@ public interface RecordFactory extends EObject, javax.resource.cci.RecordFactory
 	 * @generated
 	 */
 	IndexedRecord createIndexedRecord(String recordName) throws ResourceException;
-
+	
 	/**
-	 * <!-- begin-user-doc -->
+	 * Returns the SAP package registry.
+	 * 
 	 * <p>
-	 * Return the {@link EPackage} describing the meta-data of the specified function module's input and output records. 
-	 * The package contains two {@link EClass} definitions named INPUT_RECORD and OUTPUT_RECORD describing respectively the 
-	 * meta-data of the input and output records of the specified function module. The package will also contain {@link EClass} 
-	 * definitions for any sub-records of the input and output records.
-	 * @param functionModuleName the name of function module
-	 * @return EPackage describing meta data of specified module's input and output records.
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
-	 * @generated
+	 * This registry maintains a map of namespace URI to {@link EPackage} for
+	 * all packages defined for the connected SAP EIS.
+	 * 
+	 * <p>
+	 * An {@link EPackage} is defined for each
+	 * <em><b>remote function module</b></em> in the connected SAP EIS. Each
+	 * package specifies the meta-data for the <em><b>Input Record</b></em> and
+	 * <em><b>Output Record</b></em> to be used in the invocation of the
+	 * corresponding remote function module. Both records are a derived type of {@link MappedRecord}. Each package contains two
+	 * {@link EClass} definitions for the input and output records, named
+	 * respectively <b>INPUT_RECORD</b> and <b>OUTPUT_RECORD</b>, which describe
+	 * the structure and contents of each record type. The package will also contain {@link EClass} definitions for any sub structure or list specified by the input and output record meta-data.
+	 * 
+	 * @return the SAP package registry.
+	 * 
+	 * @generated NOT
 	 */
-	EPackage getPackage(String functionModuleName) throws ResourceException;
+	EPackage.Registry  getPackageRegistry() throws ResourceException;
 
 } // RecordFactory

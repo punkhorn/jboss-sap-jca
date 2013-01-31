@@ -10,7 +10,9 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.jboss.jca.adapters.sap.cci.impl.CciFactoryImpl;
 import org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl;
+import org.jboss.jca.adapters.sap.cci.impl.CciPackageRegistryImpl;
 import org.jboss.jca.adapters.sap.cci.impl.RecordFactoryImpl;
+import org.junit.Test;
 
 import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoDestinationManager;
@@ -35,7 +37,8 @@ public class TestDynamicPackage {
 		
 		RecordFactory recordFactory = CciFactoryImpl.eINSTANCE.createRecordFactory();
 		((RecordFactoryImpl)recordFactory).setRepository(aRepository);
-		EPackage dPackage = recordFactory.getPackage("BAPI_FLCUST_GETLIST");
+		String nsURI = CciPackage.JBOSS_SAP_URI_PREFIX  + aRepository.getName() + "/" + "BAPI_FLCUST_GETLIST";
+		EPackage dPackage = recordFactory.getPackageRegistry().getEPackage(nsURI);
 
 		// Save Model
 		ResourceSet resourceSet = new ResourceSetImpl();
@@ -53,6 +56,35 @@ public class TestDynamicPackage {
 		resource.getContents().add(mappedRecord);
 		resource.save(null);
 
+	}
+	
+	//@Test
+	public void testPackageRegistry() throws Exception {
+		Properties destinationProperties = JBossDestinationDataProvider.createDestinationProperties("nplhost", "42",
+				"001", "developer", "ch4ngeme", "en");
+
+		JBossDestinationDataProvider provider = new JBossDestinationDataProvider();
+
+		com.sap.conn.jco.ext.Environment.registerDestinationDataProvider(provider);
+		provider.addDestinationProperties("ABAP_AS", destinationProperties);
+
+		JCoDestination destination = JCoDestinationManager.getDestination("ABAP_AS");
+		destination.ping();
+
+		JCoRepository aRepository = destination.getRepository();
+		
+		CciPackageRegistryImpl registry = new CciPackageRegistryImpl(aRepository);
+		
+		//
+		ResourceSet resourceSet = new ResourceSetImpl();
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xml", new EcoreResourceFactoryImpl());
+		resourceSet.setPackageRegistry(registry);
+		URI uri = URI.createURI("file:///tmp/input.xml");
+		Resource resource = resourceSet.createResource(uri);
+		resource.load(null);
+		MappedRecord inputRecord = (MappedRecord) resource.getContents().get(0);
+		EPackage ePackage = inputRecord.eClass().getEPackage();
+		ePackage.getEClassifier("OUTPUT_RECORD");
 	}
 
 }

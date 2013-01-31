@@ -85,6 +85,9 @@ public interface ExceptionBundle {
 	@Message(id = 14, value = "Failed to get record factory")
 	ResourceException failedToGetRecordFactory(@Cause Throwable ex);
 
+	@Message(id = 15, value = "Failed to access meta data repository")
+	ResourceException failedToAccessMetaDataRepository();
+
 }
 
 

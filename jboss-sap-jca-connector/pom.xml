@@ -227,6 +227,7 @@ This project also builds a JBoss AS7 module which exposes the JCA connector libr
 						</goals>
 						<configuration>
 							<outputDirectory>${as7module.destdir}/org/jboss/jca/adapters/sap/main</outputDirectory>
+							<stripVersion>true</stripVersion>
 							<artifactItems>
 								<artifactItem>
 							    	<groupId>org.eclipse.emf</groupId>
@@ -246,13 +247,22 @@ This project also builds a JBoss AS7 module which exposes the JCA connector libr
 							    	<type>jar</type>
 							    	<overWrite>true</overWrite>
 								</artifactItem>
-<!-- 								<artifactItem> -->
-<!-- 							    	<groupId>com.sap.conn.jco</groupId> -->
-<!-- 							    	<artifactId>sapjco3</artifactId> -->
-<!-- 							    	<type>jar</type> -->
-<!-- 							    	<overWrite>true</overWrite> -->
-<!-- 							    	<outputDirectory>${as7module.destdir}/com/sap/conn/jco/main</outputDirectory> -->
-<!-- 								</artifactItem> -->
+								<artifactItem>
+							    	<groupId>com.sap.conn.jco</groupId>
+							    	<artifactId>sapjco3</artifactId>
+							    	<type>jar</type>
+							    	<overWrite>true</overWrite>
+							    	<outputDirectory>${as7module.destdir}/com/sap/conn/jco/main</outputDirectory>
+									</artifactItem>
+								<artifactItem>
+							    	<groupId>com.sap.conn.jco</groupId>
+							    	<artifactId>sapjco3</artifactId>
+							    	<type>${envType}</type>
+							    	<classifier>${envClassifier}</classifier>
+							    	<overWrite>true</overWrite>
+							    	<outputDirectory>${as7module.destdir}/com/sap/conn/jco/main/lib/${envClassifier}</outputDirectory>
+							    	<destFileName>libsapjco3.${envType}</destFileName>
+								</artifactItem>
 							</artifactItems>
 						</configuration>
 					</execution>

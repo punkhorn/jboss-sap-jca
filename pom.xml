@@ -227,7 +227,7 @@
 				<groupId>com.sap.conn.jco</groupId>
 				<artifactId>sapjco3</artifactId>
 				<version>3.0.8</version>
-				<type>so</type>
+				<type>${envType}</type>
 				<classifier>${envClassifier}</classifier>
 				<scope>provided</scope>
 			</dependency>
@@ -302,7 +302,7 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>win32-x86</id>
+			<id>win-x86</id>
 			<activation>
 				<os>
 					<name>windows</name>
@@ -310,11 +310,12 @@
 				</os>
 			</activation>
 			<properties>
-				<envClassifier>win32-x86</envClassifier>
+				<envClassifier>win-i686</envClassifier>
+				<envType>dll</envType>
 			</properties>
 		</profile>
 		<profile>
-			<id>win32-x86_64</id>
+			<id>win-x86_64</id>
 			<activation>
 				<os>
 					<name>windows</name>
@@ -322,7 +323,8 @@
 				</os>
 			</activation>
 			<properties>
-				<envClassifier>win32-x86</envClassifier>
+				<envClassifier>win-x86_64</envClassifier>
+				<envType>dll</envType>
 			</properties>
 		</profile>
 		<profile>
@@ -334,7 +336,8 @@
 				</os>
 			</activation>
 			<properties>
-				<envClassifier>win32-x86</envClassifier>
+				<envClassifier>win-x86_64</envClassifier>
+				<envType>dll</envType>
 			</properties>
 		</profile>
 		<profile>
@@ -346,7 +349,8 @@
 				</os>
 			</activation>
 			<properties>
-				<envClassifier>linux-x86</envClassifier>
+				<envClassifier>linux-i686</envClassifier>
+				<envType>so</envType>
 			</properties>
 		</profile>
 		<profile>
@@ -359,6 +363,7 @@
 			</activation>
 			<properties>
 				<envClassifier>linux-x86_64</envClassifier>
+				<envType>so</envType>
 			</properties>
 		</profile>
  		<profile>
@@ -371,6 +376,7 @@
 			</activation>
 			<properties>
 				<envClassifier>linux-x86_64</envClassifier>
+				<envType>so</envType>
 			</properties>
 		</profile>
 		<profile>
@@ -382,11 +388,12 @@
 				</os>
 			</activation>
 			<properties>
-				<envClassifier>macosx-x86</envClassifier>
+				<envClassifier>macosx-i686</envClassifier>
+				<envType>jnilib</envType>
 			</properties>
 		</profile>
 		<profile>
-			<id>macosk-x86_64</id>
+			<id>macosx-x86_64</id>
 			<activation>
 				<os>
 					<name>mac</name>
@@ -395,6 +402,7 @@
 			</activation>
 			<properties>
 				<envClassifier>macosx-x86_64</envClassifier>
+				<envType>jnilib</envType>
 			</properties>
 		</profile>
  		<profile>
@@ -407,6 +415,7 @@
 			</activation>
 			<properties>
 				<envClassifier>macosx-x86_64</envClassifier>
+				<envType>jnilib</envType>
 			</properties>
 		</profile>
 	</profiles>

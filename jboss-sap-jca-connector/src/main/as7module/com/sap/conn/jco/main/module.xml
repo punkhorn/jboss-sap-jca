@@ -22,23 +22,8 @@
   ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 
-<module xmlns="urn:jboss:module:1.1" name="org.jboss.jca.adapters.sap">
-    <dependencies>
-        <module name="javax.resource.api" export="true"/>
-        <module name="com.sap.conn.jco" export="false"/>
-        <system export="true">
-        	<paths>
-        		<path name="org/xml/sax"/>
-        		<path name="org/xml/sax/helpers"/>
-        		<path name="javax/security/auth"/>
-        	</paths>
-        </system>
-    </dependencies>
-
+<module xmlns="urn:jboss:module:1.1" name="com.sap.conn.jco">
     <resources>
-        <resource-root path="jboss-sap-jca-connector-${project.version}.jar"/>
-        <resource-root path="org.eclipse.emf.common.jar"/>
-        <resource-root path="org.eclipse.emf.ecore.jar"/>
-        <resource-root path="org.eclipse.emf.ecore.xmi.jar"/>
+        <resource-root path="sapjco3.jar"/>
     </resources>
 </module>
