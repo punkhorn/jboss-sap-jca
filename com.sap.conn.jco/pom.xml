@@ -76,7 +76,7 @@
 								<artifactItem>
 									<groupId>com.sap.conn.jco</groupId>
 									<artifactId>sapjco3</artifactId>
-									<type>so</type>
+									<type>${envType}</type>
 									<overWrite>true</overWrite>
 								</artifactItem>
 							</artifactItems>

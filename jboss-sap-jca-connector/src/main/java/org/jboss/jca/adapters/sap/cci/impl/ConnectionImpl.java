@@ -50,7 +50,7 @@ import com.sap.conn.jco.JCoDestination;
  * 
  * @author William Collins
  * 
- * @version $Id: 20326b3f6833b7d6def7122d46e2b686f512ab3a $
+ * @version $Id: 8420451436bd443d1ba6ecbd08afc8ec93e23435 $
  * <!-- end-user-doc -->
  * <p>
  * </p>

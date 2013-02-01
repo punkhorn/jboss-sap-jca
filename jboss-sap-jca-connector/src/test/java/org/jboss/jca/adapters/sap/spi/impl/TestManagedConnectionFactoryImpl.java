@@ -20,14 +20,10 @@ import javax.resource.spi.ConnectionRequestInfo;
 import javax.resource.spi.ManagedConnection;
 import javax.resource.spi.ManagedConnectionFactory;
 import javax.resource.spi.ResourceAdapter;
-import javax.resource.spi.ResourceAdapterInternalException;
 import javax.resource.spi.security.PasswordCredential;
 import javax.security.auth.Subject;
 
-import org.jboss.jca.adapters.sap.spi.impl.ConnectionRequestInfoImpl;
-import org.jboss.jca.adapters.sap.spi.impl.ManagedConnectionFactoryImpl;
-import org.jboss.jca.adapters.sap.spi.impl.ManagedConnectionImpl;
-import org.jboss.jca.adapters.sap.spi.impl.ResourceAdapterImpl;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -83,24 +79,21 @@ public class TestManagedConnectionFactoryImpl {
 	private static final String TEST_REPOSITORY_ROUNDTRIP_OPTIMAZATION = "TEST_REPOSITORY_ROUNDTRIP_OPTIMAZATION";
 	private static final String TEST_MAX_GET_TIME = "TEST_MAX_GET_TIME";
 	
-	private static ResourceAdapterImpl resourceAdapter;
-
-	static {
-		resourceAdapter = new ResourceAdapterImpl();
-		try {
-			resourceAdapter.start(null);
-		} catch (ResourceAdapterInternalException e) {
-			throw new ExceptionInInitializerError(e);
-		}
-
-	}
+	private ResourceAdapterImpl resourceAdapter;
 
 	private ManagedConnectionFactoryImpl managedConnectionFactoryImpl;
 
 	@Before
 	public void setUp() throws Exception {
 		// Given
+		resourceAdapter = new ResourceAdapterImpl();
+		resourceAdapter.start(null);
 		managedConnectionFactoryImpl = new ManagedConnectionFactoryImpl();
+	}
+	
+	@After
+	public void tearDown() {
+		resourceAdapter.stop();
 	}
 
 	@Test

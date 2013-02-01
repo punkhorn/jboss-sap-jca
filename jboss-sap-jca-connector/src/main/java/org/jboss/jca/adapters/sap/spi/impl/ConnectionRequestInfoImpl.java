@@ -32,7 +32,7 @@ import org.jboss.jca.adapters.sap.spi.ConnectionRequestInfo;
  * 
  * @author William Collins
  * 
- * @version $Id: a52ab4db9cd3199d7a71d9abb763e2b2391be2ff $
+ * @version $Id: d48b3c763bb05448c96d0bc07bd6c895a4d229dc $
  */
 public class ConnectionRequestInfoImpl extends Properties implements ConnectionRequestInfo {
 

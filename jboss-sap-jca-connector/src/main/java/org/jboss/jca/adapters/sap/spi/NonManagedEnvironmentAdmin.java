@@ -32,7 +32,7 @@ import javax.resource.ResourceException;
  * 
  * @author William Collins
  * 
- * @version $Id: $
+ * @version $Id: 23d8c37e7137ee562459135fcb674951175059b8 $
  */
 public interface NonManagedEnvironmentAdmin {
 

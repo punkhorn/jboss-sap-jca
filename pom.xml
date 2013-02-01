@@ -383,7 +383,7 @@
 			<id>macosx-x86</id>
 			<activation>
 				<os>
-					<name>mac</name>
+					<name>mac os x</name>
 					<arch>x86</arch>
 				</os>
 			</activation>
@@ -396,7 +396,7 @@
 			<id>macosx-x86_64</id>
 			<activation>
 				<os>
-					<name>mac</name>
+					<name>mac os x</name>
 					<arch>x86_64</arch>
 				</os>
 			</activation>
@@ -409,7 +409,7 @@
 			<id>macosx-amd64</id>
 			<activation>
 				<os>
-					<name>mac</name>
+					<name>mac os x</name>
 					<arch>amd64</arch>
 				</os>
 			</activation>

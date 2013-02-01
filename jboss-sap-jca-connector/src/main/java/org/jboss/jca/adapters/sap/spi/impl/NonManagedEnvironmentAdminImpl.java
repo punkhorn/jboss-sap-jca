@@ -39,7 +39,7 @@ import org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin;
  * 
  * @author William Collins
  * 
- * @version $Id: $
+ * @version $Id: 1ae57d35767f22e35a848468adbaf90f84a6d93f $
  */
 public class NonManagedEnvironmentAdminImpl implements NonManagedEnvironmentAdmin {
 

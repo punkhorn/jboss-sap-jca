@@ -65,6 +65,7 @@ This project also builds a JBoss AS7 module which exposes the JCA connector libr
   	<as7module.srcdir>${project.basedir}/src/main/as7module</as7module.srcdir>
   	<as7module.destdir>${project.build.directory}/as7module</as7module.destdir>
   	<CCI_JAR_NAME>${project.artifactId}-${project.version}.${project.packaging}</CCI_JAR_NAME>
+  	<native.lib.directory>${project.build.directory}/jni</native.lib.directory>
   </properties>
 
   <dependencies>
@@ -266,6 +267,27 @@ This project also builds a JBoss AS7 module which exposes the JCA connector libr
 							</artifactItems>
 						</configuration>
 					</execution>
+					<execution>
+						<id>copy-native-lib-for-unit-tests</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<stripVersion>true</stripVersion>
+							<outputDirectory>${native.lib.directory}</outputDirectory>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.sap.conn.jco</groupId>
+									<artifactId>sapjco3</artifactId>
+									<type>${envType}</type>
+									<classifier>${envClassifier}</classifier>
+									<overWrite>true</overWrite>
+									<destFileName>libsapjco3.${envType}</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>
@@ -275,6 +297,9 @@ This project also builds a JBoss AS7 module which exposes the JCA connector libr
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>-Djava.library.path=${native.lib.directory}</argLine>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

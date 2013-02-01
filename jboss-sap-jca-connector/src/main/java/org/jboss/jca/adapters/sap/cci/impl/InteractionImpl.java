@@ -46,7 +46,7 @@ import com.sap.conn.jco.JCoResponse;
  * 
  * @author William Collins
  * 
- * @version $Id: 08d3ff32c62a603899e35228b921f8bcc4c7005b $
+ * @version $Id: 5c6728062a58f206c69158f22b360bcf454ea921 $
  * <!-- end-user-doc -->
  * <p>
  * </p>

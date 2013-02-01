@@ -60,7 +60,7 @@ import com.sap.conn.jco.ext.DestinationDataProvider;
  * 
  * @author William Collins
  * 
- * @version $Id: 4262e7ef5d638b4d5ebcd58a10f6fbe2cf209048 $
+ * @version $Id: 550d4395b505366228131d6d40422c97c4cf4e33 $
  */
 public class ManagedConnectionImpl implements ManagedConnection {
 	

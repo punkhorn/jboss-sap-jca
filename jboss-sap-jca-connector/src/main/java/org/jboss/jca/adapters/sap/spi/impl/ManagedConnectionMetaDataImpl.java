@@ -37,7 +37,7 @@ import com.sap.conn.jco.JCoException;
  *
  * @author William Collins
  * 
- * @version $Id: 6a04fa15a6dbe10d1bdda9f0de63408b7f0c0739 $
+ * @version $Id: f820c6373d4b480ade90f2ba4f0bcbd8a14e7560 $
  */
 public class ManagedConnectionMetaDataImpl implements ManagedConnectionMetaData
 {
