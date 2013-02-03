@@ -41,15 +41,21 @@ Building
 
 To build the JBoss SAP JCA Connector project you will need to perform the following steps:
 
-* [Install JCo Library](#installJco2Repo): Install JCo library into local Maven repository.
+* [Install JCo Libraries](#installJco2Repo): Install JCo libraries into local Maven repository.
 * [Build Project](#buildProject): Build project artifacts. 
 
 <a id="installJco2Repo"></a>
-### Install JCo Library
+### Install JCo Libraries
 
-The JCA connector project requires the sapjco3 library jar  be installed in your local Maven repository in order to build. Use this command to install the jar:
+The JCA connector project requires the sapjco3 library jar and its native library be installed in your local Maven repository in order to build. Use this command to install the jar:
 
-		mvn install:install-file -Dfile=<your-path-to>sapjco3<your-version>.jar -DgroupId=com.sap.conn.jco -DartifactId=sapjco3 -Dversion=<your-version> -Dpackaging=jar
+		mvn install:install-file -Dfile=<your-path-to>/sapjco3<your-version>.jar -DgroupId=com.sap.conn.jco -DartifactId=sapjco3 -Dversion=<your-version> -Dpackaging=jar
+
+Use this command to install the native library:
+
+		mvn install:install-file -Dfile=<your-path-to>/libsapjco3.<your-version>.<your-platform-package-type> -DgroupId=com.sap.conn.jco -DartifactId=sapjco3 -Dversion=<your-version> -Dpackaging=<your-platform-package-type> 
+
+Where `<your-platform-package-type>` will correspond to the file extension of the native library and will be one of `dll`, `so`, or `jnilib`.
 
 <a id="buildProject"></a>
 ### Build Project
@@ -67,55 +73,23 @@ Execute this command to build and install the project artifacts without running 
 
 To deploy the JBoss SAP JCA Connector project you will need to perform the following steps:
 
-* [Install JCo Module](#installJcoModule): Install JCo Module in JBoss AS7 to expose JCo library to JEE components.
+* [Install JBoss AS7 Modules](#installModules): Install the JCo and JBoss SAP JCA Modules into JBoss AS7 to expose JCo library to JEE components.
 * [Install JBoss SAP JCA Module](#installJcaModule): Install JBoss SAP JCA Module in JBoss AS7 to expose JBoss SAP JCA Common Client Interfaces to JEE components.
 * [Deploy JBoss SAP JCA Connector](#deployJcaConnector): Deploy  the JBoss SAP JCA connector to JBoss AS7.
 
-<a id="installJcoModule"></a>
-### Install JCo Module
+<a id="installModules"></a>
+### Install JBoss AS7 Modules
 
-The JBoss SAP JCA connector requires that the JCo library be exposed in the JBoss AS7 environment as a module in order to link to it at runtime. To install the module:
+The JBoss SAP JCA connector requires that the JCo library be exposed in the JBoss AS7 environment as a module in order to link to it at runtime. Similarly, the JBoss SAP JCA Connector Common Client Interfaces need to be exposed in the JBoss AS7 environment as a module in order for JEE components to link to them at runtime.
 
-* Create the module directory `<jboss-as-root-directory>/modules/com/sap/conn/jco/main`.
-* In the module directory create the file **module.xml** with the following contents:
+The directory structures and contents for both modules are created during the project build. To install the modules:
 
-				<?xml version="1.0" encoding="UTF-8"?>
-				<module xmlns="urn:jboss:module:1.1" name="com.sap.conn.jco">
-				    <resources>
-				        <resource-root path="sapjco3.jar"/>
-				    </resources>
-				</module>
-
-* Copy the `sapjco3.jar` from you local Maven repository to the module directory.
-* Create the the module native library directory  `<jboss-as-root-directory>/modules/com/sap/conn/jco/main/lib/<osname>-<cpuname>/`.
-	* Where `<osname>` corresponds to the operating system JBoss AS is installed on; is one of : `linux`, `macosx`, or `win`.
-	* Where `<cpuname>` corresponds to the CPU architecture of the machine JBoss AS is installed on; is one of : `i686` or `x86_64`.
-	
-* Copy the SAP Java Connector native library into the module native library directory.
-
-<a id="installJcaModule"></a>
-### Install JBoss SAP JCA Module
-
-The JBoss SAP JCA connector Common Client Interfaces need to be exposed in the JBoss AS7 environment as a module in order for JEE components to link to them at runtime. To install the module:
-
-* Create the module directory `<jboss-as-root-directory>/modules/org/jboss/jca/adapters/sap/main`.
-* In the module directory create the file **module.xml** with the following contents:
-
-				<?xml version="1.0" encoding="UTF-8"?>
-				<module xmlns="urn:jboss:module:1.1" name="org.jboss.jca.adapters.sap">
-				    <dependencies>
-				        <module name="javax.resource.api" export="true"/>
-				    </dependencies>
-				    <resources>
-				        <resource-root path="jboss-sap-jca-api-1.0.0-SNAPSHOT.jar"/>
-				    </resources>
-				</module>
-* Copy the `jboss-sap-jca-api-1.0.0-SNAPSHOT.jar` from you local Maven repository to the module directory.
+* Copy the **contents** of the  `<project.basedir>/jboss-sap-jca-connector/target/as7module` directory into the `<jboss-as-root-directory>/modules` directory. 
 
 <a id="deployJcaConnector"></a>
 ### Deploy JBoss SAP JCA Connector
 
-Deploy the JCA connector to your JBoss AS7 server. From the directory `<jboss-sap-jca-project-root-directory>/jboss-sap-jca-impl` execute the following command:
+Deploy the JCA connector to your JBoss AS7 server. From the directory `<jboss-sap-jca-project-root-directory>/jboss-sap-jca-rar` execute the following command:
 
 				mvn jboss-as:deploy
 

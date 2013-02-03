@@ -48,6 +48,7 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	 */
 	public static enum State {
 		STARTED,
+		STARTING,
 		STOPPED;
 	}
 
@@ -66,7 +67,7 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	 * transition back and forth to and from <code>STARTED</code> and
 	 * <code>STOPPED</code> states.
 	 */
-	private State state = State.STOPPED;
+	private State state = State.STARTING;
 
 	/**
 	 * Default constructor

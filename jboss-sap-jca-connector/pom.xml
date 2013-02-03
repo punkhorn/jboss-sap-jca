@@ -143,59 +143,6 @@ This project also builds a JBoss AS7 module which exposes the JCA connector libr
 						</configuration>
 					</execution>
 					<execution>
-						<id>copy-plugin-resources</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/src/main/resources</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${basedir}</directory>
-									<filtering>false</filtering>
-									<includes>
-										<include>plugin.xml</include>
-										<include>plugin.properties</include>
-									</includes>
-								</resource>
-							</resources>
-							<overwrite>true</overwrite>
-						</configuration>
-					</execution>
-					<execution>
-						<id>copy-model-resources</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/src/main/resources/model</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${basedir}/model</directory>	
-								</resource>
-							</resources>
-							<overwrite>true</overwrite>
-						</configuration>
-					</execution>
-					<execution>
-						<id>copy-plugin-manifest</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/src/main/resources/META-INF</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${basedir}/META-INF</directory>	
-								</resource>
-							</resources>
-							<overwrite>true</overwrite>
-						</configuration>
-					</execution>
-					<execution>
 						<id>copy-cci-jar</id>
 						<phase>install</phase>
 						<goals>

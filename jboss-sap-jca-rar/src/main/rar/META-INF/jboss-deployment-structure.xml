@@ -2,6 +2,7 @@
     <deployment>
         <dependencies>
             <module name="com.sap.conn.jco" services="export" />
+            <module name="org.jboss.logging" />
             <module name="org.jboss.jca.adapters.sap" services="export" />
         </dependencies>
     </deployment>
