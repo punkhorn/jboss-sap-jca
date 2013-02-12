@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EPackage.Registry;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.jboss.jca.adapters.sap.cci.*;
@@ -161,6 +162,8 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 				return createResultSetInfoFromString(eDataType, initialValue);
 			case CciPackageImpl.REFERENCE:
 				return createReferenceFromString(eDataType, initialValue);
+			case CciPackageImpl.REGISTRY:
+				return createRegistryFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -202,6 +205,8 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 				return convertResultSetInfoToString(eDataType, instanceValue);
 			case CciPackageImpl.REFERENCE:
 				return convertReferenceToString(eDataType, instanceValue);
+			case CciPackageImpl.REGISTRY:
+				return convertRegistryToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -322,8 +327,9 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Iterator createMappedRecordIteratorFromString(EDataType eDataType, String initialValue) {
-		return (Iterator)super.createFromString(initialValue);
+	@SuppressWarnings("unchecked")
+	public Iterator<MappedRecord> createMappedRecordIteratorFromString(EDataType eDataType, String initialValue) {
+		return (Iterator<MappedRecord>)super.createFromString(initialValue);
 	}
 
 	/**
@@ -394,8 +400,9 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Collection createMappedRecordCollectionFromString(EDataType eDataType, String initialValue) {
-		return (Collection)super.createFromString(initialValue);
+	@SuppressWarnings("unchecked")
+	public Collection<MappedRecord> createMappedRecordCollectionFromString(EDataType eDataType, String initialValue) {
+		return (Collection<MappedRecord>)super.createFromString(initialValue);
 	}
 
 	/**
@@ -412,8 +419,9 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ListIterator createMappedRecordListIteratorFromString(EDataType eDataType, String initialValue) {
-		return (ListIterator)super.createFromString(initialValue);
+	@SuppressWarnings("unchecked")
+	public ListIterator<MappedRecord> createMappedRecordListIteratorFromString(EDataType eDataType, String initialValue) {
+		return (ListIterator<MappedRecord>)super.createFromString(initialValue);
 	}
 
 	/**
@@ -430,8 +438,9 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List createMappedRecordListFromString(EDataType eDataType, String initialValue) {
-		return (List)super.createFromString(initialValue);
+	@SuppressWarnings("unchecked")
+	public List<MappedRecord> createMappedRecordListFromString(EDataType eDataType, String initialValue) {
+		return (List<MappedRecord>)super.createFromString(initialValue);
 	}
 
 	/**
@@ -566,6 +575,24 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	 * @generated
 	 */
 	public String convertReferenceToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Registry createRegistryFromString(EDataType eDataType, String initialValue) {
+		return (Registry)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertRegistryToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 

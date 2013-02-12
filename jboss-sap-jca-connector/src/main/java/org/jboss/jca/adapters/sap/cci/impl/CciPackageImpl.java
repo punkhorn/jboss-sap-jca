@@ -46,7 +46,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.resource.Resource.Internal;
 import org.jboss.jca.adapters.sap.cci.CciFactory;
-import org.jboss.jca.adapters.sap.cci.CciPackage;
 import org.jboss.jca.adapters.sap.cci.Connection;
 import org.jboss.jca.adapters.sap.cci.ConnectionFactory;
 import org.jboss.jca.adapters.sap.cci.ConnectionMetaData;
@@ -67,7 +66,7 @@ import org.jboss.jca.adapters.sap.cci.ResourceAdapterMetaData;
  * @model kind="package"
  * @generated
  */
-public class CciPackageImpl extends EPackageImpl implements CciPackage {
+public class CciPackageImpl extends EPackageImpl {
 	
 	/**
 	 * The package name.
@@ -505,22 +504,13 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	public static final int CONNECTION_SPEC__PASSWORD = CCI_CONNECTION_SPEC_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Auth Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__AUTH_TYPE = CCI_CONNECTION_SPEC_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>User Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CONNECTION_SPEC__USER_ID = CCI_CONNECTION_SPEC_FEATURE_COUNT + 3;
+	public static final int CONNECTION_SPEC__USER_ID = CCI_CONNECTION_SPEC_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Client</b></em>' attribute.
@@ -529,7 +519,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CONNECTION_SPEC__CLIENT = CCI_CONNECTION_SPEC_FEATURE_COUNT + 4;
+	public static final int CONNECTION_SPEC__CLIENT = CCI_CONNECTION_SPEC_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>User</b></em>' attribute.
@@ -538,7 +528,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CONNECTION_SPEC__USER = CCI_CONNECTION_SPEC_FEATURE_COUNT + 5;
+	public static final int CONNECTION_SPEC__USER = CCI_CONNECTION_SPEC_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Alias User</b></em>' attribute.
@@ -547,7 +537,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CONNECTION_SPEC__ALIAS_USER = CCI_CONNECTION_SPEC_FEATURE_COUNT + 6;
+	public static final int CONNECTION_SPEC__ALIAS_USER = CCI_CONNECTION_SPEC_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Passwd</b></em>' attribute.
@@ -556,7 +546,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CONNECTION_SPEC__PASSWD = CCI_CONNECTION_SPEC_FEATURE_COUNT + 7;
+	public static final int CONNECTION_SPEC__PASSWD = CCI_CONNECTION_SPEC_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Lang</b></em>' attribute.
@@ -565,7 +555,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CONNECTION_SPEC__LANG = CCI_CONNECTION_SPEC_FEATURE_COUNT + 8;
+	public static final int CONNECTION_SPEC__LANG = CCI_CONNECTION_SPEC_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Mysapsso2</b></em>' attribute.
@@ -574,7 +564,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CONNECTION_SPEC__MYSAPSSO2 = CCI_CONNECTION_SPEC_FEATURE_COUNT + 9;
+	public static final int CONNECTION_SPEC__MYSAPSSO2 = CCI_CONNECTION_SPEC_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>X50 9cert</b></em>' attribute.
@@ -583,331 +573,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CONNECTION_SPEC__X509CERT = CCI_CONNECTION_SPEC_FEATURE_COUNT + 10;
-
-	/**
-	 * The feature id for the '<em><b>Pcs</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__PCS = CCI_CONNECTION_SPEC_FEATURE_COUNT + 11;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__TYPE = CCI_CONNECTION_SPEC_FEATURE_COUNT + 12;
-
-	/**
-	 * The feature id for the '<em><b>Saprouter</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__SAPROUTER = CCI_CONNECTION_SPEC_FEATURE_COUNT + 13;
-
-	/**
-	 * The feature id for the '<em><b>Sysnr</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__SYSNR = CCI_CONNECTION_SPEC_FEATURE_COUNT + 14;
-
-	/**
-	 * The feature id for the '<em><b>Ashost</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__ASHOST = CCI_CONNECTION_SPEC_FEATURE_COUNT + 15;
-
-	/**
-	 * The feature id for the '<em><b>Mshost</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__MSHOST = CCI_CONNECTION_SPEC_FEATURE_COUNT + 16;
-
-	/**
-	 * The feature id for the '<em><b>Msserv</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__MSSERV = CCI_CONNECTION_SPEC_FEATURE_COUNT + 17;
-
-	/**
-	 * The feature id for the '<em><b>Gwhost</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__GWHOST = CCI_CONNECTION_SPEC_FEATURE_COUNT + 18;
-
-	/**
-	 * The feature id for the '<em><b>Gwserv</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__GWSERV = CCI_CONNECTION_SPEC_FEATURE_COUNT + 19;
-
-	/**
-	 * The feature id for the '<em><b>Tphost</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__TPHOST = CCI_CONNECTION_SPEC_FEATURE_COUNT + 20;
-
-	/**
-	 * The feature id for the '<em><b>Tpname</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__TPNAME = CCI_CONNECTION_SPEC_FEATURE_COUNT + 21;
-
-	/**
-	 * The feature id for the '<em><b>R3name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__R3NAME = CCI_CONNECTION_SPEC_FEATURE_COUNT + 22;
-
-	/**
-	 * The feature id for the '<em><b>Group</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__GROUP = CCI_CONNECTION_SPEC_FEATURE_COUNT + 23;
-
-	/**
-	 * The feature id for the '<em><b>Trace</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__TRACE = CCI_CONNECTION_SPEC_FEATURE_COUNT + 24;
-
-	/**
-	 * The feature id for the '<em><b>Cpic Trace</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__CPIC_TRACE = CCI_CONNECTION_SPEC_FEATURE_COUNT + 25;
-
-	/**
-	 * The feature id for the '<em><b>Lcheck</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__LCHECK = CCI_CONNECTION_SPEC_FEATURE_COUNT + 26;
-
-	/**
-	 * The feature id for the '<em><b>Use Sapgui</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__USE_SAPGUI = CCI_CONNECTION_SPEC_FEATURE_COUNT + 27;
-
-	/**
-	 * The feature id for the '<em><b>Codepage</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__CODEPAGE = CCI_CONNECTION_SPEC_FEATURE_COUNT + 28;
-
-	/**
-	 * The feature id for the '<em><b>Getsso2</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__GETSSO2 = CCI_CONNECTION_SPEC_FEATURE_COUNT + 29;
-
-	/**
-	 * The feature id for the '<em><b>Deny Initial Password</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__DENY_INITIAL_PASSWORD = CCI_CONNECTION_SPEC_FEATURE_COUNT + 30;
-
-	/**
-	 * The feature id for the '<em><b>Peak Limit</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__PEAK_LIMIT = CCI_CONNECTION_SPEC_FEATURE_COUNT + 31;
-
-	/**
-	 * The feature id for the '<em><b>Pool Capacity</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__POOL_CAPACITY = CCI_CONNECTION_SPEC_FEATURE_COUNT + 32;
-
-	/**
-	 * The feature id for the '<em><b>Expiration Time</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__EXPIRATION_TIME = CCI_CONNECTION_SPEC_FEATURE_COUNT + 33;
-
-	/**
-	 * The feature id for the '<em><b>Expiration Period</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__EXPIRATION_PERIOD = CCI_CONNECTION_SPEC_FEATURE_COUNT + 34;
-
-	/**
-	 * The feature id for the '<em><b>Max Get Time</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__MAX_GET_TIME = CCI_CONNECTION_SPEC_FEATURE_COUNT + 35;
-
-	/**
-	 * The feature id for the '<em><b>Snc Mode</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__SNC_MODE = CCI_CONNECTION_SPEC_FEATURE_COUNT + 36;
-
-	/**
-	 * The feature id for the '<em><b>Snc Partnername</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__SNC_PARTNERNAME = CCI_CONNECTION_SPEC_FEATURE_COUNT + 37;
-
-	/**
-	 * The feature id for the '<em><b>Snc Qop</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__SNC_QOP = CCI_CONNECTION_SPEC_FEATURE_COUNT + 38;
-
-	/**
-	 * The feature id for the '<em><b>Snc Myname</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__SNC_MYNAME = CCI_CONNECTION_SPEC_FEATURE_COUNT + 39;
-
-	/**
-	 * The feature id for the '<em><b>Snc Library</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__SNC_LIBRARY = CCI_CONNECTION_SPEC_FEATURE_COUNT + 40;
-
-	/**
-	 * The feature id for the '<em><b>Repository Dest</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__REPOSITORY_DEST = CCI_CONNECTION_SPEC_FEATURE_COUNT + 41;
-
-	/**
-	 * The feature id for the '<em><b>Repository User</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__REPOSITORY_USER = CCI_CONNECTION_SPEC_FEATURE_COUNT + 42;
-
-	/**
-	 * The feature id for the '<em><b>Repository Passwd</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__REPOSITORY_PASSWD = CCI_CONNECTION_SPEC_FEATURE_COUNT + 43;
-
-	/**
-	 * The feature id for the '<em><b>Repository Snc</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__REPOSITORY_SNC = CCI_CONNECTION_SPEC_FEATURE_COUNT + 44;
-
-	/**
-	 * The feature id for the '<em><b>Repository Roundtrip Optimization</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__REPOSITORY_ROUNDTRIP_OPTIMIZATION = CCI_CONNECTION_SPEC_FEATURE_COUNT + 45;
-
-	/**
-	 * The feature id for the '<em><b>Ping On Create</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_SPEC__PING_ON_CREATE = CCI_CONNECTION_SPEC_FEATURE_COUNT + 46;
+	public static final int CONNECTION_SPEC__X509CERT = CCI_CONNECTION_SPEC_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>Connection Spec</em>' class.
@@ -916,7 +582,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CONNECTION_SPEC_FEATURE_COUNT = CCI_CONNECTION_SPEC_FEATURE_COUNT + 47;
+	public static final int CONNECTION_SPEC_FEATURE_COUNT = CCI_CONNECTION_SPEC_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link javax.resource.cci.ConnectionMetaData <em>CCI Connection Meta Data</em>}' class.
@@ -1190,6 +856,16 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	public static final int REFERENCE = 36;
 
 	/**
+	 * The meta object id for the '<em>Registry</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.ecore.EPackage.Registry
+	 * @see org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl#getRegistry()
+	 * @generated
+	 */
+	public static final int REGISTRY = 37;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1447,6 +1123,13 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 */
 	private EDataType referenceEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType registryEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1762,19 +1445,6 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	}
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getAuthType <em>Auth Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Auth Type</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getAuthType()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_AuthType() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getUserId <em>User Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1784,7 +1454,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 */
 	public EAttribute getConnectionSpec_UserId() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1797,7 +1467,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 */
 	public EAttribute getConnectionSpec_Client() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1810,7 +1480,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 */
 	public EAttribute getConnectionSpec_User() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1823,7 +1493,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 */
 	public EAttribute getConnectionSpec_AliasUser() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(6);
+		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1836,7 +1506,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 */
 	public EAttribute getConnectionSpec_Passwd() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(7);
+		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1849,7 +1519,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 */
 	public EAttribute getConnectionSpec_Lang() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(8);
+		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -1862,7 +1532,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 */
 	public EAttribute getConnectionSpec_Mysapsso2() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(9);
+		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -1875,475 +1545,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	 * @generated
 	 */
 	public EAttribute getConnectionSpec_X509cert() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(10);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getPcs <em>Pcs</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Pcs</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getPcs()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Pcs() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(11);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getType()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Type() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(12);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSaprouter <em>Saprouter</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Saprouter</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSaprouter()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Saprouter() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(13);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSysnr <em>Sysnr</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Sysnr</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSysnr()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Sysnr() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(14);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getAshost <em>Ashost</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Ashost</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getAshost()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Ashost() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(15);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getMshost <em>Mshost</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Mshost</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getMshost()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Mshost() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(16);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getMsserv <em>Msserv</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Msserv</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getMsserv()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Msserv() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(17);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getGwhost <em>Gwhost</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Gwhost</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getGwhost()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Gwhost() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(18);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getGwserv <em>Gwserv</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Gwserv</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getGwserv()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Gwserv() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(19);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getTphost <em>Tphost</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Tphost</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getTphost()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Tphost() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(20);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getTpname <em>Tpname</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Tpname</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getTpname()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Tpname() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(21);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getR3name <em>R3name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>R3name</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getR3name()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_R3name() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(22);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getGroup <em>Group</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Group</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getGroup()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Group() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(23);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getTrace <em>Trace</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Trace</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getTrace()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Trace() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(24);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getCpicTrace <em>Cpic Trace</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Cpic Trace</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getCpicTrace()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_CpicTrace() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(25);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getLcheck <em>Lcheck</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Lcheck</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getLcheck()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Lcheck() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(26);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getUseSapgui <em>Use Sapgui</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Use Sapgui</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getUseSapgui()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_UseSapgui() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(27);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getCodepage <em>Codepage</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Codepage</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getCodepage()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Codepage() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(28);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getGetsso2 <em>Getsso2</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Getsso2</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getGetsso2()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_Getsso2() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(29);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getDenyInitialPassword <em>Deny Initial Password</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Deny Initial Password</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getDenyInitialPassword()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_DenyInitialPassword() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(30);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getPeakLimit <em>Peak Limit</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Peak Limit</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getPeakLimit()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_PeakLimit() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(31);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getPoolCapacity <em>Pool Capacity</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Pool Capacity</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getPoolCapacity()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_PoolCapacity() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(32);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getExpirationTime <em>Expiration Time</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Expiration Time</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getExpirationTime()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_ExpirationTime() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(33);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getExpirationPeriod <em>Expiration Period</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Expiration Period</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getExpirationPeriod()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_ExpirationPeriod() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(34);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getMaxGetTime <em>Max Get Time</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Max Get Time</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getMaxGetTime()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_MaxGetTime() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(35);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSncMode <em>Snc Mode</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Snc Mode</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSncMode()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_SncMode() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(36);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSncPartnername <em>Snc Partnername</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Snc Partnername</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSncPartnername()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_SncPartnername() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(37);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSncQop <em>Snc Qop</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Snc Qop</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSncQop()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_SncQop() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(38);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSncMyname <em>Snc Myname</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Snc Myname</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSncMyname()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_SncMyname() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(39);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSncLibrary <em>Snc Library</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Snc Library</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getSncLibrary()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_SncLibrary() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(40);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getRepositoryDest <em>Repository Dest</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Repository Dest</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getRepositoryDest()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_RepositoryDest() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(41);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getRepositoryUser <em>Repository User</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Repository User</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getRepositoryUser()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_RepositoryUser() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(42);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getRepositoryPasswd <em>Repository Passwd</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Repository Passwd</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getRepositoryPasswd()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_RepositoryPasswd() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(43);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getRepositorySnc <em>Repository Snc</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Repository Snc</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getRepositorySnc()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_RepositorySnc() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(44);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getRepositoryRoundtripOptimization <em>Repository Roundtrip Optimization</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Repository Roundtrip Optimization</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getRepositoryRoundtripOptimization()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_RepositoryRoundtripOptimization() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(45);
-	}
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.jboss.jca.adapters.sap.cci.ConnectionSpec#getPingOnCreate <em>Ping On Create</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Ping On Create</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.ConnectionSpec#getPingOnCreate()
-	 * @see #getConnectionSpec()
-	 * @generated
-	 */
-	public EAttribute getConnectionSpec_PingOnCreate() {
-		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(46);
+		return (EAttribute)connectionSpecEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -2719,6 +1921,19 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 	}
 
 	/**
+	 * Returns the meta object for data type '{@link org.eclipse.emf.ecore.EPackage.Registry <em>Registry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Registry</em>'.
+	 * @see org.eclipse.emf.ecore.EPackage.Registry
+	 * @model instanceClass="org.eclipse.emf.ecore.EPackage.Registry"
+	 * @generated
+	 */
+	public EDataType getRegistry() {
+		return registryEDataType;
+	}
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2775,7 +1990,6 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 		connectionSpecEClass = createEClass(CONNECTION_SPEC);
 		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__USER_NAME);
 		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__PASSWORD);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__AUTH_TYPE);
 		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__USER_ID);
 		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__CLIENT);
 		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__USER);
@@ -2784,42 +1998,6 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__LANG);
 		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__MYSAPSSO2);
 		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__X509CERT);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__PCS);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__TYPE);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__SAPROUTER);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__SYSNR);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__ASHOST);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__MSHOST);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__MSSERV);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__GWHOST);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__GWSERV);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__TPHOST);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__TPNAME);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__R3NAME);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__GROUP);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__TRACE);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__CPIC_TRACE);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__LCHECK);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__USE_SAPGUI);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__CODEPAGE);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__GETSSO2);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__DENY_INITIAL_PASSWORD);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__PEAK_LIMIT);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__POOL_CAPACITY);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__EXPIRATION_TIME);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__EXPIRATION_PERIOD);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__MAX_GET_TIME);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__SNC_MODE);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__SNC_PARTNERNAME);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__SNC_QOP);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__SNC_MYNAME);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__SNC_LIBRARY);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__REPOSITORY_DEST);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__REPOSITORY_USER);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__REPOSITORY_PASSWD);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__REPOSITORY_SNC);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__REPOSITORY_ROUNDTRIP_OPTIMIZATION);
-		createEAttribute(connectionSpecEClass, CONNECTION_SPEC__PING_ON_CREATE);
 
 		connectionMetaDataEClass = createEClass(CONNECTION_META_DATA);
 
@@ -2866,6 +2044,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 		resourceWarningEDataType = createEDataType(RESOURCE_WARNING);
 		resultSetInfoEDataType = createEDataType(RESULT_SET_INFO);
 		referenceEDataType = createEDataType(REFERENCE);
+		registryEDataType = createEDataType(REGISTRY);
 	}
 
 	/**
@@ -2919,8 +2098,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 		addEParameter(op, ecorePackage.getEString(), "recordName", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEException(op, this.getResourceException());
 
-		op = addEOperation(recordFactoryEClass, ecorePackage.getEPackage(), "getPackage", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEString(), "functionModuleName", 0, 1, IS_UNIQUE, IS_ORDERED);
+		op = addEOperation(recordFactoryEClass, this.getRegistry(), "getPackageRegistry", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEException(op, this.getResourceException());
 
 		initEClass(mappedRecordEClass, MappedRecord.class, "MappedRecord", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3130,7 +2308,6 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 		initEClass(connectionSpecEClass, ConnectionSpec.class, "ConnectionSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getConnectionSpec_UserName(), ecorePackage.getEString(), "userName", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConnectionSpec_Password(), ecorePackage.getEString(), "password", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_AuthType(), ecorePackage.getEString(), "authType", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConnectionSpec_UserId(), ecorePackage.getEString(), "userId", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConnectionSpec_Client(), ecorePackage.getEString(), "client", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConnectionSpec_User(), ecorePackage.getEString(), "user", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3139,42 +2316,6 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 		initEAttribute(getConnectionSpec_Lang(), ecorePackage.getEString(), "lang", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConnectionSpec_Mysapsso2(), ecorePackage.getEString(), "mysapsso2", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getConnectionSpec_X509cert(), ecorePackage.getEString(), "x509cert", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Pcs(), ecorePackage.getEString(), "pcs", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Type(), ecorePackage.getEString(), "type", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Saprouter(), ecorePackage.getEString(), "saprouter", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Sysnr(), ecorePackage.getEString(), "sysnr", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Ashost(), ecorePackage.getEString(), "ashost", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Mshost(), ecorePackage.getEString(), "mshost", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Msserv(), ecorePackage.getEString(), "msserv", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Gwhost(), ecorePackage.getEString(), "gwhost", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Gwserv(), ecorePackage.getEString(), "gwserv", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Tphost(), ecorePackage.getEString(), "tphost", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Tpname(), ecorePackage.getEString(), "tpname", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_R3name(), ecorePackage.getEString(), "r3name", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Group(), ecorePackage.getEString(), "group", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Trace(), ecorePackage.getEString(), "trace", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_CpicTrace(), ecorePackage.getEString(), "cpicTrace", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Lcheck(), ecorePackage.getEString(), "lcheck", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_UseSapgui(), ecorePackage.getEString(), "useSapgui", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Codepage(), ecorePackage.getEString(), "codepage", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_Getsso2(), ecorePackage.getEString(), "getsso2", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_DenyInitialPassword(), ecorePackage.getEString(), "denyInitialPassword", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_PeakLimit(), ecorePackage.getEString(), "peakLimit", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_PoolCapacity(), ecorePackage.getEString(), "poolCapacity", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_ExpirationTime(), ecorePackage.getEString(), "expirationTime", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_ExpirationPeriod(), ecorePackage.getEString(), "expirationPeriod", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_MaxGetTime(), ecorePackage.getEString(), "maxGetTime", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_SncMode(), ecorePackage.getEString(), "sncMode", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_SncPartnername(), ecorePackage.getEString(), "sncPartnername", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_SncQop(), ecorePackage.getEString(), "sncQop", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_SncMyname(), ecorePackage.getEString(), "sncMyname", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_SncLibrary(), ecorePackage.getEString(), "sncLibrary", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_RepositoryDest(), ecorePackage.getEString(), "repositoryDest", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_RepositoryUser(), ecorePackage.getEString(), "repositoryUser", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_RepositoryPasswd(), ecorePackage.getEString(), "repositoryPasswd", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_RepositorySnc(), ecorePackage.getEString(), "repositorySnc", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_RepositoryRoundtripOptimization(), ecorePackage.getEString(), "repositoryRoundtripOptimization", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConnectionSpec_PingOnCreate(), ecorePackage.getEString(), "pingOnCreate", null, 0, 1, ConnectionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(connectionMetaDataEClass, ConnectionMetaData.class, "ConnectionMetaData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -3257,6 +2398,7 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 		initEDataType(resourceWarningEDataType, ResourceWarning.class, "ResourceWarning", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(resultSetInfoEDataType, ResultSetInfo.class, "ResultSetInfo", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(referenceEDataType, Reference.class, "Reference", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(registryEDataType, Registry.class, "Registry", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -3452,14 +2594,6 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 		public static final EAttribute CONNECTION_SPEC__PASSWORD = eINSTANCE.getConnectionSpec_Password();
 
 		/**
-		 * The meta object literal for the '<em><b>Auth Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__AUTH_TYPE = eINSTANCE.getConnectionSpec_AuthType();
-
-		/**
 		 * The meta object literal for the '<em><b>User Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3522,294 +2656,6 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 		 * @generated
 		 */
 		public static final EAttribute CONNECTION_SPEC__X509CERT = eINSTANCE.getConnectionSpec_X509cert();
-
-		/**
-		 * The meta object literal for the '<em><b>Pcs</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__PCS = eINSTANCE.getConnectionSpec_Pcs();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__TYPE = eINSTANCE.getConnectionSpec_Type();
-
-		/**
-		 * The meta object literal for the '<em><b>Saprouter</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__SAPROUTER = eINSTANCE.getConnectionSpec_Saprouter();
-
-		/**
-		 * The meta object literal for the '<em><b>Sysnr</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__SYSNR = eINSTANCE.getConnectionSpec_Sysnr();
-
-		/**
-		 * The meta object literal for the '<em><b>Ashost</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__ASHOST = eINSTANCE.getConnectionSpec_Ashost();
-
-		/**
-		 * The meta object literal for the '<em><b>Mshost</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__MSHOST = eINSTANCE.getConnectionSpec_Mshost();
-
-		/**
-		 * The meta object literal for the '<em><b>Msserv</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__MSSERV = eINSTANCE.getConnectionSpec_Msserv();
-
-		/**
-		 * The meta object literal for the '<em><b>Gwhost</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__GWHOST = eINSTANCE.getConnectionSpec_Gwhost();
-
-		/**
-		 * The meta object literal for the '<em><b>Gwserv</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__GWSERV = eINSTANCE.getConnectionSpec_Gwserv();
-
-		/**
-		 * The meta object literal for the '<em><b>Tphost</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__TPHOST = eINSTANCE.getConnectionSpec_Tphost();
-
-		/**
-		 * The meta object literal for the '<em><b>Tpname</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__TPNAME = eINSTANCE.getConnectionSpec_Tpname();
-
-		/**
-		 * The meta object literal for the '<em><b>R3name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__R3NAME = eINSTANCE.getConnectionSpec_R3name();
-
-		/**
-		 * The meta object literal for the '<em><b>Group</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__GROUP = eINSTANCE.getConnectionSpec_Group();
-
-		/**
-		 * The meta object literal for the '<em><b>Trace</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__TRACE = eINSTANCE.getConnectionSpec_Trace();
-
-		/**
-		 * The meta object literal for the '<em><b>Cpic Trace</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__CPIC_TRACE = eINSTANCE.getConnectionSpec_CpicTrace();
-
-		/**
-		 * The meta object literal for the '<em><b>Lcheck</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__LCHECK = eINSTANCE.getConnectionSpec_Lcheck();
-
-		/**
-		 * The meta object literal for the '<em><b>Use Sapgui</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__USE_SAPGUI = eINSTANCE.getConnectionSpec_UseSapgui();
-
-		/**
-		 * The meta object literal for the '<em><b>Codepage</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__CODEPAGE = eINSTANCE.getConnectionSpec_Codepage();
-
-		/**
-		 * The meta object literal for the '<em><b>Getsso2</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__GETSSO2 = eINSTANCE.getConnectionSpec_Getsso2();
-
-		/**
-		 * The meta object literal for the '<em><b>Deny Initial Password</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__DENY_INITIAL_PASSWORD = eINSTANCE.getConnectionSpec_DenyInitialPassword();
-
-		/**
-		 * The meta object literal for the '<em><b>Peak Limit</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__PEAK_LIMIT = eINSTANCE.getConnectionSpec_PeakLimit();
-
-		/**
-		 * The meta object literal for the '<em><b>Pool Capacity</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__POOL_CAPACITY = eINSTANCE.getConnectionSpec_PoolCapacity();
-
-		/**
-		 * The meta object literal for the '<em><b>Expiration Time</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__EXPIRATION_TIME = eINSTANCE.getConnectionSpec_ExpirationTime();
-
-		/**
-		 * The meta object literal for the '<em><b>Expiration Period</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__EXPIRATION_PERIOD = eINSTANCE.getConnectionSpec_ExpirationPeriod();
-
-		/**
-		 * The meta object literal for the '<em><b>Max Get Time</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__MAX_GET_TIME = eINSTANCE.getConnectionSpec_MaxGetTime();
-
-		/**
-		 * The meta object literal for the '<em><b>Snc Mode</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__SNC_MODE = eINSTANCE.getConnectionSpec_SncMode();
-
-		/**
-		 * The meta object literal for the '<em><b>Snc Partnername</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__SNC_PARTNERNAME = eINSTANCE.getConnectionSpec_SncPartnername();
-
-		/**
-		 * The meta object literal for the '<em><b>Snc Qop</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__SNC_QOP = eINSTANCE.getConnectionSpec_SncQop();
-
-		/**
-		 * The meta object literal for the '<em><b>Snc Myname</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__SNC_MYNAME = eINSTANCE.getConnectionSpec_SncMyname();
-
-		/**
-		 * The meta object literal for the '<em><b>Snc Library</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__SNC_LIBRARY = eINSTANCE.getConnectionSpec_SncLibrary();
-
-		/**
-		 * The meta object literal for the '<em><b>Repository Dest</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__REPOSITORY_DEST = eINSTANCE.getConnectionSpec_RepositoryDest();
-
-		/**
-		 * The meta object literal for the '<em><b>Repository User</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__REPOSITORY_USER = eINSTANCE.getConnectionSpec_RepositoryUser();
-
-		/**
-		 * The meta object literal for the '<em><b>Repository Passwd</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__REPOSITORY_PASSWD = eINSTANCE.getConnectionSpec_RepositoryPasswd();
-
-		/**
-		 * The meta object literal for the '<em><b>Repository Snc</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__REPOSITORY_SNC = eINSTANCE.getConnectionSpec_RepositorySnc();
-
-		/**
-		 * The meta object literal for the '<em><b>Repository Roundtrip Optimization</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__REPOSITORY_ROUNDTRIP_OPTIMIZATION = eINSTANCE.getConnectionSpec_RepositoryRoundtripOptimization();
-
-		/**
-		 * The meta object literal for the '<em><b>Ping On Create</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EAttribute CONNECTION_SPEC__PING_ON_CREATE = eINSTANCE.getConnectionSpec_PingOnCreate();
 
 		/**
 		 * The meta object literal for the '{@link org.jboss.jca.adapters.sap.cci.impl.ConnectionMetaDataImpl <em>Connection Meta Data</em>}' class.
@@ -4098,6 +2944,16 @@ public class CciPackageImpl extends EPackageImpl implements CciPackage {
 		 * @generated
 		 */
 		public static final EDataType REFERENCE = eINSTANCE.getReference();
+
+		/**
+		 * The meta object literal for the '<em>Registry</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.emf.ecore.EPackage.Registry
+		 * @see org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl#getRegistry()
+		 * @generated
+		 */
+		public static final EDataType REGISTRY = eINSTANCE.getRegistry();
 
 	}
 

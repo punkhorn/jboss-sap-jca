@@ -22,7 +22,7 @@
  */
 package org.jboss.jca.adapters.sap.cci.impl;
 
-import static org.jboss.jca.adapters.sap.cci.CciPackage.*;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.JBOSS_SAP_URI_PREFIX;
 
 import javax.resource.ResourceException;
 import javax.resource.cci.Record;
@@ -43,7 +43,7 @@ import com.sap.conn.jco.JCoRepository;
  * <em><b>Record Factory</b></em>'. <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
@@ -54,7 +54,6 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected RecordFactoryImpl() {
@@ -63,7 +62,6 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

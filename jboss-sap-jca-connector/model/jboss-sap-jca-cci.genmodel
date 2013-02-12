@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="JBoss, Home of Professional Open Source.&#xA;Copyright 2012, Red Hat Middleware LLC, and individual contributors&#xA;as indicated by the @author tags. See the copyright.txt file in the&#xA;distribution for a full listing of individual contributors.&#xA;&#xA;This is free software; you can redistribute it and/or modify it&#xA;under the terms of the GNU Lesser General Public License as&#xA;published by the Free Software Foundation; either version 2.1 of&#xA;the License, or (at your option) any later version.&#xA;&#xA;This software is distributed in the hope that it will be useful,&#xA;but WITHOUT ANY WARRANTY; without even the implied warranty of&#xA;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU&#xA;Lesser General Public License for more details.&#xA;&#xA;You should have received a copy of the GNU Lesser General Public&#xA;License along with this software; if not, write to the Free&#xA;Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA&#xA;02110-1301 USA, or see the FSF site: http://www.fsf.org.&#xA;"
     modelDirectory="/jboss-sap-jca-connector/src/main/java" editDirectory="/org.jboss.jca.adapters.sap.edit/src"
     editorDirectory="/org.jboss.jca.adapters.sap.editor/src" modelPluginID="jboss-sap-jca-connector"
@@ -35,9 +34,7 @@
       <genOperations ecoreOperation="jboss-sap-jca-cci.ecore#//RecordFactory/createIndexedRecord">
         <genParameters ecoreParameter="jboss-sap-jca-cci.ecore#//RecordFactory/createIndexedRecord/recordName"/>
       </genOperations>
-      <genOperations ecoreOperation="jboss-sap-jca-cci.ecore#//RecordFactory/getPackageRegistry">
-        <genParameters ecoreParameter="jboss-sap-jca-cci.ecore#//RecordFactory/getPackageRegistry/functionModuleName"/>
-      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca-cci.ecore#//RecordFactory/getPackageRegistry"/>
     </genClasses>
     <genClasses ecoreClass="jboss-sap-jca-cci.ecore#//MappedRecord">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//MappedRecord/recordName"/>
@@ -194,7 +191,6 @@
     <genClasses ecoreClass="jboss-sap-jca-cci.ecore#//ConnectionSpec">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/userName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/password"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/authType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/userId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/client"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/user"/>
@@ -203,42 +199,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/lang"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/mysapsso2"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/x509cert"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/pcs"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/saprouter"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/sysnr"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/ashost"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/mshost"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/msserv"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/gwhost"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/gwserv"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/tphost"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/tpname"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/r3name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/group"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/trace"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/cpicTrace"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/lcheck"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/useSapgui"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/codepage"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/getsso2"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/denyInitialPassword"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/peakLimit"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/poolCapacity"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/expirationTime"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/expirationPeriod"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/maxGetTime"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/sncMode"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/sncPartnername"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/sncQop"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/sncMyname"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/sncLibrary"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/repositoryDest"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/repositoryUser"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/repositoryPasswd"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/repositorySnc"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/repositoryRoundtripOptimization"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca-cci.ecore#//ConnectionSpec/pingOnCreate"/>
     </genClasses>
     <genClasses ecoreClass="jboss-sap-jca-cci.ecore#//ConnectionMetaData">
       <genOperations ecoreOperation="jboss-sap-jca-cci.ecore#//ConnectionMetaData/getEISProductName"/>

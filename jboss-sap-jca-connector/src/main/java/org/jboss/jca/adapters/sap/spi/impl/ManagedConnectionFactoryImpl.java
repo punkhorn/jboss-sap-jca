@@ -102,7 +102,6 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, j
 	 */
 	public org.jboss.jca.adapters.sap.spi.ConnectionRequestInfo convertConnectionSpecToConnectionRequestInfo(ConnectionSpec connectionSpec) {
 		ConnectionRequestInfoImpl connectionRequestInfo = new ConnectionRequestInfoImpl();
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_AUTH_TYPE, connectionSpec.getAuthType());
 		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_USER_ID, connectionSpec.getUserId());
 		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_CLIENT, connectionSpec.getClient());
 		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_USER, connectionSpec.getUser());
@@ -111,41 +110,6 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, j
 		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_LANG, connectionSpec.getLang());
 		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_MYSAPSSO2, connectionSpec.getMysapsso2());
 		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_X509CERT, connectionSpec.getX509cert());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_PCS, connectionSpec.getPcs());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_TYPE, connectionSpec.getType());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_SAPROUTER, connectionSpec.getSaprouter());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_SYSNR, connectionSpec.getSysnr());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_ASHOST, connectionSpec.getAshost());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_MSHOST, connectionSpec.getMshost());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_MSSERV, connectionSpec.getMsserv());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_GWHOST, connectionSpec.getGwhost());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_GWSERV, connectionSpec.getGwserv());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_TPHOST, connectionSpec.getTphost());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_TPNAME, connectionSpec.getTpname());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_R3NAME, connectionSpec.getR3name());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_GROUP, connectionSpec.getGroup());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_TRACE, connectionSpec.getTrace());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_CPIC_TRACE, connectionSpec.getCpicTrace());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_LCHECK, connectionSpec.getLcheck());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_USE_SAPGUI, connectionSpec.getUseSapgui());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_CODEPAGE, connectionSpec.getCodepage());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_GETSSO2, connectionSpec.getGetsso2());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_DENY_INITIAL_PASSWORD, connectionSpec.getDenyInitialPassword());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_POOL_CAPACITY, connectionSpec.getPoolCapacity());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_EXPIRATION_TIME, connectionSpec.getExpirationTime());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_EXPIRATION_PERIOD, connectionSpec.getExpirationPeriod());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_MAX_GET_TIME, connectionSpec.getMaxGetTime());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_SNC_MODE, connectionSpec.getSncPartnername());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_SNC_PARTNERNAME, connectionSpec.getSncPartnername());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_SNC_QOP, connectionSpec.getSncQop());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_SNC_MYNAME, connectionSpec.getSncMyname());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_SNC_LIBRARY, connectionSpec.getSncLibrary());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_REPOSITORY_DEST, connectionSpec.getRepositoryDest());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_REPOSITORY_USER, connectionSpec.getRepositoryUser());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_REPOSITORY_PASSWD, connectionSpec.getRepositoryPasswd());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_REPOSITORY_SNC, connectionSpec.getRepositorySnc());
-		connectionRequestInfo.setProperty(DestinationDataProvider.JCO_REPOSITORY_ROUNDTRIP_OPTIMIZATION, connectionSpec.getRepositoryRoundtripOptimization());
-		connectionRequestInfo.setProperty(ConnectionRequestInfoImpl.JSJC_PING_ON_CREATE, connectionSpec.getPingOnCreate());
 
 		return connectionRequestInfo;
 	}
@@ -153,7 +117,6 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, j
 	public ConnectionSpec convertConnectionRequestInfoToConnectionSpec(org.jboss.jca.adapters.sap.spi.ConnectionRequestInfo connectionRequestInfo) {
 		ConnectionSpec connectionSpec = new ConnectionSpecImpl();
 		
-		connectionSpec.setAuthType(connectionRequestInfo.getProperty(DestinationDataProvider.JCO_AUTH_TYPE));
 		connectionSpec.setUserId( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_USER_ID));
 		connectionSpec.setClient( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_CLIENT));
 		connectionSpec.setUser( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_USER));
@@ -162,41 +125,6 @@ public class ManagedConnectionFactoryImpl implements ManagedConnectionFactory, j
 		connectionSpec.setLang( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_LANG));
 		connectionSpec.setMysapsso2( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_MYSAPSSO2));
 		connectionSpec.setX509cert( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_X509CERT));
-		connectionSpec.setPcs( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_PCS));
-		connectionSpec.setType( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_TYPE));
-		connectionSpec.setSaprouter( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_SAPROUTER));
-		connectionSpec.setSysnr( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_SYSNR));
-		connectionSpec.setAshost( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_ASHOST));
-		connectionSpec.setMshost( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_MSHOST));
-		connectionSpec.setMsserv( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_MSSERV));
-		connectionSpec.setGwhost( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_GWHOST));
-		connectionSpec.setGwserv( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_GWSERV));
-		connectionSpec.setTphost( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_TPHOST));
-		connectionSpec.setTpname( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_TPNAME));
-		connectionSpec.setR3name( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_R3NAME));
-		connectionSpec.setGroup( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_GROUP));
-		connectionSpec.setTrace( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_TRACE));
-		connectionSpec.setCpicTrace( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_CPIC_TRACE));
-		connectionSpec.setLcheck( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_LCHECK));
-		connectionSpec.setUseSapgui( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_USE_SAPGUI));
-		connectionSpec.setCodepage( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_CODEPAGE));
-		connectionSpec.setGetsso2( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_GETSSO2));
-		connectionSpec.setDenyInitialPassword( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_DENY_INITIAL_PASSWORD));
-		connectionSpec.setPoolCapacity( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_POOL_CAPACITY));
-		connectionSpec.setExpirationTime( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_EXPIRATION_TIME));
-		connectionSpec.setExpirationPeriod( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_EXPIRATION_PERIOD));
-		connectionSpec.setMaxGetTime( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_MAX_GET_TIME));
-		connectionSpec.setSncPartnername( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_SNC_MODE));
-		connectionSpec.setSncPartnername( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_SNC_PARTNERNAME));
-		connectionSpec.setSncQop( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_SNC_QOP));
-		connectionSpec.setSncMyname( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_SNC_MYNAME));
-		connectionSpec.setSncLibrary( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_SNC_LIBRARY));
-		connectionSpec.setRepositoryDest( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_REPOSITORY_DEST));
-		connectionSpec.setRepositoryUser( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_REPOSITORY_USER));
-		connectionSpec.setRepositoryPasswd( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_REPOSITORY_PASSWD));
-		connectionSpec.setRepositorySnc( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_REPOSITORY_SNC));
-		connectionSpec.setRepositoryRoundtripOptimization( connectionRequestInfo.getProperty(DestinationDataProvider.JCO_REPOSITORY_ROUNDTRIP_OPTIMIZATION));
-		connectionSpec.setPingOnCreate( connectionRequestInfo.getProperty(ConnectionRequestInfoImpl.JSJC_PING_ON_CREATE));
 
 		return connectionSpec;
 	}

@@ -26,6 +26,7 @@ package org.jboss.jca.adapters.sap.cci.provider;
 import java.util.Collection;
 import java.util.List;
 
+import javax.naming.Reference;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
