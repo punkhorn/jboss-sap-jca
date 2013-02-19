@@ -90,7 +90,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 
 import org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl;
-import org.jboss.jca.adapters.sap.cci.provider.JBossSapJcaEditPlugin;
+import org.jboss.jca.adapters.sap.edit.JBossSapJcaEditPlugin;
 
 
 import org.eclipse.core.runtime.Path;
@@ -105,6 +105,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
+import org.jboss.jca.adapters.sap.editor.JBossSapJcaEditorPlugin;
 
 
 /**

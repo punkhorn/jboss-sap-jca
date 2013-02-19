@@ -1,0 +1,778 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="JBoss, Home of Professional Open Source.&#xA;Copyright 2012, Red Hat Middleware LLC, and individual contributors&#xA;as indicated by the @author tags. See the copyright.txt file in the&#xA;distribution for a full listing of individual contributors.&#xA;&#xA;This is free software; you can redistribute it and/or modify it&#xA;under the terms of the GNU Lesser General Public License as&#xA;published by the Free Software Foundation; either version 2.1 of&#xA;the License, or (at your option) any later version.&#xA;&#xA;This software is distributed in the hope that it will be useful,&#xA;but WITHOUT ANY WARRANTY; without even the implied warranty of&#xA;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU&#xA;Lesser General Public License for more details.&#xA;&#xA;You should have received a copy of the GNU Lesser General Public&#xA;License along with this software; if not, write to the Free&#xA;Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA&#xA;02110-1301 USA, or see the FSF site: http://www.fsf.org.&#xA;"
+    modelDirectory="/jboss-sap-jca-connector/src/main/java" editDirectory="/org.jboss.jca.adapters.sap.edit/src"
+    editorDirectory="/org.jboss.jca.adapters.sap.editor/src" modelPluginID="org.jboss.jca.adapters.sap"
+    modelName="JBoss SAP JCA Connector" modelPluginClass="" editPluginClass="org.jboss.jca.adapters.sap.edit.JBossSapJcaEditPlugin"
+    editorPluginClass="org.jboss.jca.adapters.sap.editor.JBossSapJcaEditorPlugin"
+    suppressEMFMetaData="true" testsDirectory="/org.jboss.jca.adapters.sap.tests/src/main/java"
+    testSuiteClass="org.jboss.jca.adapters.sap.tests.JBossSapJcaAllTests" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" providerRootExtendsClass="" editPluginID="org.jboss.jca.adapters.sap.edit"
+    editorPluginID="org.jboss.jca.adapters.sap.editor" language="">
+  <foreignModel>jboss-sap-jca.ecore</foreignModel>
+  <genPackages prefix="Cci" basePackage="org.jboss.jca.adapters.sap" disposableProviderFactory="true"
+      ecorePackage="jboss-sap-jca.ecore#/0">
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/ObjectArray"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/StringArray"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/MappedRecordCollection"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/MappedRecordListIterator"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/MappedRecordIterator"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/MappedRecordList"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/RawCollection"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/RawMap"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/RawSet"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/Properties"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/ResourceException"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/ResourceWarning"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/ResultSetInfo"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/Reference"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/Registry"/>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/RecordFactory">
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/RecordFactory/createMappedRecord">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/RecordFactory/createMappedRecord/recordName"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/RecordFactory/createIndexedRecord">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/RecordFactory/createIndexedRecord/recordName"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/RecordFactory/getPackageRegistry"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/MappedRecord">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/MappedRecord/recordName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/MappedRecord/recordShortDescription"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/clone"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/equals">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/MappedRecord/equals/other"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/hashCode"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/size"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/isEmpty"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/containsKey">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/MappedRecord/containsKey/key"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/containsValue">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/MappedRecord/containsValue/value"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/get">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/MappedRecord/get/key"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/put">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/MappedRecord/put/key"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/MappedRecord/put/value"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/remove">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/MappedRecord/remove/key"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/putAll">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/MappedRecord/putAll/m"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/clear"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/keySet"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/values"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/entrySet"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/IndexedRecord">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/IndexedRecord/recordName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/IndexedRecord/recordShortDescription"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/IndexedRecord/recordType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/IndexedRecord/record"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/clone"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/equals">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/equals/other"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/hashCode"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/size"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/isEmpty"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/contains">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/contains/o"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/iterator"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/toArray"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/toArray.1">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/toArray.1/a"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/add">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/add/e"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/add.1"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/remove">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/remove/o"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/containsAll">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/containsAll/c"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/addAll">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/addAll/c"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/addAll.1">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/addAll.1/index"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/addAll.1/c"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/removeAll">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/removeAll/c"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/retainAll">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/retainAll/c"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/clear"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/get">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/get/index"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/set">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/set/index"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/set/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/add.2">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/add.2/index"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/add.2/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/add.3">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/add.3/index"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/remove.1">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/remove.1/index"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/indexOf">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/indexOf/o"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/lastIndexOf">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/lastIndexOf/o"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/listIterator"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/listIterator.1">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/listIterator.1/index"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/subList">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/subList/fromIndex"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/subList/toIndex"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/InteractionSpec">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/InteractionSpec/functionName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/InteractionSpec/interactionVerb"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/InteractionSpec/executionTimeout"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/Interaction">
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Interaction/close"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Interaction/getConnection"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Interaction/execute">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/Interaction/execute/ispec"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/Interaction/execute/input"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/Interaction/execute/output"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Interaction/execute.1">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/Interaction/execute.1/ispec"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/Interaction/execute.1/input"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Interaction/getWarnings"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Interaction/clearWarnings"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/ConnectionFactory">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionFactory/reference"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ConnectionFactory/getConnection"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ConnectionFactory/getConnection.1">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/ConnectionFactory/getConnection.1/properties"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ConnectionFactory/getRecordFactory"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ConnectionFactory/getMetaData"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/Connection">
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Connection/begin"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Connection/end"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Connection/isClosed"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Connection/isStateful"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Connection/getConnectionSpec"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Connection/createInteraction"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Connection/getLocalTransaction"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Connection/getMetaData"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Connection/getResultSetInfo"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Connection/ping"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/Connection/close"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/ConnectionSpec">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/userName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/password"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/userId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/client"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/user"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/aliasUser"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/passwd"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/lang"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/mysapsso2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/x509cert"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/ConnectionMetaData">
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ConnectionMetaData/getEISProductName"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ConnectionMetaData/getEISProductVersion"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ConnectionMetaData/getUserName"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/LocalTransaction">
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/LocalTransaction/begin"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/LocalTransaction/commit"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/LocalTransaction/rollback"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/ResourceAdapterMetaData">
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ResourceAdapterMetaData/getAdapterVersion"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ResourceAdapterMetaData/getAdapterVendorName"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ResourceAdapterMetaData/getAdapterName"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ResourceAdapterMetaData/getAdapterShortDescription"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ResourceAdapterMetaData/getSpecVersion"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ResourceAdapterMetaData/getInteractionSpecsSupported"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ResourceAdapterMetaData/supportsExecuteWithInputAndOutputRecord"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ResourceAdapterMetaData/supportsExecuteWithInputRecordOnly"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/ResourceAdapterMetaData/supportsLocalTransactionDemarcation"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/0/CCIRecord"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/0/CCIRecordFactory"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/0/CCIMappedRecord"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/0/CCIIndexedRecord"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/0/CCIInteractionSpec"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/0/CCIInteraction"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/0/CCIConnectionFactory"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/0/CCIConnection"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/0/CCIConnectionSpec"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/0/CCIConnectionMetaData"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/0/CCILocalTransaction"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/0/CCIResourceAdapterMetaData"/>
+  </genPackages>
+  <genPackages prefix="Spi" basePackage="org.jboss.jca.adapters.sap" disposableProviderFactory="true"
+      ecorePackage="jboss-sap-jca.ecore#/1">
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/PasswordCredential"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/Subject"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/ConnectionEventListener"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/XAResource"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/XAResourceArray"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/JCoDestination"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/ActivationSpecArray"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/ActivationSpec"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/BootstrapContext"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/ResourceAdapterInternalException"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/MessageEndpointFactory"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/PrintWriter"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/StringMap"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/StringSet"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/1/SPIConnectionRequestInfo"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/1/SPIConnectionManager"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/1/SPILocalTransaction"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/1/SPIManagedConnectionFactory"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/1/SPIResourceAdapterAssociation"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/1/SPIManagedConnection"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/1/SPIDissociatableManagedConnection"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/1/SPIManagedConnectionMetaData"/>
+    <genClasses image="false" ecoreClass="jboss-sap-jca.ecore#/1/SPIResourceAdapter"/>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/ConnectionRequestInfo">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/properties"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/equals">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/equals/other"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/hashCode"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/stringPropertyNames"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getProperty">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getProperty/key"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setProperty">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setProperty/key"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setProperty/value"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/addProperties">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/addProperties/properties"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getAliasUser"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getAshost"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getAuthType"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getClient"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getCodepage"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getCpicTrace"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getDenyInitialPassword"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getExpirationPeriod"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getExpirationTime"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getGetsso2"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getGroup"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getGwhost"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getGwserv"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getLang"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getLcheck"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getMaxGetTime"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getMshost"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getMsserv"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getMysapsso2"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getPassword"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getPasswd"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getPcs"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getPeakLimit"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getPingOnCreate"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getPoolCapacity"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getR3name"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getRepositoryDest"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getRepositoryPasswd"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getRepositoryRoundtripOptimization"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getRepositorySnc"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getRepositoryUser"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getSaprouter"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getSncLibrary"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getSncMode"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getSncMyname"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getSncPartnername"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getSncQop"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getSysnr"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getTphost"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getTpname"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getTrace"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getType"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getUserName"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getUser"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getUserId"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getUseSapgui"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getX509cert"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setAliasUser">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setAliasUser/user"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setAshost">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setAshost/ashost"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setAuthType">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setAuthType/authType"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setClient">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setClient/client"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setCodepage">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setCodepage/codepage"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setCpicTrace">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setCpicTrace/cpicTrace"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setDenyInitialPassword">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setDenyInitialPassword/denyInitialPassword"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setExpirationPeriod">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setExpirationPeriod/expirationPeriod"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setExpirationTime">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setExpirationTime/expirationTime"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setGetsso2">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setGetsso2/getsso2"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setGroup">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setGroup/group"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setGwhost">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setGwhost/gwhost"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setGwserv">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setGwserv/gwserv"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setLang">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setLang/lang"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setLcheck">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setLcheck/lcheck"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setMaxGetTime">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setMaxGetTime/maxGetTime"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setMshost">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setMshost/mshost"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setMsserv">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setMsserv/msserv"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setMysapsso2">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setMysapsso2/mysapsso2"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setPassword">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setPassword/password"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setPasswd">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setPasswd/passwd"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setPcs">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setPcs/pcs"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setPeakLimit">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setPeakLimit/peakLimit"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setPingOnCreate">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setPingOnCreate/pingOnCreate"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setPoolCapacity">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setPoolCapacity/poolCapacity"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setR3name">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setR3name/r3name"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setRepositoryDest">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setRepositoryDest/repositoryDest"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setRepositoryPasswd">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setRepositoryPasswd/repositoryPasswd"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setRepositoryRoundtripOptimization">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setRepositoryRoundtripOptimization/repositoryRoundtripOptimization"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setRepositorySnc">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setRepositorySnc/repositorySnc"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setRepositoryUser">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setRepositoryUser/repositoryUser"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setSaprouter">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setSaprouter/saprouter"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setSncLibrary">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setSncLibrary/sncLibrary"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setSncMode">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setSncMode/sncMode"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setSncMyname">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setSncMyname/sncMyname"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setSncPartnername">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setSncPartnername/sncPartnername"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setSncQop">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setSncQop/sncQop"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setSysnr">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setSysnr/sysnr"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setTphost">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setTphost/tphost"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setTpname">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setTpname/tpname"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setTrace">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setTrace/trace"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setType">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setType/type"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setUserName">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setUserName/userName"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setUser">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setUser/user"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setUserId">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setUserId/userId"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setUseSapgui">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setUseSapgui/useSapgui"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setX509cert">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ConnectionRequestInfo/setX509cert/x509cert"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/DefaultConnectionManager">
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/DefaultConnectionManager/allocateConnection">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/DefaultConnectionManager/allocateConnection/managedConnectionFactory"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/DefaultConnectionManager/allocateConnection/connectionRequestInfo"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/LocalTransaction">
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/LocalTransaction/begin"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/LocalTransaction/commit"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/LocalTransaction/rollback"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/ManagedConnectionFactory">
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/convertConnectionRequestInfoToConnectionSpec">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/convertConnectionRequestInfoToConnectionSpec/connectionRequestInfo"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/convertConnectionSpecToConnectionRequestInfo">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/convertConnectionSpecToConnectionRequestInfo/connectionSpec"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/createConnectionFactory"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/createConnectionFactory.1">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/createConnectionFactory.1/connectionManager"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/createManagedConnection">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/createManagedConnection/subject"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/createManagedConnection/connectionRequestInfo"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/destroy"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/equals">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/equals/other"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getAliasUser"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getAshost"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getAuthType"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getClient"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getCodepage"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getCpicTrace"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getDenyInitialPassword"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getExpirationPeriod"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getExpirationTime"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getGetsso2"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getGroup"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getGwhost"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getGwserv"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getLang"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getLcheck"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getLogWriter"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getMaxGetTime"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getMshost"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getMsserv"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getMysapsso2"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getPasswd"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getPcs"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getPeakLimit"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getPingOnCreate"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getPoolCapacity"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getR3name"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getRepositoryDest"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getRepositoryPasswd"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getRepositoryRoundtripOptimization"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getRepositorySnc"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getRepositoryUser"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getResourceAdapter"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getSaprouter"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getSncLibrary"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getSncMode"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getSncMyname"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getSncPartnername"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getSncQop"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getSysnr"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getTphost"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getTpname"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getTrace"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getType"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getUser"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getUserId"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getUseSapgui"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/getX509cert"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/hashCode"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/matchManagedConnections">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/matchManagedConnections/connectionSet"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/matchManagedConnections/subject"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/matchManagedConnections/connectionRequestInfo"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setAliasUser">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setAliasUser/user"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setAshost">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setAshost/ashost"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setAuthType">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setAuthType/authType"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setClient">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setClient/client"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setCodepage">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setCodepage/codepage"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setCpicTrace">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setCpicTrace/cpicTrace"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setDenyInitialPassword">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setDenyInitialPassword/denyInitialPassword"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setExpirationPeriod">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setExpirationPeriod/expirationPeriod"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setExpirationTime">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setExpirationTime/expirationTime"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setGetsso2">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setGetsso2/getsso2"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setGroup">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setGroup/group"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setGwhost">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setGwhost/gwhost"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setGwserv">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setGwserv/gwserv"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setLang">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setLang/lang"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setLcheck">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setLcheck/lcheck"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setLogWriter">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setLogWriter/out"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setMaxGetTime">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setMaxGetTime/maxGetTime"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setMshost">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setMshost/mshost"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setMsserv">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setMsserv/msserv"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setMysapsso2">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setMysapsso2/mysapsso2"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setPasswd">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setPasswd/passwd"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setPcs">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setPcs/pcs"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setPeakLimit">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setPeakLimit/peakLimit"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setPingOnCreate">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setPingOnCreate/pingOnCreate"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setPoolCapacity">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setPoolCapacity/poolCapacity"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setR3name">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setR3name/r3name"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setRepositoryDest">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setRepositoryDest/repositoryDest"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setRepositoryPasswd">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setRepositoryPasswd/repositoryPasswd"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setRepositoryRoundtripOptimization">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setRepositoryRoundtripOptimization/repositoryRoundtripOptimization"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setRepositorySnc">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setRepositorySnc/repositorySnc"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setRepositoryUser">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setRepositoryUser/repositoryUser"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setResourceAdapter">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setResourceAdapter/resourceAdapter"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setSaprouter">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setSaprouter/saprouter"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setSncLibrary">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setSncLibrary/sncLibrary"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setSncMode">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setSncMode/sncMode"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setSncMyname">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setSncMyname/sncMyname"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setSncPartnername">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setSncPartnername/sncPartnername"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setSncQop">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setSncQop/sncQop"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setSysnr">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setSysnr/sysnr"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setTphost">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setTphost/tphost"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setTpname">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setTpname/tpname"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setTrace">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setTrace/trace"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setType">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setType/type"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setUser">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setUser/user"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setUserId">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setUserId/userId"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setUseSapgui">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setUseSapgui/useSapgui"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setX509cert">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnectionFactory/setX509cert/x509cert"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/ManagedConnection">
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/equals">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnection/equals/other"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/hashCode"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/getConnection">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnection/getConnection/subject"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnection/getConnection/connectionRequestInfo"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/addConnectionEventListener">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnection/addConnectionEventListener/listener"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/removeConnectionEventListener">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnection/removeConnectionEventListener/listener"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/getLocalTransaction"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/getXAResource"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/getMetaData"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/getLogWriter"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/setLogWriter">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnection/setLogWriter/out"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/associateConnection">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnection/associateConnection/connection"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/dissociateConnections"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/cleanup"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/destroy"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/getProperties"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/getConnectionRequestInfo"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/getDestination"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/getManagedConnectionFactory"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/isStateful"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/beginStatefulSession"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/endStatefulSession"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/ping"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/associateHandle">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnection/associateHandle/handle"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/dissociateHandle">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnection/dissociateHandle/handle"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnection/closeHandle">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ManagedConnection/closeHandle/handle"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/ManagedConnectionMetaData">
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionMetaData/getEISProductName"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionMetaData/getEISProductVersion"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionMetaData/getMaxConnections"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionMetaData/getUserName"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/NonManagedEnvironmentAdmin">
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/NonManagedEnvironmentAdmin/createManagedConnectionFactory">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/NonManagedEnvironmentAdmin/createManagedConnectionFactory/config"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/NonManagedEnvironmentAdmin/isResourceAdapterDeployed"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/NonManagedEnvironmentAdmin/deployResourceAdapter">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/NonManagedEnvironmentAdmin/deployResourceAdapter/config"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/NonManagedEnvironmentAdmin/undeployResourceAdapter"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/ResourceAdapter">
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ResourceAdapter/equals">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ResourceAdapter/equals/other"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ResourceAdapter/hashCode"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ResourceAdapter/isStarted"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ResourceAdapter/start">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ResourceAdapter/start/bootstrapContext"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ResourceAdapter/stop"/>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ResourceAdapter/getXAResources">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ResourceAdapter/getXAResources/activationSpecs"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ResourceAdapter/endpointActivation">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ResourceAdapter/endpointActivation/endpointFactory"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ResourceAdapter/endpointActivation/activationSpec"/>
+      </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ResourceAdapter/endpointDeactivation">
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ResourceAdapter/endpointDeactivation/endpointFactory"/>
+        <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/ResourceAdapter/endpointDeactivation/activationSpec"/>
+      </genOperations>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

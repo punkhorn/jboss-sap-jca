@@ -8,8 +8,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-import org.jboss.jca.adapters.sap.spi.impl.ConnectionRequestInfoImpl;
-import org.jboss.jca.adapters.sap.spi.impl.DestinationDataProviderImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,16 +18,16 @@ public class TestDestinationDataProviderImpl {
 
 	private static final String BOGUS_DESTINATION_NAME = "BogusDestinationName";
 
-	private static final String TEST_DESTINATION_PROPERTIES = "TestDestinationProperties";
+	private static final String TEST_CONNECTION_REQUEST_INFO = "TestConnectionRequestInfo";
 	
 	private DestinationDataEventListener mockDestinationDataEventListener;
 	private DestinationDataProviderImpl destinationDataProvider;
-	private ConnectionRequestInfoImpl mockDestinationProperties;
+	private ConnectionRequestInfoImpl mockDestinationConnectionRequestInfo;
 	
 	@Before
 	public void setUp() throws Exception {
 		mockDestinationDataEventListener = mock(DestinationDataEventListener.class);
-		mockDestinationProperties = mock(ConnectionRequestInfoImpl.class);
+		mockDestinationConnectionRequestInfo = mock(ConnectionRequestInfoImpl.class);
 		
 		destinationDataProvider = new DestinationDataProviderImpl();
 		destinationDataProvider.setDestinationDataEventListener(mockDestinationDataEventListener);
@@ -56,29 +54,29 @@ public class TestDestinationDataProviderImpl {
 	@Test
 	public void testGetDestinationProperties() {
 		// Given
-		destinationDataProvider.addDestinationProperties(TEST_DESTINATION_PROPERTIES, mockDestinationProperties);
+		destinationDataProvider.addConnectionRequestInfo(TEST_CONNECTION_REQUEST_INFO, mockDestinationConnectionRequestInfo);
 		
 		// When
-		ConnectionRequestInfoImpl destinationProperties = destinationDataProvider.getDestinationProperties(TEST_DESTINATION_PROPERTIES);
+		ConnectionRequestInfoImpl destinationProperties = destinationDataProvider.getConnectionRequestInfo(TEST_CONNECTION_REQUEST_INFO);
 		
 		// Then
 		assertThat("DestinationDataProviderImpl.getDestinationProperties(TEST_DESTINATION_PROPERTIES) returned null JBossSAPConnectionSpec", destinationProperties, notNullValue());
-		assertThat("DestinationDataProviderImpl.getDestinationProperties(TEST_DESTINATION_PROPERTIES) returned JBossSAPConnectionSpec instance different than what was set originally", destinationProperties, is(mockDestinationProperties));
+		assertThat("DestinationDataProviderImpl.getDestinationProperties(TEST_DESTINATION_PROPERTIES) returned JBossSAPConnectionSpec instance different than what was set originally", destinationProperties, is(mockDestinationConnectionRequestInfo));
 	}
 
 	@Test
 	public void testAddDestinationProperties() {
 		// When
-		destinationDataProvider.addDestinationProperties(TEST_DESTINATION_PROPERTIES, mockDestinationProperties);
+		destinationDataProvider.addConnectionRequestInfo(TEST_CONNECTION_REQUEST_INFO, mockDestinationConnectionRequestInfo);
 		
 		// Then
-		verify(mockDestinationDataEventListener).updated(TEST_DESTINATION_PROPERTIES);
+		verify(mockDestinationDataEventListener).updated(TEST_CONNECTION_REQUEST_INFO);
 	}
 
 	@Test ( expected = DataProviderException.class )
 	public void testAddDestinationPropertiesWithNullDestinationName() {
 		// When
-		destinationDataProvider.addDestinationProperties(null, mockDestinationProperties);
+		destinationDataProvider.addConnectionRequestInfo(null, mockDestinationConnectionRequestInfo);
 		
 		// Then
 		fail("DestinationDataProviderImpl.addDestinationProperties(null, destinationProperties) failed to throw DataProviderException");
@@ -87,7 +85,7 @@ public class TestDestinationDataProviderImpl {
 	@Test( expected = DataProviderException.class )
 	public void testRemoveDestinationPropertiesWithNullDestinationName() {
 		// When
-		destinationDataProvider.removeDestinationProperties(null);
+		destinationDataProvider.removeConnectionRequestInfo(null);
 
 		// Then
 		fail("DestinationDataProviderImpl.removeDestinationProperties(null) failed to throw DataProviderException");
@@ -96,7 +94,7 @@ public class TestDestinationDataProviderImpl {
 	@Test
 	public void testRemoveDestinationPropertiesWithBogusDestinationName() {
 		// When
-		destinationDataProvider.removeDestinationProperties(BOGUS_DESTINATION_NAME);
+		destinationDataProvider.removeConnectionRequestInfo(BOGUS_DESTINATION_NAME);
 		
 		// Then
 		verify(mockDestinationDataEventListener, never()).deleted(BOGUS_DESTINATION_NAME);
@@ -105,15 +103,15 @@ public class TestDestinationDataProviderImpl {
 	@Test
 	public void testRemoveDestinationProperties() {
 		// Given
-		destinationDataProvider.addDestinationProperties(TEST_DESTINATION_PROPERTIES, mockDestinationProperties);
+		destinationDataProvider.addConnectionRequestInfo(TEST_CONNECTION_REQUEST_INFO, mockDestinationConnectionRequestInfo);
 		
 		// When
-		ConnectionRequestInfoImpl destinationProperties = destinationDataProvider.removeDestinationProperties(TEST_DESTINATION_PROPERTIES);
+		ConnectionRequestInfoImpl destinationProperties = destinationDataProvider.removeConnectionRequestInfo(TEST_CONNECTION_REQUEST_INFO);
 		
 		// Then
 		assertThat("DestinationDataProviderImpl.removeDestinationProperties(TEST_DESTINATION_PROPERTIES) returned null JBossSAPConnectionSpec", destinationProperties, notNullValue());
-		assertThat("", destinationProperties,is(mockDestinationProperties));
-		verify(mockDestinationDataEventListener).deleted(TEST_DESTINATION_PROPERTIES);
+		assertThat("", destinationProperties,is(mockDestinationConnectionRequestInfo));
+		verify(mockDestinationDataEventListener).deleted(TEST_CONNECTION_REQUEST_INFO);
 	}
 
 	@Test

@@ -38,6 +38,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.jboss.jca.adapters.sap.edit.JBossSapJcaEditPlugin;
 
 /**
  * This is the item provider adapter for a {@link org.jboss.jca.adapters.sap.cci.RecordFactory} object.

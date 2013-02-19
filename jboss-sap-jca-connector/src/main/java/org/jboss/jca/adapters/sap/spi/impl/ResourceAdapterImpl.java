@@ -1,23 +1,24 @@
-/*
+/**
  * JBoss, Home of Professional Open Source.
  * Copyright 2012, Red Hat Middleware LLC, and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
- *
+ * 
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
- *
+ * 
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ * 
  */
 package org.jboss.jca.adapters.sap.spi.impl;
 
@@ -27,24 +28,36 @@ import java.util.Set;
 import javax.resource.ResourceException;
 import javax.resource.spi.ActivationSpec;
 import javax.resource.spi.BootstrapContext;
-import javax.resource.spi.ResourceAdapter;
 import javax.resource.spi.ResourceAdapterInternalException;
 import javax.resource.spi.endpoint.MessageEndpointFactory;
 import javax.transaction.xa.XAResource;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.jboss.jca.adapters.sap.spi.ResourceAdapter;
+
 import com.sap.conn.jco.ext.Environment;
 
 /**
- * Implements the {@link ResourceAdapter } interface for the JBoss SAP JCA Connector.
- *
+ * <!-- begin-user-doc -->
+ * Implements the {@link ResourceAdapter }interface for the JBoss SAP
+ * JCA Connector.
+ * 
  * @author William Collins
  * 
- * @version $Id: 093f7fbf7b3636170905727c8beacd82ff9fa113 $
+ * @version $Id:  $
+ * <!-- end-user-doc -->
+ * <p>
+ * </p>
+ *
+ * @generated
  */
-public class ResourceAdapterImpl implements ResourceAdapter {
+public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter {
 
 	/**
 	 * States of a Resource Adapter
+	 * 
+	 * @generated NOT
 	 */
 	public static enum State {
 		STARTED,
@@ -52,11 +65,17 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 		STOPPED;
 	}
 
-	/** Destination Provider for JCo runtime. */
+	/** 
+	 * Destination Provider for JCo runtime. 
+	 * 
+	 * @generated NOT
+	 */
 	private final DestinationDataProviderImpl destinationDataProvider;
 
 	/**
 	 * The set of active managed connection factories currently managed by this resource adapter.
+	 * 
+	 * @generated NOT
 	 */
 	private final Set<ManagedConnectionFactoryImpl> factories = new HashSet<ManagedConnectionFactoryImpl>();
 	
@@ -66,42 +85,86 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	 * Resource adapter starts in <code>STOPPED</code> state when created and can
 	 * transition back and forth to and from <code>STARTED</code> and
 	 * <code>STOPPED</code> states.
+	 * 
+	 * @generated NOT
 	 */
 	private State state = State.STARTING;
 
 	/**
-	 * Default constructor
+	 * <!-- begin-user-doc -->
+	 * Creates an {@link ResourceAdapter} instance.
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
 	public ResourceAdapterImpl() {
+		super();
 		destinationDataProvider = new DestinationDataProviderImpl();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
-	public void endpointActivation(MessageEndpointFactory endpointFactory, ActivationSpec spec)
-			throws ResourceException {
+	@Override
+	protected EClass eStaticClass() {
+		return SpiPackageImpl.Literals.RESOURCE_ADAPTER;
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
 	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
-	public void endpointDeactivation(MessageEndpointFactory endpointFactory, ActivationSpec spec) {
+	public boolean equals(Object other) {
+		if (other == null)
+			return false;
+		if (other == this)
+			return true;
+		if (!(other instanceof ResourceAdapterImpl))
+			return false;
+
+		// Return true to prevent application server from deploying multiple instances of this resource adapter.
+		return true;
 	}
-	
+
 	/**
-	 * Returns <code>true</code> if resource adapter is started; <code>false</code> otherwise.
-	 * 
-	 * @return <code>true</code> if resource adapter is started; <code>false</code> otherwise.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public int hashCode() {
+		int result = 17;
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
 	public boolean isStarted() {
 		return state == State.STARTED;
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
 	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
-	public synchronized void start(BootstrapContext ctx) throws ResourceAdapterInternalException {
+	public synchronized void start(BootstrapContext bootstrapContext) throws ResourceAdapterInternalException {
 		if (state == State.STARTED)
 			return;
 		state = State.STARTED;
@@ -109,7 +172,12 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
 	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
 	public synchronized void stop() {
 		if (state == State.STOPPED)
@@ -137,37 +205,44 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
 	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
-	public XAResource[] getXAResources(ActivationSpec[] specs) throws ResourceException {
+	public XAResource[] getXAResources(ActivationSpec[] activationSpecs) throws ResourceException {
 		return null;
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
 	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
-	@Override
-	public int hashCode() {
-		int result = 17;
-		return result;
+	public void endpointActivation(MessageEndpointFactory endpointFactory, ActivationSpec activationSpec) throws ResourceException {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
 	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
-	@Override
-	public boolean equals(Object other) {
-		if (other == null)
-			return false;
-		if (other == this)
-			return true;
-		if (!(other instanceof ResourceAdapterImpl))
-			return false;
-
-		// Return true to prevent application server from deploying multiple instances of this resource adapter.
-		return true;
+	public void endpointDeactivation(MessageEndpointFactory endpointFactory, ActivationSpec activationSpec) {
 	}
 
+	/**
+	 * Return the {@link DesitnationDataProviderImpl} instance managing connection configurations for adapter.
+	 * @return the {@link DesitnationDataProviderImpl} instance managing connection configurations for adapter.
+	 * @generated NOT
+	 */
 	protected DestinationDataProviderImpl getDestinationDataProvider() {
 		return destinationDataProvider;
 	}
@@ -176,6 +251,7 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	 * Associate the given managed connection factory with this adapter.
 	 *  
 	 * @param factory - The managed connection factory to be associated.
+	 * @generated NOT
 	 */
 	protected void associateConnectionFactory(ManagedConnectionFactoryImpl factory) throws ResourceException {
 		checkState();
@@ -187,6 +263,7 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	/**
 	 * Dissociate the given managed connection factory with this a adapter.
 	 * @param factory - The managed connection factory to be dissociated.
+	 * @generated NOT
 	 */
 	protected void dissociateConnection(ManagedConnectionFactoryImpl factory) {
 		synchronized (factories) {
@@ -199,10 +276,11 @@ public class ResourceAdapterImpl implements ResourceAdapter {
 	 * method prevents operations from being performed on Resource Adapter instance when it is in a <code>STOPPED</code> state.
 	 * 
 	 * @throws ResourceException if Resource Adapter instance is in an <code>STOPPED</code> state.
+	 * @generated NOT
 	 */
 	private void checkState() throws ResourceException {
 		if (state == State.STOPPED) {
 			throw ExceptionBundle.EXCEPTIONS.resourceAdapterIsStopped();
 		}
 	}
-}
+} //ResourceAdapterImpl

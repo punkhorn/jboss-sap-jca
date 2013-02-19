@@ -23,6 +23,7 @@ package org.jboss.jca.adapters.sap.spi.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 
 import com.sap.conn.jco.ext.DestinationDataEventListener;
@@ -34,6 +35,7 @@ import com.sap.conn.jco.ext.DestinationDataProvider;
  * @author William Collins
  *
  * @version $Id: f013a298cd7272562b09566969b6e8b7ec2d9604 $
+ * @generated NOT
  */
 public class DestinationDataProviderImpl implements DestinationDataProvider {
 
@@ -51,15 +53,22 @@ public class DestinationDataProviderImpl implements DestinationDataProvider {
 	/**
 	 * {@inheritDoc}
 	 */
-	public ConnectionRequestInfoImpl getDestinationProperties(String destinationName) {
+	public Properties getDestinationProperties(String destinationName) {
+		return getConnectionRequestInfo(destinationName).getProperties();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public ConnectionRequestInfoImpl getConnectionRequestInfo(String destinationName) {
 		if (destinationName == null) 
 			throw ExceptionBundle.EXCEPTIONS.connectionSpecNameIsNull();
 		try {
-			ConnectionRequestInfoImpl properties = destinationPropertiesMap.get(destinationName);
-			if (properties == null) {
+			ConnectionRequestInfoImpl connectionRequestInfo = destinationPropertiesMap.get(destinationName);
+			if (connectionRequestInfo == null) {
 				throw ExceptionBundle.EXCEPTIONS.connectionSpecDoesNotExist(destinationName);
 			}
-			return properties;
+			return connectionRequestInfo;
 		} catch (RuntimeException e) {
 			throw ExceptionBundle.EXCEPTIONS.failedToRetrieveConnectionSpec(destinationName, e);
 		}
@@ -71,7 +80,7 @@ public class DestinationDataProviderImpl implements DestinationDataProvider {
 	 * @param destinationName - the name of the destination for which the provider should add given properties
 	 * @param destinationProperties - the properties added for the destination
 	 */
-	public void addDestinationProperties(String destinationName, ConnectionRequestInfoImpl destinationProperties) {
+	public void addConnectionRequestInfo(String destinationName, ConnectionRequestInfoImpl destinationProperties) {
 		if (destinationName == null) 
 			throw ExceptionBundle.EXCEPTIONS.connectionSpecNameIsNull();
 		destinationPropertiesMap.put(destinationName, destinationProperties);
@@ -82,7 +91,7 @@ public class DestinationDataProviderImpl implements DestinationDataProvider {
 	 * @param destinationName - the name of the destination for which the provider should remove properties
 	 * @return the properties removed for the destination or <code>null</code> if no properties for destination were found
 	 */
-	public ConnectionRequestInfoImpl removeDestinationProperties(String destinationName) {
+	public ConnectionRequestInfoImpl removeConnectionRequestInfo(String destinationName) {
 		if (destinationName == null) 
 			throw ExceptionBundle.EXCEPTIONS.connectionSpecNameIsNull();
 		ConnectionRequestInfoImpl destinationProperties = destinationPropertiesMap.get(destinationName);

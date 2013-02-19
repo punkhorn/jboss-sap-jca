@@ -1,0 +1,880 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore">
+  <ecore:EPackage name="cci" nsURI="http://sap.adapters.jca.jboss.org/cci" nsPrefix="cci">
+    <eClassifiers xsi:type="ecore:EClass" name="RecordFactory" eSuperTypes="#/0/CCIRecordFactory">
+      <eOperations name="createMappedRecord" eType="#/0/MappedRecord" eExceptions="#/0/ResourceException">
+        <eParameters name="recordName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="createIndexedRecord" eType="#/0/IndexedRecord" eExceptions="#/0/ResourceException">
+        <eParameters name="recordName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="getPackageRegistry" eType="#/0/Registry" eExceptions="#/0/ResourceException"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MappedRecord" eSuperTypes="#/0/CCIMappedRecord">
+      <eOperations name="clone" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Create a copy of this Record"/>
+        </eAnnotations>
+      </eOperations>
+      <eOperations name="equals" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Compare two Records for equality"/>
+        </eAnnotations>
+        <eParameters name="other" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="hashCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Return a hashcode for this Record"/>
+        </eAnnotations>
+      </eOperations>
+      <eOperations name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Returns the number of attributes defined for this Record."/>
+        </eAnnotations>
+      </eOperations>
+      <eOperations name="isEmpty" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Returns &lt;code>true&lt;/code> if this Record has no defined attributes."/>
+        </eAnnotations>
+      </eOperations>
+      <eOperations name="containsKey" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Returns &lt;code>true&lt;/code> if this Record has attribute with name equal to specified key."/>
+        </eAnnotations>
+        <eParameters name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="containsValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Returns &lt;code>true&lt;/code> if this Record contains one or more attributes with specified value."/>
+        </eAnnotations>
+        <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="get" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Returns the value of attribute with name equal to specified key. Returns &lt;code>null&lt;/code> if there is no attribute with name equal to specified key in this Record. "/>
+        </eAnnotations>
+        <eParameters name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="put" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Sets the value of attribute with name equal to specified key to the specified value. No value is set if there is no attribute with name equal to specified key in this Record."/>
+        </eAnnotations>
+        <eParameters name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+        <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="remove" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Unsets the value of the attribute with name equal to the specified key. No value is unset if there is no attribute with name equal to specified key in this Record."/>
+        </eAnnotations>
+        <eParameters name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="putAll">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="For each mapping in the specified map, sets the value of attribute with name equal to the mappings key to the mappings value. Mappings in specified map with key values that do not correspond to an attribute name in record are ignored."/>
+        </eAnnotations>
+        <eParameters name="m" eType="#/0/RawMap"/>
+      </eOperations>
+      <eOperations name="clear">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value=" Unsets the value of all attributes in this Record."/>
+        </eAnnotations>
+      </eOperations>
+      <eOperations name="keySet" eType="#/0/RawSet">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Returns a {@link Set} view of attribute names in this Record."/>
+        </eAnnotations>
+      </eOperations>
+      <eOperations name="values" eType="#/0/RawCollection">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Returns a {@link Set} view of attribute values in this Record."/>
+        </eAnnotations>
+      </eOperations>
+      <eOperations name="entrySet" eType="#/0/RawSet">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Returns a {@link Set} view of entries in this Record."/>
+        </eAnnotations>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="recordName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral="0">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The name of this Record"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="recordShortDescription"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="The short description of this Record"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="IndexedRecord" eSuperTypes="#/0/CCIIndexedRecord">
+      <eOperations name="clone" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      <eOperations name="equals" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="other" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="hashCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eOperations name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eOperations name="isEmpty" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eOperations name="contains" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="o" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="iterator" eType="#/0/MappedRecordIterator"/>
+      <eOperations name="toArray" eType="#/0/ObjectArray"/>
+      <eOperations name="toArray" eType="#/0/ObjectArray">
+        <eParameters name="a" eType="#/0/ObjectArray"/>
+      </eOperations>
+      <eOperations name="add" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="e" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="add" eType="#/0/MappedRecord"/>
+      <eOperations name="remove" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="o" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="containsAll" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="c" eType="#/0/RawCollection"/>
+      </eOperations>
+      <eOperations name="addAll" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="c" eType="#/0/RawCollection"/>
+      </eOperations>
+      <eOperations name="addAll" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="index" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        <eParameters name="c" eType="#/0/RawCollection"/>
+      </eOperations>
+      <eOperations name="removeAll" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="c" eType="#/0/RawCollection"/>
+      </eOperations>
+      <eOperations name="retainAll" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="c" eType="#/0/RawCollection"/>
+      </eOperations>
+      <eOperations name="clear"/>
+      <eOperations name="get" eType="#/0/MappedRecord">
+        <eParameters name="index" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </eOperations>
+      <eOperations name="set" eType="#/0/MappedRecord">
+        <eParameters name="index" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        <eParameters name="element" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="add">
+        <eParameters name="index" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        <eParameters name="element" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="add" eType="#/0/MappedRecord">
+        <eParameters name="index" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </eOperations>
+      <eOperations name="remove" eType="#/0/MappedRecord">
+        <eParameters name="index" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </eOperations>
+      <eOperations name="indexOf" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+        <eParameters name="o" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="lastIndexOf" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+        <eParameters name="o" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="listIterator" eType="#/0/MappedRecordListIterator"/>
+      <eOperations name="listIterator" eType="#/0/MappedRecordListIterator">
+        <eParameters name="index" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </eOperations>
+      <eOperations name="subList" eType="#/0/MappedRecordList">
+        <eParameters name="fromIndex" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        <eParameters name="toIndex" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="recordName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral="0"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="recordShortDescription"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="recordType" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"
+          changeable="false" volatile="true" transient="true" unsettable="true" derived="true"
+          resolveProxies="false"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="record" upperBound="-1"
+          eType="#/0/MappedRecord" volatile="true" unsettable="true" containment="true">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="suppressedGetVisibility" value="true"/>
+          <details key="suppressedSetVisibility" value="true"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="InteractionSpec" eSuperTypes="#/0/CCIInteractionSpec">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="functionName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="interactionVerb" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionTimeout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Interaction" eSuperTypes="#/0/CCIInteraction">
+      <eOperations name="close" eExceptions="#/0/ResourceException"/>
+      <eOperations name="getConnection" eType="#/0/Connection"/>
+      <eOperations name="execute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          eExceptions="#/0/ResourceException">
+        <eParameters name="ispec" eType="#/0/CCIInteractionSpec"/>
+        <eParameters name="input" eType="#/0/CCIRecord"/>
+        <eParameters name="output" eType="#/0/CCIRecord"/>
+      </eOperations>
+      <eOperations name="execute" eType="#/0/CCIRecord" eExceptions="#/0/ResourceException">
+        <eParameters name="ispec" eType="#/0/CCIInteractionSpec"/>
+        <eParameters name="input" eType="#/0/CCIRecord"/>
+      </eOperations>
+      <eOperations name="getWarnings" eType="#/0/ResourceWarning" eExceptions="#/0/ResourceException"/>
+      <eOperations name="clearWarnings" eExceptions="#/0/ResourceException"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ConnectionFactory" eSuperTypes="#/0/CCIConnectionFactory">
+      <eOperations name="getConnection" eType="#/0/Connection" eExceptions="#/0/ResourceException"/>
+      <eOperations name="getConnection" eType="#/0/Connection" eExceptions="#/0/ResourceException">
+        <eParameters name="properties" eType="#/0/CCIConnectionSpec"/>
+      </eOperations>
+      <eOperations name="getRecordFactory" eType="#/0/RecordFactory" eExceptions="#/0/ResourceException"/>
+      <eOperations name="getMetaData" eType="#/0/ResourceAdapterMetaData" eExceptions="#/0/ResourceException"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="reference" eType="#/0/Reference"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Connection" eSuperTypes="#/0/CCIConnection">
+      <eOperations name="begin" eExceptions="#/0/ResourceException"/>
+      <eOperations name="end" eExceptions="#/0/ResourceException"/>
+      <eOperations name="isClosed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eOperations name="isStateful" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eOperations name="getConnectionSpec" eType="#/0/ConnectionSpec"/>
+      <eOperations name="createInteraction" eType="#/0/Interaction" eExceptions="#/0/ResourceException"/>
+      <eOperations name="getLocalTransaction" eType="#/0/LocalTransaction" eExceptions="#/0/ResourceException"/>
+      <eOperations name="getMetaData" eType="#/0/ConnectionMetaData" eExceptions="#/0/ResourceException"/>
+      <eOperations name="getResultSetInfo" eType="#/0/ResultSetInfo" eExceptions="#/0/ResourceException"/>
+      <eOperations name="ping" eExceptions="#/0/ResourceException"/>
+      <eOperations name="close" eExceptions="#/0/ResourceException"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ConnectionSpec" eSuperTypes="#/0/CCIConnectionSpec">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="userName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="userId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="client" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="user" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="aliasUser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="passwd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lang" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="mysapsso2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="x509cert" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ConnectionMetaData" eSuperTypes="#/0/CCIConnectionMetaData">
+      <eOperations name="getEISProductName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          eExceptions="#/0/ResourceException"/>
+      <eOperations name="getEISProductVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          eExceptions="#/0/ResourceException"/>
+      <eOperations name="getUserName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          eExceptions="#/0/ResourceException"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LocalTransaction" eSuperTypes="#/0/CCILocalTransaction">
+      <eOperations name="begin" eExceptions="#/0/ResourceException"/>
+      <eOperations name="commit" eExceptions="#/0/ResourceException"/>
+      <eOperations name="rollback" eExceptions="#/0/ResourceException"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ResourceAdapterMetaData" eSuperTypes="#/0/CCIResourceAdapterMetaData">
+      <eOperations name="getAdapterVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getAdapterVendorName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getAdapterName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getAdapterShortDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getSpecVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getInteractionSpecsSupported" eType="#/0/StringArray"/>
+      <eOperations name="supportsExecuteWithInputAndOutputRecord" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eOperations name="supportsExecuteWithInputRecordOnly" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eOperations name="supportsLocalTransactionDemarcation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EDataType" name="ObjectArray" instanceClassName="java.lang.Object[]"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="StringArray" instanceClassName="java.lang.String[]"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CCIRecord" instanceClassName="javax.resource.cci.Record"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CCIRecordFactory" instanceClassName="javax.resource.cci.RecordFactory"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CCIMappedRecord" instanceClassName="javax.resource.cci.MappedRecord"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CCIIndexedRecord" instanceClassName="javax.resource.cci.IndexedRecord"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CCIInteractionSpec" instanceClassName="javax.resource.cci.InteractionSpec"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CCIInteraction" instanceClassName="javax.resource.cci.Interaction"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CCIConnectionFactory" instanceClassName="javax.resource.cci.ConnectionFactory"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CCIConnection" instanceClassName="javax.resource.cci.Connection"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CCIConnectionSpec" instanceClassName="javax.resource.cci.ConnectionSpec"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CCIConnectionMetaData" instanceClassName="javax.resource.cci.ConnectionMetaData"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CCILocalTransaction" instanceClassName="javax.resource.cci.LocalTransaction"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CCIResourceAdapterMetaData" instanceClassName="javax.resource.cci.ResourceAdapterMetaData"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="MappedRecordCollection" instanceTypeName="java.util.Collection&lt;org.jboss.jca.adapters.sap.cci.MappedRecord>"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="MappedRecordListIterator" instanceTypeName="java.util.ListIterator&lt;org.jboss.jca.adapters.sap.cci.MappedRecord>"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="MappedRecordIterator" instanceTypeName="java.util.Iterator&lt;org.jboss.jca.adapters.sap.cci.MappedRecord>"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="MappedRecordList" instanceTypeName="java.util.List&lt;org.jboss.jca.adapters.sap.cci.MappedRecord>"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="RawCollection" instanceClassName="java.util.Collection"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="RawMap" instanceClassName="java.util.Map"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="RawSet" instanceClassName="java.util.Set"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="Properties" instanceClassName="java.util.Properties"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="ResourceException" instanceClassName="javax.resource.ResourceException"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="ResourceWarning" instanceClassName="javax.resource.cci.ResourceWarning"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="ResultSetInfo" instanceClassName="javax.resource.cci.ResultSetInfo"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="Reference" instanceClassName="javax.naming.Reference"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="Registry" instanceClassName="org.eclipse.emf.ecore.EPackage.Registry"/>
+  </ecore:EPackage>
+  <ecore:EPackage name="spi" nsURI="http://sap.adapters.jca.jboss.org/spi" nsPrefix="spi">
+    <eClassifiers xsi:type="ecore:EClass" name="SPIConnectionRequestInfo" instanceClassName="javax.resource.spi.ConnectionRequestInfo"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SPIConnectionManager" instanceClassName="javax.resource.spi.ConnectionManager"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SPILocalTransaction" instanceClassName="javax.resource.spi.LocalTransaction"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SPIManagedConnectionFactory" instanceClassName="javax.resource.spi.ManagedConnectionFactory"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SPIResourceAdapterAssociation" instanceClassName="javax.resource.spi.ResourceAdapterAssociation"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SPIManagedConnection" instanceClassName="javax.resource.spi.ManagedConnection"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SPIDissociatableManagedConnection"
+        instanceClassName="javax.resource.spi.DissociatableManagedConnection" abstract="true"
+        interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SPIManagedConnectionMetaData" instanceClassName="javax.resource.spi.ManagedConnectionMetaData"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SPIResourceAdapter" instanceClassName="javax.resource.spi.ResourceAdapter"
+        abstract="true" interface="true"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="PasswordCredential" instanceClassName="javax.resource.spi.security.PasswordCredential"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="Subject" instanceClassName="javax.security.auth.Subject"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="ConnectionEventListener" instanceClassName="javax.resource.spi.ConnectionEventListener"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="XAResource" instanceClassName="javax.transaction.xa.XAResource"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="XAResourceArray" instanceClassName="javax.transaction.xa.XAResource[]"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="JCoDestination" instanceClassName="com.sap.conn.jco.JCoDestination"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="ActivationSpecArray" instanceClassName="javax.resource.spi.ActivationSpec[]"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="ActivationSpec" instanceClassName="javax.resource.spi.ActivationSpec"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="BootstrapContext" instanceClassName="javax.resource.spi.BootstrapContext"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="ResourceAdapterInternalException"
+        instanceClassName="javax.resource.spi.ResourceAdapterInternalException"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="MessageEndpointFactory" instanceClassName="javax.resource.spi.endpoint.MessageEndpointFactory"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="PrintWriter" instanceClassName="java.io.PrintWriter"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="StringMap" instanceTypeName="java.util.Map&lt;java.lang.String, java.lang.String>"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="StringSet" instanceTypeName="java.util.Set&lt;java.lang.String>"/>
+    <eClassifiers xsi:type="ecore:EClass" name="ConnectionRequestInfo" eSuperTypes="#/1/SPIConnectionRequestInfo">
+      <eOperations name="equals" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="other" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="hashCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eOperations name="stringPropertyNames" eType="#/1/StringSet"/>
+      <eOperations name="getProperty" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+        <eParameters name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setProperty" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject">
+        <eParameters name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="addProperties">
+        <eParameters name="properties" eType="#/0/Properties"/>
+      </eOperations>
+      <eOperations name="getAliasUser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getAshost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getAuthType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getClient" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getCodepage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getCpicTrace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getDenyInitialPassword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getExpirationPeriod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getExpirationTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getGetsso2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getGroup" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getGwhost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getGwserv" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getLang" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getLcheck" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getMaxGetTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getMshost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getMsserv" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getMysapsso2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getPassword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getPasswd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getPcs" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getPeakLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getPingOnCreate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getPoolCapacity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getR3name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getRepositoryDest" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getRepositoryPasswd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getRepositoryRoundtripOptimization" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getRepositorySnc" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getRepositoryUser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getSaprouter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getSncLibrary" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getSncMode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getSncMyname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getSncPartnername" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getSncQop" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getSysnr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getTphost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getTpname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getTrace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getUserName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getUser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getUserId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getUseSapgui" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getX509cert" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="setAliasUser">
+        <eParameters name="user" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setAshost">
+        <eParameters name="ashost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setAuthType">
+        <eParameters name="authType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setClient">
+        <eParameters name="client" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setCodepage">
+        <eParameters name="codepage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setCpicTrace">
+        <eParameters name="cpicTrace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setDenyInitialPassword">
+        <eParameters name="denyInitialPassword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setExpirationPeriod">
+        <eParameters name="expirationPeriod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setExpirationTime">
+        <eParameters name="expirationTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setGetsso2">
+        <eParameters name="getsso2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setGroup">
+        <eParameters name="group" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setGwhost">
+        <eParameters name="gwhost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setGwserv">
+        <eParameters name="gwserv" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setLang">
+        <eParameters name="lang" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setLcheck">
+        <eParameters name="lcheck" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setMaxGetTime">
+        <eParameters name="maxGetTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setMshost">
+        <eParameters name="mshost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setMsserv">
+        <eParameters name="msserv" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setMysapsso2">
+        <eParameters name="mysapsso2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setPassword">
+        <eParameters name="password" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setPasswd">
+        <eParameters name="passwd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setPcs">
+        <eParameters name="pcs" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setPeakLimit">
+        <eParameters name="peakLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setPingOnCreate">
+        <eParameters name="pingOnCreate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setPoolCapacity">
+        <eParameters name="poolCapacity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setR3name">
+        <eParameters name="r3name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setRepositoryDest">
+        <eParameters name="repositoryDest" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setRepositoryPasswd">
+        <eParameters name="repositoryPasswd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setRepositoryRoundtripOptimization">
+        <eParameters name="repositoryRoundtripOptimization" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setRepositorySnc">
+        <eParameters name="repositorySnc" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setRepositoryUser">
+        <eParameters name="repositoryUser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setSaprouter">
+        <eParameters name="saprouter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setSncLibrary">
+        <eParameters name="sncLibrary" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setSncMode">
+        <eParameters name="sncMode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setSncMyname">
+        <eParameters name="sncMyname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setSncPartnername">
+        <eParameters name="sncPartnername" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setSncQop">
+        <eParameters name="sncQop" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setSysnr">
+        <eParameters name="sysnr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setTphost">
+        <eParameters name="tphost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setTpname">
+        <eParameters name="tpname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setTrace">
+        <eParameters name="trace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setType">
+        <eParameters name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setUserName">
+        <eParameters name="userName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setUser">
+        <eParameters name="user" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setUserId">
+        <eParameters name="userId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setUseSapgui">
+        <eParameters name="useSapgui" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setX509cert">
+        <eParameters name="x509cert" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="properties" eType="#/0/Properties"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DefaultConnectionManager" eSuperTypes="#/1/SPIConnectionManager">
+      <eOperations name="allocateConnection" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
+          eExceptions="#/0/ResourceException">
+        <eParameters name="managedConnectionFactory" eType="#/1/SPIManagedConnectionFactory"/>
+        <eParameters name="connectionRequestInfo" eType="#/1/SPIConnectionRequestInfo"/>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LocalTransaction" eSuperTypes="#/1/SPILocalTransaction">
+      <eOperations name="begin" eExceptions="#/0/ResourceException"/>
+      <eOperations name="commit" eExceptions="#/0/ResourceException"/>
+      <eOperations name="rollback" eExceptions="#/0/ResourceException"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ManagedConnectionFactory" eSuperTypes="#/1/SPIManagedConnectionFactory #/1/SPIResourceAdapterAssociation">
+      <eOperations name="convertConnectionRequestInfoToConnectionSpec" eType="#/0/ConnectionSpec">
+        <eParameters name="connectionRequestInfo" eType="#/1/ConnectionRequestInfo"/>
+      </eOperations>
+      <eOperations name="convertConnectionSpecToConnectionRequestInfo" eType="#/1/ConnectionRequestInfo">
+        <eParameters name="connectionSpec" eType="#/0/ConnectionSpec"/>
+      </eOperations>
+      <eOperations name="createConnectionFactory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
+          eExceptions="#/0/ResourceException"/>
+      <eOperations name="createConnectionFactory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
+          eExceptions="#/0/ResourceException">
+        <eParameters name="connectionManager" eType="#/1/SPIConnectionManager"/>
+      </eOperations>
+      <eOperations name="createManagedConnection" eType="#/1/SPIManagedConnection"
+          eExceptions="#/0/ResourceException">
+        <eParameters name="subject" eType="#/1/Subject"/>
+        <eParameters name="connectionRequestInfo" eType="#/1/SPIConnectionRequestInfo"/>
+      </eOperations>
+      <eOperations name="destroy" eExceptions="#/0/ResourceException"/>
+      <eOperations name="equals" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="other" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="getAliasUser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getAshost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getAuthType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getClient" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getCodepage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getCpicTrace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getDenyInitialPassword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getExpirationPeriod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getExpirationTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getGetsso2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getGroup" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getGwhost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getGwserv" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getLang" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getLcheck" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getLogWriter" eType="#/1/PrintWriter" eExceptions="#/0/ResourceException"/>
+      <eOperations name="getMaxGetTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getMshost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getMsserv" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getMysapsso2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getPasswd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getPcs" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getPeakLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getPingOnCreate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getPoolCapacity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getR3name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getRepositoryDest" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getRepositoryPasswd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getRepositoryRoundtripOptimization" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getRepositorySnc" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getRepositoryUser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getResourceAdapter" eType="#/1/ResourceAdapter"/>
+      <eOperations name="getSaprouter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getSncLibrary" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getSncMode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getSncMyname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getSncPartnername" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getSncQop" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getSysnr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getTphost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getTpname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getTrace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getUser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getUserId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getUseSapgui" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="getX509cert" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eOperations name="hashCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eOperations name="matchManagedConnections" eType="#/1/SPIManagedConnection"
+          eExceptions="#/0/ResourceException">
+        <eParameters name="connectionSet" eType="#/0/RawSet"/>
+        <eParameters name="subject" eType="#/1/Subject"/>
+        <eParameters name="connectionRequestInfo" eType="#/1/SPIConnectionRequestInfo"/>
+      </eOperations>
+      <eOperations name="setAliasUser">
+        <eParameters name="user" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setAshost">
+        <eParameters name="ashost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setAuthType">
+        <eParameters name="authType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setClient">
+        <eParameters name="client" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setCodepage">
+        <eParameters name="codepage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setCpicTrace">
+        <eParameters name="cpicTrace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setDenyInitialPassword">
+        <eParameters name="denyInitialPassword" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setExpirationPeriod">
+        <eParameters name="expirationPeriod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setExpirationTime">
+        <eParameters name="expirationTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setGetsso2">
+        <eParameters name="getsso2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setGroup">
+        <eParameters name="group" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setGwhost">
+        <eParameters name="gwhost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setGwserv">
+        <eParameters name="gwserv" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setLang">
+        <eParameters name="lang" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setLcheck">
+        <eParameters name="lcheck" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setLogWriter" eExceptions="#/0/ResourceException">
+        <eParameters name="out" eType="#/1/PrintWriter"/>
+      </eOperations>
+      <eOperations name="setMaxGetTime">
+        <eParameters name="maxGetTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setMshost">
+        <eParameters name="mshost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setMsserv">
+        <eParameters name="msserv" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setMysapsso2">
+        <eParameters name="mysapsso2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setPasswd">
+        <eParameters name="passwd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setPcs">
+        <eParameters name="pcs" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setPeakLimit">
+        <eParameters name="peakLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setPingOnCreate">
+        <eParameters name="pingOnCreate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setPoolCapacity">
+        <eParameters name="poolCapacity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setR3name">
+        <eParameters name="r3name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setRepositoryDest">
+        <eParameters name="repositoryDest" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setRepositoryPasswd">
+        <eParameters name="repositoryPasswd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setRepositoryRoundtripOptimization">
+        <eParameters name="repositoryRoundtripOptimization" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setRepositorySnc">
+        <eParameters name="repositorySnc" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setRepositoryUser">
+        <eParameters name="repositoryUser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setResourceAdapter" eExceptions="#/0/ResourceException">
+        <eParameters name="resourceAdapter" eType="#/1/SPIResourceAdapter"/>
+      </eOperations>
+      <eOperations name="setSaprouter">
+        <eParameters name="saprouter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setSncLibrary">
+        <eParameters name="sncLibrary" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setSncMode">
+        <eParameters name="sncMode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setSncMyname">
+        <eParameters name="sncMyname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setSncPartnername">
+        <eParameters name="sncPartnername" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setSncQop">
+        <eParameters name="sncQop" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setSysnr">
+        <eParameters name="sysnr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setTphost">
+        <eParameters name="tphost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setTpname">
+        <eParameters name="tpname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setTrace">
+        <eParameters name="trace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setType">
+        <eParameters name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setUser">
+        <eParameters name="user" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setUserId">
+        <eParameters name="userId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setUseSapgui">
+        <eParameters name="useSapgui" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="setX509cert">
+        <eParameters name="x509cert" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ManagedConnection" eSuperTypes="#/1/SPIManagedConnection #/1/SPIDissociatableManagedConnection">
+      <eOperations name="equals" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="other" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="hashCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eOperations name="getConnection" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
+          eExceptions="#/0/ResourceException">
+        <eParameters name="subject" eType="#/1/Subject"/>
+        <eParameters name="connectionRequestInfo" eType="#/1/SPIConnectionRequestInfo"/>
+      </eOperations>
+      <eOperations name="addConnectionEventListener">
+        <eParameters name="listener" eType="#/1/ConnectionEventListener"/>
+      </eOperations>
+      <eOperations name="removeConnectionEventListener">
+        <eParameters name="listener" eType="#/1/ConnectionEventListener"/>
+      </eOperations>
+      <eOperations name="getLocalTransaction" eType="#/1/SPILocalTransaction" eExceptions="#/0/ResourceException"/>
+      <eOperations name="getXAResource" eType="#/1/XAResource" eExceptions="#/0/ResourceException"/>
+      <eOperations name="getMetaData" eType="#/1/SPIManagedConnectionMetaData" eExceptions="#/0/ResourceException"/>
+      <eOperations name="getLogWriter" eType="#/1/PrintWriter" eExceptions="#/0/ResourceException"/>
+      <eOperations name="setLogWriter" eExceptions="#/0/ResourceException">
+        <eParameters name="out" eType="#/1/PrintWriter"/>
+      </eOperations>
+      <eOperations name="associateConnection" eExceptions="#/0/ResourceException">
+        <eParameters name="connection" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="dissociateConnections" eExceptions="#/0/ResourceException"/>
+      <eOperations name="cleanup" eExceptions="#/0/ResourceException"/>
+      <eOperations name="destroy" eExceptions="#/0/ResourceException"/>
+      <eOperations name="getProperties" eType="#/0/Properties" eExceptions="#/0/ResourceException"/>
+      <eOperations name="getConnectionRequestInfo" eType="#/1/ConnectionRequestInfo"
+          eExceptions="#/0/ResourceException"/>
+      <eOperations name="getDestination" eType="#/1/JCoDestination"/>
+      <eOperations name="getManagedConnectionFactory" eType="#/1/ManagedConnectionFactory"
+          eExceptions="#/0/ResourceException"/>
+      <eOperations name="isStateful" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eOperations name="beginStatefulSession" eExceptions="#/0/ResourceException"/>
+      <eOperations name="endStatefulSession" eExceptions="#/0/ResourceException"/>
+      <eOperations name="ping" eExceptions="#/0/ResourceException"/>
+      <eOperations name="associateHandle" eExceptions="#/0/ResourceException">
+        <eParameters name="handle" eType="#/0/Connection"/>
+      </eOperations>
+      <eOperations name="dissociateHandle" eExceptions="#/0/ResourceException">
+        <eParameters name="handle" eType="#/0/Connection"/>
+      </eOperations>
+      <eOperations name="closeHandle" eExceptions="#/0/ResourceException">
+        <eParameters name="handle" eType="#/0/Connection"/>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ManagedConnectionMetaData" eSuperTypes="#/1/SPIManagedConnectionMetaData">
+      <eOperations name="getEISProductName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          eExceptions="#/0/ResourceException"/>
+      <eOperations name="getEISProductVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          eExceptions="#/0/ResourceException"/>
+      <eOperations name="getMaxConnections" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+          eExceptions="#/0/ResourceException"/>
+      <eOperations name="getUserName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          eExceptions="#/0/ResourceException"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="NonManagedEnvironmentAdmin">
+      <eOperations name="createManagedConnectionFactory" eType="#/1/ManagedConnectionFactory"
+          eExceptions="#/0/ResourceException">
+        <eParameters name="config" eType="#/1/StringMap"/>
+      </eOperations>
+      <eOperations name="isResourceAdapterDeployed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eOperations name="deployResourceAdapter" eExceptions="#/0/ResourceException">
+        <eParameters name="config" eType="#/1/StringMap"/>
+      </eOperations>
+      <eOperations name="undeployResourceAdapter"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ResourceAdapter" eSuperTypes="#/1/SPIResourceAdapter">
+      <eOperations name="equals" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="other" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+      </eOperations>
+      <eOperations name="hashCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eOperations name="isStarted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eOperations name="start" eExceptions="#/1/ResourceAdapterInternalException">
+        <eParameters name="bootstrapContext" eType="#/1/BootstrapContext"/>
+      </eOperations>
+      <eOperations name="stop"/>
+      <eOperations name="getXAResources" eType="#/1/XAResourceArray" eExceptions="#/0/ResourceException">
+        <eParameters name="activationSpecs" eType="#/1/ActivationSpecArray"/>
+      </eOperations>
+      <eOperations name="endpointActivation" eExceptions="#/0/ResourceException">
+        <eParameters name="endpointFactory" eType="#/1/MessageEndpointFactory"/>
+        <eParameters name="activationSpec" eType="#/1/ActivationSpec"/>
+      </eOperations>
+      <eOperations name="endpointDeactivation">
+        <eParameters name="endpointFactory" eType="#/1/MessageEndpointFactory"/>
+        <eParameters name="activationSpec" eType="#/1/ActivationSpec"/>
+      </eOperations>
+    </eClassifiers>
+  </ecore:EPackage>
+</xmi:XMI>

@@ -57,6 +57,7 @@ import org.jboss.jca.adapters.sap.cci.LocalTransaction;
 import org.jboss.jca.adapters.sap.cci.MappedRecord;
 import org.jboss.jca.adapters.sap.cci.RecordFactory;
 import org.jboss.jca.adapters.sap.cci.ResourceAdapterMetaData;
+import org.jboss.jca.adapters.sap.spi.impl.SpiPackageImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -1177,11 +1178,16 @@ public class CciPackageImpl extends EPackageImpl {
 
 		isInited = true;
 
+		// Obtain or create and register interdependencies
+		SpiPackageImpl theSpiPackage = (SpiPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SpiPackageImpl.eNS_URI) instanceof SpiPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SpiPackageImpl.eNS_URI) : SpiPackageImpl.eINSTANCE);
+
 		// Create package meta-data objects
 		theCciPackage.createPackageContents();
+		theSpiPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theCciPackage.initializePackageContents();
+		theSpiPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theCciPackage.freeze();

@@ -133,7 +133,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 			throws ResourceException {
 		super();
 		this.managedConnectionFactory = managedConnection.getManagedConnectionFactory();
-		this.connectionRequestInfo = managedConnection.getProperties();
+		this.connectionRequestInfo = managedConnection.getConnectionRequestInfo();
 		associateManagedConnection(managedConnection);
 	}
 

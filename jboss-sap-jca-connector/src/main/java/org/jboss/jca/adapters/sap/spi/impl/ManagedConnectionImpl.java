@@ -1,23 +1,24 @@
-/*
+/**
  * JBoss, Home of Professional Open Source.
- * Copyright 2013, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2012, Red Hat Middleware LLC, and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
- *
+ * 
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
- *
+ * 
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ * 
  */
 package org.jboss.jca.adapters.sap.spi.impl;
 
@@ -28,6 +29,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.Set;
 import java.util.UUID;
 
@@ -35,13 +37,15 @@ import javax.resource.ResourceException;
 import javax.resource.spi.ConnectionEvent;
 import javax.resource.spi.ConnectionEventListener;
 import javax.resource.spi.ConnectionRequestInfo;
-import javax.resource.spi.DissociatableManagedConnection;
 import javax.resource.spi.LocalTransaction;
 import javax.resource.spi.ManagedConnectionMetaData;
+import javax.resource.spi.ResourceAdapterAssociation;
 import javax.resource.spi.security.PasswordCredential;
 import javax.security.auth.Subject;
 import javax.transaction.xa.XAResource;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.jboss.jca.adapters.sap.cci.Connection;
 import org.jboss.jca.adapters.sap.cci.impl.ConnectionImpl;
 import org.jboss.jca.adapters.sap.spi.ManagedConnection;
@@ -55,37 +59,53 @@ import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.ext.DestinationDataProvider;
 
 /**
- * Implements the {@link ManagedConnection } and {@link DissociatableManagedConnection } interfaces for the JBoss SAP JCA
- * Connector.
+ * <!-- begin-user-doc -->
+ * Implements the {@link ManagedConnectionFactory } and {@link ResourceAdapterAssociation } interfaces for the JBoss SAP
+ * JCA Connector.
  * 
  * @author William Collins
  * 
- * @version $Id: 550d4395b505366228131d6d40422c97c4cf4e33 $
+ * @version $Id:  $
+ * <!-- end-user-doc -->
+ * <p>
+ * </p>
+ *
+ * @generated
  */
-public class ManagedConnectionImpl implements ManagedConnection {
+public class ManagedConnectionImpl extends EObjectImpl implements ManagedConnection {
 	
 	/**
 	 * Remote function module called to commit transaction
+	 *
+	 * @generated NOT
 	 */
 	private static final String COMMIT_FUNCTION = "BAPI_TRANSACTION_COMMIT";
 	
 	/**
 	 * Name of import variable set in remote function call to commit transaction that causes synchronous commit 
+	 *
+	 * @generated NOT
 	 */
 	private static final String SYNC_COMMIT_PARAM = "WAIT";
 
 	/**
 	 * Value pass in remote function call to commit transaction that causes synchronous commit.
+	 *
+	 * @generated NOT
 	 */
 	private static final String SYNC_COMMIT_PARAM_VAL = "X";
 
 	/**
 	 * Remote function module called to rollback transaction
+	 *
+	 * @generated NOT
 	 */
 	private static final String ROLLBACK_FUNCTION = "BAPI_TRANSACTION_ROLLBACK";
 	
 	/**
 	 * States of a manage connection.
+	 *
+	 * @generated NOT
 	 */
 	public static enum State {
 		ACTIVE,		/* Valid managed connection with active physical connection to SAP system */ 
@@ -94,36 +114,50 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	
 	/** 
 	 * The logwriter set by application server 
+	 *
+	 * @generated NOT
 	 */
 	private PrintWriter logwriter;
 
 	/** 
 	 * The factory this managed connection is associated with 
+	 *
+	 * @generated NOT
 	 */
 	private ManagedConnectionFactoryImpl managedConnectionFactory;
 
 	/** 
 	 * The application server call backs observing this connection 
+	 *
+	 * @generated NOT
 	 */
 	private List<ConnectionEventListener> listeners;
 
 	/** 
 	 * Set of active connection handles associated with this managed connection 
+	 *
+	 * @generated NOT
 	 */
 	private final Set<Connection> handles = new HashSet<Connection>();
 
 	/** 
 	 * Unique name of destination associated with this managed connection in JCo runtime 
+	 *
+	 * @generated NOT
 	 */
-	private final String destinationName;
+	private String destinationName;
 	
 	/** 
 	 * Physical connection handle to SAP system in JCo runtime
+	 *
+	 * @generated NOT
 	 */
 	private JCoDestination destination;
 	
 	/** 
 	 * Meta data describing this managed connection 
+	 *
+	 * @generated NOT
 	 */
 	private ManagedConnectionMetaDataImpl connectionMetaData = null;
 
@@ -132,19 +166,38 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	 * 
 	 * Managed connection starts in <code>ACTIVE</code> state when created and transitions to final <code>DESTROYED</code> state 
 	 * when destroyed by application server. 
+	 *
+	 * @generated NOT
 	 */
 	private State state = State.ACTIVE;
 	
 	/**
 	 * The local transaction object that enables application server and clients to manage connections transaction context.
+	 *
+	 * @generated NOT
 	 */
 	private final LocalTransactionImpl localTransaction = new LocalTransactionImpl(this);
 	
 	/**
 	 * Flag indicating whether this managed connection is in transaction.
+	 *
+	 * @generated NOT
 	 */
 	private boolean inTransaction = false;
 	
+	/**
+	 * <!-- begin-user-doc -->
+	 * Create an empty instance of a {@link ManagedConnection}.
+	 * 
+	 * <p> Note this should only be used for serialization
+	 * 
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ManagedConnectionImpl() {
+		super();
+	}
+
 	/**
 	 * Construct a managed connection with specified connection request info and associated with the specified managed
 	 * connection factory.
@@ -152,6 +205,8 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	 * @param mcf - the associated managed connection factory
 	 * @param connectionRequestInfo - the connection request info configuration
 	 * @throws ResourceException
+	 * 
+	 * @generated NOT
 	 */
 	public ManagedConnectionImpl(ManagedConnectionFactoryImpl mcf, ConnectionRequestInfoImpl connectionRequestInfo)
 			throws ResourceException {
@@ -164,7 +219,7 @@ public class ManagedConnectionImpl implements ManagedConnection {
 		
 		// Make destination configuration available to JCo runtime
 		this.managedConnectionFactory.getResourceAdapter().getDestinationDataProvider()
-				.addDestinationProperties(destinationName, connectionRequestInfo);
+				.addConnectionRequestInfo(destinationName, connectionRequestInfo);
 		
 		// Attempt to connect to SAP system.
 		try {
@@ -180,20 +235,27 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	}
 	
 	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
 	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
 	@Override
-	public synchronized int hashCode() {
-		if (state == State.DESTROYED) 
-			return 7;
-		return destination.getProperties().hashCode();
+	protected EClass eStaticClass() {
+		return SpiPackageImpl.Literals.MANAGED_CONNECTION;
 	}
-	
+
 	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
 	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
-	@Override
-	public synchronized boolean equals(Object other) {
+	public boolean equals(Object other) {
 		if (state == State.DESTROYED)
 			return false;
 		if (other == null)
@@ -207,11 +269,30 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
 	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
-	public synchronized Object getConnection(Subject subject, ConnectionRequestInfo cxRequestInfo) throws ResourceException {
+	public int hashCode() {
+		if (state == State.DESTROYED) 
+			return 7;
+		return destination.getProperties().hashCode();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public synchronized Object getConnection(Subject subject, ConnectionRequestInfo connectionRequestInfo) throws ResourceException {
 		checkState();
-		if (cxRequestInfo != null && !(cxRequestInfo instanceof ConnectionRequestInfoImpl))
+		if (connectionRequestInfo != null && !(connectionRequestInfo instanceof ConnectionRequestInfoImpl))
 			throw new ResourceException("managed-connection-impl-invalid-connection-request-info-type");
 
 		// Validate subject credentials match those of this connection.
@@ -219,10 +300,10 @@ public class ManagedConnectionImpl implements ManagedConnection {
 			boolean foundMatchingCredential = false;
 			searchPrivateCredentials: for (PasswordCredential credential : subject.getPrivateCredentials(PasswordCredential.class)) {
 				if (credential.getManagedConnectionFactory().equals(this)) {
-					if (!getProperties().getUserName()
+					if (!getConnectionRequestInfo().getUserName()
 							.equals(credential.getUserName())) {
 						continue searchPrivateCredentials;
-					} else if (!getProperties().getPassword()
+					} else if (!getConnectionRequestInfo().getPassword()
 							.equals(new String(credential.getPassword()))) {
 						continue searchPrivateCredentials;
 					}
@@ -235,14 +316,14 @@ public class ManagedConnectionImpl implements ManagedConnection {
 				throw ExceptionBundle.EXCEPTIONS.failedToFindMatchingSecurityCredentialsInSubject();
 		}
 		
-		if (cxRequestInfo != null) {
-		ConnectionRequestInfoImpl jCxRequestInfo = (ConnectionRequestInfoImpl) cxRequestInfo;
-			searchConnectionRequestProperties: for (Entry<Object, Object> entry : jCxRequestInfo.entrySet()) {
+		if (connectionRequestInfo != null) {
+		ConnectionRequestInfoImpl jCxRequestInfo = (ConnectionRequestInfoImpl) connectionRequestInfo;
+			searchConnectionRequestProperties: for (Entry<Object, Object> entry : jCxRequestInfo.getProperties().entrySet()) {
 				if (subject != null
 						&& (entry.getKey().equals(DestinationDataProvider.JCO_USER) || entry.getKey().equals(
 								DestinationDataProvider.JCO_PASSWD)))
 					// Already checked management credentials against subject credentials which override
-					// connection request info credentails.
+					// connection request info credentials.
 					continue searchConnectionRequestProperties;
 	
 				if (!getProperties().get(entry.getKey()).equals(entry.getValue()))
@@ -256,7 +337,107 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
 	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void addConnectionEventListener(ConnectionEventListener listener) {
+		if (listener == null)
+			throw ExceptionBundle.EXCEPTIONS.connectionEventListenerIsNull();
+		synchronized (listeners) {
+			listeners.add(listener);
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void removeConnectionEventListener(ConnectionEventListener listener) {
+		if (listener == null)
+			throw ExceptionBundle.EXCEPTIONS.connectionEventListenerIsNull();
+		synchronized (listeners) {
+			listeners.remove(listener);
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public LocalTransaction getLocalTransaction() throws ResourceException {
+		return localTransaction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public XAResource getXAResource() throws ResourceException {
+		throw ExceptionBundle.EXCEPTIONS.xaResourceIsNotSupported();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public synchronized ManagedConnectionMetaData getMetaData() throws ResourceException {
+		checkState();
+		if (connectionMetaData == null) 
+			connectionMetaData = new ManagedConnectionMetaDataImpl(destination); 
+		return connectionMetaData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public PrintWriter getLogWriter() throws ResourceException {
+		return logwriter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void setLogWriter(PrintWriter out) throws ResourceException {
+		logwriter = out;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
 	public synchronized void associateConnection(Object connection) throws ResourceException {
 		checkState();
@@ -268,7 +449,12 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
 	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
 	public synchronized void dissociateConnections() throws ResourceException {
 		checkState();
@@ -282,14 +468,17 @@ public class ManagedConnectionImpl implements ManagedConnection {
 				((ConnectionImpl)cciConnection).dissociateManagedConnection();
 			}
 		}
-
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
 	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
-	public synchronized void cleanup() throws ResourceException
-	{
+	public synchronized void cleanup() throws ResourceException {
 		Collection<Connection> copy = null;
 		if (handles.size() > 0)
 			copy = new HashSet<Connection>(handles);
@@ -305,7 +494,12 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
 	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
 	public synchronized void destroy() throws ResourceException {
 		if (state == State.DESTROYED)
@@ -319,78 +513,208 @@ public class ManagedConnectionImpl implements ManagedConnection {
 		
 		// Remove destination configuration from JCo runtime
 		this.managedConnectionFactory.getResourceAdapter().getDestinationDataProvider()
-				.removeDestinationProperties(destinationName);
+				.removeConnectionRequestInfo(destinationName);
 		
 		managedConnectionFactory = null;
 		destination = null;
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
 	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
-	public void addConnectionEventListener(ConnectionEventListener listener) {
-		if (listener == null)
-			throw ExceptionBundle.EXCEPTIONS.connectionEventListenerIsNull();
-		synchronized (listeners) {
-			listeners.add(listener);
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public void removeConnectionEventListener(ConnectionEventListener listener) {
-		if (listener == null)
-			throw ExceptionBundle.EXCEPTIONS.connectionEventListenerIsNull();
-		synchronized (listeners) {
-			listeners.remove(listener);
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public PrintWriter getLogWriter() throws ResourceException {
-		return logwriter;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public void setLogWriter(PrintWriter out) throws ResourceException {
-		logwriter = out;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public LocalTransaction getLocalTransaction() throws ResourceException {
-		return localTransaction;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public XAResource getXAResource() throws ResourceException {
-		throw ExceptionBundle.EXCEPTIONS.xaResourceIsNotSupported();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public synchronized ManagedConnectionMetaData getMetaData() throws ResourceException {
+	public Properties getProperties() throws ResourceException {
 		checkState();
-		if (connectionMetaData == null) 
-			connectionMetaData = new ManagedConnectionMetaDataImpl(destination); 
-		return connectionMetaData;
+		return managedConnectionFactory.getResourceAdapter().getDestinationDataProvider().getDestinationProperties(destinationName);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public org.jboss.jca.adapters.sap.spi.ConnectionRequestInfo getConnectionRequestInfo() throws ResourceException {
+		return managedConnectionFactory.getResourceAdapter().getDestinationDataProvider().getConnectionRequestInfo(destinationName);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public JCoDestination getDestination() {
+		return destination;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public ManagedConnectionFactory getManagedConnectionFactory() throws ResourceException {
+		checkState();
+		return managedConnectionFactory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean isStateful() {
+		if (state == State.DESTROYED)
+			return false;
+		return JCoContext.isStateful(destination);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public synchronized void beginStatefulSession() throws ResourceException {
+		checkState();
+		JCoContext.begin(destination);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	public synchronized void endStatefulSession() throws ResourceException {
+		checkState();
+		
+		if (inTransaction)
+			throw ExceptionBundle.EXCEPTIONS.connectionHasOutstandingTransaction();
+		
+		internalEndStatefulSession();
+	}
+
+	/**
+	 * Internal logic to end stateful session.
+	 * <p>NB: logic refactored into internal method in order to call without state and transaction checks from {@link #cleanup() }.
+	 * @throws ResourceException
+	 * 
+	 * @generated NOT
+	 */
+	protected void internalEndStatefulSession() throws ResourceException {
+		if (!JCoContext.isStateful(destination))
+			return;
+		
+		try {
+			JCoContext.end(destination);
+		} catch (JCoException e) {
+			throw new ResourceException(e);
+		}
 	}
 	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	public void ping() throws ResourceException {
+		checkState();
+		try {
+			destination.ping();
+		} catch (JCoException e) {
+			throw ExceptionBundle.EXCEPTIONS.pingFailed(e);
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	public synchronized void associateHandle(Connection handle) throws ResourceException {
+		checkState();
+		handles.add(handle);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	public synchronized void dissociateHandle(Connection handle) throws ResourceException {
+		checkState();
+		handles.remove(handle);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	public void closeHandle(Connection handle) throws ResourceException {
+
+		dissociateHandle(handle);
+
+		Collection<ConnectionEventListener> copy = null;
+		synchronized (listeners) {
+			if (listeners != null && listeners.size() > 0)
+				copy = new ArrayList<ConnectionEventListener>(listeners);
+		}
+
+		if (copy != null) {
+			ConnectionEvent event = new ConnectionEvent(this, ConnectionEvent.CONNECTION_CLOSED);
+			event.setConnectionHandle(handle);
+			for (ConnectionEventListener cel : copy) {
+				cel.connectionClosed(event);
+			}
+		}
+
+	}
+
 	/**
 	 * Begins stateful session in SAP system and informs application server that transaction has begun.
 	 * 
 	 * @throws ResourceException If connection has already begun a transaction.
+	 * 
+	 * @generated NOT
 	 */
-	synchronized void beginLocalTransaction() throws ResourceException {
+	protected synchronized void beginLocalTransaction() throws ResourceException {
 		checkState();
 		
 		if (inTransaction) 
@@ -421,8 +745,10 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	 * Invokes commit RFM in SAP system, ends stateful session and informs application server that transaction has committed. 
 	 * 
 	 * @throws ResourceException If connection has not begun a transaction or error occurs in JCo runtime.
+	 * 
+	 * @generated NOT
 	 */
-	synchronized void commitLocalTransaction() throws ResourceException {
+	protected synchronized void commitLocalTransaction() throws ResourceException {
 		checkState();
 		
 		if (!inTransaction) 
@@ -464,8 +790,10 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	 * Invokes rollback RFM in SAP system, ends stateful session and informs application server that transaction has rolled back. 
 	 * 
 	 * @throws ResourceException If connection has not begun a transaction or error occurs in JCo runtime.
+	 * 
+	 * @generated NOT
 	 */
-	synchronized void rollbackLocalTransaction() throws ResourceException {
+	protected synchronized void rollbackLocalTransaction() throws ResourceException {
 		checkState();
 		
 		if (!inTransaction) 
@@ -503,155 +831,12 @@ public class ManagedConnectionImpl implements ManagedConnection {
 	}
 	
 	/**
-	 * Called by {@link ConnectionImpl#getDestination()}
-	 * 
-	 * @return The underlying destination associated with this managed connection.
-	 */
-	public JCoDestination getDestination() {
-		return destination;
-	}
-	
-	/**
-	 * Called by {@link ConnectionImpl#begin()}
-	 * 
-	 * @throws ResourceException If connection is destroyed.
-	 */
-	public synchronized void beginStatefulSession() throws ResourceException {
-		checkState();
-		JCoContext.begin(destination);
-	}
-
-	/**
-	 * Called by {@link ConnectionImpl#end()}
-	 * 
-	 * @throws ResourceException If connection is destroyed or has outstanding transaction or if error occurs in underlying JCo 
-	 * runtime. 
-	 */
-	public synchronized void endStatefulSession() throws ResourceException {
-		checkState();
-		
-		if (inTransaction)
-			throw ExceptionBundle.EXCEPTIONS.connectionHasOutstandingTransaction();
-		
-		internalEndStatefulSession();
-	}
-	
-	/**
-	 * Internal logic to end stateful session.
-	 * <p>NB: logic refactored into internal method in order to call without state and transaction checks from {@link #cleanup() }.
-	 * @throws ResourceException
-	 */
-	protected void internalEndStatefulSession() throws ResourceException {
-		if (!JCoContext.isStateful(destination))
-			return;
-		
-		try {
-			JCoContext.end(destination);
-		} catch (JCoException e) {
-			throw new ResourceException(e);
-		}
-	}
-	
-	/**
-	 * Called by {@link ConnectionImpl#isStateful()}
-	 * 
-	 * @return <code>true</code> if connection is in a stateful state; <code>false</code> otherwise.
-	 */
-	public boolean isStateful() {
-		if (state == State.DESTROYED)
-			return false;
-		return JCoContext.isStateful(destination);
-	}
-	
-	/**
-	 * Called by {@link ConnectionImpl} and {@link ManagedConnectionImpl} when constructing connection handle.
-	 * @return
-	 * @throws ResourceException 
-	 */
-	public ConnectionRequestInfoImpl getProperties() throws ResourceException {
-		checkState();
-		return managedConnectionFactory.getResourceAdapter().getDestinationDataProvider().getDestinationProperties(destinationName);
-	}
-	
-	/**
-	 * Called by {@link ConnectionImpl#ping()} 
-	 * 
-	 * @throws ResourceException if underlying JCo runtime throws exception when pinging.
-	 */
-	public void ping() throws ResourceException {
-		checkState();
-		try {
-			destination.ping();
-		} catch (JCoException e) {
-			throw ExceptionBundle.EXCEPTIONS.pingFailed(e);
-		}
-	}
-
-	/**
-	 * Called by {@link ConnectionImpl} when constructing itself.
-	 * 
-	 * @return the managed connection factory associated with this managed connection. 
-	 * @throws ResourceException 
-	 */
-	public ManagedConnectionFactory getManagedConnectionFactory() throws ResourceException {
-		checkState();
-		return managedConnectionFactory;
-	}
-
-	/**
-	 * Called by {@link ConnectionImpl} when associating with this managed connection.
-	 * 
-	 * @param handle - The handle to be associated with managed connection.
-	 * @throws ResourceException 
-	 */
-	public synchronized void associateHandle(Connection handle) throws ResourceException {
-		checkState();
-		handles.add(handle);
-	}
-
-	/**
-	 * Called by {@link ManagedConnectionImpl} when closing handle and by {@link ConnectionImpl} when dissociating from managed connection.
-	 * 
-	 * @param handle - The connection handle to be dissociated from managed connection.
-	 * @throws ResourceException 
-	 */
-	public synchronized void dissociateHandle(Connection handle) throws ResourceException {
-		checkState();
-		handles.remove(handle);
-	}
-
-	/**
-	 * Close application level handle handle to this connection
-	 * 
-	 * @param handle -
-	 *            The application handle
-	 * @throws ResourceException 
-	 */
-	public void closeHandle(Connection handle) throws ResourceException {
-
-		dissociateHandle(handle);
-
-		Collection<ConnectionEventListener> copy = null;
-		synchronized (listeners) {
-			if (listeners != null && listeners.size() > 0)
-				copy = new ArrayList<ConnectionEventListener>(listeners);
-		}
-
-		if (copy != null) {
-			ConnectionEvent event = new ConnectionEvent(this, ConnectionEvent.CONNECTION_CLOSED);
-			event.setConnectionHandle(handle);
-			for (ConnectionEventListener cel : copy) {
-				cel.connectionClosed(event);
-			}
-		}
-
-	}
-
-	/**
 	 * Internal helper method used by public methods to check the state of this connection before performing an operation on it. This
 	 * method prevents operations from being performed on a connection in a <code>DESTROYED</code> state.
 	 * 
 	 * @throws ResourceException if connection is in a <code>DESTROYED</code> state.
+	 * 
+	 * @generated NOT
 	 */
 	private void checkState() throws ResourceException {
 		if (state == State.DESTROYED) {
@@ -659,4 +844,4 @@ public class ManagedConnectionImpl implements ManagedConnection {
 		}
 	}
 
-}
+} //ManagedConnectionImpl

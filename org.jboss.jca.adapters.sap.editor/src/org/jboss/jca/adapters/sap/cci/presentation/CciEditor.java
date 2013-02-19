@@ -176,6 +176,8 @@ import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 import org.jboss.jca.adapters.sap.cci.provider.CciItemProviderAdapterFactory;
 
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
+import org.jboss.jca.adapters.sap.editor.JBossSapJcaEditorPlugin;
+import org.jboss.jca.adapters.sap.spi.provider.SpiItemProviderAdapterFactory;
 
 
 /**
@@ -711,6 +713,7 @@ public class CciEditor
 
 		adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new CciItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new SpiItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
 		// Create the command stack that will notify this editor as commands are executed.

@@ -397,12 +397,12 @@ public class TestManagedConnectionFactoryImpl {
 		ConnectionRequestInfoImpl connectionSpecWithNonMatchingUsername = new ConnectionRequestInfoImpl();
 		connectionSpecWithNonMatchingUsername.setUserName(TEST_OTHER_USER);
 		ManagedConnectionImpl mockManagedConnectionWithNonMatchingUserName = mock(ManagedConnectionImpl.class);
-		when(mockManagedConnectionWithNonMatchingUserName.getProperties()).thenReturn(connectionSpecWithNonMatchingUsername);
+		when(mockManagedConnectionWithNonMatchingUserName.getConnectionRequestInfo()).thenReturn(connectionSpecWithNonMatchingUsername);
 		ManagedConnectionImpl mockManagedConnectionWithNonMatchingPassword = mock(ManagedConnectionImpl.class);
 		ConnectionRequestInfoImpl connectionSpecWithNonMatchingPassword = new ConnectionRequestInfoImpl();
 		connectionSpecWithNonMatchingPassword.setUserName(TEST_USER);
 		connectionSpecWithNonMatchingPassword.setPassword(TEST_OTHER_PASSWD);
-		when(mockManagedConnectionWithNonMatchingPassword.getProperties()).thenReturn(connectionSpecWithNonMatchingPassword);
+		when(mockManagedConnectionWithNonMatchingPassword.getConnectionRequestInfo()).thenReturn(connectionSpecWithNonMatchingPassword);
 		connectionSetWithNoCredentialsMatch.add(mockManagedConnectionWithNonMatchingPassword);
 		connectionSetWithNoCredentialsMatch.add(mockManagedConnectionWithNonMatchingUserName);
 		
@@ -428,7 +428,7 @@ public class TestManagedConnectionFactoryImpl {
 		ManagedConnectionImpl mockManagedConnectionWithNullUsername = mock(ManagedConnectionImpl.class);
 		ConnectionRequestInfoImpl connectionSpecWithMatchingUsernameAndPassword = new ConnectionRequestInfoImpl();
 		connectionSpecWithMatchingUsernameAndPassword.setPassword(TEST_PASSWD);
-		when(mockManagedConnectionWithNullUsername.getProperties()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
+		when(mockManagedConnectionWithNullUsername.getConnectionRequestInfo()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
 		connectionSetWithConnectionWithNullUserName.add(mockManagedConnectionWithNullUsername);
 		
 		// When
@@ -454,7 +454,7 @@ public class TestManagedConnectionFactoryImpl {
 		ConnectionRequestInfoImpl connectionSpecWithMatchingUsernameAndPassword = new ConnectionRequestInfoImpl();
 		connectionSpecWithMatchingUsernameAndPassword.setUserName(TEST_OTHER_USER);
 		connectionSpecWithMatchingUsernameAndPassword.setPassword(TEST_PASSWD);
-		when(mockManagedConnectionWithOtherUsername.getProperties()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
+		when(mockManagedConnectionWithOtherUsername.getConnectionRequestInfo()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
 		connectionSetWithConnectionWithOtherUserName.add(mockManagedConnectionWithOtherUsername);
 		
 		// When
@@ -479,7 +479,7 @@ public class TestManagedConnectionFactoryImpl {
 		ManagedConnectionImpl mockManagedConnectionWithNullPassword = mock(ManagedConnectionImpl.class);
 		ConnectionRequestInfoImpl connectionSpecWithMatchingUsernameAndPassword = new ConnectionRequestInfoImpl();
 		connectionSpecWithMatchingUsernameAndPassword.setUserName(TEST_USER);
-		when(mockManagedConnectionWithNullPassword.getProperties()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
+		when(mockManagedConnectionWithNullPassword.getConnectionRequestInfo()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
 		connectionSetWithConnectionWithNullPassword.add(mockManagedConnectionWithNullPassword);
 		
 		// When
@@ -505,7 +505,7 @@ public class TestManagedConnectionFactoryImpl {
 		ConnectionRequestInfoImpl connectionSpecWithMatchingUsernameAndPassword = new ConnectionRequestInfoImpl();
 		connectionSpecWithMatchingUsernameAndPassword.setUserName(TEST_USER);
 		connectionSpecWithMatchingUsernameAndPassword.setPassword(TEST_OTHER_PASSWD);
-		when(mockManagedConnectionWithOtherPassword.getProperties()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
+		when(mockManagedConnectionWithOtherPassword.getConnectionRequestInfo()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
 		connectionSetWithConnectionWithOtherPassword.add(mockManagedConnectionWithOtherPassword);
 		
 		// When
@@ -531,7 +531,7 @@ public class TestManagedConnectionFactoryImpl {
 		ConnectionRequestInfoImpl connectionSpecWithMatchingUsernameAndPassword = new ConnectionRequestInfoImpl();
 		connectionSpecWithMatchingUsernameAndPassword.setUserName(TEST_USER);
 		connectionSpecWithMatchingUsernameAndPassword.setPassword(TEST_PASSWD);
-		when(mockManagedConnectionWithMatchingUsernameAndPassword.getProperties()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
+		when(mockManagedConnectionWithMatchingUsernameAndPassword.getConnectionRequestInfo()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
 		connectionSetWithCredentialsMatch.add(mockManagedConnectionWithMatchingUsernameAndPassword);
 		
 		// When
@@ -556,7 +556,7 @@ public class TestManagedConnectionFactoryImpl {
 		ManagedConnectionImpl mockManagedConnectionWithMatchingNullUsername = mock(ManagedConnectionImpl.class);
 		ConnectionRequestInfoImpl connectionSpecWithMatchingUsernameAndPassword = new ConnectionRequestInfoImpl();
 		connectionSpecWithMatchingUsernameAndPassword.setPassword(TEST_PASSWD);
-		when(mockManagedConnectionWithMatchingNullUsername.getProperties()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
+		when(mockManagedConnectionWithMatchingNullUsername.getConnectionRequestInfo()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
 		connectionSetWithaMatchingNullUsername.add(mockManagedConnectionWithMatchingNullUsername);
 		
 		// When
@@ -581,7 +581,7 @@ public class TestManagedConnectionFactoryImpl {
 		ManagedConnectionImpl mockManagedConnectionWithMatchingEmptyPassword = mock(ManagedConnectionImpl.class);
 		ConnectionRequestInfoImpl connectionSpecWithMatchingUsernameAndPassword = new ConnectionRequestInfoImpl();
 		connectionSpecWithMatchingUsernameAndPassword.setUserName(TEST_USER);
-		when(mockManagedConnectionWithMatchingEmptyPassword.getProperties()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
+		when(mockManagedConnectionWithMatchingEmptyPassword.getConnectionRequestInfo()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
 		connectionSetWithaMatchingEmptyPassword.add(mockManagedConnectionWithMatchingEmptyPassword);
 		
 		// When
@@ -607,7 +607,7 @@ public class TestManagedConnectionFactoryImpl {
 		ConnectionRequestInfoImpl connectionSpecWithMatchingUsernameAndPassword = new ConnectionRequestInfoImpl();
 		connectionSpecWithMatchingUsernameAndPassword.setUserName(TEST_USER);
 		connectionSpecWithMatchingUsernameAndPassword.setPassword(TEST_PASSWD);
-		when(mockManagedConnectionWithMatchingUsernameAndPassword.getProperties()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
+		when(mockManagedConnectionWithMatchingUsernameAndPassword.getConnectionRequestInfo()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
 		connectionSetWithCredentialsMatch.add(mockManagedConnectionWithMatchingUsernameAndPassword);
 		
 		ConnectionRequestInfoImpl overriddedConnectionRequestInfo = new ConnectionRequestInfoImpl();
@@ -630,7 +630,8 @@ public class TestManagedConnectionFactoryImpl {
 		ConnectionRequestInfoImpl connectionSpecWithMatchingUsernameAndPassword = new ConnectionRequestInfoImpl();
 		connectionSpecWithMatchingUsernameAndPassword.setUserName(TEST_USER);
 		connectionSpecWithMatchingUsernameAndPassword.setPassword(TEST_PASSWD);
-		when(mockManagedConnectionWithMatchingUsernameAndPassword.getProperties()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
+		when(mockManagedConnectionWithMatchingUsernameAndPassword.getConnectionRequestInfo()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
+		when(mockManagedConnectionWithMatchingUsernameAndPassword.getProperties()).thenReturn(connectionSpecWithMatchingUsernameAndPassword.getProperties());
 		connectionSetWithMatchingUsernameAndPassword.add(mockManagedConnectionWithMatchingUsernameAndPassword);
 		
 		/* Create Connection Request that is a superset of candidate connection's properties. */
@@ -656,7 +657,8 @@ public class TestManagedConnectionFactoryImpl {
 		connectionSpecWithMatchingUsernameAndPassword.setUserName(TEST_USER);
 		connectionSpecWithMatchingUsernameAndPassword.setPassword(TEST_PASSWD);
 		connectionSpecWithMatchingUsernameAndPassword.setProperty(DestinationDataProvider.JCO_CLIENT, TEST_CLIENT);
-		when(mockManagedConnectionWithMatchingUsernameAndPassword.getProperties()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
+		when(mockManagedConnectionWithMatchingUsernameAndPassword.getConnectionRequestInfo()).thenReturn(connectionSpecWithMatchingUsernameAndPassword);
+		when(mockManagedConnectionWithMatchingUsernameAndPassword.getProperties()).thenReturn(connectionSpecWithMatchingUsernameAndPassword.getProperties());
 		connectionSetWithMatchingUsernameAndPassword.add(mockManagedConnectionWithMatchingUsernameAndPassword);
 		
 		/* Create Connection Request that is a superset of candidate connection's properties. */
@@ -683,7 +685,8 @@ public class TestManagedConnectionFactoryImpl {
 		connectionSpecWithSupersetOfProperties.setPassword(TEST_PASSWD);
 		connectionSpecWithSupersetOfProperties.setProperty(DestinationDataProvider.JCO_CLIENT, TEST_CLIENT);
 		connectionSpecWithSupersetOfProperties.setProperty(DestinationDataProvider.JCO_SYSNR, TEST_SYSNR);
-		when(mockManagedConnectionWithSupersetOfProperties.getProperties()).thenReturn(connectionSpecWithSupersetOfProperties);
+		when(mockManagedConnectionWithSupersetOfProperties.getConnectionRequestInfo()).thenReturn(connectionSpecWithSupersetOfProperties);
+		when(mockManagedConnectionWithSupersetOfProperties.getProperties()).thenReturn(connectionSpecWithSupersetOfProperties.getProperties());
 		connectionSetWithMatchingProperties.add(mockManagedConnectionWithSupersetOfProperties);
 		
 		/* Create Connection Request that is a superset of candidate connection's properties. */
@@ -711,7 +714,8 @@ public class TestManagedConnectionFactoryImpl {
 		connectionSpecWithDefaultProperties.setProperty(DestinationDataProvider.JCO_CLIENT, TEST_CLIENT);
 		connectionSpecWithDefaultProperties.setProperty(DestinationDataProvider.JCO_SYSNR, TEST_SYSNR);
 		connectionSpecWithDefaultProperties = new ConnectionRequestInfoImpl(connectionSpecWithDefaultProperties);
-		when(mockManagedConnectionWithSupersetOfProperties.getProperties()).thenReturn(connectionSpecWithDefaultProperties);
+		when(mockManagedConnectionWithSupersetOfProperties.getConnectionRequestInfo()).thenReturn(connectionSpecWithDefaultProperties);
+		when(mockManagedConnectionWithSupersetOfProperties.getProperties()).thenReturn(connectionSpecWithDefaultProperties.getProperties());
 		connectionSetWithMatchingProperties.add(mockManagedConnectionWithSupersetOfProperties);
 		
 		/* Create Connection Request that is a superset of candidate connection's properties. */

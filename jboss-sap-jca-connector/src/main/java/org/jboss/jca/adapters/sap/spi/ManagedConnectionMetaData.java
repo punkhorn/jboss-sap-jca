@@ -20,90 +20,66 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  * 
  */
-package org.jboss.jca.adapters.sap.cci.provider;
+package org.jboss.jca.adapters.sap.spi;
 
-import org.eclipse.emf.common.EMFPlugin;
+import javax.resource.ResourceException;
 
-import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EObject;
 
 /**
- * This is the central singleton for the JBossSapJcaCci edit plugin.
  * <!-- begin-user-doc -->
+ * Specializes the {@link javax.resource.spi.ManagedConnectionMetaData} interface for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
  * <!-- end-user-doc -->
+ *
+ *
+ * @model superTypes="org.jboss.jca.adapters.sap.spi.SPIManagedConnectionMetaData"
  * @generated
  */
-public final class JBossSapJcaEditPlugin extends EMFPlugin {
+public interface ManagedConnectionMetaData extends EObject, javax.resource.spi.ManagedConnectionMetaData {
 	/**
-	 * Keep track of the singleton.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
+	 * @model kind="operation" exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
 	 */
-	public static final JBossSapJcaEditPlugin INSTANCE = new JBossSapJcaEditPlugin();
+	String getEISProductName() throws ResourceException;
 
 	/**
-	 * Keep track of the singleton.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
+	 * @model kind="operation" exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
 	 */
-	private static Implementation plugin;
+	String getEISProductVersion() throws ResourceException;
 
 	/**
-	 * Create the instance.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
+	 * @model kind="operation" exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
 	 */
-	public JBossSapJcaEditPlugin() {
-		super
-		  (new ResourceLocator [] {
-		   });
-	}
+	int getMaxConnections() throws ResourceException;
 
 	/**
-	 * Returns the singleton instance of the Eclipse plugin.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the singleton instance.
+	 * @model kind="operation" exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
 	 */
-	@Override
-	public ResourceLocator getPluginResourceLocator() {
-		return plugin;
-	}
+	String getUserName() throws ResourceException;
 
-	/**
-	 * Returns the singleton instance of the Eclipse plugin.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the singleton instance.
-	 * @generated
-	 */
-	public static Implementation getPlugin() {
-		return plugin;
-	}
-
-	/**
-	 * The actual implementation of the Eclipse <b>Plugin</b>.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static class Implementation extends EclipsePlugin {
-		/**
-		 * Creates an instance.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public Implementation() {
-			super();
-
-			// Remember the static instance.
-			//
-			plugin = this;
-		}
-	}
-
-}
+} // ManagedConnectionMetaData

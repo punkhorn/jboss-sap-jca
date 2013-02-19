@@ -58,6 +58,7 @@ import org.eclipse.jface.viewers.Viewer;
 
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
+import org.jboss.jca.adapters.sap.editor.JBossSapJcaEditorPlugin;
 
 /**
  * This is the action bar contributor for the Cci model editor.

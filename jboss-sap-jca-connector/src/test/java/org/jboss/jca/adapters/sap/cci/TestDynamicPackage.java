@@ -12,7 +12,6 @@ import org.jboss.jca.adapters.sap.cci.impl.CciFactoryImpl;
 import org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl;
 import org.jboss.jca.adapters.sap.cci.impl.CciPackageRegistryImpl;
 import org.jboss.jca.adapters.sap.cci.impl.RecordFactoryImpl;
-import org.junit.Test;
 
 import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoDestinationManager;

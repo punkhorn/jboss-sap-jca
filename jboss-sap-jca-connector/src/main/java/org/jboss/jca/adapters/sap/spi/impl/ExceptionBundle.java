@@ -37,7 +37,7 @@ import com.sap.conn.jco.AbapException;
  * Exception Bundle for JBoss SAP JCA Connector
  * 
  * @author William Collins
- *
+ * @generated NOT
  */
 @MessageBundle(projectCode = "JBossSapJcaSpi")
 public interface ExceptionBundle {

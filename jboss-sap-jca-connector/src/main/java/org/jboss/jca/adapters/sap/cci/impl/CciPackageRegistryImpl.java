@@ -1,3 +1,25 @@
+/**
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2012, Red Hat Middleware LLC, and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
+ * 
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ * 
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ * 
+ */
 package org.jboss.jca.adapters.sap.cci.impl;
 
 import static org.jboss.jca.adapters.sap.cci.CciPackage.*;
@@ -28,6 +50,17 @@ import com.sap.conn.jco.JCoMetaData;
 import com.sap.conn.jco.JCoRecordMetaData;
 import com.sap.conn.jco.JCoRepository;
 
+/**
+ * Package Registry for JBoss SAP JCA Connector
+ * 
+ * This class dynamically creates Ecore package definitions on demand which
+ * describes the data structures required to invoke a specific remote function
+ * module. An Ecore package is created on demand for each remote function module
+ * defined in a connected SAP instance.
+ * 
+ * @author William Collins
+ * 
+ */
 public class CciPackageRegistryImpl implements Registry {
 
 	private static final String GenNS_URI = "http://www.eclipse.org/emf/2002/GenModel";
@@ -168,7 +201,7 @@ public class CciPackageRegistryImpl implements Registry {
 			ePackage.setName(functionModuleName);
 			ePackage.setNsPrefix(functionModuleName);
 			ePackage.setNsURI(nsURI);
-
+			
 			// Create Input Record Class
 			EClass inputRecordClass = ecoreFactory.createEClass();
 			ePackage.getEClassifiers().add(inputRecordClass);

@@ -1,23 +1,24 @@
-/*
+/**
  * JBoss, Home of Professional Open Source.
  * Copyright 2012, Red Hat Middleware LLC, and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
- *
+ * 
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
- *
+ * 
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ * 
  */
 package org.jboss.jca.adapters.sap.spi.impl;
 
@@ -31,20 +32,31 @@ import java.util.Map;
 
 import javax.resource.ResourceException;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.jboss.jca.adapters.sap.spi.ManagedConnectionFactory;
 import org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin;
 
 /**
- * Implements the {@link NonManagedEnvironmentAdmin } interface for the JBoss SAP JCA Connector.
+ * <!-- begin-user-doc -->
+ * Implements the {@link NonManagedEnvironmentAdmin } interface for the JBoss SAP
+ * JCA Connector.
  * 
  * @author William Collins
  * 
- * @version $Id: 1ae57d35767f22e35a848468adbaf90f84a6d93f $
+ * @version $Id:  $
+ * <!-- end-user-doc -->
+ * <p>
+ * </p>
+ *
+ * @generated
  */
-public class NonManagedEnvironmentAdminImpl implements NonManagedEnvironmentAdmin {
+public class NonManagedEnvironmentAdminImpl extends EObjectImpl implements NonManagedEnvironmentAdmin {
 
 	/**
 	 * States of Administration instance
+	 * 
+	 * @generated NOT
 	 */
 	public static enum State {
 		DEPLOYED, /* Administration instance has deployed resource adapter */
@@ -53,6 +65,8 @@ public class NonManagedEnvironmentAdminImpl implements NonManagedEnvironmentAdmi
 
 	/**
 	 * The Administration instance
+	 * 
+	 * @generated NOT
 	 */
 	public static final NonManagedEnvironmentAdmin INSTANCE = new NonManagedEnvironmentAdminImpl();
 
@@ -62,30 +76,46 @@ public class NonManagedEnvironmentAdminImpl implements NonManagedEnvironmentAdmi
 	 * Administration instance starts in <code>UNDEPLOYED</code> state when created and can
 	 * transition back and forth to and from <code>DEPLOYED</code> and
 	 * <code>UNDEPLOYED</code> states.
+	 * 
+	 * @generated NOT
 	 */
 	private State state = State.UNDEPLOYED;
 
 	/**
 	 * The resource adapter currently deployed by Administration instance.
+	 * 
+	 * @generated NOT
 	 */
 	private ResourceAdapterImpl ra;
 
 	/**
-	 * Default constructor of Administration instance; protected to prevent multiple
-	 * instances from being constructed.
+	 * <!-- begin-user-doc -->
+	 * Creates a {@link NonManagedEnvironmentAdmin} instance.
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
 	protected NonManagedEnvironmentAdminImpl() {
-	}
-	
-	@Override
-	public boolean isResourceAdapterDeployed() {
-		return state == State.DEPLOYED;
+		super();
 	}
 
 	/**
-	 * @see org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin#createManagedConnectionFactory(java.util.Map)
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
 	 */
 	@Override
+	protected EClass eStaticClass() {
+		return SpiPackageImpl.Literals.NON_MANAGED_ENVIRONMENT_ADMIN;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public ManagedConnectionFactory createManagedConnectionFactory(Map<String, String> config) throws ResourceException {
 		checkState();
 
@@ -99,10 +129,26 @@ public class NonManagedEnvironmentAdminImpl implements NonManagedEnvironmentAdmi
 	}
 
 	/**
-	 * @see org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin#deployResourceAdapter(java.util.Map)
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
-	@Override
-	public synchronized void deployResourceAdapter(Map<String, String> config) throws ResourceException {
+	public boolean isResourceAdapterDeployed() {
+		return state == State.DEPLOYED;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public void deployResourceAdapter(Map<String, String> config) throws ResourceException {
 		if (state == State.DEPLOYED)
 			return;
 		state = State.DEPLOYED;
@@ -115,10 +161,14 @@ public class NonManagedEnvironmentAdminImpl implements NonManagedEnvironmentAdmi
 	}
 
 	/**
-	 * @see org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin#undeployResourceAdapter()
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
 	 */
-	@Override
-	public synchronized void undeployResourceAdapter() {
+	public void undeployResourceAdapter() {
 		if (state == State.UNDEPLOYED)
 			return;
 		state = State.UNDEPLOYED;
@@ -136,6 +186,8 @@ public class NonManagedEnvironmentAdminImpl implements NonManagedEnvironmentAdmi
 	 * @param configuration
 	 *            - the configuration of property values to use
 	 * @throws ResourceException
+	 * 
+	 * @generated NOT
 	 */
 	private void setProperties(Object bean, Map<String, String> configuration) throws ResourceException {
 		try {
@@ -158,6 +210,8 @@ public class NonManagedEnvironmentAdminImpl implements NonManagedEnvironmentAdmi
 	 * @param propertyDescriptor - the property descriptor of the property to set.
 	 * @param value - the value to set on property.
 	 * @throws ResourceException
+	 * 
+	 * @generated NOT
 	 */
 	private void setProperty(Object bean, PropertyDescriptor propertyDescriptor, String value) throws ResourceException {
 		Method setter = propertyDescriptor.getWriteMethod();
@@ -178,6 +232,8 @@ public class NonManagedEnvironmentAdminImpl implements NonManagedEnvironmentAdmi
 	 * method prevents operations from being performed on Administration instance when it is in an <code>UNDEPLOYED</code> state.
 	 * 
 	 * @throws ResourceException if Administration instance is in an <code>UNDEPLOYED</code> state.
+	 * 
+	 * @generated NOT
 	 */
 	private void checkState() throws ResourceException {
 		if (state == State.UNDEPLOYED) {
@@ -185,4 +241,4 @@ public class NonManagedEnvironmentAdminImpl implements NonManagedEnvironmentAdmi
 		}
 	}
 
-}
+} //NonManagedEnvironmentAdminImpl

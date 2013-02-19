@@ -42,6 +42,7 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.jboss.jca.adapters.sap.cci.ConnectionFactory;
 import org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl;
+import org.jboss.jca.adapters.sap.edit.JBossSapJcaEditPlugin;
 
 /**
  * This is the item provider adapter for a {@link org.jboss.jca.adapters.sap.cci.ConnectionFactory} object.

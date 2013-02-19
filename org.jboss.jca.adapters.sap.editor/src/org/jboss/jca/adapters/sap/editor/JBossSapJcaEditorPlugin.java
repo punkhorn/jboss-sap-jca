@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  * 
  */
-package org.jboss.jca.adapters.sap.cci.presentation;
+package org.jboss.jca.adapters.sap.editor;
 
 import org.eclipse.emf.common.EMFPlugin;
 
@@ -29,7 +29,7 @@ import org.eclipse.emf.common.ui.EclipseUIPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 /**
- * This is the central singleton for the JBossSapJcaCci editor plugin.
+ * This is the central singleton for the JBoss SAP JCA Connector editor plugin.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated

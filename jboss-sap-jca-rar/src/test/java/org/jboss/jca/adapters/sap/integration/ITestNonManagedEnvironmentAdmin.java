@@ -21,18 +21,18 @@ import org.junit.Test;
 
 public class ITestNonManagedEnvironmentAdmin {
 
-	private NonManagedEnvironmentAdmin spiFactory;
+	private NonManagedEnvironmentAdmin admin;
 
 	@Before
 	public void setUp() throws Exception {
 		// Given
-		spiFactory = NonManagedEnvironmentAdmin.INSTANCE;
-		spiFactory.deployResourceAdapter(null);
+		admin = NonManagedEnvironmentAdmin.INSTANCE;
+		admin.deployResourceAdapter(null);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		spiFactory.undeployResourceAdapter();
+		admin.undeployResourceAdapter();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -48,7 +48,7 @@ public class ITestNonManagedEnvironmentAdmin {
 		config.put("lang", "en");
 
 		// When
-		ManagedConnectionFactory managedConnectionFactory = spiFactory.createManagedConnectionFactory(config);
+		ManagedConnectionFactory managedConnectionFactory = admin.createManagedConnectionFactory(config);
 		ConnectionFactory connectionFactory = (ConnectionFactory) managedConnectionFactory.createConnectionFactory();
 		Connection connection = connectionFactory.getConnection();
 		Interaction interaction = connection.createInteraction();

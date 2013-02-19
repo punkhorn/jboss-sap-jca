@@ -11,6 +11,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.withSettings;
 
+import java.util.Properties;
+
 import javax.resource.NotSupportedException;
 import javax.resource.ResourceException;
 import javax.resource.cci.ConnectionMetaData;
@@ -38,6 +40,7 @@ public class TestConnectionImpl {
 	private ConnectionSpec mockConnectionSpec;
 	private ConnectionManager mockConnectionManager;
 	private ConnectionRequestInfo mockConnectionRequestInfo;
+	private Properties mockProperties;
 
 	@Before
 	public void setUp() throws Exception {
@@ -46,7 +49,8 @@ public class TestConnectionImpl {
 		mockConnectionSpec = mock(ConnectionSpec.class);
 		mockConnectionRequestInfo = mock(ConnectionRequestInfo.class);
 		mockManagedConnection = mock(ManagedConnection.class);
-		when(mockManagedConnection.getProperties()).thenReturn(mockConnectionRequestInfo);
+		when(mockManagedConnection.getConnectionRequestInfo()).thenReturn(mockConnectionRequestInfo);
+		when(mockManagedConnection.getProperties()).thenReturn(mockProperties);
 		when(mockManagedConnection.getManagedConnectionFactory()).thenReturn(mockManagedConnectionFactory);
 		mockConnectionManager = mock(ConnectionManager.class, withSettings().extraInterfaces(LazyAssociatableConnectionManager.class));
 		
