@@ -9,7 +9,8 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.jboss.jca.adapters.sap.cci.presentation,
- org.jboss.jca.adapters.sap.editor
+ org.jboss.jca.adapters.sap.editor,
+ org.jboss.jca.adapters.sap.spi.presentation
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
  org.jboss.jca.adapters.sap.edit;visibility:=reexport,

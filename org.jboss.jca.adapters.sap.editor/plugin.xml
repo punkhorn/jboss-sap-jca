@@ -52,4 +52,30 @@
       </editor>
    </extension>
 
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="org.jboss.jca.adapters.sap.spi.presentation.SpiModelWizardID"
+            name="%_UI_SpiModelWizard_label"
+            class="org.jboss.jca.adapters.sap.spi.presentation.SpiModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/SpiModelFile.gif">
+         <description>%_UI_SpiModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="org.jboss.jca.adapters.sap.spi.presentation.SpiEditorID"
+            name="%_UI_SpiEditor_label"
+            icon="icons/full/obj16/SpiModelFile.gif"
+            extensions="spi"
+            class="org.jboss.jca.adapters.sap.spi.presentation.SpiEditor"
+            contributorClass="org.jboss.jca.adapters.sap.spi.presentation.SpiActionBarContributor">
+      </editor>
+   </extension>
+
 </plugin>
