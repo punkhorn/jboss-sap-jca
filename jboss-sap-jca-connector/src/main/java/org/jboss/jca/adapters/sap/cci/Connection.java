@@ -29,7 +29,9 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Connection</b></em>'.
+ * Specializes the {@link javax.resource.cci.Connection} interface for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
  * <!-- end-user-doc -->
  *
  *

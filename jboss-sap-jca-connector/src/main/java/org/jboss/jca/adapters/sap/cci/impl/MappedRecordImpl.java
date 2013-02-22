@@ -46,7 +46,9 @@ import com.sap.conn.jco.JCoRecord;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Mapped Record</b></em>'.
+ * Implements the {@link MappedRecord } interface for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
@@ -346,6 +348,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 	
 	/**
 	 * <!-- begin-user-doc -->
+	 * Create a {@link MappedRecord} instance.
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -356,6 +359,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -366,6 +370,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -375,6 +380,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -387,6 +393,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -396,6 +403,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -408,6 +416,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -417,6 +426,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -453,6 +463,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -466,6 +477,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -475,6 +487,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -484,6 +497,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -496,6 +510,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -509,6 +524,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -534,6 +550,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -565,6 +582,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -582,6 +600,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -594,6 +613,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -605,6 +625,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -615,6 +636,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -625,6 +647,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -635,6 +658,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -651,6 +675,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -669,6 +694,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -687,6 +713,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -703,6 +730,7 @@ public class MappedRecordImpl extends EObjectImpl implements MappedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */

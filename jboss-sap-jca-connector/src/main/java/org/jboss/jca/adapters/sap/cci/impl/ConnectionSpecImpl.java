@@ -31,7 +31,9 @@ import org.jboss.jca.adapters.sap.spi.ConnectionRequestInfo;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Connection Spec</b></em>'.
+ * Implements the {@link ConnectionSpec } interface for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
@@ -266,6 +268,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -276,6 +279,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -285,6 +289,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -297,6 +302,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -306,6 +312,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -318,6 +325,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 /**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -327,6 +335,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -339,6 +348,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -348,6 +358,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -360,6 +371,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -369,6 +381,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -381,6 +394,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -390,6 +404,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -402,6 +417,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -411,6 +427,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -423,6 +440,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -432,6 +450,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -444,6 +463,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -453,6 +473,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -465,6 +486,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -474,6 +496,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -486,6 +509,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -518,6 +542,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -560,6 +585,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -602,6 +628,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -634,6 +661,7 @@ public class ConnectionSpecImpl extends EObjectImpl implements ConnectionSpec {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */

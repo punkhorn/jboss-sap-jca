@@ -86,6 +86,7 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * Create an {@link Interaction} instance.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -94,7 +95,7 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 	}
 
 	/**
-	 * Create interaction with specified connection.
+	 * Create an {@link Interaction} instance associated with the specified connection.
 	 * 
 	 * @param connection - the connection
 	 * @throws ResourceException 
@@ -108,6 +109,7 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -118,6 +120,7 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -133,6 +136,7 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -142,6 +146,7 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -187,6 +192,7 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -207,6 +213,7 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -216,6 +223,7 @@ public class InteractionImpl extends EObjectImpl implements Interaction {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */

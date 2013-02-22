@@ -32,6 +32,7 @@ import javax.resource.spi.endpoint.MessageEndpointFactory;
 
 import javax.transaction.xa.XAResource;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -41,11 +42,31 @@ import org.eclipse.emf.ecore.EObject;
  * @author William Collins
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.jboss.jca.adapters.sap.spi.ResourceAdapter#getManagedConnectionFactories <em>Managed Connection Factories</em>}</li>
+ * </ul>
+ * </p>
  *
  * @model superTypes="org.jboss.jca.adapters.sap.spi.SPIResourceAdapter"
  * @generated
  */
 public interface ResourceAdapter extends EObject, javax.resource.spi.ResourceAdapter {
+	/**
+	 * Returns the value of the '<em><b>Managed Connection Factories</b></em>' containment reference list.
+	 * The list contents are of type {@link org.jboss.jca.adapters.sap.spi.ManagedConnectionFactory}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * Returns the list of {@link ManagedConnectionFactory} instances associated with this adapter.
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Managed Connection Factories</em>' containment reference list.
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ManagedConnectionFactory> getManagedConnectionFactories();
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <p>

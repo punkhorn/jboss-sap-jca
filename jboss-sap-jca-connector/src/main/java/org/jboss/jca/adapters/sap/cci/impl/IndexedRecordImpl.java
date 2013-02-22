@@ -46,7 +46,9 @@ import com.sap.conn.jco.JCoTable;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Indexed Record</b></em>'.
+ * Implements the {@link IndexedRecord } interface for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
@@ -58,10 +60,6 @@ import com.sap.conn.jco.JCoTable;
  * </p>
  *
  * @generated
- */
-/**
- * @author bicollin
- *
  */
 @SuppressWarnings("rawtypes")
 public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
@@ -118,6 +116,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	
 	/**
 	 * <!-- begin-user-doc -->
+	 * Create an {@link IndexedRecord} instance.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -127,6 +126,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -137,6 +137,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -146,6 +147,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -158,6 +160,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -167,6 +170,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -179,6 +183,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -188,6 +193,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -197,6 +203,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -206,6 +213,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -215,6 +223,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -224,6 +233,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -233,6 +243,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -255,6 +266,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -270,6 +282,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -279,6 +292,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -288,6 +302,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -297,6 +312,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -306,6 +322,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -315,6 +332,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -324,6 +342,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -356,6 +375,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -365,6 +385,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -374,6 +395,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -392,6 +414,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -410,6 +433,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -427,6 +451,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -444,6 +469,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -453,6 +479,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -462,6 +489,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -473,6 +501,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -484,6 +513,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -493,6 +523,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -502,6 +533,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -511,6 +543,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -520,6 +553,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -529,6 +563,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -538,6 +573,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -552,6 +588,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -572,6 +609,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -595,6 +633,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -616,6 +655,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -636,6 +676,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */

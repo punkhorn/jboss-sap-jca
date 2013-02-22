@@ -28,6 +28,7 @@ import javax.resource.ResourceException;
 import javax.resource.cci.Record;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage.Registry;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -39,10 +40,11 @@ import org.jboss.jca.adapters.sap.cci.RecordFactory;
 import com.sap.conn.jco.JCoRepository;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '
- * <em><b>Record Factory</b></em>'. <!-- end-user-doc -->
- * <p>
- * </p>
+ * <!-- begin-user-doc -->
+ * Implements the {@link RecordFactory } interfaces for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
+ * <!-- end-user-doc -->
  *
  * @generated
  */
@@ -53,7 +55,9 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 	private JCoRepository repository;
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * Create a {@link RecordFactory} instance.
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected RecordFactoryImpl() {
@@ -61,7 +65,9 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -70,7 +76,9 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated NOT
 	 */
@@ -84,7 +92,9 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 	}
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
+	 * <!-- end-user-doc -->
 	 * 
 	 * @generated NOT
 	 */
@@ -99,11 +109,13 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 	private CciPackageRegistryImpl registry;
 
 	/**
+	 * <!-- begin-user-doc -->
 	 * {@inheritDoc}
+	 * <!-- end-user-doc -->
 	 *  
 	 * @generated NOT
 	 */
-	public EPackage.Registry getPackageRegistry() throws ResourceException {
+	public Registry getPackageRegistry() throws ResourceException {
 		if (repository == null)
 			throw ExceptionBundle.EXCEPTIONS.failedToAccessMetaDataRepository();
 
@@ -114,6 +126,10 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 	}
 
 	/**
+	 * Returns the repository associated with this record factory.
+	 * 
+	 * @return  the repository associated with this record factory.
+	 * 
 	 * @generated NOT
 	 */
 	public JCoRepository getRepository() {
@@ -121,6 +137,10 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 	}
 
 	/**
+	 * Set the given repository to associate with this record factory.
+	 * 
+	 * @param repository - The repository to associate with this record factory.
+
 	 * @generated NOT
 	 */
 	public void setRepository(JCoRepository repository) {
@@ -128,6 +148,12 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 	}
 
 	/**
+	 * Create a {@link Record} instance whose repository type is designated by the given record name.
+	 * 
+	 * @param recordName - The record name designating the type of record to create.
+	 * @return A {@link Record} instance of the designated type. 
+	 * @throws ResourceException If factory fails to create instance. 
+	 * 
 	 * @generated NOT
 	 */
 	protected EObject createRecord(String recordName) throws ResourceException {

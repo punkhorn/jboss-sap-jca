@@ -853,6 +853,9 @@
         <eParameters name="config" eType="#/1/StringMap"/>
       </eOperations>
       <eOperations name="undeployResourceAdapter"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="managedConnectionFactories"
+          ordered="false" upperBound="-1" eType="#/1/ManagedConnectionFactory" changeable="false"
+          volatile="true" transient="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ResourceAdapter" eSuperTypes="#/1/SPIResourceAdapter">
       <eOperations name="equals" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -875,6 +878,8 @@
         <eParameters name="endpointFactory" eType="#/1/MessageEndpointFactory"/>
         <eParameters name="activationSpec" eType="#/1/ActivationSpec"/>
       </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="managedConnectionFactories"
+          upperBound="-1" eType="#/1/ManagedConnectionFactory" containment="true"/>
     </eClassifiers>
   </ecore:EPackage>
 </xmi:XMI>

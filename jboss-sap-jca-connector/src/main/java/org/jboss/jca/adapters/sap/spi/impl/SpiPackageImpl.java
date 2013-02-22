@@ -58,6 +58,7 @@ import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl;
@@ -419,13 +420,22 @@ public class SpiPackageImpl extends EPackageImpl {
 	public static final int NON_MANAGED_ENVIRONMENT_ADMIN = 15;
 
 	/**
+	 * The feature id for the '<em><b>Managed Connection Factories</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NON_MANAGED_ENVIRONMENT_ADMIN__MANAGED_CONNECTION_FACTORIES = 0;
+
+	/**
 	 * The number of structural features of the '<em>Non Managed Environment Admin</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NON_MANAGED_ENVIRONMENT_ADMIN_FEATURE_COUNT = 0;
+	public static final int NON_MANAGED_ENVIRONMENT_ADMIN_FEATURE_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link org.jboss.jca.adapters.sap.spi.impl.ResourceAdapterImpl <em>Resource Adapter</em>}' class.
@@ -438,13 +448,22 @@ public class SpiPackageImpl extends EPackageImpl {
 	public static final int RESOURCE_ADAPTER = 16;
 
 	/**
+	 * The feature id for the '<em><b>Managed Connection Factories</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORIES = SPI_RESOURCE_ADAPTER_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Resource Adapter</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int RESOURCE_ADAPTER_FEATURE_COUNT = SPI_RESOURCE_ADAPTER_FEATURE_COUNT + 0;
+	public static final int RESOURCE_ADAPTER_FEATURE_COUNT = SPI_RESOURCE_ADAPTER_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '<em>Password Credential</em>' data type.
@@ -1084,6 +1103,20 @@ public class SpiPackageImpl extends EPackageImpl {
 	}
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin#getManagedConnectionFactories <em>Managed Connection Factories</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Managed Connection Factories</em>'.
+	 * @see org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin#getManagedConnectionFactories()
+	 * @see #getNonManagedEnvironmentAdmin()
+	 * @generated
+	 */
+	public EReference getNonManagedEnvironmentAdmin_ManagedConnectionFactories() {
+		return (EReference)nonManagedEnvironmentAdminEClass.getEStructuralFeatures().get(0);
+	}
+
+
+	/**
 	 * Returns the meta object for class '{@link org.jboss.jca.adapters.sap.spi.ResourceAdapter <em>Resource Adapter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1094,6 +1127,20 @@ public class SpiPackageImpl extends EPackageImpl {
 	public EClass getResourceAdapter() {
 		return resourceAdapterEClass;
 	}
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.jboss.jca.adapters.sap.spi.ResourceAdapter#getManagedConnectionFactories <em>Managed Connection Factories</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Managed Connection Factories</em>'.
+	 * @see org.jboss.jca.adapters.sap.spi.ResourceAdapter#getManagedConnectionFactories()
+	 * @see #getResourceAdapter()
+	 * @generated
+	 */
+	public EReference getResourceAdapter_ManagedConnectionFactories() {
+		return (EReference)resourceAdapterEClass.getEStructuralFeatures().get(0);
+	}
+
 
 	/**
 	 * Returns the meta object for data type '{@link javax.resource.spi.security.PasswordCredential <em>Password Credential</em>}'.
@@ -1338,8 +1385,10 @@ public class SpiPackageImpl extends EPackageImpl {
 		managedConnectionMetaDataEClass = createEClass(MANAGED_CONNECTION_META_DATA);
 
 		nonManagedEnvironmentAdminEClass = createEClass(NON_MANAGED_ENVIRONMENT_ADMIN);
+		createEReference(nonManagedEnvironmentAdminEClass, NON_MANAGED_ENVIRONMENT_ADMIN__MANAGED_CONNECTION_FACTORIES);
 
 		resourceAdapterEClass = createEClass(RESOURCE_ADAPTER);
+		createEReference(resourceAdapterEClass, RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORIES);
 
 		// Create data types
 		passwordCredentialEDataType = createEDataType(PASSWORD_CREDENTIAL);
@@ -2059,6 +2108,7 @@ public class SpiPackageImpl extends EPackageImpl {
 		addEException(op, theCciPackage.getResourceException());
 
 		initEClass(nonManagedEnvironmentAdminEClass, NonManagedEnvironmentAdmin.class, "NonManagedEnvironmentAdmin", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getNonManagedEnvironmentAdmin_ManagedConnectionFactories(), this.getManagedConnectionFactory(), null, "managedConnectionFactories", null, 0, -1, NonManagedEnvironmentAdmin.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		op = addEOperation(nonManagedEnvironmentAdminEClass, this.getManagedConnectionFactory(), "createManagedConnectionFactory", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getStringMap(), "config", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -2073,6 +2123,7 @@ public class SpiPackageImpl extends EPackageImpl {
 		addEOperation(nonManagedEnvironmentAdminEClass, null, "undeployResourceAdapter", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(resourceAdapterEClass, org.jboss.jca.adapters.sap.spi.ResourceAdapter.class, "ResourceAdapter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getResourceAdapter_ManagedConnectionFactories(), this.getManagedConnectionFactory(), null, "managedConnectionFactories", null, 0, -1, org.jboss.jca.adapters.sap.spi.ResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(resourceAdapterEClass, ecorePackage.getEBoolean(), "equals", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEJavaObject(), "other", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -2302,6 +2353,14 @@ public class SpiPackageImpl extends EPackageImpl {
 		public static final EClass NON_MANAGED_ENVIRONMENT_ADMIN = eINSTANCE.getNonManagedEnvironmentAdmin();
 
 		/**
+		 * The meta object literal for the '<em><b>Managed Connection Factories</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EReference NON_MANAGED_ENVIRONMENT_ADMIN__MANAGED_CONNECTION_FACTORIES = eINSTANCE.getNonManagedEnvironmentAdmin_ManagedConnectionFactories();
+
+		/**
 		 * The meta object literal for the '{@link org.jboss.jca.adapters.sap.spi.impl.ResourceAdapterImpl <em>Resource Adapter</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2310,6 +2369,14 @@ public class SpiPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EClass RESOURCE_ADAPTER = eINSTANCE.getResourceAdapter();
+
+		/**
+		 * The meta object literal for the '<em><b>Managed Connection Factories</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EReference RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORIES = eINSTANCE.getResourceAdapter_ManagedConnectionFactories();
 
 		/**
 		 * The meta object literal for the '<em>Password Credential</em>' data type.

@@ -44,7 +44,9 @@ import com.sap.conn.jco.JCoRepository;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Connection Factory</b></em>'.
+ * Implements the {@link ConnectionFactory } interface for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
@@ -103,7 +105,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 
 	/**
 	 * <!-- begin-user-doc -->
-	 * Default Constructor
+	 * Create a {@link ConnectionFactory} instance.
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -112,7 +114,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 	}
 
 	/**
-	 * 
+	 * Create a {@link ConnectionFactory} instance associated with the given managed connection factory and connection manager.
 	 * 
 	 * @param connectionManager
 	 *            ConnectionManager
@@ -126,6 +128,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -136,6 +139,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -156,6 +160,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -168,6 +173,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -181,6 +187,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -199,6 +206,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -217,6 +225,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -229,6 +238,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -243,6 +253,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -258,6 +269,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -273,6 +285,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -287,6 +300,7 @@ public class ConnectionFactoryImpl extends EObjectImpl implements ConnectionFact
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */

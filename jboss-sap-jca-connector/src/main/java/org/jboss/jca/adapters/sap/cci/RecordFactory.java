@@ -26,12 +26,15 @@ import javax.resource.ResourceException;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage.Registry;
 import org.eclipse.emf.ecore.EPackage;
 import org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Record Factory</b></em>'.
+ * Specializes the {@link javax.resource.cci.RecordFactory} interface for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
  * <!-- end-user-doc -->
  *
  *
@@ -187,6 +190,6 @@ public interface RecordFactory extends EObject, javax.resource.cci.RecordFactory
 	 * 
 	 * @generated NOT
 	 */
-	EPackage.Registry  getPackageRegistry() throws ResourceException;
+	Registry  getPackageRegistry() throws ResourceException;
 
 } // RecordFactory

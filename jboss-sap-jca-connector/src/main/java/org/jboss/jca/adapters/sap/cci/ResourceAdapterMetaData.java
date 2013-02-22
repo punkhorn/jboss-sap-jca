@@ -26,7 +26,9 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Resource Adapter Meta Data</b></em>'.
+ * Specializes the {@link javax.resource.cci.ResourceAdapterMetaData} interface for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
  * <!-- end-user-doc -->
  *
  *

@@ -32,7 +32,9 @@ import org.jboss.jca.adapters.sap.cci.ResourceAdapterMetaData;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Resource Adapter Meta Data</b></em>'.
+ * Implements the {@link ResourceAdapterMetaData } interface for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
  * <!-- end-user-doc -->
  * <p>
  * </p>
@@ -184,6 +186,7 @@ public class ResourceAdapterMetaDataImpl extends EObjectImpl implements Resource
 	
 	/**
 	 * <!-- begin-user-doc -->
+	 * Create a {@link ResourceAdapterMetaData} instance.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -193,6 +196,7 @@ public class ResourceAdapterMetaDataImpl extends EObjectImpl implements Resource
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -203,6 +207,7 @@ public class ResourceAdapterMetaDataImpl extends EObjectImpl implements Resource
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -212,6 +217,7 @@ public class ResourceAdapterMetaDataImpl extends EObjectImpl implements Resource
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -221,6 +227,7 @@ public class ResourceAdapterMetaDataImpl extends EObjectImpl implements Resource
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -230,6 +237,7 @@ public class ResourceAdapterMetaDataImpl extends EObjectImpl implements Resource
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -239,6 +247,7 @@ public class ResourceAdapterMetaDataImpl extends EObjectImpl implements Resource
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -248,6 +257,7 @@ public class ResourceAdapterMetaDataImpl extends EObjectImpl implements Resource
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -257,6 +267,7 @@ public class ResourceAdapterMetaDataImpl extends EObjectImpl implements Resource
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -266,6 +277,7 @@ public class ResourceAdapterMetaDataImpl extends EObjectImpl implements Resource
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -275,6 +287,7 @@ public class ResourceAdapterMetaDataImpl extends EObjectImpl implements Resource
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */

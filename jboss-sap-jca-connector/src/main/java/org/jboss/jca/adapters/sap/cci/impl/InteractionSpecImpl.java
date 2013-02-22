@@ -23,17 +23,16 @@
 package org.jboss.jca.adapters.sap.cci.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.jboss.jca.adapters.sap.cci.InteractionSpec;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Interaction Spec</b></em>'.
+ * Implements the {@link InteractionSpec } interface for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
@@ -114,15 +113,17 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * Create an {@link InteractionSpec} instance.
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	protected InteractionSpecImpl() {
+	public InteractionSpecImpl() {
 		super();
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -133,6 +134,7 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -142,6 +144,7 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -154,6 +157,7 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -163,6 +167,7 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -175,6 +180,7 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -184,6 +190,7 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -196,6 +203,7 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -214,6 +222,7 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -235,6 +244,7 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -256,6 +266,7 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -274,6 +285,7 @@ public class InteractionSpecImpl extends EObjectImpl implements InteractionSpec 
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */

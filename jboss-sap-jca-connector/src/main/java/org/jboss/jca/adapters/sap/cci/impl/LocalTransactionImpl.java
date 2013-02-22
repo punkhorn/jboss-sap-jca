@@ -25,14 +25,14 @@ package org.jboss.jca.adapters.sap.cci.impl;
 import javax.resource.ResourceException;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.jboss.jca.adapters.sap.cci.LocalTransaction;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Local Transaction</b></em>'.
+ * Implements the {@link LocalTransaction } interface for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
  * <!-- end-user-doc -->
  * <p>
  * </p>
@@ -41,10 +41,16 @@ import org.jboss.jca.adapters.sap.cci.LocalTransaction;
  */
 public class LocalTransactionImpl extends EObjectImpl implements LocalTransaction {
 	
+	/**
+	 * The {@link javax.resource.spi.LocalTransaction} associated with this transaction.
+	 * 
+	 * @generated NOT
+	 */
 	private javax.resource.spi.LocalTransaction localTransaction;
 	
 	/**
 	 * <!-- begin-user-doc -->
+	 * Create a {@link LocalTransaction} instance.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -53,6 +59,9 @@ public class LocalTransactionImpl extends EObjectImpl implements LocalTransactio
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * Create a {@link LocalTransaction} instance associated with the given local transaction.
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public LocalTransactionImpl( javax.resource.spi.LocalTransaction localTransaction) {
@@ -62,6 +71,7 @@ public class LocalTransactionImpl extends EObjectImpl implements LocalTransactio
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -72,6 +82,7 @@ public class LocalTransactionImpl extends EObjectImpl implements LocalTransactio
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -81,6 +92,7 @@ public class LocalTransactionImpl extends EObjectImpl implements LocalTransactio
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -90,6 +102,7 @@ public class LocalTransactionImpl extends EObjectImpl implements LocalTransactio
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */

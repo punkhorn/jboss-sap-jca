@@ -28,7 +28,9 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Local Transaction</b></em>'.
+ * Specializes the {@link javax.resource.cci.LocalTransaction} interface for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
  * <!-- end-user-doc -->
  *
  *

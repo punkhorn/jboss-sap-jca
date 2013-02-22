@@ -26,14 +26,14 @@ import javax.resource.ResourceException;
 import javax.resource.spi.ManagedConnectionMetaData;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.jboss.jca.adapters.sap.cci.ConnectionMetaData;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Connection Meta Data</b></em>'.
+ * Implements the {@link ConnectionMetaData } interface for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
  * <!-- end-user-doc -->
  * <p>
  * </p>
@@ -42,10 +42,16 @@ import org.jboss.jca.adapters.sap.cci.ConnectionMetaData;
  */
 public class ConnectionMetaDataImpl extends EObjectImpl implements ConnectionMetaData {
 	
+	/**
+	 * The {@link ManagedConnectionMetaData} instance associated with this object.
+	 * 
+	 * @generated NOT
+	 */
 	private ManagedConnectionMetaData managedConnectionMetaData;
 	
 	/**
 	 * <!-- begin-user-doc -->
+	 * Creates a {@link ConnectionMetaData} instance.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -55,6 +61,7 @@ public class ConnectionMetaDataImpl extends EObjectImpl implements ConnectionMet
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * Creates a {@link ConnectionMetaData} instance associated with the given {@link ManagedConnectionMetaData} instance.
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -65,6 +72,7 @@ public class ConnectionMetaDataImpl extends EObjectImpl implements ConnectionMet
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -75,6 +83,7 @@ public class ConnectionMetaDataImpl extends EObjectImpl implements ConnectionMet
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -84,6 +93,7 @@ public class ConnectionMetaDataImpl extends EObjectImpl implements ConnectionMet
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -93,6 +103,7 @@ public class ConnectionMetaDataImpl extends EObjectImpl implements ConnectionMet
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */

@@ -26,6 +26,7 @@ import java.util.Map;
 
 import javax.resource.ResourceException;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -37,11 +38,32 @@ import org.eclipse.emf.ecore.EObject;
  * @version $Id: $
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin#getManagedConnectionFactories <em>Managed Connection Factories</em>}</li>
+ * </ul>
+ * </p>
  *
  * @model
  * @generated
  */
 public interface NonManagedEnvironmentAdmin extends EObject {
+
+	/**
+	 * Returns the value of the '<em><b>Managed Connection Factories</b></em>' reference list.
+	 * The list contents are of type {@link org.jboss.jca.adapters.sap.spi.ManagedConnectionFactory}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Managed Connection Factories</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Managed Connection Factories</em>' reference list.
+	 * @model transient="true" changeable="false" volatile="true" ordered="false"
+	 * @generated
+	 */
+	EList<ManagedConnectionFactory> getManagedConnectionFactories();
 
 	/**
 	 * The singleton instance of the Administration interface.

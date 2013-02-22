@@ -26,8 +26,10 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Interaction Spec</b></em>'.
- * <!-- end-user-doc -->
+  * Specializes the {@link javax.resource.cci.InteractionSpec} interface for the JBoss SAP JCA Connector.
+ * 
+ * @author William Collins
+* <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:

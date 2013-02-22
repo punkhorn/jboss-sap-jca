@@ -139,6 +139,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -149,6 +150,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -159,6 +161,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -169,6 +172,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -178,6 +182,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -189,6 +194,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @throws ResourceException 
 	 * @generated NOT
@@ -200,6 +206,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -212,6 +219,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -225,6 +233,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -238,6 +247,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -247,6 +257,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -257,6 +268,7 @@ public class ConnectionImpl extends EObjectImpl implements Connection {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */

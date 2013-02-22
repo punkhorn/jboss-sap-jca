@@ -22,8 +22,7 @@
  */
 package org.jboss.jca.adapters.sap.spi.impl;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collection;
 
 import javax.resource.ResourceException;
 import javax.resource.spi.ActivationSpec;
@@ -32,8 +31,16 @@ import javax.resource.spi.ResourceAdapterInternalException;
 import javax.resource.spi.endpoint.MessageEndpointFactory;
 import javax.transaction.xa.XAResource;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.ECollections;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.jboss.jca.adapters.sap.spi.ManagedConnectionFactory;
 import org.jboss.jca.adapters.sap.spi.ResourceAdapter;
 
 import com.sap.conn.jco.ext.Environment;
@@ -48,11 +55,28 @@ import com.sap.conn.jco.ext.Environment;
  * @version $Id:  $
  * <!-- end-user-doc -->
  * <p>
+ * The following features are implemented:
+ * <ul>
+ *   <li>{@link org.jboss.jca.adapters.sap.spi.impl.ResourceAdapterImpl#getManagedConnectionFactories <em>Managed Connection Factories</em>}</li>
+ * </ul>
  * </p>
  *
  * @generated
  */
 public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter {
+
+	/**
+	 * The cached value of the '{@link #getManagedConnectionFactories() <em>Managed Connection Factories</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * The set of active managed connection factories currently managed by this resource adapter.
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #getManagedConnectionFactories()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ManagedConnectionFactory> managedConnectionFactories;
 
 	/**
 	 * States of a Resource Adapter
@@ -72,13 +96,6 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	 */
 	private final DestinationDataProviderImpl destinationDataProvider;
 
-	/**
-	 * The set of active managed connection factories currently managed by this resource adapter.
-	 * 
-	 * @generated NOT
-	 */
-	private final Set<ManagedConnectionFactoryImpl> factories = new HashSet<ManagedConnectionFactoryImpl>();
-	
 	/** 
 	 * State of resource adapter
 	 * 
@@ -109,6 +126,31 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	@Override
 	protected EClass eStaticClass() {
 		return SpiPackageImpl.Literals.RESOURCE_ADAPTER;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EList<ManagedConnectionFactory> getManagedConnectionFactoriesGen() {
+		if (managedConnectionFactories == null) {
+			managedConnectionFactories = new EObjectContainmentEList<ManagedConnectionFactory>(ManagedConnectionFactory.class, this, SpiPackageImpl.RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORIES);
+		}
+		return managedConnectionFactories;
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * {@inheritDoc}
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public EList<ManagedConnectionFactory> getManagedConnectionFactories() {
+		return ECollections.unmodifiableEList(getManagedConnectionFactoriesGen());
 	}
 
 	/**
@@ -179,24 +221,22 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public synchronized void stop() {
 		if (state == State.STOPPED)
 			return;
 		state = State.STOPPED;
 
 		// Destroy all outstanding connection factories
-		Set<ManagedConnectionFactoryImpl> copy = null;
-		synchronized (factories) {
-			if (factories.size() > 0) 
-				copy = new HashSet<ManagedConnectionFactoryImpl>(factories);
-		}
+		EList<ManagedConnectionFactory> copy = null;
+		if (getManagedConnectionFactoriesGen().size() > 0) 
+			copy = (EList<ManagedConnectionFactory>)  ((BasicEList<ManagedConnectionFactory>)getManagedConnectionFactoriesGen()).clone();
 		
 		if (copy != null) {
-			for (ManagedConnectionFactoryImpl managedConnectionFactory: copy) {
+			for (ManagedConnectionFactory managedConnectionFactory: copy) {
 				try {
 					managedConnectionFactory.destroy();
 				} catch (ResourceException e) {
-					//e.printStackTrace();
 				}
 			}
 		}
@@ -239,6 +279,80 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case SpiPackageImpl.RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORIES:
+				return ((InternalEList<?>)getManagedConnectionFactories()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case SpiPackageImpl.RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORIES:
+				return getManagedConnectionFactories();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case SpiPackageImpl.RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORIES:
+				getManagedConnectionFactories().clear();
+				getManagedConnectionFactories().addAll((Collection<? extends ManagedConnectionFactory>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case SpiPackageImpl.RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORIES:
+				getManagedConnectionFactories().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case SpiPackageImpl.RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORIES:
+				return managedConnectionFactories != null && !managedConnectionFactories.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
 	 * Return the {@link DesitnationDataProviderImpl} instance managing connection configurations for adapter.
 	 * @return the {@link DesitnationDataProviderImpl} instance managing connection configurations for adapter.
 	 * @generated NOT
@@ -253,11 +367,9 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	 * @param factory - The managed connection factory to be associated.
 	 * @generated NOT
 	 */
-	protected void associateConnectionFactory(ManagedConnectionFactoryImpl factory) throws ResourceException {
+	protected synchronized void associateConnectionFactory(ManagedConnectionFactoryImpl factory) throws ResourceException {
 		checkState();
-		synchronized (factories) {
-			factories.add(factory);
-		}
+		getManagedConnectionFactoriesGen().add(factory);
 	}
 
 	/**
@@ -265,10 +377,8 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	 * @param factory - The managed connection factory to be dissociated.
 	 * @generated NOT
 	 */
-	protected void dissociateConnection(ManagedConnectionFactoryImpl factory) {
-		synchronized (factories) {
-			factories.remove(factory);
-		}
+	protected synchronized void dissociateConnection(ManagedConnectionFactoryImpl factory) {
+		getManagedConnectionFactoriesGen().remove(factory);
 	}
 	
 	/**
