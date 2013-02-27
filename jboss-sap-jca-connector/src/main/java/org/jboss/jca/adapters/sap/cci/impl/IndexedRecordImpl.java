@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.jboss.jca.adapters.sap.cci.IndexedRecord;
@@ -55,14 +55,14 @@ import com.sap.conn.jco.JCoTable;
  * <ul>
  *   <li>{@link org.jboss.jca.adapters.sap.cci.impl.IndexedRecordImpl#getRecordName <em>Record Name</em>}</li>
  *   <li>{@link org.jboss.jca.adapters.sap.cci.impl.IndexedRecordImpl#getRecordShortDescription <em>Record Short Description</em>}</li>
- *   <li>{@link org.jboss.jca.adapters.sap.cci.impl.IndexedRecordImpl#getRecordType <em>Record Type</em>}</li>
+ *   <li>{@link org.jboss.jca.adapters.sap.cci.impl.IndexedRecordImpl#getRecords <em>Records</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 @SuppressWarnings("rawtypes")
-public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
+public class IndexedRecordImpl<R extends MappedRecord> extends EObjectImpl implements IndexedRecord<R> {
 
 	/**
 	 * @generated NOT
@@ -110,9 +110,9 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	protected String recordShortDescription = RECORD_SHORT_DESCRIPTION_EDEFAULT;
 	
 	/**
-	 * @generated NOT
+	 * @generated
 	 */
-	protected EList<MappedRecord> records = new BasicInternalEList<MappedRecord>(MappedRecord.class);
+	protected EList<R> records;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -183,31 +183,13 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 
 	/**
 	 * <!-- begin-user-doc -->
-	 * {@inheritDoc}
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
-	public EClass getRecordType() {
-		return (EClass) eClass().getEStructuralFeature("recordType").getEType();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * {@inheritDoc}
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public boolean isSetRecordType() {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * {@inheritDoc}
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public EList<MappedRecord> getRecord() {
+	public EList<R> getRecords() {
+		if (records == null) {
+			records = new EObjectContainmentEList<R>(MappedRecord.class, this, CciPackageImpl.INDEXED_RECORD__RECORDS);
+		}
 		return records;
 	}
 
@@ -217,8 +199,12 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public void unsetRecord() {
-		// NOOP
+	public EClass getRecordType() {
+		try {
+			return (EClass) eClass().getEGenericSuperTypes().get(0).getETypeArguments().get(0).getEClassifier();
+		} catch (Exception e) {
+			throw ExceptionBundle.EXCEPTIONS.indexedRecordHasNoRecordType(e);
+		}
 	}
 
 	/**
@@ -227,7 +213,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public boolean isSetRecord() {
+	public boolean isSetRecordType() {
 		return true;
 	}
 
@@ -287,7 +273,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * @generated NOT
 	 */
 	public int size() {
-		return records.size();
+		return getRecords().size();
 	}
 
 	/**
@@ -297,7 +283,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * @generated NOT
 	 */
 	public boolean isEmpty() {
-		return records.isEmpty();
+		return getRecords().isEmpty();
 	}
 
 	/**
@@ -307,7 +293,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * @generated NOT
 	 */
 	public boolean contains(Object o) {
-		return records.contains(o);
+		return getRecords().contains(o);
 	}
 
 	/**
@@ -316,8 +302,9 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public Iterator<MappedRecord> iterator() {
-		return records.iterator();
+		return (Iterator<MappedRecord>) getRecords().iterator();
 	}
 
 	/**
@@ -327,7 +314,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * @generated NOT
 	 */
 	public Object[] toArray() {
-		return records.toArray();
+		return getRecords().toArray();
 	}
 
 	/**
@@ -337,7 +324,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * @generated NOT
 	 */
 	public Object[] toArray(Object[] a) {
-		return records.toArray(a);
+		return getRecords().toArray(a);
 	}
 
 	/**
@@ -346,30 +333,33 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public boolean add(Object e) {
 		if (!(getRecordType().isInstance(e)))
 			throw new IllegalArgumentException();
-		return records.add((MappedRecord) e);
+		return getRecords().add((R) e);
 	}
 	
 	/**
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public MappedRecord add() {
 		EClass recordType = getRecordType();
-		MappedRecord mappedRecord = (MappedRecord) eClass().getEPackage().getEFactoryInstance().create(recordType);
+		R mappedRecord = (R) eClass().getEPackage().getEFactoryInstance().create(recordType);
 		mappedRecord.setRecordName(getRecordName());
-		records.add(mappedRecord);
+		getRecords().add(mappedRecord);
 		return mappedRecord;
 	}
 
 	/**
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public MappedRecord add(int index) {
-		MappedRecord mappedRecord = (MappedRecord) eClass().getEPackage().getEFactoryInstance().create(getRecordType());
+		R mappedRecord = (R) eClass().getEPackage().getEFactoryInstance().create(getRecordType());
 		mappedRecord.setRecordName(getRecordName());
-		records.add(index, mappedRecord);
+		getRecords().add(index, mappedRecord);
 		return mappedRecord;
 	}
 
@@ -380,7 +370,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * @generated NOT
 	 */
 	public boolean remove(Object o) {
-		return records.remove(o);
+		return getRecords().remove(o);
 	}
 
 	/**
@@ -390,7 +380,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * @generated NOT
 	 */
 	public boolean containsAll(Collection c) {
-		return records.containsAll(c);
+		return getRecords().containsAll(c);
 	}
 
 	/**
@@ -399,6 +389,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public boolean addAll(Collection c) {
 		boolean modified = false;
 		Iterator it = c.iterator();
@@ -406,7 +397,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 			Object obj = it.next();
 			if(!getRecordType().isInstance(obj))
 				throw new IllegalArgumentException();
-			if(records.add((MappedRecord)obj))
+			if(getRecords().add((R)obj))
 				modified = true;
 		}
 		return modified;
@@ -418,6 +409,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public boolean addAll(int index, Collection c) {
 		boolean modified = false;
 		Iterator it = c.iterator();
@@ -425,7 +417,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 			Object obj = it.next();
 			if(!getRecordType().isInstance(obj))
 				throw new IllegalArgumentException();
-			records.add(index++, (MappedRecord)obj);
+			getRecords().add(index++, (R)obj);
 			modified = true;
 		}
 		return modified;
@@ -442,7 +434,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 		Iterator it = c.iterator();
 		while(it.hasNext()) {
 			Object obj = it.next();
-			if(records.contains(obj))
+			if(getRecords().contains(obj))
 				it.remove();
 				modified = true;
 		}
@@ -460,7 +452,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 		Iterator it = c.iterator();
 		while(it.hasNext()) {
 			Object obj = it.next();
-			if(!records.contains(obj))
+			if(!getRecords().contains(obj))
 				it.remove();
 				modified = true;
 		}
@@ -474,7 +466,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * @generated NOT
 	 */
 	public void clear() {
-		records.clear();
+		getRecords().clear();
 	}
 
 	/**
@@ -484,7 +476,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * @generated NOT
 	 */
 	public MappedRecord get(int index) {
-		return records.get(index);
+		return getRecords().get(index);
 	}
 
 	/**
@@ -493,10 +485,11 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public MappedRecord set(int index, Object element) {
 		if (!getRecordType().isInstance(element))
 			throw new IllegalArgumentException();
-		return records.set(index, (MappedRecord) element);
+		return getRecords().set(index, (R) element);
 	}
 
 	/**
@@ -505,10 +498,11 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public void add(int index, Object element) {
 		if (!(getRecordType().isInstance(element)))
 			throw new IllegalArgumentException();
-		records.add(index, (MappedRecord) element);
+		getRecords().add(index, (R) element);
 	}
 
 	/**
@@ -518,7 +512,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * @generated NOT
 	 */
 	public MappedRecord remove(int index) {
-		return records.remove(index);
+		return getRecords().remove(index);
 	}
 
 	/**
@@ -528,7 +522,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * @generated NOT
 	 */
 	public int indexOf(Object o) {
-		return records.indexOf(o);
+		return getRecords().indexOf(o);
 	}
 
 	/**
@@ -538,7 +532,7 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * @generated NOT
 	 */
 	public int lastIndexOf(Object o) {
-		return records.lastIndexOf(o);
+		return getRecords().lastIndexOf(o);
 	}
 
 	/**
@@ -547,8 +541,9 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public ListIterator<MappedRecord> listIterator() {
-		return records.listIterator();
+		return (ListIterator<MappedRecord>) getRecords().listIterator();
 	}
 
 	/**
@@ -557,8 +552,9 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public ListIterator<MappedRecord> listIterator(int index) {
-		return records.listIterator(index);
+		return (ListIterator<MappedRecord>) getRecords().listIterator(index);
 	}
 
 	/**
@@ -567,8 +563,9 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	@SuppressWarnings("unchecked")
 	public List<MappedRecord> subList(int fromIndex, int toIndex) {
-		return records.subList(fromIndex, toIndex);
+		return (List<MappedRecord>) getRecords().subList(fromIndex, toIndex);
 	}
 
 	/**
@@ -580,8 +577,8 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case CciPackageImpl.INDEXED_RECORD__RECORD:
-				return ((InternalEList<?>)getRecord()).basicRemove(otherEnd, msgs);
+			case CciPackageImpl.INDEXED_RECORD__RECORDS:
+				return ((InternalEList<?>)getRecords()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -599,10 +596,8 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 				return getRecordName();
 			case CciPackageImpl.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION:
 				return getRecordShortDescription();
-			case CciPackageImpl.INDEXED_RECORD__RECORD_TYPE:
-				return getRecordType();
-			case CciPackageImpl.INDEXED_RECORD__RECORD:
-				return getRecord();
+			case CciPackageImpl.INDEXED_RECORD__RECORDS:
+				return getRecords();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -623,9 +618,9 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 			case CciPackageImpl.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION:
 				setRecordShortDescription((String)newValue);
 				return;
-			case CciPackageImpl.INDEXED_RECORD__RECORD:
-				getRecord().clear();
-				getRecord().addAll((Collection<? extends MappedRecord>)newValue);
+			case CciPackageImpl.INDEXED_RECORD__RECORDS:
+				getRecords().clear();
+				getRecords().addAll((Collection<? extends R>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -646,8 +641,8 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 			case CciPackageImpl.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION:
 				setRecordShortDescription(RECORD_SHORT_DESCRIPTION_EDEFAULT);
 				return;
-			case CciPackageImpl.INDEXED_RECORD__RECORD:
-				unsetRecord();
+			case CciPackageImpl.INDEXED_RECORD__RECORDS:
+				getRecords().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -666,10 +661,8 @@ public class IndexedRecordImpl extends EObjectImpl implements IndexedRecord {
 				return RECORD_NAME_EDEFAULT == null ? recordName != null : !RECORD_NAME_EDEFAULT.equals(recordName);
 			case CciPackageImpl.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION:
 				return RECORD_SHORT_DESCRIPTION_EDEFAULT == null ? recordShortDescription != null : !RECORD_SHORT_DESCRIPTION_EDEFAULT.equals(recordShortDescription);
-			case CciPackageImpl.INDEXED_RECORD__RECORD_TYPE:
-				return isSetRecordType();
-			case CciPackageImpl.INDEXED_RECORD__RECORD:
-				return isSetRecord();
+			case CciPackageImpl.INDEXED_RECORD__RECORDS:
+				return records != null && !records.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

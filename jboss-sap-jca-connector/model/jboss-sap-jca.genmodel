@@ -71,10 +71,10 @@
       <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/MappedRecord/entrySet"/>
     </genClasses>
     <genClasses ecoreClass="jboss-sap-jca.ecore#/0/IndexedRecord">
+      <genTypeParameters ecoreTypeParameter="jboss-sap-jca.ecore#/0/IndexedRecord/R"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/IndexedRecord/recordName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/IndexedRecord/recordShortDescription"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/IndexedRecord/recordType"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/IndexedRecord/record"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/IndexedRecord/records"/>
       <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/clone"/>
       <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/equals">
         <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/equals/other"/>
@@ -145,6 +145,7 @@
         <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/subList/fromIndex"/>
         <genParameters ecoreParameter="jboss-sap-jca.ecore#/0/IndexedRecord/subList/toIndex"/>
       </genOperations>
+      <genOperations ecoreOperation="jboss-sap-jca.ecore#/0/IndexedRecord/getRecordType"/>
     </genClasses>
     <genClasses ecoreClass="jboss-sap-jca.ecore#/0/InteractionSpec">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/InteractionSpec/functionName"/>
@@ -743,7 +744,7 @@
       <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/ManagedConnectionMetaData/getUserName"/>
     </genClasses>
     <genClasses ecoreClass="jboss-sap-jca.ecore#/1/NonManagedEnvironmentAdmin">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/NonManagedEnvironmentAdmin/managedConnectionFactories"/>
+      <genFeatures property="None" children="true" createChild="false" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/NonManagedEnvironmentAdmin/resourceAdapter"/>
       <genOperations ecoreOperation="jboss-sap-jca.ecore#/1/NonManagedEnvironmentAdmin/createManagedConnectionFactory">
         <genParameters ecoreParameter="jboss-sap-jca.ecore#/1/NonManagedEnvironmentAdmin/createManagedConnectionFactory/config"/>
       </genOperations>

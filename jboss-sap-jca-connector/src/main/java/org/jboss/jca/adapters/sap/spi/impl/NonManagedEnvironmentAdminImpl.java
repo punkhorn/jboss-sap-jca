@@ -32,11 +32,15 @@ import java.util.Map;
 
 import javax.resource.ResourceException;
 
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.jboss.jca.adapters.sap.spi.ManagedConnectionFactory;
 import org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin;
+import org.jboss.jca.adapters.sap.spi.ResourceAdapter;
 
 /**
  * <!-- begin-user-doc -->
@@ -50,13 +54,23 @@ import org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.jboss.jca.adapters.sap.spi.impl.NonManagedEnvironmentAdminImpl#getManagedConnectionFactories <em>Managed Connection Factories</em>}</li>
+ *   <li>{@link org.jboss.jca.adapters.sap.spi.impl.NonManagedEnvironmentAdminImpl#getResourceAdapter <em>Resource Adapter</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class NonManagedEnvironmentAdminImpl extends EObjectImpl implements NonManagedEnvironmentAdmin {
+
+	/**
+	 * The cached value of the '{@link #getResourceAdapter() <em>Resource Adapter</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceAdapter()
+	 * @generated
+	 * @ordered
+	 */
+	protected ResourceAdapter resourceAdapter;
 
 	/**
 	 * States of Administration instance
@@ -118,12 +132,23 @@ public class NonManagedEnvironmentAdminImpl extends EObjectImpl implements NonMa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ManagedConnectionFactory> getManagedConnectionFactories() {
-		// TODO: implement this method to return the 'Managed Connection Factories' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		// The list is expected to implement org.eclipse.emf.ecore.util.InternalEList and org.eclipse.emf.ecore.EStructuralFeature.Setting
-		// so it's likely that an appropriate subclass of org.eclipse.emf.ecore.util.EcoreEList should be used.
-		throw new UnsupportedOperationException();
+	public ResourceAdapter getResourceAdapter() {
+		return resourceAdapter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetResourceAdapter(ResourceAdapter newResourceAdapter, NotificationChain msgs) {
+		ResourceAdapter oldResourceAdapter = resourceAdapter;
+		resourceAdapter = newResourceAdapter;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SpiPackageImpl.NON_MANAGED_ENVIRONMENT_ADMIN__RESOURCE_ADAPTER, oldResourceAdapter, newResourceAdapter);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -201,10 +226,24 @@ public class NonManagedEnvironmentAdminImpl extends EObjectImpl implements NonMa
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case SpiPackageImpl.NON_MANAGED_ENVIRONMENT_ADMIN__RESOURCE_ADAPTER:
+				return basicSetResourceAdapter(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case SpiPackageImpl.NON_MANAGED_ENVIRONMENT_ADMIN__MANAGED_CONNECTION_FACTORIES:
-				return getManagedConnectionFactories();
+			case SpiPackageImpl.NON_MANAGED_ENVIRONMENT_ADMIN__RESOURCE_ADAPTER:
+				return getResourceAdapter();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -217,8 +256,8 @@ public class NonManagedEnvironmentAdminImpl extends EObjectImpl implements NonMa
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case SpiPackageImpl.NON_MANAGED_ENVIRONMENT_ADMIN__MANAGED_CONNECTION_FACTORIES:
-				return !getManagedConnectionFactories().isEmpty();
+			case SpiPackageImpl.NON_MANAGED_ENVIRONMENT_ADMIN__RESOURCE_ADAPTER:
+				return resourceAdapter != null;
 		}
 		return super.eIsSet(featureID);
 	}

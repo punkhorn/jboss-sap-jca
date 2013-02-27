@@ -109,6 +109,9 @@
       </eStructuralFeatures>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="IndexedRecord" eSuperTypes="#/0/CCIIndexedRecord">
+      <eTypeParameters name="R">
+        <eBounds eClassifier="#/0/MappedRecord"/>
+      </eTypeParameters>
       <eOperations name="clone" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
       <eOperations name="equals" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
         <eParameters name="other" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
@@ -179,19 +182,14 @@
         <eParameters name="fromIndex" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
         <eParameters name="toIndex" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
       </eOperations>
+      <eOperations name="getRecordType" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="recordName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
           defaultValueLiteral="0"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="recordShortDescription"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="recordType" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"
-          changeable="false" volatile="true" transient="true" unsettable="true" derived="true"
-          resolveProxies="false"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="record" upperBound="-1"
-          eType="#/0/MappedRecord" volatile="true" unsettable="true" containment="true">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="suppressedGetVisibility" value="true"/>
-          <details key="suppressedSetVisibility" value="true"/>
-        </eAnnotations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="records" upperBound="-1"
+          containment="true">
+        <eGenericType eTypeParameter="#/0/IndexedRecord/R"/>
       </eStructuralFeatures>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="InteractionSpec" eSuperTypes="#/0/CCIInteractionSpec">
@@ -853,9 +851,8 @@
         <eParameters name="config" eType="#/1/StringMap"/>
       </eOperations>
       <eOperations name="undeployResourceAdapter"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="managedConnectionFactories"
-          ordered="false" upperBound="-1" eType="#/1/ManagedConnectionFactory" changeable="false"
-          volatile="true" transient="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="resourceAdapter" eType="#/1/ResourceAdapter"
+          changeable="false" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ResourceAdapter" eSuperTypes="#/1/SPIResourceAdapter">
       <eOperations name="equals" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">

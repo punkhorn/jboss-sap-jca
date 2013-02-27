@@ -98,7 +98,7 @@ public class CciAdapterFactory extends AdapterFactoryImpl {
 				return createMappedRecordAdapter();
 			}
 			@Override
-			public Adapter caseIndexedRecord(IndexedRecord object) {
+			public <R extends MappedRecord> Adapter caseIndexedRecord(IndexedRecord<R> object) {
 				return createIndexedRecordAdapter();
 			}
 			@Override

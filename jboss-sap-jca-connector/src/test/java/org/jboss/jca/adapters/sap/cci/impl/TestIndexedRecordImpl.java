@@ -45,8 +45,10 @@ public class TestIndexedRecordImpl {
 	 */
 	private static final String TEST_GET_SET_RECORD_DESCRIPTION = "testGetSetRecordDescription";
 	
+	@SuppressWarnings("rawtypes")
 	private IndexedRecordImpl indexedRecord;
 	
+	@SuppressWarnings("rawtypes")
 	@Before
 	public void setUp() throws Exception {
 		// Given

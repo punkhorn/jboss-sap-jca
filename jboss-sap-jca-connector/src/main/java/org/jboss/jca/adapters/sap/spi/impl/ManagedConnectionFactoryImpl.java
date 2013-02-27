@@ -42,7 +42,6 @@ import org.jboss.jca.adapters.sap.cci.impl.ConnectionSpecImpl;
 import org.jboss.jca.adapters.sap.spi.ConnectionRequestInfo;
 import org.jboss.jca.adapters.sap.spi.ManagedConnectionFactory;
 
-import org.jboss.jca.adapters.sap.spi.ResourceAdapter;
 import com.sap.conn.jco.ext.DestinationDataProvider;
 
 /**

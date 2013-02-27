@@ -22,7 +22,27 @@
  */
 package org.jboss.jca.adapters.sap.cci.impl;
 
-import static org.jboss.jca.adapters.sap.cci.CciPackage.*;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_BYTE_LENGTH_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_CLASS_NAME_OF_FIELD_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_DECIMALS_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_DEFAULT_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_DESCRIPTION_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_IS_ABAP_OBJECT_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_IS_CHANGING_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_IS_EXPORT_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_IS_IMPORT_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_IS_NESTED_TYPE1_STRUCTURE_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_IS_OPTIONAL_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_IS_STRUCTURE_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_IS_TABLE_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_LENGTH_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_RECORD_FIELD_NAME_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_RECORD_TYPE_NAME_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_TYPE_AS_STRING_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_TYPE_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_UNICODE_BYTE_LENGTH_KEY;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.CciNS_URI;
+import static org.jboss.jca.adapters.sap.cci.CciPackage.JBOSS_SAP_URI_PREFIX;
 
 import java.util.Collection;
 import java.util.Map;
@@ -33,6 +53,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EFactory;
+import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EPackage.Registry;
@@ -49,6 +70,7 @@ import com.sap.conn.jco.JCoListMetaData;
 import com.sap.conn.jco.JCoMetaData;
 import com.sap.conn.jco.JCoRecordMetaData;
 import com.sap.conn.jco.JCoRepository;
+import com.sap.conn.jco.JCoTable;
 
 /**
  * Package Registry for JBoss SAP JCA Connector
@@ -362,19 +384,25 @@ public class CciPackageRegistryImpl implements Registry {
 	private EClass getIndexedRecordClass(EPackage ePackage, JCoRecordMetaData jcoRecordMetaData) {
 		EClassifier  eClassifier = ePackage.getEClassifier(jcoRecordMetaData.getName() + "_TABLE");
 		if (!(eClassifier instanceof EClass)) {
-			// Create Indexed Record Subclass
+			
+			// Create super type for indexed record subclass: IndexeRecord<R extends MappedRecord>
+			EGenericType indexedRecordGenericType = EcoreFactory.eINSTANCE.createEGenericType();
+			indexedRecordGenericType.setEClassifier(CciPackageImpl.eINSTANCE.getIndexedRecord());
+			
+			// Create type parameter for record type: R extends MappedRecord
+			EGenericType recordEntryGenericType = EcoreFactory.eINSTANCE.createEGenericType();
+			EClass recordType = getMappedRecordClass(ePackage, jcoRecordMetaData);
+			recordEntryGenericType.setEClassifier(recordType);
+			
+			// Add type parameter to super type.
+			indexedRecordGenericType.getETypeArguments().add(recordEntryGenericType);
+			
+			// Create indexed record subclass and add to package
 			eClassifier = EcoreFactory.eINSTANCE.createEClass();
 			ePackage.getEClassifiers().add(eClassifier);
 			eClassifier.setName(jcoRecordMetaData.getName() + "_TABLE");
-			((EClass)eClassifier).getESuperTypes().add(CciPackageImpl.eINSTANCE.getIndexedRecord());
+			((EClass)eClassifier).getEGenericSuperTypes().add(indexedRecordGenericType);
 			
-			// Set Record Type
-			EClass recordType = getMappedRecordClass(ePackage, jcoRecordMetaData);
-			EReference recordTypeAttribute = EcoreFactory.eINSTANCE.createEReference();
-			recordTypeAttribute.setName("recordType");
-			recordTypeAttribute.setEType(recordType);
-			recordTypeAttribute.setContainment(true);
-			((EClass)eClassifier).getEStructuralFeatures().add(recordTypeAttribute);
 			
 		}
 		return (EClass) eClassifier;

@@ -30,7 +30,14 @@
       <package
             uri="http://sap.adapters.jca.jboss.org/cci"
             class="org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl"
-            genModel="model/jboss-sap-jca-cci.genmodel"/>
+            genModel="model/jboss-sap-jca.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://sap.adapters.jca.jboss.org/spi"
+            class="org.jboss.jca.adapters.sap.spi.impl.SpiPackageImpl"
+            genModel="model/jboss-sap-jca.genmodel"/>
    </extension>
 
 </plugin>

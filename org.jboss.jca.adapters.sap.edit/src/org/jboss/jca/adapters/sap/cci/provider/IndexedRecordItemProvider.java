@@ -42,6 +42,7 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.jboss.jca.adapters.sap.cci.CciFactory;
 import org.jboss.jca.adapters.sap.cci.IndexedRecord;
+import org.jboss.jca.adapters.sap.cci.impl.CciFactoryImpl;
 import org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl;
 import org.jboss.jca.adapters.sap.edit.JBossSapJcaEditPlugin;
 
@@ -82,7 +83,6 @@ public class IndexedRecordItemProvider
 
 			addRecordNamePropertyDescriptor(object);
 			addRecordShortDescriptionPropertyDescriptor(object);
-			addRecordTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -132,28 +132,6 @@ public class IndexedRecordItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Record Type feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addRecordTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_IndexedRecord_recordType_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_IndexedRecord_recordType_feature", "_UI_IndexedRecord_type"),
-				 CciPackageImpl.Literals.INDEXED_RECORD__RECORD_TYPE,
-				 false,
-				 false,
-				 false,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -165,7 +143,7 @@ public class IndexedRecordItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(CciPackageImpl.Literals.INDEXED_RECORD__RECORD);
+			childrenFeatures.add(CciPackageImpl.Literals.INDEXED_RECORD__RECORDS);
 		}
 		return childrenFeatures;
 	}
@@ -202,7 +180,7 @@ public class IndexedRecordItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((IndexedRecord)object).getRecordName();
+		String label = ((IndexedRecord<?>)object).getRecordName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_IndexedRecord_type") :
 			getString("_UI_IndexedRecord_type") + " " + label;
@@ -224,7 +202,7 @@ public class IndexedRecordItemProvider
 			case CciPackageImpl.INDEXED_RECORD__RECORD_SHORT_DESCRIPTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case CciPackageImpl.INDEXED_RECORD__RECORD:
+			case CciPackageImpl.INDEXED_RECORD__RECORDS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -244,9 +222,8 @@ public class IndexedRecordItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(CciPackageImpl.Literals.INDEXED_RECORD__RECORD,
-//				 CciFactory.INSTANCE.createMappedRecord()));
-				 null));
+				(CciPackageImpl.Literals.INDEXED_RECORD__RECORDS,
+				 CciFactoryImpl.eINSTANCE.createMappedRecord()));
 	}
 
 	/**

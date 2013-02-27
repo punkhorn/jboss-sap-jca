@@ -88,6 +88,9 @@ public interface ExceptionBundle {
 	@Message(id = 15, value = "Failed to access meta data repository")
 	ResourceException failedToAccessMetaDataRepository();
 
+	@Message(id = 16, value = "The indexed record has no record type")
+	TypeNotPresentException indexedRecordHasNoRecordType(@Cause Throwable ex);
+
 }
 
 

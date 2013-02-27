@@ -167,6 +167,7 @@ public interface RecordFactory extends EObject, javax.resource.cci.RecordFactory
 	 * @model exceptions="org.jboss.jca.adapters.sap.cci.ResourceException"
 	 * @generated
 	 */
+	@SuppressWarnings("rawtypes")
 	IndexedRecord createIndexedRecord(String recordName) throws ResourceException;
 	
 	/**

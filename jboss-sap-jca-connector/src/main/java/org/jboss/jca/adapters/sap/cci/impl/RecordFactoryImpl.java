@@ -98,6 +98,7 @@ public class RecordFactoryImpl extends EObjectImpl implements RecordFactory {
 	 * 
 	 * @generated NOT
 	 */
+	@SuppressWarnings("rawtypes")
 	public IndexedRecord createIndexedRecord(String recordName) throws ResourceException {
 		EObject eObject = createRecord(recordName);
 		if (eObject == null || !CciPackageImpl.eINSTANCE.getCCIIndexedRecord().isInstance(eObject))

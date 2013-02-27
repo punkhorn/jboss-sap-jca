@@ -420,13 +420,13 @@ public class SpiPackageImpl extends EPackageImpl {
 	public static final int NON_MANAGED_ENVIRONMENT_ADMIN = 15;
 
 	/**
-	 * The feature id for the '<em><b>Managed Connection Factories</b></em>' reference list.
+	 * The feature id for the '<em><b>Resource Adapter</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int NON_MANAGED_ENVIRONMENT_ADMIN__MANAGED_CONNECTION_FACTORIES = 0;
+	public static final int NON_MANAGED_ENVIRONMENT_ADMIN__RESOURCE_ADAPTER = 0;
 
 	/**
 	 * The number of structural features of the '<em>Non Managed Environment Admin</em>' class.
@@ -1103,15 +1103,15 @@ public class SpiPackageImpl extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin#getManagedConnectionFactories <em>Managed Connection Factories</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin#getResourceAdapter <em>Resource Adapter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Managed Connection Factories</em>'.
-	 * @see org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin#getManagedConnectionFactories()
+	 * @return the meta object for the containment reference '<em>Resource Adapter</em>'.
+	 * @see org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin#getResourceAdapter()
 	 * @see #getNonManagedEnvironmentAdmin()
 	 * @generated
 	 */
-	public EReference getNonManagedEnvironmentAdmin_ManagedConnectionFactories() {
+	public EReference getNonManagedEnvironmentAdmin_ResourceAdapter() {
 		return (EReference)nonManagedEnvironmentAdminEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1385,7 +1385,7 @@ public class SpiPackageImpl extends EPackageImpl {
 		managedConnectionMetaDataEClass = createEClass(MANAGED_CONNECTION_META_DATA);
 
 		nonManagedEnvironmentAdminEClass = createEClass(NON_MANAGED_ENVIRONMENT_ADMIN);
-		createEReference(nonManagedEnvironmentAdminEClass, NON_MANAGED_ENVIRONMENT_ADMIN__MANAGED_CONNECTION_FACTORIES);
+		createEReference(nonManagedEnvironmentAdminEClass, NON_MANAGED_ENVIRONMENT_ADMIN__RESOURCE_ADAPTER);
 
 		resourceAdapterEClass = createEClass(RESOURCE_ADAPTER);
 		createEReference(resourceAdapterEClass, RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORIES);
@@ -2108,7 +2108,7 @@ public class SpiPackageImpl extends EPackageImpl {
 		addEException(op, theCciPackage.getResourceException());
 
 		initEClass(nonManagedEnvironmentAdminEClass, NonManagedEnvironmentAdmin.class, "NonManagedEnvironmentAdmin", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getNonManagedEnvironmentAdmin_ManagedConnectionFactories(), this.getManagedConnectionFactory(), null, "managedConnectionFactories", null, 0, -1, NonManagedEnvironmentAdmin.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getNonManagedEnvironmentAdmin_ResourceAdapter(), this.getResourceAdapter(), null, "resourceAdapter", null, 0, 1, NonManagedEnvironmentAdmin.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(nonManagedEnvironmentAdminEClass, this.getManagedConnectionFactory(), "createManagedConnectionFactory", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, this.getStringMap(), "config", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -2353,12 +2353,12 @@ public class SpiPackageImpl extends EPackageImpl {
 		public static final EClass NON_MANAGED_ENVIRONMENT_ADMIN = eINSTANCE.getNonManagedEnvironmentAdmin();
 
 		/**
-		 * The meta object literal for the '<em><b>Managed Connection Factories</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Resource Adapter</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		public static final EReference NON_MANAGED_ENVIRONMENT_ADMIN__MANAGED_CONNECTION_FACTORIES = eINSTANCE.getNonManagedEnvironmentAdmin_ManagedConnectionFactories();
+		public static final EReference NON_MANAGED_ENVIRONMENT_ADMIN__RESOURCE_ADAPTER = eINSTANCE.getNonManagedEnvironmentAdmin_ResourceAdapter();
 
 		/**
 		 * The meta object literal for the '{@link org.jboss.jca.adapters.sap.spi.impl.ResourceAdapterImpl <em>Resource Adapter</em>}' class.

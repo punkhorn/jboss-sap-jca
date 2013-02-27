@@ -669,6 +669,7 @@ public class TestRecordFactoryAndInteraction {
 		structure.put(TIME_PARAM, TIME_PARAM_IN_VAL);
 		structure.put(STRING_PARAM, STRING_PARAM_IN_VAL);
 		
+		@SuppressWarnings("rawtypes")
 		IndexedRecord table = (IndexedRecord) inputRecord.get(PARAM_LIST_TABLE_PARAM);
 		structure = table.add();
 		structure.put(CHAR_PARAM, CHAR_PARAM_IN_VAL);
@@ -761,6 +762,7 @@ public class TestRecordFactoryAndInteraction {
 		assertThat("structure.get(TIME_PARAM) returned '" +  structure.get(TIME_PARAM) + "' instead of expected value '" + TIME_PARAM_OUT_VAL + "'", (Date) structure.get(TIME_PARAM), is(TIME_PARAM_OUT_VAL));
 		assertThat("structure.get(STRING_PARAM) returned '" +  structure.get(STRING_PARAM) + "' instead of expected value '" + STRING_PARAM_OUT_VAL + "'", (String) structure.get(STRING_PARAM), is(STRING_PARAM_OUT_VAL));
 		
+		@SuppressWarnings("rawtypes")
 		IndexedRecord table = (IndexedRecord) outputRecord.get(PARAM_LIST_TABLE_PARAM);
 		assertThat("outputRecord.get(PARAM_LIST_TABLE_PARAM) returned unexpected null value", table, notNullValue());
 		assertThat("table.size() returned '" + table.size() + "' instead of expected value of '1'", table.size(), is(1));
@@ -795,6 +797,7 @@ public class TestRecordFactoryAndInteraction {
 		enhanceChangingParameterListMetaData();
 
 		// When
+		@SuppressWarnings("rawtypes")
 		IndexedRecord mappedRecord = recordFactory.createIndexedRecord(INDEXED_RECORD_NAME);
 		
 		// Then

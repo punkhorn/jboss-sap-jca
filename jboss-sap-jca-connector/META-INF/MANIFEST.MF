@@ -1,25 +1,18 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: JBoss SAP JCA Connector
-Bundle-SymbolicName: org.jboss.jca.adapters.sap.connector;singleton:=true
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.jboss.jca.adapters.sap;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Description: JBoss SAP JCA Connector
 Bundle-ClassPath: .
-Bundle-Vendor: JBoss, a division of Red Hat, Inc.
+Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.jboss.jca.adapters.sap.cci;uses:="com.sap.conn.jco.ext",
+Export-Package: org.jboss.jca.adapters.sap.cci,
  org.jboss.jca.adapters.sap.cci.impl,
- org.jboss.jca.adapters.sap.cci.util;
-  uses:="org.eclipse.emf.ecore.util,
-   org.eclipse.emf.ecore,
-   javax.resource.cci,
-   org.jboss.jca.adapters.sap.cci.impl,
-   org.eclipse.emf.common.notify.impl,
-   org.jboss.jca.adapters.sap.cci,
-   org.eclipse.emf.common.notify",
- org.jboss.jca.adapters.sap.spi;uses:="javax.resource.spi,org.jboss.jca.adapters.sap.cci,com.sap.conn.jco",
- org.jboss.jca.adapters.sap.spi.impl
+ org.jboss.jca.adapters.sap.cci.util,
+ org.jboss.jca.adapters.sap.spi,
+ org.jboss.jca.adapters.sap.spi.impl,
+ org.jboss.jca.adapters.sap.spi.util
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore, com.sap.conn.jco
+ org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy

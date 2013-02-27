@@ -40,9 +40,11 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EFactory;
+import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.ETypeParameter;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.resource.Resource.Internal;
 import org.jboss.jca.adapters.sap.cci.CciFactory;
@@ -243,22 +245,13 @@ public class CciPackageImpl extends EPackageImpl {
 	public static final int INDEXED_RECORD__RECORD_SHORT_DESCRIPTION = CCI_INDEXED_RECORD_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Record Type</b></em>' reference.
+	 * The feature id for the '<em><b>Records</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int INDEXED_RECORD__RECORD_TYPE = CCI_INDEXED_RECORD_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Record</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	public static final int INDEXED_RECORD__RECORD = CCI_INDEXED_RECORD_FEATURE_COUNT + 3;
+	public static final int INDEXED_RECORD__RECORDS = CCI_INDEXED_RECORD_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Indexed Record</em>' class.
@@ -267,7 +260,7 @@ public class CciPackageImpl extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int INDEXED_RECORD_FEATURE_COUNT = CCI_INDEXED_RECORD_FEATURE_COUNT + 4;
+	public static final int INDEXED_RECORD_FEATURE_COUNT = CCI_INDEXED_RECORD_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link javax.resource.cci.InteractionSpec <em>CCI Interaction Spec</em>}' class.
@@ -1287,29 +1280,16 @@ public class CciPackageImpl extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the reference '{@link org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecordType <em>Record Type</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecords <em>Records</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Record Type</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecordType()
+	 * @return the meta object for the containment reference list '<em>Records</em>'.
+	 * @see org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecords()
 	 * @see #getIndexedRecord()
 	 * @generated
 	 */
-	public EReference getIndexedRecord_RecordType() {
+	public EReference getIndexedRecord_Records() {
 		return (EReference)indexedRecordEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.jboss.jca.adapters.sap.cci.IndexedRecord <em>Record</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Record</em>'.
-	 * @see org.jboss.jca.adapters.sap.cci.IndexedRecord
-	 * @see #getIndexedRecord()
-	 * @generated
-	 */
-	public EReference getIndexedRecord_Record() {
-		return (EReference)indexedRecordEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1978,8 +1958,7 @@ public class CciPackageImpl extends EPackageImpl {
 		indexedRecordEClass = createEClass(INDEXED_RECORD);
 		createEAttribute(indexedRecordEClass, INDEXED_RECORD__RECORD_NAME);
 		createEAttribute(indexedRecordEClass, INDEXED_RECORD__RECORD_SHORT_DESCRIPTION);
-		createEReference(indexedRecordEClass, INDEXED_RECORD__RECORD_TYPE);
-		createEReference(indexedRecordEClass, INDEXED_RECORD__RECORD);
+		createEReference(indexedRecordEClass, INDEXED_RECORD__RECORDS);
 
 		interactionSpecEClass = createEClass(INTERACTION_SPEC);
 		createEAttribute(interactionSpecEClass, INTERACTION_SPEC__FUNCTION_NAME);
@@ -2077,8 +2056,11 @@ public class CciPackageImpl extends EPackageImpl {
 		setNsURI(eNS_URI);
 
 		// Create type parameters
+		ETypeParameter indexedRecordEClass_R = addETypeParameter(indexedRecordEClass, "R");
 
 		// Set bounds for type parameters
+		EGenericType g1 = createEGenericType(this.getMappedRecord());
+		indexedRecordEClass_R.getEBounds().add(g1);
 
 		// Add supertypes to classes
 		recordFactoryEClass.getESuperTypes().add(this.getCCIRecordFactory());
@@ -2152,8 +2134,8 @@ public class CciPackageImpl extends EPackageImpl {
 		initEClass(indexedRecordEClass, IndexedRecord.class, "IndexedRecord", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIndexedRecord_RecordName(), ecorePackage.getEString(), "recordName", "0", 0, 1, IndexedRecord.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getIndexedRecord_RecordShortDescription(), ecorePackage.getEString(), "recordShortDescription", null, 0, 1, IndexedRecord.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIndexedRecord_RecordType(), ecorePackage.getEClass(), null, "recordType", null, 0, 1, IndexedRecord.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEReference(getIndexedRecord_Record(), this.getMappedRecord(), null, "record", null, 0, -1, IndexedRecord.class, !IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		g1 = createEGenericType(indexedRecordEClass_R);
+		initEReference(getIndexedRecord_Records(), g1, null, "records", null, 0, -1, IndexedRecord.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(indexedRecordEClass, ecorePackage.getEJavaObject(), "clone", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -2233,6 +2215,8 @@ public class CciPackageImpl extends EPackageImpl {
 		op = addEOperation(indexedRecordEClass, this.getMappedRecordList(), "subList", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEInt(), "fromIndex", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEInt(), "toIndex", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(indexedRecordEClass, ecorePackage.getEClass(), "getRecordType", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(interactionSpecEClass, InteractionSpec.class, "InteractionSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getInteractionSpec_FunctionName(), ecorePackage.getEString(), "functionName", null, 0, 1, InteractionSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2486,20 +2470,12 @@ public class CciPackageImpl extends EPackageImpl {
 		public static final EAttribute INDEXED_RECORD__RECORD_SHORT_DESCRIPTION = eINSTANCE.getIndexedRecord_RecordShortDescription();
 
 		/**
-		 * The meta object literal for the '<em><b>Record Type</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Records</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		public static final EReference INDEXED_RECORD__RECORD_TYPE = eINSTANCE.getIndexedRecord_RecordType();
-
-		/**
-		 * The meta object literal for the '<em><b>Record</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		public static final EReference INDEXED_RECORD__RECORD = eINSTANCE.getIndexedRecord_Record();
+		public static final EReference INDEXED_RECORD__RECORDS = eINSTANCE.getIndexedRecord_Records();
 
 		/**
 		 * The meta object literal for the '{@link org.jboss.jca.adapters.sap.cci.impl.InteractionSpecImpl <em>Interaction Spec</em>}' class.

@@ -237,8 +237,8 @@ public class CciFactoryImpl extends EFactoryImpl implements CciFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IndexedRecord createIndexedRecord() {
-		IndexedRecordImpl indexedRecord = new IndexedRecordImpl();
+	public <R extends MappedRecord> IndexedRecord<R> createIndexedRecord() {
+		IndexedRecordImpl<R> indexedRecord = new IndexedRecordImpl<R>();
 		return indexedRecord;
 	}
 

@@ -26,7 +26,6 @@ import java.util.Map;
 
 import javax.resource.ResourceException;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -41,7 +40,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin#getManagedConnectionFactories <em>Managed Connection Factories</em>}</li>
+ *   <li>{@link org.jboss.jca.adapters.sap.spi.NonManagedEnvironmentAdmin#getResourceAdapter <em>Resource Adapter</em>}</li>
  * </ul>
  * </p>
  *
@@ -51,19 +50,19 @@ import org.eclipse.emf.ecore.EObject;
 public interface NonManagedEnvironmentAdmin extends EObject {
 
 	/**
-	 * Returns the value of the '<em><b>Managed Connection Factories</b></em>' reference list.
-	 * The list contents are of type {@link org.jboss.jca.adapters.sap.spi.ManagedConnectionFactory}.
+	 * Returns the value of the '<em><b>Resource Adapter</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Managed Connection Factories</em>' reference list isn't clear,
-	 * there really should be more of a description here...
+	 * Returns the deployed {@link ResourceAdapter} instance managed by this {@link NonManagedEnvironmentAdmin} instance. 
+	 * 
+	 * @return the deployed {@link ResourceAdapter} instance managed by this {@link NonManagedEnvironmentAdmin} instance. If the resource adapter has not been deployed then <code>null</code> is returned.
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Managed Connection Factories</em>' reference list.
-	 * @model transient="true" changeable="false" volatile="true" ordered="false"
+	 * @return the value of the '<em>Resource Adapter</em>' containment reference.
+	 * @model containment="true" changeable="false"
 	 * @generated
 	 */
-	EList<ManagedConnectionFactory> getManagedConnectionFactories();
+	ResourceAdapter getResourceAdapter();
 
 	/**
 	 * The singleton instance of the Administration interface.

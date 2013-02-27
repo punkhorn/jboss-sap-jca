@@ -27,6 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
@@ -42,16 +43,15 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecordName <em>Record Name</em>}</li>
  *   <li>{@link org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecordShortDescription <em>Record Short Description</em>}</li>
- *   <li>{@link org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecordType <em>Record Type</em>}</li>
+ *   <li>{@link org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecords <em>Records</em>}</li>
  * </ul>
  * </p>
  *
- * @model features="record" 
- *        recordType="org.jboss.jca.adapters.sap.cci.MappedRecord" recordContainment="true" recordUnsettable="true" recordMany="true" recordVolatile="true" recordSuppressedGetVisibility="true" recordSuppressedSetVisibility="true" superTypes="org.jboss.jca.adapters.sap.cci.CCIIndexedRecord"
+ * @model superTypes="org.jboss.jca.adapters.sap.cci.CCIIndexedRecord"
  * @generated
  */
 @SuppressWarnings("rawtypes")
-public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord {
+public interface IndexedRecord<R extends MappedRecord> extends EObject, javax.resource.cci.IndexedRecord {
 	/**
 	 * Returns the value of the '<em><b>Record Name</b></em>' attribute.
 	 * The default value is <code>"0"</code>.
@@ -108,51 +108,18 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 	void setRecordShortDescription(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Record Type</b></em>' reference.
+	 * Returns the value of the '<em><b>Records</b></em>' containment reference list.
+	 * The list contents are of type {@link R}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * {@inheritDoc}
+	 * Returns the record entries in record list.
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Record Type</em>' reference.
-	 * @see #isSetRecordType()
-	 * @model resolveProxies="false" unsettable="true" transient="true" changeable="false" volatile="true" derived="true"
+	 * @return the value of the '<em>Records</em>' containment reference list.
+	 * @model containment="true"
 	 * @generated
 	 */
-	EClass getRecordType();
-
-	/**
-	 * Returns whether the value of the '{@link org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecordType <em>Record Type</em>}' reference is set.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Record Type</em>' reference is set.
-	 * @see #getRecordType()
-	 * @generated
-	 */
-	boolean isSetRecordType();
-
-	/**
-	 * Unsets the value of the '{@link org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecord <em>Record</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSetRecord()
-	 * @see #getRecord()
-	 * @generated
-	 */
-	void unsetRecord();
-
-	/**
-	 * Returns whether the value of the '{@link org.jboss.jca.adapters.sap.cci.IndexedRecord#getRecord <em>Record</em>}' containment reference list is set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Record</em>' containment reference list is set.
-	 * @see #unsetRecord()
-	 * @see #getRecord()
-	 * @generated
-	 */
-	boolean isSetRecord();
+	EList<R> getRecords();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -468,5 +435,16 @@ public interface IndexedRecord extends EObject, javax.resource.cci.IndexedRecord
 	 * @generated
 	 */
 	List<MappedRecord> subList(int fromIndex, int toIndex);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Returns the meta data describing the record type of the list entries. 
+	 *  
+	 * @return the meta data describing the record type of the list entries. 
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	EClass getRecordType();
 
 } // IndexedRecord

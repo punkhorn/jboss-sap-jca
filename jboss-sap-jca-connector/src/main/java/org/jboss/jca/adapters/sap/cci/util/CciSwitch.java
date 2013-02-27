@@ -103,7 +103,7 @@ public class CciSwitch<T> extends Switch<T> {
 				return result;
 			}
 			case CciPackageImpl.INDEXED_RECORD: {
-				IndexedRecord indexedRecord = (IndexedRecord)theEObject;
+				IndexedRecord<?> indexedRecord = (IndexedRecord<?>)theEObject;
 				T result = caseIndexedRecord(indexedRecord);
 				if (result == null) result = caseCCIIndexedRecord(indexedRecord);
 				if (result == null) result = defaultCase(theEObject);
@@ -210,7 +210,7 @@ public class CciSwitch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseIndexedRecord(IndexedRecord object) {
+	public <R extends MappedRecord> T caseIndexedRecord(IndexedRecord<R> object) {
 		return null;
 	}
 

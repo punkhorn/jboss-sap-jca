@@ -237,6 +237,7 @@ public class ITestCci {
 	 * @throws Throwable
 	 *             Thrown if case of an test error
 	 */
+	@SuppressWarnings("rawtypes")
 	@Test
 	public void testParameterPassing() throws Throwable {
 		Connection connection = null;
