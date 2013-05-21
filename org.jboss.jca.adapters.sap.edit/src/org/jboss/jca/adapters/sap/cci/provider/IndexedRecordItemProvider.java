@@ -40,7 +40,6 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.jboss.jca.adapters.sap.cci.CciFactory;
 import org.jboss.jca.adapters.sap.cci.IndexedRecord;
 import org.jboss.jca.adapters.sap.cci.impl.CciFactoryImpl;
 import org.jboss.jca.adapters.sap.cci.impl.CciPackageImpl;

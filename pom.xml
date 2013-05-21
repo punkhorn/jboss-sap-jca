@@ -24,13 +24,13 @@
 	<description>This is the parent project for building the modules of the JBoss SAP JCA Connector. The connector implements a Java EE version 1.5 connector to an SAP EIS.</description>
 	<url>http://www.jboss.org</url>
 	<modules>
-		<module>jboss-sap-jca-connector</module>
-		<module>jboss-sap-jca-rar</module>
 		<module>org.jboss.jca.adapters.sap</module>
-		<module>org.jboss.jca.adapters.sap.edit</module>
-		<module>org.jboss.jca.adapters.sap.editor</module>
-		<module>org.jboss.jca.adapters.sap.feature</module>
-		<module>org.jboss.jca.adapters.sap.repository</module>
+		<module>org.jboss.jca.adapters.sap.model</module>
+		<module>org.jboss.jca.adapters.sap.model.edit</module>
+		<module>org.jboss.jca.adapters.sap.ui</module>
+		<module>org.jboss.sap.rfc.model</module>
+		<module>org.jboss.sap.rfc.model.edit</module>
+		<module>org.jboss.sap.rfc.ui</module>
 		<module>com.sap.conn.jco</module>
 	</modules>
 
@@ -683,7 +683,18 @@
 		</repository>
 		<repository>
 			<id>jbosstools-target-site</id>
-			<url>http://download.jboss.org/jbosstools/updates/target-platform_3.3.indigo.SR2a/latest/</url>
+			<url>http://download.jboss.org/jbosstools/updates/juno/SR1a/latest/</url>
+			<layout>p2</layout>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>eclipse-juno</id>
+			<url>http://download.eclipse.org/releases/juno/</url>
 			<layout>p2</layout>
 			<snapshots>
 				<enabled>true</enabled>

@@ -78,6 +78,7 @@
 									<artifactId>sapjco3</artifactId>
 									<type>${envType}</type>
 									<overWrite>true</overWrite>
+									<destFileName>libsapjco3.so</destFileName>
 								</artifactItem>
 							</artifactItems>
 						</configuration>

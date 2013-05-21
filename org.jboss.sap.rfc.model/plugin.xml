@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://sap.adapters.jca.jboss.org/rfc"
+            class="org.jboss.sap.rfc.RfcPackage"
+            genModel="model/jboss-sap-rfc.genmodel"/>
+   </extension>
+
+</plugin>

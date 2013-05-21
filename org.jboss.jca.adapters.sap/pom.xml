@@ -9,9 +9,9 @@
 	<artifactId>org.jboss.jca.adapters.sap</artifactId>
 	<packaging>eclipse-plugin</packaging>
 
-	<name>JBoss SAP JCA Connector (Eclipse Plug-in module)</name>
+	<name>JBoss SAP JCA Connector (Eclipse JCA Connector Plug-in module)</name>
 	<url>http://www.jboss.org</url>
-	<description>This project builds the JCA connector Eclipse Plug-in for the  JBoss SAP JCA Connector. This plug-in provides Eclipse tooling connectivity to an SAP EIS.</description>
+	<description>This project builds the JCA connector Eclipse Plug-in for the  JBoss SAP JCA Connector. This plug-in adapts the JCA connector model to provide a JCA 1.5 compliant interface.</description>
 	<organization>
 		<name>JBoss, a division of Red Hat, Inc.</name>
 		<url>http://www.jboss.org</url>
@@ -27,64 +27,6 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-dependencies</id>
-						<phase>process-sources</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<stripVersion>true</stripVersion>
-							<outputDirectory>lib</outputDirectory>
-							<artifactItems>
-								<artifactItem>
-									<groupId>org.jboss.logging</groupId>
-									<artifactId>jboss-logging</artifactId>
-									<version>3.1.1.GA</version>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.jboss.logging</groupId>
-									<artifactId>jboss-logging-processor</artifactId>
-									<version>1.0.3.Final</version>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.jboss.ironjacamar</groupId>
-									<artifactId>ironjacamar-spec-api</artifactId>
-									<version>1.0.14.Final</version>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.jboss.spec.javax.transaction</groupId>
-									<artifactId>jboss-transaction-api_1.1_spec</artifactId>
-									<version>1.0.1.Final</version>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.jboss.jca.adapters</groupId>
-									<artifactId>jboss-sap-jca-connector</artifactId>
-									<version>1.0.0-SNAPSHOT</version>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clean-plugin</artifactId>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>lib</directory>
-							<includes>
-								<include>**/*</include>
-							</includes>
-						</fileset>
-					</filesets>
-				</configuration>
 			</plugin>
 		</plugins>
 		<pluginManagement>

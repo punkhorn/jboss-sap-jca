@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ASCII"?>
+<spi:ResourceAdapter xmlns:spi="http://sap.adapters.jca.jboss.org/spi" state="STOPPED">
+  <connectionRequestInfoStore>
+    <connectionRequestInfos key="76be3199-1349-48d3-9ffa-d12b584a0df0">
+      <value href="/opt/GitRepos/jboss-sap-jca/org.jboss.jca.adapters.sap.test/state/ManagedConnectionFactory-76be3199-1349-48d3-9ffa-d12b584a0df0.spi#//@defaultConnectionRequestInfo"/>
+    </connectionRequestInfos>
+    <connectionRequestInfos key="2931987c-9d3a-4e06-addd-32a26fe00e68">
+      <value href="/opt/GitRepos/jboss-sap-jca/org.jboss.jca.adapters.sap.test/state/ManagedConnectionFactory-76be3199-1349-48d3-9ffa-d12b584a0df0.spi#//@managedConnections.0/@connectionRequestInfo"/>
+    </connectionRequestInfos>
+  </connectionRequestInfoStore>
+  <managedConnectionFactories href="/opt/GitRepos/jboss-sap-jca/org.jboss.jca.adapters.sap.test/state/ManagedConnectionFactory-76be3199-1349-48d3-9ffa-d12b584a0df0.spi#/"/>
+</spi:ResourceAdapter>

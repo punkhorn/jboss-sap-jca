@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.jboss.jca.adapters.sap.model/src" modelPluginID="org.jboss.jca.adapters.sap.model"
+    modelName="Jboss-sap-jca" editPluginClass="org.jboss.jca.adapters.sap.model.edit.JBossSapJcaEditPlugin"
+    editorPluginClass="org.jboss.jca.adapters.sap.model.editor.JBossSapJcaEditorPlugin"
+    testSuiteClass="org.jboss.jca.adapters.sap.model.tests.JbossSapJcaAllTests" importerID="org.eclipse.emf.importer.ecore"
+    containmentProxies="true" complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>jboss-sap-jca.ecore</foreignModel>
+  <genPackages prefix="Cci" basePackage="org.jboss.jca.adapters.sap.model" disposableProviderFactory="true"
+      ecorePackage="jboss-sap-jca.ecore#/0">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="jboss-sap-jca.ecore#/0/ConnectionState">
+      <genEnumLiterals ecoreEnumLiteral="jboss-sap-jca.ecore#/0/ConnectionState/ACTIVE"/>
+      <genEnumLiterals ecoreEnumLiteral="jboss-sap-jca.ecore#/0/ConnectionState/INACTIVE"/>
+      <genEnumLiterals ecoreEnumLiteral="jboss-sap-jca.ecore#/0/ConnectionState/CLOSED"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="jboss-sap-jca.ecore#/0/InteractionState">
+      <genEnumLiterals ecoreEnumLiteral="jboss-sap-jca.ecore#/0/InteractionState/ACTIVE"/>
+      <genEnumLiterals ecoreEnumLiteral="jboss-sap-jca.ecore#/0/InteractionState/CLOSED"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/Reference"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/ConnectionManager"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/0/ResourceWarning"/>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/ConnectionFactory">
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionFactory/reference"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionFactory/connectionManager"/>
+      <genFeatures property="None" children="true" createChild="false" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/ConnectionFactory/recordFactory"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/ConnectionFactory/managedConnectionFactory"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/Connection">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/Connection/state"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/Connection/connectionName"/>
+      <genFeatures property="None" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/Connection/connectionRequestInfo"/>
+      <genFeatures property="None" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/Connection/managedConnection"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/Connection/connectionManager"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/Connection/interactions"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/ConnectionSpec">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/userName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/password"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/client"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/user"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/aliasUser"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/passwd"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/lang"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/mysapsso2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/getsso2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/x509cert"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/lcheck"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/codepage"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/trace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/useSapgui"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/sncLibrary"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/sncMode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/sncMyname"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/sncPartnername"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/ConnectionSpec/sncQop"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/Interaction">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/Interaction/state"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/Interaction/connection"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/Interaction/resourceWarning"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/Interaction/executions"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/Execution">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/Execution/interactionSpec"/>
+      <genFeatures property="None" notify="false" children="true" createChild="false"
+          propertyDescription="" propertySortChoices="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/Execution/inputRecord"/>
+      <genFeatures property="None" notify="false" children="true" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/Execution/outputRecord"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/InteractionSpec">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/InteractionSpec/functionName"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/InteractionSpec/interactionVerb"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/InteractionSpec/executionTimeout"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/Record">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/Record/recordName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/0/Record/recordDescription"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/RecordFactory">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/RecordFactory/connectionFactory"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/RecordFactory/indexedRecords"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/RecordFactory/mappedRecords"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/MappedRecord"/>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/0/IndexedRecord">
+      <genTypeParameters ecoreTypeParameter="jboss-sap-jca.ecore#/0/IndexedRecord/R"/>
+      <genFeatures property="None" createChild="false" propertyCategory="" propertySortChoices="true"
+          ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/0/IndexedRecord/records"/>
+    </genClasses>
+  </genPackages>
+  <genPackages prefix="Spi" basePackage="org.jboss.jca.adapters.sap.model" ecorePackage="jboss-sap-jca.ecore#/1">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="jboss-sap-jca.ecore#/1/ManagedConnectionFactoryState">
+      <genEnumLiterals ecoreEnumLiteral="jboss-sap-jca.ecore#/1/ManagedConnectionFactoryState/ACTIVE"/>
+      <genEnumLiterals ecoreEnumLiteral="jboss-sap-jca.ecore#/1/ManagedConnectionFactoryState/DESTROYED"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="jboss-sap-jca.ecore#/1/ManagedConnectionState">
+      <genEnumLiterals ecoreEnumLiteral="jboss-sap-jca.ecore#/1/ManagedConnectionState/ACTIVE"/>
+      <genEnumLiterals ecoreEnumLiteral="jboss-sap-jca.ecore#/1/ManagedConnectionState/DESTROYED"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="jboss-sap-jca.ecore#/1/ResourceAdapterState">
+      <genEnumLiterals ecoreEnumLiteral="jboss-sap-jca.ecore#/1/ResourceAdapterState/STARTING"/>
+      <genEnumLiterals ecoreEnumLiteral="jboss-sap-jca.ecore#/1/ResourceAdapterState/STARTED"/>
+      <genEnumLiterals ecoreEnumLiteral="jboss-sap-jca.ecore#/1/ResourceAdapterState/STOPPED"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/PrintWriter"/>
+    <genDataTypes ecoreDataType="jboss-sap-jca.ecore#/1/ConnectionEventListener"/>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/ConnectionRequestInfo">
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/ConnectionRequestInfo/entries"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/aliasUser"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/ashost"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/authType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/client"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/codepage"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/cpicTrace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/denyInitialPassword"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/expirationPeriod"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/expirationTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/getsso2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/group"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/gwhost"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/gwserv"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/lang"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/lcheck"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/maxGetTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/mshost"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/msserv"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/mysapsso2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/passwd"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/password"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/pcs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/peakLimit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/pingOnCreate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/poolCapacity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/r3name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/repositoryDest"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/repositoryPasswd"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/repositoryRoundtripOptimization"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/repositorySnc"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/repositoryUser"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/saprouter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/sncLibrary"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/sncMode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/sncMyname"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/sncPartnername"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/sncQop"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/sysnr"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/tphost"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/tpname"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/trace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/userName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/user"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/userId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/useSapgui"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfo/x509cert"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/ConnectionRequestInfoEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfoEntry/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfoEntry/value"/>
+    </genClasses>
+    <genClasses provider="Stateful" ecoreClass="jboss-sap-jca.ecore#/1/ConnectionRequestInfoStore">
+      <genFeatures property="None" createChild="false" propertyCategory="" propertyDescription=""
+          ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/ConnectionRequestInfoStore/connectionRequestInfos"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/ConnectionRequestInfoStoreEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ConnectionRequestInfoStoreEntry/key"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/ConnectionRequestInfoStoreEntry/value"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/ManagedConnectionFactory">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ManagedConnectionFactory/state"/>
+      <genFeatures property="None" notify="false" createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/ManagedConnectionFactory/resourceAdapter"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ManagedConnectionFactory/defaultConnectionName"/>
+      <genFeatures property="None" createChild="false" propertyCategory="" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/ManagedConnectionFactory/defaultConnectionRequestInfo"/>
+      <genFeatures property="None" createChild="false" propertyCategory="" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/ManagedConnectionFactory/packageRegistry"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/ManagedConnectionFactory/managedConnections"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/ManagedConnectionFactory/connectionFactories"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ManagedConnectionFactory/logWriter"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/ManagedConnection">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ManagedConnection/state"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/ManagedConnection/managedConnectionFactory"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ManagedConnection/connectionName"/>
+      <genFeatures property="None" createChild="false" propertyDescription="" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/ManagedConnection/connectionRequestInfo"/>
+      <genFeatures property="None" children="true" createChild="true" propertyDescription=""
+          propertySortChoices="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/ManagedConnection/connectionHandles"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ManagedConnection/logWriter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ManagedConnection/connectionEventListeners"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ManagedConnection/inTransaction"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/ResourceAdapter">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/ResourceAdapter/state"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/ResourceAdapter/connectionRequestInfoStore"/>
+      <genFeatures property="None" children="true" createChild="true" propertyCategory=""
+          propertySortChoices="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/ResourceAdapter/managedConnectionFactories"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/PackageRegistry">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/PackageRegistry/packages"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/PackageRegistry/managedConnectionFactory"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-jca.ecore#/1/PackageRegistryEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-jca.ecore#/1/PackageRegistryEntry/key"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jboss-sap-jca.ecore#/1/PackageRegistryEntry/value"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

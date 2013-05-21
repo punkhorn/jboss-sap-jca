@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://sap.adapters.jca.jboss.org/cci"
+            class="org.jboss.jca.adapters.sap.model.cci.CciPackage"
+            genModel="model/jboss-sap-jca.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://sap.adapters.jca.jboss.org/spi"
+            class="org.jboss.jca.adapters.sap.model.spi.SpiPackage"
+            genModel="model/jboss-sap-jca.genmodel"/>
+   </extension>
+
+</plugin>

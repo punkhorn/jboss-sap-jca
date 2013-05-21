@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore">
+  <ecore:EPackage name="cci" nsURI="http://sap.adapters.jca.jboss.org/cci" nsPrefix="cci">
+    <eClassifiers xsi:type="ecore:EClass" name="ConnectionFactory">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="reference" eType="#/0/Reference"
+          transient="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="connectionManager" eType="#/0/ConnectionManager"
+          transient="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="recordFactory" lowerBound="1"
+          eType="#/0/RecordFactory" containment="true" eOpposite="#/0/RecordFactory/connectionFactory"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="managedConnectionFactory"
+          lowerBound="1" eType="#/1/ManagedConnectionFactory" eOpposite="#/1/ManagedConnectionFactory/connectionFactories"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Connection">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" eType="#/0/ConnectionState"
+          defaultValueLiteral="INACTIVE"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="connectionName" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="connectionRequestInfo"
+          lowerBound="1" eType="#/1/ConnectionRequestInfo"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="managedConnection" eType="#/1/ManagedConnection"
+          transient="true" eOpposite="#/1/ManagedConnection/connectionHandles"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="connectionManager" eType="#/0/ConnectionManager"
+          transient="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="interactions" upperBound="-1"
+          eType="#/0/Interaction" containment="true" eOpposite="#/0/Interaction/connection"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="ConnectionState">
+      <eLiterals name="ACTIVE"/>
+      <eLiterals name="INACTIVE" value="1"/>
+      <eLiterals name="CLOSED" value="2"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ConnectionSpec">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="userName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="client" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="user" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="aliasUser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="passwd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lang" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="mysapsso2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="getsso2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          transient="true" defaultValueLiteral=""/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="x509cert" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lcheck" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral=""/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="codepage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="trace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="useSapgui" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sncLibrary" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sncMode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sncMyname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sncPartnername" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sncQop" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Interaction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" eType="#/0/InteractionState"
+          defaultValueLiteral="ACTIVE"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#/0/Connection"
+          eOpposite="#/0/Connection/interactions"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="resourceWarning" eType="#/0/ResourceWarning"
+          transient="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="executions" upperBound="-1"
+          eType="#/0/Execution" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="InteractionState">
+      <eLiterals name="ACTIVE"/>
+      <eLiterals name="CLOSED" value="1"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Execution">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="interactionSpec" lowerBound="1"
+          eType="#/0/InteractionSpec" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="inputRecord" eType="#/0/MappedRecord"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="outputRecord" eType="#/0/MappedRecord"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="InteractionSpec">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="functionName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="interactionVerb" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionTimeout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Record" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="recordName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="recordDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="RecordFactory">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="connectionFactory" eType="#/0/ConnectionFactory"
+          eOpposite="#/0/ConnectionFactory/recordFactory"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="indexedRecords" upperBound="-1"
+          containment="true">
+        <eGenericType eClassifier="#/0/IndexedRecord">
+          <eTypeArguments/>
+        </eGenericType>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mappedRecords" upperBound="-1"
+          eType="#/0/MappedRecord" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="MappedRecord" eSuperTypes="#/0/Record"/>
+    <eClassifiers xsi:type="ecore:EClass" name="IndexedRecord" eSuperTypes="#/0/Record">
+      <eTypeParameters name="R">
+        <eBounds eClassifier="#/0/MappedRecord"/>
+      </eTypeParameters>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="records" upperBound="-1">
+        <eGenericType eTypeParameter="#/0/IndexedRecord/R"/>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EDataType" name="Reference" instanceClassName="javax.naming.Reference"
+        serializable="false"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="ConnectionManager" instanceClassName="javax.resource.spi.ConnectionManager"
+        serializable="false"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="ResourceWarning" instanceClassName="javax.resource.cci.ResourceWarning"
+        serializable="false"/>
+  </ecore:EPackage>
+  <ecore:EPackage name="spi" nsURI="http://sap.adapters.jca.jboss.org/spi" nsPrefix="spi">
+    <eClassifiers xsi:type="ecore:EClass" name="ConnectionRequestInfo">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
+          eType="#/1/ConnectionRequestInfoEntry" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="aliasUser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="ashost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="authType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="client" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="codepage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cpicTrace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="denyInitialPassword"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="expirationPeriod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="expirationTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="getsso2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="group" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="gwhost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="gwserv" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lang" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lcheck" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxGetTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="mshost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="msserv" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="mysapsso2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="passwd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="pcs" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="peakLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="pingOnCreate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="poolCapacity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="r3name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="repositoryDest" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="repositoryPasswd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="repositoryRoundtripOptimization"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="repositorySnc" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="repositoryUser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="saprouter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sncLibrary" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sncMode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sncMyname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sncPartnername" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sncQop" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sysnr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="tphost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="tpname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="trace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="userName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="user" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="userId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="useSapgui" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="x509cert" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          volatile="true" transient="true" defaultValueLiteral="" derived="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ConnectionRequestInfoEntry" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ConnectionRequestInfoStore">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="connectionRequestInfos"
+          upperBound="-1" eType="#/1/ConnectionRequestInfoStoreEntry" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ConnectionRequestInfoStoreEntry" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1"
+          eType="#/1/ConnectionRequestInfo"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ManagedConnectionFactory">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" eType="#/1/ManagedConnectionFactoryState"
+          defaultValueLiteral="ACTIVE"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="resourceAdapter" lowerBound="1"
+          eType="#/1/ResourceAdapter" eOpposite="#/1/ResourceAdapter/managedConnectionFactories"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultConnectionName"
+          lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="defaultConnectionRequestInfo"
+          lowerBound="1" eType="#/1/ConnectionRequestInfo" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="packageRegistry" eType="#/1/PackageRegistry"
+          containment="true" eOpposite="#/1/PackageRegistry/managedConnectionFactory"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="managedConnections" upperBound="-1"
+          eType="#/1/ManagedConnection" containment="true" eOpposite="#/1/ManagedConnection/managedConnectionFactory"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="connectionFactories"
+          upperBound="-1" eType="#/0/ConnectionFactory" containment="true" eOpposite="#/0/ConnectionFactory/managedConnectionFactory"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="logWriter" eType="#/1/PrintWriter"
+          transient="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="ManagedConnectionFactoryState">
+      <eLiterals name="ACTIVE"/>
+      <eLiterals name="DESTROYED" value="1"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ManagedConnection">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" eType="#/1/ManagedConnectionState"
+          defaultValueLiteral="ACTIVE"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="managedConnectionFactory"
+          lowerBound="1" eType="#/1/ManagedConnectionFactory" eOpposite="#/1/ManagedConnectionFactory/managedConnections">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="suppressedSetVisibility" value="true"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="connectionName" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral=""/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="connectionRequestInfo"
+          lowerBound="1" eType="#/1/ConnectionRequestInfo" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="connectionHandles" upperBound="-1"
+          eType="#/0/Connection" containment="true" eOpposite="#/0/Connection/managedConnection"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="logWriter" eType="#/1/PrintWriter"
+          transient="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="connectionEventListeners"
+          upperBound="-1" eType="#/1/ConnectionEventListener" transient="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="inTransaction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="ManagedConnectionState">
+      <eLiterals name="ACTIVE"/>
+      <eLiterals name="DESTROYED" value="1"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ResourceAdapter">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" lowerBound="1"
+          eType="#/1/ResourceAdapterState"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="connectionRequestInfoStore"
+          lowerBound="1" eType="#/1/ConnectionRequestInfoStore" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="managedConnectionFactories"
+          upperBound="-1" eType="#/1/ManagedConnectionFactory" containment="true"
+          eOpposite="#/1/ManagedConnectionFactory/resourceAdapter"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="ResourceAdapterState">
+      <eLiterals name="STARTING"/>
+      <eLiterals name="STARTED" value="1"/>
+      <eLiterals name="STOPPED" value="2"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PackageRegistry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="packages" upperBound="-1"
+          eType="#/1/PackageRegistryEntry" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="managedConnectionFactory"
+          eType="#/1/ManagedConnectionFactory" eOpposite="#/1/ManagedConnectionFactory/packageRegistry"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PackageRegistryEntry" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1"
+          eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EPackage" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EDataType" name="PrintWriter" instanceClassName="java.io.PrintWriter"
+        serializable="false"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="ConnectionEventListener" instanceClassName="javax.resource.spi.ConnectionEventListener"
+        serializable="false"/>
+  </ecore:EPackage>
+</xmi:XMI>

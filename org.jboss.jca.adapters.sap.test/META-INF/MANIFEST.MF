@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JBoss SAP JCA Adapter Tests
+Bundle-SymbolicName: org.jboss.jca.adapters.sap.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Red Hat
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.jboss.jca.adapters.sap;bundle-version="1.0.0",
+ org.junit,
+ org.eclipse.emf.ecore.xmi;bundle-version="2.8.1"

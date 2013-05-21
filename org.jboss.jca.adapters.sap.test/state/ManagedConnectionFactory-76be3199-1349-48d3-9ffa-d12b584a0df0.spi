@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ASCII"?>
+<spi:ManagedConnectionFactory xmlns:spi="http://sap.adapters.jca.jboss.org/spi" defaultConnectionName="76be3199-1349-48d3-9ffa-d12b584a0df0">
+  <resourceAdapter href="/opt/GitRepos/jboss-sap-jca/org.jboss.jca.adapters.sap.test/state/ResourceAdapter.spi#/"/>
+  <defaultConnectionRequestInfo>
+    <entries key="jco.client.ashost" value="nplhost"/>
+    <entries key="jco.client.sysnr" value="42"/>
+    <entries key="jco.client.client" value="001"/>
+    <entries key="jco.client.user" value="DEVELOPER"/>
+    <entries key="jco.client.passwd" value="ch4ngeme"/>
+    <entries key="jco.client.lang" value="en"/>
+  </defaultConnectionRequestInfo>
+  <packageRegistry/>
+  <managedConnections connectionName="2931987c-9d3a-4e06-addd-32a26fe00e68">
+    <connectionRequestInfo>
+      <entries key="jco.client.ashost" value="nplhost"/>
+      <entries key="jco.destination.auth_type" value="CONFIGURED_USER"/>
+      <entries key="jco.client.client" value="001"/>
+      <entries key="jco.client.deny_initial_password" value="0"/>
+      <entries key="jco.client.lang" value="en"/>
+      <entries key="jco.client.passwd" value="ch4ngeme"/>
+      <entries key="jsjc.mc.poc" value="false"/>
+      <entries key="jco.destination.pool_capacity" value="1"/>
+      <entries key="jco.client.sysnr" value="42"/>
+      <entries key="jco.client.user" value="DEVELOPER"/>
+    </connectionRequestInfo>
+  </managedConnections>
+  <connectionFactories>
+    <recordFactory/>
+  </connectionFactories>
+</spi:ManagedConnectionFactory>

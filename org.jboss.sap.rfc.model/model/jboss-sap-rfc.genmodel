@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.jboss.sap.rfc.model/src" modelPluginID="org.jboss.sap.rfc.model"
+    modelName="Jboss-sap-rfc" editPluginClass="org.jboss.sap.rfc.provider.JBossSapRfcEditPlugin"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>jboss-sap-rfc.ecore</foreignModel>
+  <genPackages prefix="Rfc" basePackage="org.jboss.sap" disposableProviderFactory="true"
+      ecorePackage="jboss-sap-rfc.ecore#/">
+    <genClasses ecoreClass="jboss-sap-rfc.ecore#//Repository">
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-rfc.ecore#//Repository/destinationName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-rfc.ecore#//Repository/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference jboss-sap-rfc.ecore#//Repository/groups"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-rfc.ecore#//Group">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-rfc.ecore#//Group/name"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-rfc.ecore#//Group/description"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference jboss-sap-rfc.ecore#//Group/repository"/>
+      <genFeatures property="None" children="true" createChild="false" propertyDescription=""
+          ecoreFeature="ecore:EReference jboss-sap-rfc.ecore#//Group/functions"/>
+    </genClasses>
+    <genClasses ecoreClass="jboss-sap-rfc.ecore#//Function">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-rfc.ecore#//Function/name"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute jboss-sap-rfc.ecore#//Function/description"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference jboss-sap-rfc.ecore#//Function/group"/>
+      <genFeatures property="None" children="true" createChild="false" propertyCategory=""
+          ecoreFeature="ecore:EReference jboss-sap-rfc.ecore#//Function/request"/>
+      <genFeatures property="None" children="true" createChild="false" propertyDescription=""
+          ecoreFeature="ecore:EReference jboss-sap-rfc.ecore#//Function/response"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

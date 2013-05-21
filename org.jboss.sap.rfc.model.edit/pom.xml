@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.jboss.jca.adapters</groupId>
+		<artifactId>jboss-sap-jca</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>org.jboss.sap.rfc.model.edit</artifactId>
+	<packaging>eclipse-plugin</packaging>
+
+	<name>JBoss SAP JCA Connector (Eclipse RFC Model Edit Plug-in module)</name>
+	<description>This project builds the Eclipse RFC Model Edit Plug-in for the  JBoss SAP JCA Connector. This plug-in provides Eclipse tooling to support editing of the RFC EMF Model.</description>
+	<organization>
+		<name>JBoss, a division of Red Hat, Inc.</name>
+		<url>http://www.jboss.org</url>
+	</organization>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>
