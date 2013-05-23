@@ -125,7 +125,7 @@ public class ManagedConnectionFactoryDialog extends TitleAreaDialog {
 	 */
 	public ManagedConnectionFactoryDialog(Shell parentShell, Type type, EditingDomain editingDomain, ManagedConnectionFactory managedConnectionFactory) {
 		super(parentShell);
-		setShellStyle(SWT.APPLICATION_MODAL);
+		setShellStyle(SWT.RESIZE | SWT.APPLICATION_MODAL);
 		this.type = type;
 		this.editingDomain = editingDomain;
 		this.managedConnectionFactory = managedConnectionFactory;
