@@ -48,6 +48,7 @@ import org.jboss.sap.rfc.RfcPackage;
 import org.jboss.sap.rfc.Structure;
 import org.jboss.sap.rfc.Table;
 
+import com.sap.conn.jco.JCoContext;
 import com.sap.conn.jco.JCoDestination;
 import com.sap.conn.jco.JCoDestinationManager;
 import com.sap.conn.jco.JCoException;
@@ -151,6 +152,20 @@ public class RfcUtil {
 		return functions;
 	}
 	
+	public static Structure executeFunction(JCoDestination destination, String functionName, Structure request) {
+		try {
+			JCoRequest jcoRequest = destination.getRepository().getRequest(functionName);
+			fillStructure(request, jcoRequest);
+			JCoResponse jcoResponse = jcoRequest.execute(destination);
+			Structure response = getResponse(destination, functionName);
+			extractStructure(jcoResponse, response);
+			return response;
+		} catch (JCoException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static Structure executeFunction(String destinationName, String functionName, Structure request) {
 		try {
 			JCoDestination destination = JCoDestinationManager.getDestination(destinationName);
@@ -164,6 +179,43 @@ public class RfcUtil {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static void beginTransaction(String destinationName) throws JCoException {
+		JCoDestination destination = JCoDestinationManager.getDestination(destinationName);
+		JCoContext.begin(destination);
+	}
+	
+	public static void commitTransaction(String destinationName) throws JCoException {
+		JCoDestination destination = JCoDestinationManager.getDestination(destinationName);
+		JCoRequest request = destination.getRepository().getRequest("BAPI_TRANSACTION_COMMIT");
+		request.setValue("WAIT", "X");
+		request.execute(destination);
+		JCoContext.end(destination);
+	}
+	
+	public static void rollbackTransaction(String destinationName) throws JCoException {
+		JCoDestination destination = JCoDestinationManager.getDestination(destinationName);
+		JCoRequest request = destination.getRepository().getRequest("BAPI_TRANSACTION_ROLLBACK");
+		request.execute(destination);
+		JCoContext.end(destination);
+	}
+	
+	public static void beginTransaction(JCoDestination destination) throws JCoException {
+		JCoContext.begin(destination);
+	}
+	
+	public static void commitTransaction(JCoDestination destination) throws JCoException {
+		JCoRequest request = destination.getRepository().getRequest("BAPI_TRANSACTION_COMMIT");
+		request.setValue("WAIT", "X");
+		request.execute(destination);
+		JCoContext.end(destination);
+	}
+	
+	public static void rollbackTransaction(JCoDestination destination) throws JCoException {
+		JCoRequest request = destination.getRepository().getRequest("BAPI_TRANSACTION_ROLLBACK");
+		request.execute(destination);
+		JCoContext.end(destination);
 	}
 	
 	public static Object getValue(EObject object, EStructuralFeature feature) {
@@ -283,6 +335,10 @@ public class RfcUtil {
 		return (Structure) getInstance(destinationName, functionModuleName, "Response");
 	}
 	
+	public static Structure getResponse(JCoDestination destination, String functionModuleName) {
+		return (Structure) getInstance(destination, functionModuleName, "Response");
+	}
+	
 	public static EObject getInstance(String destinationName, String functionModuleName, String eClassName) {
 		try {
 			JCoDestination destination = JCoDestinationManager.getDestination(destinationName);
@@ -290,6 +346,25 @@ public class RfcUtil {
 			String nsURI = eNS_URI + "/"  + repository.getName() + "/" + functionModuleName;
 			
 			EPackage ePackage = getEPackage(destinationName, nsURI);
+			EClassifier classifier = ePackage.getEClassifier(eClassName);
+			if (!(classifier instanceof EClass))
+				return null;
+
+			EClass eClass = (EClass) classifier;
+			EObject eObject = ePackage.getEFactoryInstance().create(eClass);
+			
+			return eObject;
+		} catch (JCoException e) {
+			return null;
+		}
+	}
+
+	public static EObject getInstance(JCoDestination destination, String functionModuleName, String eClassName) {
+		try {
+			JCoRepository repository = destination.getRepository();
+			String nsURI = eNS_URI + "/"  + repository.getName() + "/" + functionModuleName;
+			
+			EPackage ePackage = getEPackage(destination, nsURI);
 			EClassifier classifier = ePackage.getEClassifier(eClassName);
 			if (!(classifier instanceof EClass))
 				return null;
@@ -315,6 +390,76 @@ public class RfcUtil {
 		JCoRepository repository;
 		try {
 			JCoDestination destination = JCoDestinationManager.getDestination(destinationName);
+			repository = destination.getRepository();
+		} catch (JCoException e1) {
+			return null;
+		}
+		
+		// Check whether the requested package is defined by the destination's repository. 
+		if (nsURI.startsWith(eNS_URI + "/" + repository.getName())) {
+			
+			// Extract the function module name from the URI.
+			int prefixLength = eNS_URI.length() + repository.getName().length() + 2; // Length of "http://sap.jboss.org/<repo-name>/" prefix.
+			String functionModuleName = nsURI.substring(prefixLength);
+			
+			// Retrieve the function module's meta-data. 
+			JCoFunctionTemplate functionTemplate;
+			try {
+				functionTemplate = repository.getFunctionTemplate(functionModuleName);
+			} catch (JCoException e) {
+				return null;
+			}
+			JCoListMetaData importParameterListMetaData = functionTemplate.getImportParameterList();
+			JCoListMetaData changingParameterListMetaData = functionTemplate.getChangingParameterList();
+			JCoListMetaData tableParameterListMetaData = functionTemplate.getTableParameterList();
+			JCoListMetaData exportParameterListMetaData = functionTemplate.getExportParameterList();
+
+			// Create and initialize package
+			EcoreFactory ecoreFactory = EcoreFactory.eINSTANCE;
+			ePackage = ecoreFactory.createEPackage();
+			ePackage.setName(functionModuleName);
+			ePackage.setNsPrefix(functionModuleName);
+			ePackage.setNsURI(nsURI);
+			
+			// Create Request Class
+			EClass requestClass = ecoreFactory.createEClass();
+			ePackage.getEClassifiers().add(requestClass);
+			requestClass.setName("Request");
+			requestClass.getESuperTypes().add(RfcPackage.eINSTANCE.getStructure());
+			addListMetaData(requestClass, importParameterListMetaData);
+			addListMetaData(requestClass, changingParameterListMetaData);
+			addListMetaData(requestClass, tableParameterListMetaData);
+			addAnnotation(requestClass, GenNS_URI, GenNS_DOCUMENTATION_KEY, "Request for "
+					+ functionModuleName);
+
+			// Create Response Class
+			EClass responseClass = ecoreFactory.createEClass();
+			ePackage.getEClassifiers().add(responseClass);
+			responseClass.setName("Response");
+			responseClass.getESuperTypes().add(RfcPackage.eINSTANCE.getStructure());
+			addListMetaData(responseClass, exportParameterListMetaData);
+			addListMetaData(responseClass, changingParameterListMetaData);
+			addListMetaData(responseClass, tableParameterListMetaData);
+			addAnnotation(responseClass, GenNS_URI, GenNS_DOCUMENTATION_KEY, "Response for "
+					+ functionModuleName);
+
+			// Register Package
+			EPackage.Registry.INSTANCE.put(nsURI, ePackage);
+		}
+		return ePackage;
+	}
+
+	public static  EPackage getEPackage(JCoDestination destination, String nsURI) {
+		
+		// Check whether the requested package has already been built.
+		EPackage ePackage = (EPackage) EPackage.Registry.INSTANCE.get(nsURI);
+		if (ePackage != null) {
+			return ePackage;
+		}
+
+		// Retrieve the destination's repository.
+		JCoRepository repository;
+		try {
 			repository = destination.getRepository();
 		} catch (JCoException e1) {
 			return null;

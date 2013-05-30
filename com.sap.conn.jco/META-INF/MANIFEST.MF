@@ -5,7 +5,6 @@ Bundle-SymbolicName: com.sap.conn.jco
 Bundle-Version: 3.0.8.qualifier
 Bundle-ClassPath: lib/sapjco3.jar
 X-Bundle-NativeCode: lib/libsapjco3.so; osname=linux; processor=x86_64
-Bundle-NativeCode: lib/libsapjco3.so
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.sap.conn.jco,
  com.sap.conn.jco.ext,

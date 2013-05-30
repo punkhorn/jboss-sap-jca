@@ -137,7 +137,14 @@ public class ManagedConnectionDialog extends TitleAreaDialog {
 		
 		final TabFolder tabFolder = new TabFolder(container, SWT.BORDER);
 		tabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		tabFolder.setLayout(new FillLayout());
+		
+		parent.addControlListener(new ControlAdapter() {
+			@Override
+			public void controlResized(ControlEvent e) {
+				tabFolder.setSize(tabFolder.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+				tabFolder.layout();
+			}
+		});
 		
 		//
 		// Authorization Tab

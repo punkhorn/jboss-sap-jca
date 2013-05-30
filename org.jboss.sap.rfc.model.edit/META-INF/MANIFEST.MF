@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.jboss.sap.rfc.model.edit;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: org.jboss.sap.rfc.provider.JbosssaprfcEditPlugin$Implementation
+Bundle-Activator: org.jboss.sap.rfc.provider.JBossSapRfcEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

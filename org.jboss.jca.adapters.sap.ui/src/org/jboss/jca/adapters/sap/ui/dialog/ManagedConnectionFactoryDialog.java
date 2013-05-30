@@ -118,6 +118,7 @@ public class ManagedConnectionFactoryDialog extends TitleAreaDialog {
 	private Label clientLbl2;
 	private Label repositoryDestinationLbl;
 	private Label repositoryUserLbl;
+	protected TabFolder tabFolder;
 
 	/**
 	 * Create the dialog.
@@ -179,9 +180,16 @@ public class ManagedConnectionFactoryDialog extends TitleAreaDialog {
 		Composite container = (Composite) super.createDialogArea(parent);
 		container.setLayout(new GridLayout(1, false));
 		
-		final TabFolder tabFolder = new TabFolder(container, SWT.BORDER);
+		tabFolder = new TabFolder(container, SWT.BORDER);
 		tabFolder.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		tabFolder.setLayout(new FillLayout());
+		
+		parent.addControlListener(new ControlAdapter() {
+			@Override
+			public void controlResized(ControlEvent e) {
+				tabFolder.setSize(tabFolder.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+				tabFolder.layout();
+			}
+		});
 		
 		//
 		// Basic Tab
@@ -190,10 +198,17 @@ public class ManagedConnectionFactoryDialog extends TitleAreaDialog {
 		TabItem basicTabItem = new TabItem(tabFolder, SWT.NONE);
 		basicTabItem.setText("Basic");
 		
-		Composite basicContainer = new Composite(tabFolder, SWT.NONE);
-		basicTabItem.setControl(basicContainer);
-		basicContainer.setLayout(new GridLayout(2, false));
+		// Create scrolled composite to make tab contents to scroll.
+		final ScrolledComposite basicScrolledComposite = new ScrolledComposite(
+				tabFolder, SWT.V_SCROLL);
 		
+		final Composite basicContainer = new Composite(basicScrolledComposite, SWT.NONE);
+		basicContainer.setLayout(new GridLayout(2, false));
+		basicScrolledComposite.setContent(basicContainer);
+		
+		// Set container as content of scrolled composite.
+		basicTabItem.setControl(basicScrolledComposite);
+
 		Label ashostLbl = new Label(basicContainer, SWT.NONE);
 		ashostLbl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		ashostLbl.setAlignment(SWT.RIGHT);
@@ -248,7 +263,19 @@ public class ManagedConnectionFactoryDialog extends TitleAreaDialog {
 		languageText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		new Label(basicContainer, SWT.NONE);
 		new Label(basicContainer, SWT.NONE);
-		
+
+		// Set size
+		basicScrolledComposite.setExpandHorizontal(true);
+		Point point = basicContainer.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+		basicContainer.setSize(point);
+		basicScrolledComposite.addControlListener(new ControlAdapter() {
+			@Override
+			public void controlResized(ControlEvent e) {
+				basicContainer.setSize(basicContainer.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+				basicContainer.layout();
+			}
+		});
+
 		//
 		// Connect Tab
 		//
@@ -342,7 +369,7 @@ public class ManagedConnectionFactoryDialog extends TitleAreaDialog {
 		
 		// Set size
 		connectScrolledComposite.setExpandHorizontal(true);
-		Point point = connectContainer.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+		point = connectContainer.computeSize(SWT.DEFAULT, SWT.DEFAULT);
 		connectContainer.setSize(point);
 		connectScrolledComposite.addControlListener(new ControlAdapter() {
 			@Override
@@ -795,7 +822,7 @@ public class ManagedConnectionFactoryDialog extends TitleAreaDialog {
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(450, 439);
+		return new Point(550, 439);
 	}
 	
 	protected DataBindingContext initDataBindings() {
